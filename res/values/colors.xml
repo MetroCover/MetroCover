@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="ginza_orange">#f39700</color>
+    <color name="marunouchi_red">#e60012</color>
+    <color name="hibiya_silber">#9caeb7</color>
+    <color name="tozai_sky">#00a7db</color>
+    <color name="chiyoda_green">#009944</color>
+    <color name="yurakucho_gold">#d7c447</color>
+    <color name="hanzomon_purple">#9b7cb6</color>
+    <color name="namboku_emerald">#00ada9</color>
+    <color name="fukutoshin_brown">#bb641d</color>
+
+</resources>

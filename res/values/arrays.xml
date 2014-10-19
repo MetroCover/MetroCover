@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="railways">
+        <item>odpt.Railway:TokyoMetro.Ginza</item>
+        <item>odpt.Railway:TokyoMetro.Marunouchi</item>
+        <item>odpt.Railway:TokyoMetro.MarunouchiBranch</item>
+        <item>odpt.Railway:TokyoMetro.Hibiya</item>
+        <item>odpt.Railway:TokyoMetro.Tozai</item>
+        <item>odpt.Railway:TokyoMetro.Chiyoda</item>
+        <item>odpt.Railway:TokyoMetro.Yurakucho</item>
+        <item>odpt.Railway:TokyoMetro.Hanzomon</item>
+        <item>odpt.Railway:TokyoMetro.Namboku</item>
+        <item>odpt.Railway:TokyoMetro.Fukutoshin</item>
+    </string-array>
+
+    <array name="line_colors">
+        <item>#f39700</item>
+        <item>#e60012</item>
+        <item>#e60012</item>
+        <item>#9caeb7</item>
+        <item>#00a7db</item>
+        <item>#009944</item>
+        <item>#d7c447</item>
+        <item>#9b7cb6</item>
+        <item>#00ada9</item>
+        <item>#bb641d</item>
+    </array>
+
+</resources>
