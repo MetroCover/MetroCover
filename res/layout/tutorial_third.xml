@@ -5,19 +5,19 @@
     android:background="@color/background_gray" >
 
     <LinearLayout
-        android:id="@+id/tutorial_second_title_layout"
+        android:id="@+id/tutorial_third_title_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/tutorial_second_title"
+            android:id="@+id/tutorial_third_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dip"
             android:layout_marginTop="18dp"
             android:gravity="center"
-            android:text="@string/tutorial_select_railways"
+            android:text="@string/tutorial_select_station"
             android:textColor="@color/metro_main_color"
             android:textSize="28sp"
             android:textStyle="bold" />
@@ -30,15 +30,14 @@
     </LinearLayout>
 
     <ListView
-        android:id="@+id/tutorial_second_listview"
+        android:id="@+id/tutorial_third_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/tutorial_second_next_btn_layout"
-        android:layout_below="@+id/tutorial_second_title_layout"
-        android:fadeScrollbars="false" />
+        android:layout_above="@+id/tutorial_third_finish_btn_layout"
+        android:layout_below="@+id/tutorial_third_title_layout" />
 
     <LinearLayout
-        android:id="@+id/tutorial_second_next_btn_layout"
+        android:id="@+id/tutorial_third_finish_btn_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -52,7 +51,7 @@
             android:contentDescription="@string/app_name" />
 
         <TextView
-            android:id="@+id/tutorial_second_next_btn"
+            android:id="@+id/tutorial_third_finish_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -62,7 +61,7 @@
             android:paddingLeft="20dip"
             android:paddingRight="20dip"
             android:paddingTop="5dip"
-            android:text="@string/next"
+            android:text="@string/tutorial_use_metrocover"
             android:textColor="@color/metro_main_color"
             android:textSize="30sp"
             android:textStyle="bold" />

@@ -6,5 +6,8 @@
     <declare-styleable name="CustomTextView">
         <attr name="font" />
     </declare-styleable>
+    <declare-styleable name="LockPatternView">
+        <attr name="aspect" format="string" />
+    </declare-styleable>
 
 </resources>

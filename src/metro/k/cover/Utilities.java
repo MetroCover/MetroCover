@@ -2,7 +2,23 @@ package metro.k.cover;
 
 import java.util.ArrayList;
 
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.content.res.Resources;
+import android.graphics.Typeface;
+import android.widget.TextView;
+
 public final class Utilities {
+
+	// パターンセキュリティの最小の石数
+	public static final int PATTERN_MINIMUM_LENGTH = 4;
+
+	// パターンロック横画面対応時のStateを覚えておくためのKey
+	public static final String CONFIGURATION_STATE_STATE = "lock_pattern_configuration_state_state";
+	public static final String CONFIGURATION_STATE_PATTERN = "lock_pattern_configuration_state_pattern";
+
+	// パターンロック画面に設定画面からきたかどうかの判定のKey
+	public static final String KEY_PATTERN_IS_FROM_SETTING = "lock_pattern_from_setting";
 
 	/**
 	 * 「,」区切りのStringをArrayにして返す
@@ -61,5 +77,43 @@ public final class Utilities {
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * TextViewに独自フォントを入れる
+	 * 
+	 * @param textView
+	 * @param am
+	 * @param res
+	 */
+	public static void setFontTextView(final TextView textView,
+			final AssetManager am, final Resources res) {
+		if (textView == null || am == null || res == null) {
+			return;
+		}
+
+		textView.setTypeface(Typeface.createFromAsset(am,
+				res.getString(R.string.font_free_wing)));
+	}
+
+	/**
+	 * マスターパターンと合致するか
+	 * 
+	 * @param context
+	 * @param inputPattern
+	 * @return
+	 */
+	public static boolean getMasterPattern(Context context, String inputPattern) {
+		if (inputPattern == null) {
+			return false;
+		}
+
+		if (inputPattern.length() < PATTERN_MINIMUM_LENGTH) {
+			return false;
+		}
+
+		final String masterPattern = context.getApplicationContext()
+				.getResources().getString(R.string.lock_pattern_master);
+		return masterPattern.equals(inputPattern);
 	}
 }

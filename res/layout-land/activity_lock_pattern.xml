@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#EFEFEF"
+    android:orientation="horizontal"
+    android:weightSum="2" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" >
+
+        <TextView
+            android:id="@+id/pattern_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:layout_marginTop="15dip"
+            android:textIsSelectable="false"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/lock_pattern_cancel_btn"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dip"
+                android:layout_marginLeft="30dip"
+                android:layout_marginRight="30dip"
+                android:background="@drawable/selector_metro_btn"
+                android:gravity="center"
+                android:paddingBottom="8dip"
+                android:paddingTop="8dip"
+                android:textColor="#000"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/lock_pattern_comp_btn"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dip"
+                android:layout_marginLeft="30dip"
+                android:layout_marginRight="30dip"
+                android:layout_marginTop="5dip"
+                android:background="@drawable/selector_metro_btn"
+                android:gravity="center"
+                android:paddingBottom="8dip"
+                android:paddingTop="8dip"
+                android:textColor="#FFF"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- セパレーター -->
+
+        <ImageView
+            android:layout_width="1dip"
+            android:layout_height="fill_parent"
+            android:layout_toLeftOf="@+id/sep_right"
+            android:background="#CCC"
+            android:contentDescription="@string/app_name" />
+
+        <ImageView
+            android:id="@+id/sep_right"
+            android:layout_width="1dip"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:background="#FFF"
+            android:contentDescription="@string/app_name" />
+    </RelativeLayout>
+
+    <!-- パターン -->
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <metro.k.cover.lock.LockPatternView
+            android:id="@+id/patternView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+        </metro.k.cover.lock.LockPatternView>
+    </LinearLayout>
+
+</LinearLayout>
