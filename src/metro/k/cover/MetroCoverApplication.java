@@ -1,5 +1,6 @@
 package metro.k.cover;
 
+import metro.k.cover.lock.LockService;
 import android.app.Application;
 import android.content.Intent;
 

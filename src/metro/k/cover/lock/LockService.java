@@ -1,4 +1,4 @@
-package metro.k.cover;
+package metro.k.cover.lock;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -76,8 +76,8 @@ public class LockService extends Service {
 			WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
 			wm.addView(viewPager, params);
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
-
 	}
 
 	private class OnLockPageChangeListener extends ViewPager.SimpleOnPageChangeListener {
@@ -85,13 +85,10 @@ public class LockService extends Service {
 		public void onPageScrollStateChanged(int state) {
 			switch (state) {
 			case ViewPager.SCROLL_STATE_IDLE:
-				// ページの移動完了時
 				break;
 			case ViewPager.SCROLL_STATE_SETTLING:
-				// ドラッグ終了時
 				break;
 			case ViewPager.SCROLL_STATE_DRAGGING:
-				// ドラッグ開始時
 				break;
 			default:
 				break;
@@ -100,12 +97,10 @@ public class LockService extends Service {
 
 		@Override
 		public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-			// ドラッグ中
 		}
 
 		@Override
 		public void onPageSelected(int position) {
-			// ドラッグ終了時（移動先のページ決定時）
 		}
 	}
 

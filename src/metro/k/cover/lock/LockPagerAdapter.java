@@ -1,16 +1,18 @@
-package metro.k.cover;
+package metro.k.cover.lock;
 
 import java.util.ArrayList;
 
+import metro.k.cover.R;
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class LockPagerAdapter extends PagerAdapter {
+public class LockPagerAdapter extends PagerAdapter implements OnClickListener {
 	public static final String PAGE_LOCK = "page_lock";
 	public static final String PAGE_PAGE_TRAIN_INFO_1 = "page_train_info_1";
 	public static final String PAGE_PAGE_TRAIN_INFO_2 = "page_train_info_2";
@@ -37,16 +39,24 @@ public class LockPagerAdapter extends PagerAdapter {
 		View pageView = null;
 		String pageName = mList.get(position);
 		if (pageName.equals(PAGE_LOCK)) {
-			RelativeLayout lockLayout = (RelativeLayout) mLayoutInflater.inflate(R.layout.page_lock, null);
+			RelativeLayout lockLayout = (RelativeLayout) mLayoutInflater
+					.inflate(R.layout.page_lock, null);
+			TextView unlock = (TextView) lockLayout
+					.findViewById(R.id.unlock_text);
+			unlock.setOnClickListener(this);
 			pageView = lockLayout;
 		} else if (pageName.equals(PAGE_PAGE_TRAIN_INFO_1)) {
-			RelativeLayout trainInfoLayout = (RelativeLayout) mLayoutInflater.inflate(R.layout.page_train_info, null);
-			TextView tv = (TextView) trainInfoLayout.findViewById(R.id.page_train_info_test);
+			RelativeLayout trainInfoLayout = (RelativeLayout) mLayoutInflater
+					.inflate(R.layout.page_train_info, null);
+			TextView tv = (TextView) trainInfoLayout
+					.findViewById(R.id.page_train_info_test);
 			tv.setText(String.valueOf(mTestNum1));
 			pageView = trainInfoLayout;
 		} else if (pageName.equals(PAGE_PAGE_TRAIN_INFO_2)) {
-			RelativeLayout trainInfoLayout = (RelativeLayout) mLayoutInflater.inflate(R.layout.page_train_info, null);
-			TextView tv = (TextView) trainInfoLayout.findViewById(R.id.page_train_info_test);
+			RelativeLayout trainInfoLayout = (RelativeLayout) mLayoutInflater
+					.inflate(R.layout.page_train_info, null);
+			TextView tv = (TextView) trainInfoLayout
+					.findViewById(R.id.page_train_info_test);
 			tv.setText(String.valueOf(mTestNum2));
 			pageView = trainInfoLayout;
 		}
@@ -80,7 +90,8 @@ public class LockPagerAdapter extends PagerAdapter {
 			return;
 		}
 		RelativeLayout TrainInfoLayout = (RelativeLayout) getPrimaryItem();
-		TextView textView = (TextView) TrainInfoLayout.findViewById(R.id.page_train_info_test);
+		TextView textView = (TextView) TrainInfoLayout
+				.findViewById(R.id.page_train_info_test);
 		textView.setText(String.valueOf(count));
 	}
 
@@ -97,5 +108,12 @@ public class LockPagerAdapter extends PagerAdapter {
 	@Override
 	public void destroyItem(ViewGroup container, int position, Object object) {
 		container.removeView((View) object);
+	}
+
+	@Override
+	public void onClick(View v) {
+		final int viewId = v.getId();
+		if (viewId == R.id.unlock_text) {
+		}
 	}
 }
