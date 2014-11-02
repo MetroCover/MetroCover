@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">MetroCover</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="app_name">MetroCover</string>
+    <string name="font_free_wing">freewing.ttf</string>
+    <string name="next">NEXT</string>
+    <string name="railway_chiyoda">Chiyoda-Line</string>
+    <string name="railway_fukutoshin">Fukutoshin-Line</string>
+    <string name="railway_ginza">Ginza-Line</string>
+    <string name="railway_hanzomon">Hanzomon-Line</string>
+    <string name="railway_hibiya">Hibiya-Line</string>
+    <string name="railway_marunouchi">Marunouchi-Line</string>
+    <string name="railway_namboku">Namboku-Line</string>
+    <string name="railway_tozai">Tozai-Line</string>
+    <string name="railway_yurakucho">Yurakucho-Line</string>
+    <string name="tutorial_select_railways">Check Lines\nYou Use Often.</string>
 
 </resources>

@@ -1,20 +1,22 @@
 package metro.k.cover.tutorial;
 
 import metro.k.cover.R;
-import metro.k.cover.R.id;
-import metro.k.cover.R.layout;
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
+import android.view.Window;
+import android.view.WindowManager;
 
-public class TutorialActivity extends Activity {
+public class TutorialActivity extends FragmentActivity {
 
-	private ViewPager mViewPager;
+	private static ViewPager mViewPager;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setupViews();
 	}
 
@@ -53,12 +55,14 @@ public class TutorialActivity extends Activity {
 	private void setupViews() {
 		setContentView(R.layout.activity_tutorial);
 		mViewPager = (ViewPager) findViewById(R.id.tutorial_viewpager);
+		mViewPager.setAdapter(new TutorialPagerAdapter(
+				getSupportFragmentManager()));
 	}
 
 	/**
 	 * 次のページへ
 	 */
-	private void setNextPage() {
+	public static void setNextPage() {
 		if (mViewPager == null) {
 			return;
 		}
@@ -68,10 +72,10 @@ public class TutorialActivity extends Activity {
 	/**
 	 * 前のページへ
 	 */
-	private void setPrevPage() {
+	public static void setPrevPage() {
 		if (mViewPager == null) {
 			return;
 		}
-		mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
+		mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
 	}
 }
