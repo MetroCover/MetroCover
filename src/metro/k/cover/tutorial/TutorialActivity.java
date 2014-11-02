@@ -1,8 +1,6 @@
 package metro.k.cover.tutorial;
 
 import metro.k.cover.R;
-import metro.k.cover.R.id;
-import metro.k.cover.R.layout;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
