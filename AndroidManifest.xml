@@ -46,10 +46,6 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="metro.k.cover.lock.LockSettingActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
             android:name="metro.k.cover.lock.SelectSecurityActivity"
             android:label="@string/app_name" >
         </activity>
