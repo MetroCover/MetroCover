@@ -3,16 +3,15 @@ package metro.k.cover.wallpaper;
 import metro.k.cover.ImageCache;
 import metro.k.cover.R;
 import metro.k.cover.Utilities;
-import android.annotation.SuppressLint;
-import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -20,7 +19,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
@@ -247,30 +245,44 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 	}
 
 	/**
+	 * 壁紙選択へ
 	 * 
 	 * @param activity
+	 * @param page
 	 * @return
 	 */
-	public View.OnClickListener getWallpaerListener(final Activity activity,
-			final int page) {
+	public View.OnClickListener getWallpaerListener(
+			final FragmentActivity activity, final int page) {
 		View.OnClickListener li = new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				int requestId = REQUEST_PICK_PICTURE_LEFT;
-				if (page == PAGE_LEFT) {
-					requestId = REQUEST_PICK_PICTURE_LEFT;
-				} else if (page == PAGE_CENTER) {
-					requestId = REQUEST_PICK_PICTURE_CENTER;
+				if (Utilities.findInstallApp(activity, "com.cfinc.launcher2")) {
+					try {
+						final android.app.FragmentManager fm = activity
+								.getFragmentManager();
+						final WallpaperDialogFragment dialog = new WallpaperDialogFragment();
+						dialog.showThemeDialogFragment("wallpaper_dialog", page);
+						final FragmentTransaction ft = fm.beginTransaction();
+						ft.add(dialog, "wallpaper_dialog");
+						ft.commit();
+					} catch (Exception e) {
+					}
 				} else {
-					requestId = REQUEST_PICK_PICTURE_RIGHT;
-				}
+					int requestId = REQUEST_PICK_PICTURE_LEFT;
+					if (page == PAGE_LEFT) {
+						requestId = REQUEST_PICK_PICTURE_LEFT;
+					} else if (page == PAGE_CENTER) {
+						requestId = REQUEST_PICK_PICTURE_CENTER;
+					} else {
+						requestId = REQUEST_PICK_PICTURE_RIGHT;
+					}
 
-				Intent intent = new Intent(Intent.ACTION_PICK);
-				intent.setType("image/*");
-				try {
-					activity.startActivityForResult(intent, requestId);
-				} catch (Exception e) {
-					e.printStackTrace();
+					Intent intent = new Intent(Intent.ACTION_PICK);
+					intent.setType("image/*");
+					try {
+						activity.startActivityForResult(intent, requestId);
+					} catch (Exception e) {
+					}
 				}
 			}
 		};

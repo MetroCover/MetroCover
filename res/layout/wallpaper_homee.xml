@@ -1,0 +1,27 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_gray"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/wallpaper_homee_titleview"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_setting_list_item_height"
+        android:background="@color/metro_main_color"
+        android:gravity="center"
+        android:text="@string/wallpaper_homee_title"
+        android:textColor="#FFF"
+        android:textSize="18sp" />
+
+    <GridView
+        android:id="@+id/wallpaper_homee_gridview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:horizontalSpacing="0dp"
+        android:numColumns="auto_fit"
+        android:stretchMode="columnWidth" />
+
+</LinearLayout>

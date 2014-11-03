@@ -8,13 +8,10 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.provider.MediaStore.MediaColumns;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.view.Display;
-import android.view.WindowManager;
 
 /**
  * 壁紙設定
@@ -26,6 +23,8 @@ public class WallpaperDetailActivity extends FragmentActivity {
 
 	private static ViewPager mViewPager;
 	private static WallpaperDetailPagerAdapter mAdapter;
+
+	public static final int REQUEST_CODE_HOMEE_WALLPAPER = 1231;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +52,25 @@ public class WallpaperDetailActivity extends FragmentActivity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+		// Homeeの壁紙
+		if (requestCode == REQUEST_CODE_HOMEE_WALLPAPER) {
+			if (resultCode == RESULT_OK) {
+				final int position = data.getIntExtra(
+						WallpaperDialogFragment.KEY_SELECTED_PAGE, -1);
+				if (position < 0) {
+					return;
+				}
+				WallpaperFragment f = (WallpaperFragment) mAdapter
+						.getItem(position);
+				f.setWallpaperImage(f.getRootView());
+				mViewPager.setAdapter(mAdapter);
+				mViewPager.setCurrentItem(position);
+				return;
+			}
+		}
+
+		// ギャラリーの壁紙
 		if (requestCode == WallpaperDetailPagerAdapter.REQUEST_PICK_PICTURE_LEFT
 				|| requestCode == WallpaperDetailPagerAdapter.REQUEST_PICK_PICTURE_CENTER
 				|| requestCode == WallpaperDetailPagerAdapter.REQUEST_PICK_PICTURE_RIGHT) {
@@ -72,20 +90,19 @@ public class WallpaperDetailActivity extends FragmentActivity {
 				options.inJustDecodeBounds = true;
 				BitmapFactory.decodeFile(filePath, options);
 
-				WindowManager wm = (WindowManager) getSystemService(WINDOW_SERVICE);
-				Display disp = wm.getDefaultDisplay();
-				Point size = new Point();
-				disp.getSize(size);
+				final int[] windows = Utilities.getWindowSize(this);
+				final int windowX = windows[0];
+				final int windowY = windows[1];
 
 				int srcWidth = options.outWidth;
 				int srcHeight = options.outHeight;
-				if (srcHeight > size.y || srcWidth > size.x) {
+				if (srcHeight > windowY || srcWidth > windowX) {
 					if (srcWidth > srcHeight) {
 						options.inSampleSize = Math.round((float) srcHeight
-								/ (float) size.y);
+								/ (float) windowY);
 					} else {
 						options.inSampleSize = Math.round((float) srcWidth
-								/ (float) size.x);
+								/ (float) windowX);
 					}
 				} else {
 					options.inSampleSize = 1;

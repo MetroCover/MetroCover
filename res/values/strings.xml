@@ -58,8 +58,10 @@
     <string name="railway_yurakucho">Yurakucho-Line</string>
     <string name="railway_yurakucho_response">odpt.Railway:TokyoMetro.Yurakucho</string>
     <string name="settings">SETTINGS</string>
+    <string name="theme_lock_bg_image">theme_lock_bg</string>
     <string name="tutorial_select_railways">Check Lines\nYou Use Often.</string>
     <string name="tutorial_select_station">Select A Station\nYou Use Often.</string>
     <string name="tutorial_use_metrocover">USE IT!</string>
+    <string name="wallpaper_homee_title">HOMEE\'S WALLPAPER</string>
 
 </resources>
