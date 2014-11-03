@@ -4,6 +4,7 @@ import java.util.List;
 
 import metro.k.cover.PreferenceCommon;
 import metro.k.cover.R;
+import metro.k.cover.SettingActivity;
 import metro.k.cover.Utilities;
 import metro.k.cover.lock.LockPatternView.Cell;
 import metro.k.cover.lock.LockPatternView.DisplayMode;
@@ -301,7 +302,7 @@ public class ChooseLockPattern extends Activity implements
 		}.start();
 
 		setResult(-1);
-		Intent intent = new Intent(this, LockSettingActivity.class);
+		Intent intent = new Intent(this, SettingActivity.class);
 		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(intent);
 	}

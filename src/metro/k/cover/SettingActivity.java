@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CheckBox;
@@ -17,7 +16,6 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class SettingActivity extends Activity implements OnClickListener,
 		OnCheckedChangeListener {
@@ -55,18 +53,6 @@ public class SettingActivity extends Activity implements OnClickListener,
 		super.onPause();
 		setPrefValue();
 	}
-
-//	@Override
-//	public boolean onKeyDown(int keyCode, KeyEvent event) {
-//		// バックキーでアプリ終了
-//		if (keyCode == KeyEvent.KEYCODE_BACK) {
-//			finish();
-//			moveTaskToBack(true);
-//			return true;
-//		}
-//
-//		return super.onKeyDown(keyCode, event);
-//	}
 
 	private void setupViews() {
 		setContentView(R.layout.activity_setting);

@@ -48,26 +48,7 @@ public class WallpaperDetailActivity extends FragmentActivity {
 		mViewPager = (ViewPager) findViewById(R.id.wallpaper_detail_viewpager);
 		mAdapter = new WallpaperDetailPagerAdapter(getSupportFragmentManager());
 		mViewPager.setAdapter(mAdapter);
-	}
-
-	/**
-	 * 次のページへ
-	 */
-	public static void setNextPage() {
-		if (mViewPager == null) {
-			return;
-		}
-		mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
-	}
-
-	/**
-	 * 前のページへ
-	 */
-	public static void setPrevPage() {
-		if (mViewPager == null) {
-			return;
-		}
-		mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
+		mViewPager.setCurrentItem(1);
 	}
 
 	@Override

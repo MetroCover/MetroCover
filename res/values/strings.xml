@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="enable">Enabled</string>
-    <string name="action_settings">Settings</string>
     <string name="api_railways_info">https://api.tokyometroapp.jp/api/v2/datapoints</string>
     <string name="app_name">MetroCover</string>
     <string name="cancel">CANCEL</string>
@@ -30,13 +28,11 @@
     <string name="lock_security_high">Security Level - High</string>
     <string name="lock_security_none">Security Level - Low</string>
     <string name="lock_security_title">Screen Lock</string>
-    <string name="lock_screen">LOCK SCREEN</string>
     <string name="lock_screen_image">Wallpapers</string>
     <string name="lock_screen_image_center">Center Wallpaper</string>
     <string name="lock_screen_image_left">Left Wallpaper</string>
     <string name="lock_screen_image_right">Right Wallpaper</string>
     <string name="lock_system_security_setting">System Security</string>
-    <string name="lock_system_security_setting_msg">Please unlock System Screen Lock Security.</string>
     <string name="lockscreen_access_pattern_cell_added">Cell added</string>
     <string name="lockscreen_access_pattern_cleared">Pattern cleared</string>
     <string name="lockscreen_access_pattern_detected">Pattern completed</string>
@@ -65,6 +61,5 @@
     <string name="tutorial_select_railways">Check Lines\nYou Use Often.</string>
     <string name="tutorial_select_station">Select A Station\nYou Use Often.</string>
     <string name="tutorial_use_metrocover">USE IT!</string>
-    <string name="unable">Disabled</string>
 
 </resources>

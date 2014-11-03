@@ -2,6 +2,7 @@ package metro.k.cover.lock;
 
 import metro.k.cover.PreferenceCommon;
 import metro.k.cover.R;
+import metro.k.cover.SettingActivity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -60,7 +61,7 @@ public class SelectSecurityActivity extends Activity implements OnClickListener 
 					getResources()
 							.getInteger(R.integer.lock_security_type_none));
 			intent = new Intent(SelectSecurityActivity.this,
-					LockSettingActivity.class);
+					SettingActivity.class);
 			startActivitySafely(intent, Intent.FLAG_ACTIVITY_NEW_TASK);
 			return;
 		}
@@ -96,7 +97,7 @@ public class SelectSecurityActivity extends Activity implements OnClickListener 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			Intent intent = new Intent(this, LockSettingActivity.class);
+			Intent intent = new Intent(this, SettingActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
 			return true;
