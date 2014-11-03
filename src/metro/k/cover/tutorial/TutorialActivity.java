@@ -1,12 +1,13 @@
 package metro.k.cover.tutorial;
 
+import metro.k.cover.PreferenceCommon;
 import metro.k.cover.R;
+import metro.k.cover.SettingActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
-import android.view.Window;
-import android.view.WindowManager;
 
 public class TutorialActivity extends FragmentActivity {
 
@@ -15,9 +16,25 @@ public class TutorialActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setupViews();
+		if (PreferenceCommon.getTutorialOpend(getApplicationContext())) {
+			startSettingActivity();
+		} else {
+			setupViews();
+			PreferenceCommon.setTutorialOpend(getApplicationContext(), true);
+		}
+	}
+
+	/**
+	 * 設定画面に遷移
+	 */
+	private void startSettingActivity() {
+		Intent intent = new Intent(this, SettingActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		try {
+			startActivity(intent);
+			finish();
+		} catch (Exception e) {
+		}
 	}
 
 	@Override
@@ -28,6 +45,8 @@ public class TutorialActivity extends FragmentActivity {
 	@Override
 	protected void onPause() {
 		super.onPause();
+		PreferenceCommon.setRailwaysInfomation(getApplicationContext(),
+				getCheckedRailways());
 	}
 
 	@Override
@@ -77,5 +96,14 @@ public class TutorialActivity extends FragmentActivity {
 			return;
 		}
 		mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
+	}
+
+	/**
+	 * チェックを入れた路線を取得
+	 * 
+	 * @return
+	 */
+	private String getCheckedRailways() {
+		return TutorialSecond.getCheckedStr();
 	}
 }

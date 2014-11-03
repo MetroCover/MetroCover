@@ -17,6 +17,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_metro_cover"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:theme="@style/AppTheme" >
         <activity
             android:name="metro.k.cover.tutorial.TutorialActivity"
@@ -34,6 +35,22 @@
 
         <activity
             android:name="metro.k.cover.lock.LockActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="metro.k.cover.SettingActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="metro.k.cover.lock.ChooseLockPattern"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="metro.k.cover.lock.SelectSecurityActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="metro.k.cover.wallpaper.WallpaperDetailActivity"
             android:label="@string/app_name" >
         </activity>
     </application>

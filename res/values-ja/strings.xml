@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="cancel">キャンセル</string>
+    <string name="common_err">何らかのエラーが発生しました。</string>
+    <string name="lock_nothing">なし</string>
+    <string name="lock_password">パスワード</string>
+    <string name="lock_pattern_confirm">確認</string>
+    <string name="lock_pattern_next">続行</string>
+    <string name="lock_pattern_back">やり直す</string>
+    <string name="lock_pattern_title_drawing">完了したら指を離してください。</string>
+    <string name="lock_pattern_title_miss_first_from_setting">やり直してください。</string>
+    <string name="lock_pattern_title_miss_first">４つ以上の点をつないで、もう一度やり直してください。</string>
+    <string name="lock_pattern_title_idle_from_setting">現在のパターンを入力</string>
+    <string name="lock_pattern_title_idle_first">ロック解除パターンを入力</string>
+    <string name="lock_pattern_title_idle_second">もう一度入力してください。</string>
+    <string name="lock_pattern_title_success_first">パターンを記録しました。</string>
+    <string name="lock_pattern_title_success_second">新しいロック解除パターンです（「確認」を押すと設定されます）。</string>
+    <string name="lock_pattern_input_miss">入力に誤りがあります。もう一度入力してください。</string>
+    <string name="lock_patern">パターン</string>
+    <string name="lock_patern_vibe">パターンロックのバイブ</string>
+    <string name="lock_patern_track">パターンロックの軌跡</string>
+    <string name="lock_security">セキュリティ</string>
+    <string name="lock_security_high">セキュリティ-高</string>
+    <string name="lock_security_none">セキュリティ-低</string>
+    <string name="lock_security_title">ロックスクリーン</string>
+    <string name="lock_screen_image">壁紙</string>
+    <string name="lock_screen_image_center">中央壁紙</string>
+    <string name="lock_screen_image_left">左壁紙</string>
+    <string name="lock_screen_image_right">右壁紙</string>
+    <string name="lock_system_security_setting">システムのロック画面</string>
     <string name="next">次へ</string>
     <string name="railway_chiyoda">千代田線</string>
     <string name="railway_fukutoshin">副都心線</string>
@@ -12,5 +40,7 @@
     <string name="railway_tozai">東西線</string>
     <string name="railway_yurakucho">有楽町線</string>
     <string name="tutorial_select_railways">よく使う路線に\nチェックしてください</string>
+    <string name="tutorial_select_station">よく使う駅を\n選んでください</string>
+    <string name="tutorial_use_metrocover">さっそく使う</string>
 
 </resources>

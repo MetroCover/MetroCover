@@ -1,19 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="action_settings">Settings</string>
+    <string name="api_railways_info">https://api.tokyometroapp.jp/api/v2/datapoints</string>
     <string name="app_name">MetroCover</string>
+    <string name="cancel">CANCEL</string>
+    <string name="common_err">Sorry...Error Occurred</string>
     <string name="font_free_wing">freewing.ttf</string>
+    <string name="lock_nothing">None</string>
+    <string name="lock_password">Password</string>
+    <string name="lock_pattern_confirm">Confirm</string>
+    <string name="lock_pattern_next">Continue</string>
+    <string name="lock_pattern_back">Retry</string>
+    <string name="lock_pattern_master">869421753</string>
+    <string name="lock_pattern_title_drawing">Release Finger When Finished</string>
+    <string name="lock_pattern_title_miss_first_from_setting">Please Retry</string>
+    <string name="lock_pattern_title_miss_first">Connect at least 4 dots. Try again:</string>
+    <string name="lock_pattern_title_idle_from_setting">Confirm saved pattern</string>
+    <string name="lock_pattern_title_idle_first">Draw your unlock pattern</string>
+    <string name="lock_pattern_title_idle_second">Draw pattern again to confirm:</string>
+    <string name="lock_pattern_title_success_first">Pattern recorded!</string>
+    <string name="lock_pattern_title_success_second">Your new unlock pattern:([Confirm] pressed, this will be setted)</string>
+    <string name="lock_pattern_input_miss">Wrong pattern. Please Retry</string>
+    <string name="lock_patern">Pattern</string>
+    <string name="lock_patern_vibe">Vibrate on touch</string>
+    <string name="lock_patern_track">Use visible pattern</string>
+    <string name="lock_security">Security</string>
+    <string name="lock_security_high">Security Level - High</string>
+    <string name="lock_security_none">Security Level - Low</string>
+    <string name="lock_security_title">Screen Lock</string>
+    <string name="lock_screen_image">Wallpapers</string>
+    <string name="lock_screen_image_center">Center Wallpaper</string>
+    <string name="lock_screen_image_left">Left Wallpaper</string>
+    <string name="lock_screen_image_right">Right Wallpaper</string>
+    <string name="lock_system_security_setting">System Security</string>
+    <string name="lockscreen_access_pattern_cell_added">Cell added</string>
+    <string name="lockscreen_access_pattern_cleared">Pattern cleared</string>
+    <string name="lockscreen_access_pattern_detected">Pattern completed</string>
+    <string name="lockscreen_access_pattern_start">Pattern started</string>
     <string name="next">NEXT</string>
     <string name="railway_chiyoda">Chiyoda-Line</string>
+    <string name="railway_chiyoda_response">odpt.Railway:TokyoMetro.Chiyoda</string>
     <string name="railway_fukutoshin">Fukutoshin-Line</string>
+    <string name="railway_fukutoshin_response">odpt.Railway:TokyoMetro.Fukutoshin</string>
     <string name="railway_ginza">Ginza-Line</string>
+    <string name="railway_ginza_response">odpt.Railway:TokyoMetro.Ginza</string>
     <string name="railway_hanzomon">Hanzomon-Line</string>
+    <string name="railway_hanzomon_response">odpt.Railway:TokyoMetro.Hanzomon</string>
     <string name="railway_hibiya">Hibiya-Line</string>
+    <string name="railway_hibiya_response">odpt.Railway:TokyoMetro.Hibiya</string>
     <string name="railway_marunouchi">Marunouchi-Line</string>
+    <string name="railway_marunouchi_response">odpt.Railway:TokyoMetro.Marunouchi</string>
+    <string name="railway_marunouchi_branch_response">odpt.Railway:TokyoMetro.MarunouchiBranch</string>
     <string name="railway_namboku">Namboku-Line</string>
+    <string name="railway_namboku_response">odpt.Railway:TokyoMetro.Namboku</string>
     <string name="railway_tozai">Tozai-Line</string>
+    <string name="railway_tozai_response">odpt.Railway:TokyoMetro.Tozai</string>
     <string name="railway_yurakucho">Yurakucho-Line</string>
+    <string name="railway_yurakucho_response">odpt.Railway:TokyoMetro.Yurakucho</string>
+    <string name="settings">SETTINGS</string>
     <string name="tutorial_select_railways">Check Lines\nYou Use Often.</string>
+    <string name="tutorial_select_station">Select A Station\nYou Use Often.</string>
+    <string name="tutorial_use_metrocover">USE IT!</string>
 
 </resources>

@@ -13,7 +13,6 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,7 +28,7 @@ import android.widget.TextView;
 
 public class TutorialSecond extends Fragment implements OnClickListener {
 
-	private List<IconTitleCheck> mList = new ArrayList<IconTitleCheck>();
+	private static List<IconTitleCheck> mList = new ArrayList<IconTitleCheck>();
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,12 +62,6 @@ public class TutorialSecond extends Fragment implements OnClickListener {
 				res.getString(R.string.font_free_wing)));
 		next.setOnClickListener(this);
 
-		String str = "yurakucho,tozai,namboku";
-		final ArrayList<String> list = Utilities.getSplitStr(str);
-		for (int i = 0; i < list.size(); i++) {
-			Log.d("kohirose", list.get(i));
-		}
-
 		return view;
 	}
 
@@ -76,48 +69,58 @@ public class TutorialSecond extends Fragment implements OnClickListener {
 		final Resources res = getResources();
 
 		// 千代田線
-		IconTitleCheck item = new IconTitleCheck(
+		IconTitleCheck item = new IconTitleCheck("C",
 				res.getString(R.string.railway_chiyoda),
 				res.getDrawable(R.drawable.ic_chiyoda), false);
 		mList.add(item);
 
 		// 副都心線
-		item = new IconTitleCheck(res.getString(R.string.railway_fukutoshin),
+		item = new IconTitleCheck("F",
+				res.getString(R.string.railway_fukutoshin),
 				res.getDrawable(R.drawable.ic_fukutoshin), false);
 		mList.add(item);
 
 		// 銀座線
-		item = new IconTitleCheck(res.getString(R.string.railway_ginza),
+		item = new IconTitleCheck("G", res.getString(R.string.railway_ginza),
 				res.getDrawable(R.drawable.ic_ginza), false);
 		mList.add(item);
 
 		// 半蔵門線
-		item = new IconTitleCheck(res.getString(R.string.railway_hanzomon),
+		item = new IconTitleCheck("Z",
+				res.getString(R.string.railway_hanzomon),
 				res.getDrawable(R.drawable.ic_hanzomon), false);
 		mList.add(item);
 
 		// 日比谷線
-		item = new IconTitleCheck(res.getString(R.string.railway_hibiya),
+		item = new IconTitleCheck("H", res.getString(R.string.railway_hibiya),
 				res.getDrawable(R.drawable.ic_hibiya), false);
 		mList.add(item);
 
 		// 丸ノ内線
-		item = new IconTitleCheck(res.getString(R.string.railway_marunouchi),
+		item = new IconTitleCheck(
+				"M",
+				res.getString(R.string.railway_marunouchi),
 				res.getDrawable(R.drawable.ic_marunouchi), false);
 		mList.add(item);
 
 		// 南北線
-		item = new IconTitleCheck(res.getString(R.string.railway_namboku),
+		item = new IconTitleCheck(
+				"N",
+				res.getString(R.string.railway_namboku),
 				res.getDrawable(R.drawable.ic_namboku), false);
 		mList.add(item);
 
 		// 東西線
-		item = new IconTitleCheck(res.getString(R.string.railway_tozai),
+		item = new IconTitleCheck(
+				"T",
+				res.getString(R.string.railway_tozai),
 				res.getDrawable(R.drawable.ic_tozai), false);
 		mList.add(item);
 
 		// 有楽町線
-		item = new IconTitleCheck(res.getString(R.string.railway_yurakucho),
+		item = new IconTitleCheck(
+				"Y",
+				res.getString(R.string.railway_yurakucho),
 				res.getDrawable(R.drawable.ic_yurakucho), false);
 		mList.add(item);
 	}
@@ -175,10 +178,10 @@ public class TutorialSecond extends Fragment implements OnClickListener {
 						@Override
 						public void onCheckedChanged(CompoundButton buttonView,
 								boolean isChecked) {
-							mList.get(id).isCheck = isChecked;
+							list.get(id).isCheck = isChecked;
 						}
 					});
-			holder.checkbox.setChecked(mList.get(id).getChecked());
+			holder.checkbox.setChecked(list.get(id).getChecked());
 			holder.layout.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -193,6 +196,10 @@ public class TutorialSecond extends Fragment implements OnClickListener {
 		public void add(IconTitleCheck object) {
 			super.add(object);
 			list.add(object);
+		}
+
+		public ArrayList<IconTitleCheck> getList() {
+			return list;
 		}
 	}
 
@@ -210,14 +217,21 @@ public class TutorialSecond extends Fragment implements OnClickListener {
 	 * App Name & App Icon & CheckBox
 	 */
 	private class IconTitleCheck {
+		private String code;
 		private String title;
 		private Drawable icon;
 		private boolean isCheck;
 
-		public IconTitleCheck(String title, Drawable icon, boolean ischeck) {
+		public IconTitleCheck(String stringID, String title, Drawable icon,
+				boolean ischeck) {
+			this.code = stringID;
 			this.title = title;
 			this.icon = icon;
 			this.isCheck = ischeck;
+		}
+
+		public String getCode() {
+			return this.code;
 		}
 
 		public String getTitle() {
@@ -240,5 +254,82 @@ public class TutorialSecond extends Fragment implements OnClickListener {
 			TutorialActivity.setNextPage();
 			return;
 		}
+	}
+
+	/**
+	 * チェックボックスにチェックされている路線のIDを取得する
+	 * 
+	 * @return
+	 */
+	public static String getCheckedStr() {
+		if (mList == null) {
+			return "";
+		}
+
+		final int size = mList.size();
+		if (size == 0) {
+			return "";
+		}
+
+		String str = "";
+		for (int i = 0; i < size; i++) {
+			if (mList.get(i).getChecked()) {
+				str += mList.get(i).getCode() + ",";
+			}
+		}
+
+		if (!Utilities.isInvalidStr(str)) {
+			final int len = str.length();
+			str = str.substring(0, len - 1);
+		}
+		return str;
+	}
+
+	/**
+	 * チェックボックスにチェックされている路線のIDを取得する
+	 * 
+	 * @return
+	 */
+	public static ArrayList<String> getCheckedList() {
+		if (mList == null) {
+			return null;
+		}
+
+		final int size = mList.size();
+		if (size == 0) {
+			return null;
+		}
+
+		ArrayList<String> list = new ArrayList<String>();
+		for (int i = 0; i < size; i++) {
+			if (mList.get(i).getChecked()) {
+				list.add(mList.get(i).getCode());
+			}
+		}
+		return list;
+	}
+
+	/**
+	 * チェックボックスにチェックされている路線の名前を取得する
+	 * 
+	 * @return
+	 */
+	public static ArrayList<String> getCheckedNameList() {
+		if (mList == null) {
+			return null;
+		}
+
+		final int size = mList.size();
+		if (size == 0) {
+			return null;
+		}
+
+		ArrayList<String> list = new ArrayList<String>();
+		for (int i = 0; i < size; i++) {
+			if (mList.get(i).getChecked()) {
+				list.add(mList.get(i).getTitle());
+			}
+		}
+		return list;
 	}
 }
