@@ -6,6 +6,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import android.app.Activity;
+import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -19,6 +21,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.Display;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
@@ -307,5 +310,85 @@ public final class Utilities {
 			bitmapResized = b;
 		}
 		return new BitmapDrawable(c.getResources(), bitmapResized);
+	}
+
+	private static KeyguardManager mKeyguardManager;
+	private static KeyguardManager.KeyguardLock mKeyguardLock;
+
+	/**
+	 * キーガード(OS標準の画面ロック)を無効にする
+	 * 
+	 * @param context
+	 */
+	@SuppressWarnings("deprecation")
+	public static void disableKeyguard(Context context) {
+		if (context == null) {
+			return;
+		}
+
+		if (mKeyguardManager == null) {
+			mKeyguardManager = (KeyguardManager) context
+					.getApplicationContext().getSystemService(
+							Context.KEYGUARD_SERVICE);
+			mKeyguardLock = mKeyguardManager.newKeyguardLock("LockUtil");
+		}
+
+		try {
+			mKeyguardLock.disableKeyguard();
+		} catch (SecurityException se) {
+		}
+	}
+
+	/**
+	 * キーガード(OS標準の画面ロック)を有効にする
+	 */
+	@SuppressWarnings("deprecation")
+	public static void enableKeyguard(final Context context) {
+		if (context == null) {
+			return;
+		}
+
+		if (mKeyguardLock != null) {
+			mKeyguardLock.reenableKeyguard();
+			mKeyguardManager = null;
+			mKeyguardLock = null;
+		} else {
+			if (mKeyguardManager == null) {
+				mKeyguardManager = (KeyguardManager) context
+						.getApplicationContext().getSystemService(
+								Context.KEYGUARD_SERVICE);
+			}
+
+			if (mKeyguardLock == null) {
+				try {
+					mKeyguardLock = mKeyguardManager
+							.newKeyguardLock("LockUtil");
+					mKeyguardLock.reenableKeyguard();
+				} catch (SecurityException e) {
+				}
+				mKeyguardManager = null;
+				mKeyguardLock = null;
+			}
+		}
+	}
+
+	public static void disableKeyguardWindow(final Activity activity) {
+		try {
+			Window window = activity.getWindow();
+			window.setFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED,
+					WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+			window.setFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD,
+					WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+		} catch (Exception e) {
+		}
+	}
+
+	public static void enableKeyguardWindow(final Activity activity) {
+		try {
+			Window window = activity.getWindow();
+			window.clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+			window.clearFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+		} catch (Exception e) {
+		}
 	}
 }

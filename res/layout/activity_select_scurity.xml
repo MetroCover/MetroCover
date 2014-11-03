@@ -117,7 +117,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="12dip"
-                android:text="@string/lock_security_high"
+                android:text="@string/lock_security_none"
                 android:textColor="@color/metro_main_color"
                 android:textSize="18sp" />
         </RelativeLayout>

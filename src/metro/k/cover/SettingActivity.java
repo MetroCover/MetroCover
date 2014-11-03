@@ -161,6 +161,14 @@ public class SettingActivity extends Activity implements OnClickListener,
 				isPatternLockVibe);
 		PreferenceCommon.setLockPatternTrack(getApplicationContext(),
 				isPatternLockTrack);
+
+		if (isMetroCoverEnable) {
+			Utilities.disableKeyguard(getApplicationContext());
+			Utilities.disableKeyguardWindow(this);
+		} else {
+			Utilities.enableKeyguard(getApplicationContext());
+			Utilities.enableKeyguardWindow(this);
+		}
 	}
 
 	/**

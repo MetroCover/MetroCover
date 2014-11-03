@@ -29,13 +29,17 @@ public class LockActivity extends Activity {
 		mViewPager.setAdapter(mLockPagerAdapter);
 		mViewPager.setCurrentItem(1);
 		mViewPager.setOnPageChangeListener(mOnLockPageChangeListener);
-		WindowManager.LayoutParams params = new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT,
-				WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.TYPE_SYSTEM_ALERT, 0, PixelFormat.TRANSLUCENT);
+		WindowManager.LayoutParams params = new WindowManager.LayoutParams(
+				WindowManager.LayoutParams.MATCH_PARENT,
+				WindowManager.LayoutParams.MATCH_PARENT,
+				WindowManager.LayoutParams.TYPE_SYSTEM_ALERT, 0,
+				PixelFormat.TRANSLUCENT);
 		mWindowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
 		mWindowManager.addView(mViewPager, params);
 	}
 
-	private class OnLockPageChangeListener extends ViewPager.SimpleOnPageChangeListener {
+	private class OnLockPageChangeListener extends
+			ViewPager.SimpleOnPageChangeListener {
 		@Override
 		public void onPageScrollStateChanged(int state) {
 			switch (state) {
@@ -51,7 +55,8 @@ public class LockActivity extends Activity {
 		}
 
 		@Override
-		public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+		public void onPageScrolled(int position, float positionOffset,
+				int positionOffsetPixels) {
 		}
 
 		@Override
