@@ -2,8 +2,15 @@ package metro.k.cover.lock;
 
 import java.util.ArrayList;
 
+import metro.k.cover.ImageCache;
 import metro.k.cover.R;
+import metro.k.cover.wallpaper.WallpaperBitmapDB;
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,8 +63,53 @@ public class LockPagerAdapter extends PagerAdapter {
 			tv.setText(String.valueOf(mTestNum2));
 			pageView = trainInfoLayout;
 		}
+		setBackgrondLoadBitmap(pageView, position);
 		container.addView(pageView);
 		return pageView;
+	}
+
+	@SuppressLint("NewApi")
+	private void setBackgrondLoadBitmap(final View view, final int position) {
+		Bitmap bmp;
+		WallpaperBitmapDB db;
+		String keyCache = "";
+		String keyDB = "";
+
+		if (position == 0) {
+			keyCache = ImageCache.KEY_WALLPAPER_LEFT_CACHE;
+			keyDB = WallpaperBitmapDB.KEY_WALLPAPER_LEFT_DB;
+		} else if (position == 1) {
+			keyCache = ImageCache.KEY_WALLPAPER_CENTER_CACHE;
+			keyDB = WallpaperBitmapDB.KEY_WALLPAPER_CENTER_DB;
+		} else {
+			keyCache = ImageCache.KEY_WALLPAPER_RIGHT_CACHE;
+			keyDB = WallpaperBitmapDB.KEY_WALLPAPER_RIGHT_DB;
+		}
+
+		bmp = ImageCache.getImageBmp(keyCache);
+		if (bmp == null) {
+			db = new WallpaperBitmapDB(mContext);
+			bmp = db.getBitmp(keyDB);
+			if (bmp != null) {
+				compatibleSetBackground(view, bmp);
+			}
+		} else {
+			compatibleSetBackground(view, bmp);
+		}
+	}
+
+	@SuppressLint("NewApi")
+	private void compatibleSetBackground(final View layout, final Bitmap bmp) {
+		if (layout == null || bmp == null) {
+			return;
+		}
+
+		final Resources res = mContext.getResources();
+		if (Build.VERSION.SDK_INT >= 16) {
+			layout.setBackground(new BitmapDrawable(res, bmp));
+		} else {
+			layout.setBackgroundDrawable(new BitmapDrawable(res, bmp));
+		}
 	}
 
 	@Override
