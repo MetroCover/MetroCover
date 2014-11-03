@@ -7,12 +7,11 @@ import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class LockPagerAdapter extends PagerAdapter implements OnClickListener {
+public class LockPagerAdapter extends PagerAdapter {
 	public static final String PAGE_LOCK = "page_lock";
 	public static final String PAGE_PAGE_TRAIN_INFO_1 = "page_train_info_1";
 	public static final String PAGE_PAGE_TRAIN_INFO_2 = "page_train_info_2";
@@ -41,9 +40,6 @@ public class LockPagerAdapter extends PagerAdapter implements OnClickListener {
 		if (pageName.equals(PAGE_LOCK)) {
 			RelativeLayout lockLayout = (RelativeLayout) mLayoutInflater
 					.inflate(R.layout.page_lock, null);
-			TextView unlock = (TextView) lockLayout
-					.findViewById(R.id.unlock_text);
-			unlock.setOnClickListener(this);
 			pageView = lockLayout;
 		} else if (pageName.equals(PAGE_PAGE_TRAIN_INFO_1)) {
 			RelativeLayout trainInfoLayout = (RelativeLayout) mLayoutInflater
@@ -110,10 +106,4 @@ public class LockPagerAdapter extends PagerAdapter implements OnClickListener {
 		container.removeView((View) object);
 	}
 
-	@Override
-	public void onClick(View v) {
-		final int viewId = v.getId();
-		if (viewId == R.id.unlock_text) {
-		}
-	}
 }
