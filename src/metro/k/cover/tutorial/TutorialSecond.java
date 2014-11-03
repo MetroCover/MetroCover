@@ -69,64 +69,57 @@ public class TutorialSecond extends Fragment implements OnClickListener {
 		final Resources res = getResources();
 
 		// 千代田線
-		IconTitleCheck item = new IconTitleCheck(
-				res.getString(R.string.railway_chiyoda_response),
+		IconTitleCheck item = new IconTitleCheck("C",
 				res.getString(R.string.railway_chiyoda),
 				res.getDrawable(R.drawable.ic_chiyoda), false);
 		mList.add(item);
 
 		// 副都心線
-		item = new IconTitleCheck(
-				res.getString(R.string.railway_fukutoshin_response),
+		item = new IconTitleCheck("F",
 				res.getString(R.string.railway_fukutoshin),
 				res.getDrawable(R.drawable.ic_fukutoshin), false);
 		mList.add(item);
 
 		// 銀座線
-		item = new IconTitleCheck(
-				res.getString(R.string.railway_ginza_response),
-				res.getString(R.string.railway_ginza),
+		item = new IconTitleCheck("G", res.getString(R.string.railway_ginza),
 				res.getDrawable(R.drawable.ic_ginza), false);
 		mList.add(item);
 
 		// 半蔵門線
-		item = new IconTitleCheck(
-				res.getString(R.string.railway_hanzomon_response),
+		item = new IconTitleCheck("Z",
 				res.getString(R.string.railway_hanzomon),
 				res.getDrawable(R.drawable.ic_hanzomon), false);
 		mList.add(item);
 
 		// 日比谷線
-		item = new IconTitleCheck(
-				res.getString(R.string.railway_hibiya_response),
-				res.getString(R.string.railway_hibiya),
+		item = new IconTitleCheck("H", res.getString(R.string.railway_hibiya),
 				res.getDrawable(R.drawable.ic_hibiya), false);
 		mList.add(item);
 
 		// 丸ノ内線
 		item = new IconTitleCheck(
-				res.getString(R.string.railway_marunouchi_response),
+				"M",
 				res.getString(R.string.railway_marunouchi),
 				res.getDrawable(R.drawable.ic_marunouchi), false);
 		mList.add(item);
 
 		// 南北線
 		item = new IconTitleCheck(
-				res.getString(R.string.railway_namboku_response),
+				"N",
 				res.getString(R.string.railway_namboku),
 				res.getDrawable(R.drawable.ic_namboku), false);
 		mList.add(item);
 
 		// 東西線
 		item = new IconTitleCheck(
-				res.getString(R.string.railway_tozai_response),
+				"T",
 				res.getString(R.string.railway_tozai),
 				res.getDrawable(R.drawable.ic_tozai), false);
 		mList.add(item);
 
 		// 有楽町線
 		item = new IconTitleCheck(
-				res.getString(R.string.railway_yurakucho_response),
+				"Y",
 				res.getString(R.string.railway_yurakucho),
 				res.getDrawable(R.drawable.ic_yurakucho), false);
 		mList.add(item);
@@ -224,21 +217,21 @@ public class TutorialSecond extends Fragment implements OnClickListener {
 	 * App Name & App Icon & CheckBox
 	 */
 	private class IconTitleCheck {
-		private String string_id;
+		private String code;
 		private String title;
 		private Drawable icon;
 		private boolean isCheck;
 
 		public IconTitleCheck(String stringID, String title, Drawable icon,
 				boolean ischeck) {
-			this.string_id = stringID;
+			this.code = stringID;
 			this.title = title;
 			this.icon = icon;
 			this.isCheck = ischeck;
 		}
 
-		public String getStringID() {
-			return this.string_id;
+		public String getCode() {
+			return this.code;
 		}
 
 		public String getTitle() {
@@ -281,7 +274,7 @@ public class TutorialSecond extends Fragment implements OnClickListener {
 		String str = "";
 		for (int i = 0; i < size; i++) {
 			if (mList.get(i).getChecked()) {
-				str += mList.get(i).getStringID() + ",";
+				str += mList.get(i).getCode() + ",";
 			}
 		}
 
@@ -310,7 +303,7 @@ public class TutorialSecond extends Fragment implements OnClickListener {
 		ArrayList<String> list = new ArrayList<String>();
 		for (int i = 0; i < size; i++) {
 			if (mList.get(i).getChecked()) {
-				list.add(mList.get(i).getStringID());
+				list.add(mList.get(i).getCode());
 			}
 		}
 		return list;
