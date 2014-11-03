@@ -1,5 +1,7 @@
 package metro.k.cover.wallpaper;
 
+import java.util.ArrayList;
+
 import metro.k.cover.ImageCache;
 import metro.k.cover.R;
 import metro.k.cover.Utilities;
@@ -256,36 +258,70 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 		View.OnClickListener li = new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (Utilities.findInstallApp(activity, "com.cfinc.launcher2")) {
-					try {
-						final android.app.FragmentManager fm = activity
-								.getFragmentManager();
-						final WallpaperDialogFragment dialog = new WallpaperDialogFragment();
-						dialog.showThemeDialogFragment("wallpaper_dialog", page);
-						final FragmentTransaction ft = fm.beginTransaction();
-						ft.add(dialog, "wallpaper_dialog");
-						ft.commit();
-					} catch (Exception e) {
-					}
-				} else {
-					int requestId = REQUEST_PICK_PICTURE_LEFT;
-					if (page == PAGE_LEFT) {
-						requestId = REQUEST_PICK_PICTURE_LEFT;
-					} else if (page == PAGE_CENTER) {
-						requestId = REQUEST_PICK_PICTURE_CENTER;
-					} else {
-						requestId = REQUEST_PICK_PICTURE_RIGHT;
-					}
+				final ArrayList<String> homees = Utilities
+						.getHomeeWallpapers(activity);
+				if (homees == null) {
+					pickupGallery(activity, page);
+					return;
+				}
 
-					Intent intent = new Intent(Intent.ACTION_PICK);
-					intent.setType("image/*");
-					try {
-						activity.startActivityForResult(intent, requestId);
-					} catch (Exception e) {
-					}
+				final int size = homees.size();
+				if (size == 0) {
+					pickupGallery(activity, page);
+					return;
+				}
+
+				if (Utilities.findInstallApp(activity, "com.cfinc.launcher2")) {
+					buildSelectDialog(activity, page);
+				} else {
+					pickupGallery(activity, page);
 				}
 			}
 		};
 		return li;
+	}
+
+	/**
+	 * 暗黙的Intentを投げる
+	 * 
+	 * @param activity
+	 * @param page
+	 */
+	private void pickupGallery(final FragmentActivity activity, final int page) {
+		int requestId = REQUEST_PICK_PICTURE_LEFT;
+		if (page == PAGE_LEFT) {
+			requestId = REQUEST_PICK_PICTURE_LEFT;
+		} else if (page == PAGE_CENTER) {
+			requestId = REQUEST_PICK_PICTURE_CENTER;
+		} else {
+			requestId = REQUEST_PICK_PICTURE_RIGHT;
+		}
+
+		Intent intent = new Intent(Intent.ACTION_PICK);
+		intent.setType("image/*");
+		try {
+			activity.startActivityForResult(intent, requestId);
+		} catch (Exception e) {
+		}
+	}
+
+	/**
+	 * 壁紙選択ダイアログ
+	 * 
+	 * @param activity
+	 * @param page
+	 */
+	private void buildSelectDialog(final FragmentActivity activity,
+			final int page) {
+		try {
+			final android.app.FragmentManager fm = activity
+					.getFragmentManager();
+			final WallpaperDialogFragment dialog = new WallpaperDialogFragment();
+			dialog.showThemeDialogFragment("wallpaper_dialog", page);
+			final FragmentTransaction ft = fm.beginTransaction();
+			ft.add(dialog, "wallpaper_dialog");
+			ft.commit();
+		} catch (Exception e) {
+		}
 	}
 }

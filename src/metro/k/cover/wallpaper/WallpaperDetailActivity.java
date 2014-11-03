@@ -3,7 +3,6 @@ package metro.k.cover.wallpaper;
 import metro.k.cover.ImageCache;
 import metro.k.cover.R;
 import metro.k.cover.Utilities;
-import metro.k.cover.wallpaper.WallpaperDetailPagerAdapter.WallpaperFragment;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -29,7 +28,16 @@ public class WallpaperDetailActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setupViews();
+
+		final Intent intent = getIntent();
+		final int page = intent.getIntExtra(
+				WallpaperHomeeActivity.KEY_PAGE_NUMBER, -1);
+		if (page < 0) {
+			setupViews(1);
+			return;
+		}
+
+		setupViews(page);
 	}
 
 	@Override
@@ -42,33 +50,16 @@ public class WallpaperDetailActivity extends FragmentActivity {
 		super.onPause();
 	}
 
-	private void setupViews() {
+	private void setupViews(final int page) {
 		setContentView(R.layout.activity_wallpaper_detail);
 		mViewPager = (ViewPager) findViewById(R.id.wallpaper_detail_viewpager);
 		mAdapter = new WallpaperDetailPagerAdapter(getSupportFragmentManager());
 		mViewPager.setAdapter(mAdapter);
-		mViewPager.setCurrentItem(1);
+		mViewPager.setCurrentItem(page);
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-		// Homeeの壁紙
-		if (requestCode == REQUEST_CODE_HOMEE_WALLPAPER) {
-			if (resultCode == RESULT_OK) {
-				final int position = data.getIntExtra(
-						WallpaperDialogFragment.KEY_SELECTED_PAGE, -1);
-				if (position < 0) {
-					return;
-				}
-				WallpaperFragment f = (WallpaperFragment) mAdapter
-						.getItem(position);
-				f.setWallpaperImage(f.getRootView());
-				mViewPager.setAdapter(mAdapter);
-				mViewPager.setCurrentItem(position);
-				return;
-			}
-		}
 
 		// ギャラリーの壁紙
 		if (requestCode == WallpaperDetailPagerAdapter.REQUEST_PICK_PICTURE_LEFT
@@ -131,11 +122,7 @@ public class WallpaperDetailActivity extends FragmentActivity {
 				ImageCache.setImageBmp(cahceKey, bitmap);
 				saveBmpDB(dbKey, bitmap);
 
-				WallpaperFragment f = (WallpaperFragment) mAdapter
-						.getItem(position);
-				f.setWallpaperImage(f.getRootView());
-				mViewPager.setAdapter(mAdapter);
-				mViewPager.setCurrentItem(position);
+				setupViews(position);
 			}
 		}
 	}

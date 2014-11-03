@@ -63,5 +63,8 @@
     <string name="tutorial_select_station">Select A Station\nYou Use Often.</string>
     <string name="tutorial_use_metrocover">USE IT!</string>
     <string name="wallpaper_homee_title">HOMEE\'S WALLPAPER</string>
-
+    <string name="wallpaper_select">Select Wallpaper</string>
+    <string name="wallpaper_select_gallery">Gallery\'s Wallpaper</string>
+    <string name="wallpaper_select_homee">Homee\'s Wallpaper</string>
+    
 </resources>

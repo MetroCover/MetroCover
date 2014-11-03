@@ -43,5 +43,8 @@
     <string name="tutorial_select_station">よく使う駅を\n選んでください</string>
     <string name="tutorial_use_metrocover">さっそく使う</string>
     <string name="wallpaper_homee_title">Homeeの壁紙</string>
+    <string name="wallpaper_select">壁紙を選択</string>
+    <string name="wallpaper_select_gallery">ギャラリーから選択</string>
+    <string name="wallpaper_select_homee">Homeeから選択</string>
 
 </resources>

@@ -16,7 +16,7 @@
         android:gravity="center"
         android:paddingBottom="15dip"
         android:paddingTop="15dip"
-        android:text="壁紙を選択"
+        android:text="@string/wallpaper_select"
         android:textColor="#333333"
         android:textSize="24sp"
         android:textStyle="bold" />
@@ -44,7 +44,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:contentDescription="@string/app_name"
-            android:src="@drawable/ic_chiyoda" />
+            android:src="@drawable/ic_wallpaper_homee" />
 
         <TextView
             android:id="@+id/wallpaper_dialog_homee_titleview"
@@ -53,7 +53,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dip"
             android:layout_toRightOf="@+id/wallpaper_dialog_homee_icon"
-            android:text="Homeeの壁紙"
+            android:text="@string/wallpaper_select_homee"
             android:textColor="#000"
             android:textSize="20sp" />
     </RelativeLayout>
@@ -81,7 +81,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:contentDescription="@string/app_name"
-            android:src="@drawable/ic_fukutoshin" />
+            android:src="@drawable/ic_wallpaper_gallery" />
 
         <TextView
             android:id="@+id/wallpaper_dialog_gallery_titleview"
@@ -90,7 +90,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dip"
             android:layout_toRightOf="@+id/wallpaper_dialog_gallery_icon"
-            android:text="ギャラリーから選択"
+            android:text="@string/wallpaper_select_gallery"
             android:textColor="#000"
             android:textSize="20sp" />
     </RelativeLayout>

@@ -38,7 +38,7 @@ public class WallpaperHomeeActivity extends FragmentActivity implements
 	private int mWindowHeight = 0;
 
 	private final String PARAM_DRAWABLE = "drawable";
-	private static final String KEY_PAGE_NUMBER = "page_number";
+	public static final String KEY_PAGE_NUMBER = "page_number";
 
 	private ArrayList<Drawable> mRealList = new ArrayList<Drawable>();
 	private ArrayList<Drawable> mThumbList = new ArrayList<Drawable>();
@@ -257,12 +257,11 @@ public class WallpaperHomeeActivity extends FragmentActivity implements
 		ImageCache.setImageBmp(cahceKey, bmp);
 		saveBmpDB(dbKey, bmp);
 
-		Intent data = new Intent();
+		Intent intent = new Intent(this, WallpaperDetailActivity.class);
 		Bundle bundle = new Bundle();
+		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		bundle.putInt(KEY_PAGE_NUMBER, mPage);
-		data.putExtras(bundle);
-
-		setResult(RESULT_OK, data);
-		finish();
+		intent.putExtras(bundle);
+		Utilities.startActivitySafely(intent, this);
 	}
 }
