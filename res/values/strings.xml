@@ -31,6 +31,10 @@
     <string name="lock_security_none">Security Level - Low</string>
     <string name="lock_security_title">Screen Lock</string>
     <string name="lock_screen">LOCK SCREEN</string>
+    <string name="lock_screen_image">Wallpapers</string>
+    <string name="lock_screen_image_center">Center Wallpaper</string>
+    <string name="lock_screen_image_left">Left Wallpaper</string>
+    <string name="lock_screen_image_right">Right Wallpaper</string>
     <string name="lock_system_security_setting">System Security</string>
     <string name="lock_system_security_setting_msg">Please unlock System Screen Lock Security.</string>
     <string name="lockscreen_access_pattern_cell_added">Cell added</string>

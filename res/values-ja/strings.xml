@@ -14,6 +14,12 @@
     <string name="lock_pattern_title_success_first">パターンを記録しました。</string>
     <string name="lock_pattern_title_success_second">新しいロック解除パターンです（「確認」を押すと設定されます）。</string>
     <string name="lock_pattern_input_miss">入力に誤りがあります。もう一度入力してください。</string>
+    <string name="lock_screen">ロックスクリーン</string>
+    <string name="lock_screen_image">壁紙</string>
+    <string name="lock_screen_image_add">壁紙を設定する</string>
+    <string name="lock_screen_image_center">中央壁紙</string>
+    <string name="lock_screen_image_left">左壁紙</string>
+    <string name="lock_screen_image_right">右壁紙</string>
     <string name="next">次へ</string>
     <string name="railway_chiyoda">千代田線</string>
     <string name="railway_fukutoshin">副都心線</string>

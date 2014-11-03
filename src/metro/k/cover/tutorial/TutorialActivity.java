@@ -32,8 +32,8 @@ public class TutorialActivity extends FragmentActivity {
 		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		try {
 			startActivity(intent);
-		} catch (Exception e) {
 			finish();
+		} catch (Exception e) {
 		}
 	}
 

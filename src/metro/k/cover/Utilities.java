@@ -3,10 +3,12 @@ package metro.k.cover;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public final class Utilities {
 
@@ -115,5 +117,41 @@ public final class Utilities {
 		final String masterPattern = context.getApplicationContext()
 				.getResources().getString(R.string.lock_pattern_master);
 		return masterPattern.equals(inputPattern);
+	}
+
+	/**
+	 * エラー発生時に共通エラーを発生させるstartActivity()
+	 * 
+	 * @param intent
+	 * @param context
+	 */
+	public static void startActivitySafely(final Intent intent,
+			final Context context) {
+		if (intent == null || context == null) {
+			showErrorCommonToast(context);
+			return;
+		}
+
+		try {
+			context.startActivity(intent);
+			return;
+		} catch (Exception e) {
+		}
+
+		showErrorCommonToast(context);
+	}
+
+	/**
+	 * 共通エラーのトースト表示
+	 * 
+	 * @param context
+	 */
+	public static void showErrorCommonToast(final Context context) {
+		try {
+			Toast.makeText(context,
+					context.getResources().getString(R.string.common_err),
+					Toast.LENGTH_SHORT).show();
+		} catch (Exception e) {
+		}
 	}
 }

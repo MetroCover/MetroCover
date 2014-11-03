@@ -3,11 +3,13 @@ package metro.k.cover;
 import metro.k.cover.lock.ChooseLockPattern;
 import metro.k.cover.lock.LockService;
 import metro.k.cover.lock.SelectSecurityActivity;
+import metro.k.cover.wallpaper.WallpaperDetailActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CheckBox;
@@ -54,6 +56,18 @@ public class SettingActivity extends Activity implements OnClickListener,
 		setPrefValue();
 	}
 
+//	@Override
+//	public boolean onKeyDown(int keyCode, KeyEvent event) {
+//		// バックキーでアプリ終了
+//		if (keyCode == KeyEvent.KEYCODE_BACK) {
+//			finish();
+//			moveTaskToBack(true);
+//			return true;
+//		}
+//
+//		return super.onKeyDown(keyCode, event);
+//	}
+
 	private void setupViews() {
 		setContentView(R.layout.activity_setting);
 
@@ -99,6 +113,12 @@ public class SettingActivity extends Activity implements OnClickListener,
 		Utilities.setFontTextView(pattern_track_titleview, am, res);
 		mPatternLockTrackCheckBox = (CheckBox) findViewById(R.id.setting_pattern_track_checkbox);
 		mPatternLockTrackCheckBox.setOnCheckedChangeListener(this);
+
+		// Wallpaper
+		RelativeLayout wallpapers_layout = (RelativeLayout) findViewById(R.id.setting_wallpapers_layout);
+		wallpapers_layout.setOnClickListener(this);
+		TextView wallpapers_titleview = (TextView) findViewById(R.id.setting_wallpapers_titleview);
+		Utilities.setFontTextView(wallpapers_titleview, am, res);
 	}
 
 	/**
@@ -185,15 +205,7 @@ public class SettingActivity extends Activity implements OnClickListener,
 
 		intent = new Intent(android.provider.Settings.ACTION_SETTINGS);
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		try {
-			startActivity(intent);
-			return;
-		} catch (Exception e) {
-		}
-
-		Toast.makeText(getApplicationContext(),
-				getResources().getString(R.string.common_err),
-				Toast.LENGTH_SHORT).show();
+		Utilities.startActivitySafely(intent, this);
 	}
 
 	/**
@@ -206,7 +218,7 @@ public class SettingActivity extends Activity implements OnClickListener,
 		// none
 		if (res.getInteger(R.integer.lock_security_type_none) == mCurrentSecurityType) {
 			intent = new Intent(this, SelectSecurityActivity.class);
-			startActivity(intent);
+			Utilities.startActivitySafely(intent, this);
 			return;
 		}
 
@@ -223,9 +235,17 @@ public class SettingActivity extends Activity implements OnClickListener,
 		if (res.getInteger(R.integer.lock_security_type_pattern) == mCurrentSecurityType) {
 			intent = new Intent(this, ChooseLockPattern.class);
 			intent.putExtra(Utilities.KEY_PATTERN_IS_FROM_SETTING, true);
-			startActivity(intent);
+			Utilities.startActivitySafely(intent, this);
 			return;
 		}
+	}
+
+	/**
+	 * 壁紙設定画面へ遷移
+	 */
+	private void startWallpaperDetailActivity() {
+		Intent intent = new Intent(this, WallpaperDetailActivity.class);
+		Utilities.startActivitySafely(intent, this);
 	}
 
 	@Override
@@ -261,6 +281,12 @@ public class SettingActivity extends Activity implements OnClickListener,
 		if (R.id.setting_pattern_track_layout == viewId) {
 			mPatternLockTrackCheckBox.setChecked(!mPatternLockTrackCheckBox
 					.isChecked());
+			return;
+		}
+
+		// Wallpapers
+		if (R.id.setting_wallpapers_layout == viewId) {
+			startWallpaperDetailActivity();
 			return;
 		}
 	}

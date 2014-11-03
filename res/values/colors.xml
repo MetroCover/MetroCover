@@ -3,6 +3,7 @@
 
     <color name="background_gray">#f0f5fa</color>
     <color name="metro_main_color">#1aa4d7</color>
+    <color name="metro_main_tranc_color">#901aa4d7</color>
     <color name="ginza_orange">#f39700</color>
     <color name="marunouchi_red">#e60012</color>
     <color name="hibiya_silber">#9caeb7</color>
