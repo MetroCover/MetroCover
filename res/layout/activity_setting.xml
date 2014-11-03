@@ -1,15 +1,204 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_gray"
     tools:context="metro.k.cover.SettingActivity" >
 
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/ic_metro_cover" />
+        android:orientation="vertical" >
 
-</RelativeLayout>
+        <!-- タイトル -->
+
+        <TextView
+            android:id="@+id/setting_main_titleview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="18dip"
+            android:layout_marginTop="18dip"
+            android:gravity="center"
+            android:text="@string/settings"
+            android:textColor="@color/metro_main_color"
+            android:textSize="28sp" />
+
+        <!-- MetroCoverのオンオフ -->
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:background="?android:attr/listDivider"
+            android:contentDescription="@string/app_name" />
+
+        <RelativeLayout
+            android:id="@+id/setting_metrocover_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_setting_list_item_height"
+            android:background="@drawable/selector_setting_list_at"
+            android:padding="15dip" >
+
+            <TextView
+                android:id="@+id/setting_metrocover_titleview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="@string/app_name"
+                android:textColor="@color/metro_main_color"
+                android:textSize="18sp" />
+
+            <CheckBox
+                android:id="@+id/setting_metrocover_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:background="?android:attr/listDivider"
+            android:contentDescription="@string/app_name" />
+
+        <!-- 本体のロック設定へ -->
+
+        <RelativeLayout
+            android:id="@+id/setting_systemlock_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_setting_list_item_height"
+            android:background="@drawable/selector_setting_list_at"
+            android:padding="15dip" >
+
+            <TextView
+                android:id="@+id/setting_systemlock_titleview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="@string/lock_system_security_setting"
+                android:textColor="@color/metro_main_color"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="12dip"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/arrow_right" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:background="?android:attr/listDivider"
+            android:contentDescription="@string/app_name" />
+
+        <!-- MetoroCoverのセキュリティ設定 -->
+
+        <RelativeLayout
+            android:id="@+id/setting_metrocover_security_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_setting_list_item_height"
+            android:background="@drawable/selector_setting_list_at"
+            android:padding="15dip" >
+
+            <TextView
+                android:id="@+id/setting_metrocover_security_titleview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="@string/lock_security"
+                android:textColor="@color/metro_main_color"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/setting_metrocover_security_currentview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="12dip"
+                android:text="@string/lock_nothing"
+                android:textColor="@color/metro_main_color"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:background="?android:attr/listDivider"
+            android:contentDescription="@string/app_name" />
+
+        <!-- パターンロックのバイブレーション -->
+
+        <RelativeLayout
+            android:id="@+id/setting_pattern_vibe_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_setting_list_item_height"
+            android:background="@drawable/selector_setting_list_at"
+            android:padding="15dip" >
+
+            <TextView
+                android:id="@+id/setting_pattern_vibe_titleview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="@string/lock_patern_vibe"
+                android:textColor="@color/metro_main_color"
+                android:textSize="18sp" />
+
+            <CheckBox
+                android:id="@+id/setting_pattern_vibe_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:background="?android:attr/listDivider"
+            android:contentDescription="@string/app_name" />
+
+        <!-- パターンロックのバイブレーション -->
+
+        <RelativeLayout
+            android:id="@+id/setting_pattern_track_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_setting_list_item_height"
+            android:background="@drawable/selector_setting_list_at"
+            android:padding="15dip" >
+
+            <TextView
+                android:id="@+id/setting_pattern_track_titleview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="@string/lock_patern_track"
+                android:textColor="@color/metro_main_color"
+                android:textSize="18sp" />
+
+            <CheckBox
+                android:id="@+id/setting_pattern_track_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:background="?android:attr/listDivider"
+            android:contentDescription="@string/app_name" />
+    </LinearLayout>
+
+</ScrollView>

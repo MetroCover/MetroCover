@@ -6,6 +6,7 @@ import metro.k.cover.Utilities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
@@ -13,7 +14,6 @@ import android.view.View.OnClickListener;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,30 +22,17 @@ import android.widget.Toast;
 public class LockSettingActivity extends Activity implements OnClickListener,
 		OnCheckedChangeListener {
 
-	private RelativeLayout mLockVibeLayout = null;
-	private RelativeLayout mLockTrackLayout = null;
-	private LinearLayout mSystemSecurityLayout = null;
-
 	private CheckBox mLockVibeCheckBox = null;
 	private CheckBox mLockTrackCheckBox = null;
 
-	private TextView mCurrentLockHomeeSecurityTextView = null;
+	private TextView mCurrentSecurityTextView = null;
 	private TextView mCurrentPatternVibeTextView = null;
 	private TextView mCurrentPatternTrackTextView = null;
-
-	private ImageView mSepLockVibe = null;
-	private ImageView mSepLockTrack = null;
 
 	private boolean isPatternVibe = false;
 	private boolean isPatternTrack = false;
 
 	private int mCurrentSecurity;
-	private static final int LOCK_SECURITY_NONE = 0;
-	private static final int LOCK_SECURITY_PASS = 1;
-	private static final int LOCK_SECURITY_PATT = 2;
-
-	private static final int VISIBLE = View.VISIBLE;
-	private static final int GONE = View.GONE;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,27 +50,42 @@ public class LockSettingActivity extends Activity implements OnClickListener,
 	private void setupViews() {
 		setContentView(R.layout.activity_lock_setting);
 
-		mSystemSecurityLayout = (LinearLayout) findViewById(R.id.lock_setting_system_security);
-		LinearLayout layout_homee_security = (LinearLayout) findViewById(R.id.lock_setting_homee_security);
-		mLockVibeLayout = (RelativeLayout) findViewById(R.id.lock_setting_pattern_vibe);
-		mLockTrackLayout = (RelativeLayout) findViewById(R.id.lock_setting_pattern_track);
+		final AssetManager am = getAssets();
+		final Resources res = getResources();
 
-		mCurrentLockHomeeSecurityTextView = (TextView) findViewById(R.id.lock_setting_current_homee_security);
-		mCurrentPatternVibeTextView = (TextView) findViewById(R.id.lock_setting_pattern_current_vibe);
-		mCurrentPatternTrackTextView = (TextView) findViewById(R.id.lock_setting_pattern_current_track);
+		// タイトル
+		TextView titleView = (TextView) findViewById(R.id.lock_setting_titleview);
+		Utilities.setFontTextView(titleView, am, res);
 
-		mLockVibeCheckBox = (CheckBox) findViewById(R.id.lock_setting_pattern_vibe_checkbox);
+		// システムのロック画面設定
+		LinearLayout layout_system = (LinearLayout) findViewById(R.id.lock_setting_system_security);
+		layout_system.setOnClickListener(this);
+		TextView systemLockTitleView = (TextView) findViewById(R.id.lock_setting_system_security_title);
+		TextView systemLockMsgView = (TextView) findViewById(R.id.lock_setting_system_security_msg);
+		Utilities.setFontTextView(systemLockTitleView, am, res);
+		Utilities.setFontTextView(systemLockMsgView, am, res);
+
+		// セキュリティ
+		LinearLayout layout_security = (LinearLayout) findViewById(R.id.lock_setting_homee_security);
+		layout_security.setOnClickListener(this);
+		mCurrentSecurityTextView = (TextView) findViewById(R.id.lock_setting_current_homee_security);
+		Utilities.setFontTextView(mCurrentSecurityTextView, am, res);
+
+		// 軌跡
+		RelativeLayout layout_track = (RelativeLayout) findViewById(R.id.lock_setting_pattern_track);
+		layout_track.setOnClickListener(this);
 		mLockTrackCheckBox = (CheckBox) findViewById(R.id.lock_setting_pattern_track_checkbox);
-
-		mSepLockVibe = (ImageView) findViewById(R.id.lock_setting_pattern_vibe_sep);
-		mSepLockTrack = (ImageView) findViewById(R.id.lock_setting_pattern_track_sep);
-
-		mLockTrackLayout.setOnClickListener(this);
 		mLockTrackCheckBox.setOnCheckedChangeListener(this);
-		mSystemSecurityLayout.setOnClickListener(this);
-		layout_homee_security.setOnClickListener(this);
-		mLockVibeLayout.setOnClickListener(this);
+		mCurrentPatternTrackTextView = (TextView) findViewById(R.id.lock_setting_pattern_current_track);
+		Utilities.setFontTextView(mCurrentPatternTrackTextView, am, res);
+
+		// バイブ
+		RelativeLayout layout_vibe = (RelativeLayout) findViewById(R.id.lock_setting_pattern_vibe);
+		layout_vibe.setOnClickListener(this);
+		mLockVibeCheckBox = (CheckBox) findViewById(R.id.lock_setting_pattern_vibe_checkbox);
 		mLockVibeCheckBox.setOnCheckedChangeListener(this);
+		mCurrentPatternVibeTextView = (TextView) findViewById(R.id.lock_setting_pattern_current_vibe);
+		Utilities.setFontTextView(mCurrentPatternVibeTextView, am, res);
 	}
 
 	private void startSystemSecurity() {
@@ -180,66 +182,65 @@ public class LockSettingActivity extends Activity implements OnClickListener,
 		final Resources res = getResources();
 
 		// None
-		if (currentSecurity == LOCK_SECURITY_NONE) {
-			mCurrentLockHomeeSecurityTextView.setText(res
+		if (currentSecurity == res
+				.getInteger(R.integer.lock_security_type_none)) {
+			mCurrentSecurityTextView.setText(res
 					.getString(R.string.lock_nothing));
+
 		}
 
 		// Password
-		if (currentSecurity == LOCK_SECURITY_PASS) {
-			mCurrentLockHomeeSecurityTextView.setText(res
+		if (currentSecurity == res
+				.getInteger(R.integer.lock_security_type_password)) {
+			mCurrentSecurityTextView.setText(res
 					.getString(R.string.lock_password));
 		}
 
 		// Pattern
-		if (currentSecurity == LOCK_SECURITY_PATT) {
-			mCurrentLockHomeeSecurityTextView.setText(res
+		if (currentSecurity == res
+				.getInteger(R.integer.lock_security_type_pattern)) {
+			mCurrentSecurityTextView.setText(res
 					.getString(R.string.lock_patern));
 		}
+
+		Utilities.setFontTextView(mCurrentSecurityTextView, getAssets(),
+				getResources());
 	}
 
 	private void initCurrentViblate() {
-		if (mCurrentSecurity == LOCK_SECURITY_PATT) {
-			final Resources res = getResources();
+		final Resources res = getResources();
+		if (mCurrentSecurity == res
+				.getInteger(R.integer.lock_security_type_pattern)) {
 			mCurrentPatternVibeTextView.setText(isPatternVibe ? res
 					.getString(R.string.enable) : res
 					.getString(R.string.unable));
 			mLockVibeCheckBox.setChecked(isPatternVibe ? true : false);
-			mLockVibeLayout.setVisibility(VISIBLE);
-			mSepLockVibe.setVisibility(VISIBLE);
-		} else {
-			mLockVibeLayout.setVisibility(GONE);
-			mSepLockVibe.setVisibility(GONE);
 		}
 	}
 
 	private void initCurrentPatternTrack() {
-		if (mCurrentSecurity == LOCK_SECURITY_PATT) {
-			final Resources res = getResources();
+		final Resources res = getResources();
+		if (mCurrentSecurity == res
+				.getInteger(R.integer.lock_security_type_pattern)) {
 			mCurrentPatternTrackTextView.setText(isPatternTrack ? res
 					.getString(R.string.enable) : res
 					.getString(R.string.unable));
 			mLockTrackCheckBox.setChecked(isPatternTrack ? true : false);
-			mLockTrackLayout.setVisibility(VISIBLE);
-			mSepLockTrack.setVisibility(VISIBLE);
-		} else {
-			mLockTrackLayout.setVisibility(GONE);
-			mSepLockTrack.setVisibility(GONE);
 		}
 	}
 
 	private void startSelectSecurityActivity(int currentSecurity) {
 		Intent intent;
-
+		final Resources res = getResources();
 		// none
-		if (LOCK_SECURITY_NONE == currentSecurity) {
+		if (res.getInteger(R.integer.lock_security_type_none) == currentSecurity) {
 			intent = new Intent(this, SelectSecurityActivity.class);
 			startActivity(intent);
 			return;
 		}
 
 		// pass
-		if (LOCK_SECURITY_PASS == currentSecurity) {
+		if (res.getInteger(R.integer.lock_security_type_password) == currentSecurity) {
 			// intent = new Intent(this, PasswordSecurityDialogActivity.class);
 			// intent.putExtra(LockUtil.IS_FROM_SETTING, true);
 			// startActivity(intent);
@@ -247,7 +248,7 @@ public class LockSettingActivity extends Activity implements OnClickListener,
 		}
 
 		// pattern
-		if (LOCK_SECURITY_PATT == currentSecurity) {
+		if (res.getInteger(R.integer.lock_security_type_pattern) == currentSecurity) {
 			intent = new Intent(this, ChooseLockPattern.class);
 			intent.putExtra(Utilities.KEY_PATTERN_IS_FROM_SETTING, true);
 			startActivity(intent);
