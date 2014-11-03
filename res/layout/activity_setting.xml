@@ -16,20 +16,15 @@
             android:id="@+id/setting_main_titleview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="18dip"
-            android:layout_marginTop="18dip"
+            android:background="@color/metro_main_color"
             android:gravity="center"
+            android:paddingBottom="18dip"
+            android:paddingTop="18dip"
             android:text="@string/settings"
-            android:textColor="@color/metro_main_color"
+            android:textColor="#FFF"
             android:textSize="28sp" />
 
         <!-- MetroCoverのオンオフ -->
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dip"
-            android:background="?android:attr/listDivider"
-            android:contentDescription="@string/app_name" />
 
         <RelativeLayout
             android:id="@+id/setting_metrocover_layout"

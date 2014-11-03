@@ -2,120 +2,131 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EFEFEF"
-    android:orientation="vertical" >
+    android:background="@color/background_gray" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="14dip"
-        android:layout_marginRight="14dip"
-        android:background="#EFEFEF"
         android:orientation="vertical" >
 
         <!-- タイトル -->
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/select_security_titleview"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="10dip"
-            android:paddingLeft="6dip"
-            android:paddingTop="15dip"
-            android:text="@string/lock_security_title"
-            android:textColor="#808080"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:background="@color/metro_main_color"
+            android:gravity="center"
+            android:paddingBottom="18dip"
+            android:paddingTop="18dip"
+            android:text="@string/lock_security"
+            android:textColor="#FFF"
+            android:textSize="28sp" />
 
-        <!-- パスワード -->
-
-        <LinearLayout
-            android:id="@+id/security_pass_layout"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/list_upper_bg_selector"
-            android:orientation="vertical"
-            android:padding="10dip" >
+        <RelativeLayout
+            android:id="@+id/select_security_password_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_setting_list_item_height"
+            android:background="@drawable/selector_setting_list_at"
+            android:padding="15dip" >
 
             <TextView
+                android:id="@+id/select_security_password_titleview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
                 android:text="@string/lock_password"
-                android:textColor="#333"
-                android:textSize="16sp" />
+                android:textColor="@color/metro_main_color"
+                android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/select_security_password_level"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="12dip"
                 android:text="@string/lock_security_high"
-                android:textColor="#333"
-                android:textSize="12sp" />
-        </LinearLayout>
-
-        <!-- セパレーター -->
+                android:textColor="@color/metro_main_color"
+                android:textSize="18sp" />
+        </RelativeLayout>
 
         <ImageView
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="1dip"
-            android:background="#CCC"
+            android:background="?android:attr/listDivider"
             android:contentDescription="@string/app_name" />
 
-        <!-- パターン -->
-
-        <LinearLayout
-            android:id="@+id/security_patern_layout"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/list_middle_bg_selector"
-            android:orientation="vertical"
-            android:padding="10dip" >
+        <RelativeLayout
+            android:id="@+id/select_security_pattern_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_setting_list_item_height"
+            android:background="@drawable/selector_setting_list_at"
+            android:padding="15dip" >
 
             <TextView
+                android:id="@+id/select_security_pattern_titleview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
                 android:text="@string/lock_patern"
-                android:textColor="#333"
-                android:textSize="16sp" />
+                android:textColor="@color/metro_main_color"
+                android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/select_security_pattern_level"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="12dip"
                 android:text="@string/lock_security_high"
-                android:textColor="#333"
-                android:textSize="12sp" />
-        </LinearLayout>
-
-        <!-- セパレーター -->
+                android:textColor="@color/metro_main_color"
+                android:textSize="18sp" />
+        </RelativeLayout>
 
         <ImageView
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="1dip"
-            android:background="#CCC"
+            android:background="?android:attr/listDivider"
             android:contentDescription="@string/app_name" />
 
-        <!-- なし -->
-
-        <LinearLayout
-            android:id="@+id/security_none_layout"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/list_bottom_bg_selector"
-            android:orientation="vertical"
-            android:padding="10dip" >
+        <RelativeLayout
+            android:id="@+id/select_security_none_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_setting_list_item_height"
+            android:background="@drawable/selector_setting_list_at"
+            android:padding="15dip" >
 
             <TextView
+                android:id="@+id/select_security_none_titleview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
                 android:text="@string/lock_nothing"
-                android:textColor="#333"
-                android:textSize="16sp" />
+                android:textColor="@color/metro_main_color"
+                android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/select_security_none_level"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/lock_security_none"
-                android:textColor="#333"
-                android:textSize="12sp" />
-        </LinearLayout>
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="12dip"
+                android:text="@string/lock_security_high"
+                android:textColor="@color/metro_main_color"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:background="?android:attr/listDivider"
+            android:contentDescription="@string/app_name" />
     </LinearLayout>
 
 </ScrollView>

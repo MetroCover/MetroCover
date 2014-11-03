@@ -11,6 +11,7 @@ import metro.k.cover.lock.LockPatternView.DisplayMode;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
@@ -131,7 +132,9 @@ public class ChooseLockPattern extends Activity implements
 	 */
 	private void setDrawingStateViewFirst() {
 		final Resources res = getResources();
+		final AssetManager am = getAssets();
 		mTitle.setText(res.getString(R.string.lock_pattern_title_drawing));
+		Utilities.setFontTextView(mTitle, am, res);
 		mCancelButton.setText(res.getString(R.string.cancel));
 		mCancelButton.setEnabled(false);
 		if (isFromSetting) {
@@ -140,6 +143,10 @@ public class ChooseLockPattern extends Activity implements
 			mCompButton.setText(res.getString(R.string.lock_pattern_next));
 		}
 		mCompButton.setEnabled(false);
+		
+		Utilities.setFontTextView(mTitle, am, res);
+		Utilities.setFontButtonView(mCancelButton, am, res);
+		Utilities.setFontButtonView(mCompButton, am, res);
 	}
 
 	/**
@@ -147,11 +154,16 @@ public class ChooseLockPattern extends Activity implements
 	 */
 	private void setDrawingStateSecond() {
 		final Resources res = getResources();
+		final AssetManager am = getAssets();
 		mTitle.setText(res.getString(R.string.lock_pattern_title_drawing));
 		mCancelButton.setText(res.getString(R.string.cancel));
 		mCancelButton.setEnabled(false);
 		mCompButton.setText(res.getString(R.string.lock_pattern_confirm));
 		mCompButton.setEnabled(false);
+		
+		Utilities.setFontTextView(mTitle, am, res);
+		Utilities.setFontButtonView(mCancelButton, am, res);
+		Utilities.setFontButtonView(mCompButton, am, res);
 	}
 
 	/**
@@ -173,6 +185,11 @@ public class ChooseLockPattern extends Activity implements
 		mCancelButton
 				.setOnClickListener(changeStateListener(PATTERN_IDLE_FIRST));
 		mCompButton.setEnabled(false);
+		
+		final AssetManager am = getAssets();
+		Utilities.setFontTextView(mTitle, am, res);
+		Utilities.setFontButtonView(mCancelButton, am, res);
+		Utilities.setFontButtonView(mCompButton, am, res);
 	}
 
 	/**
@@ -194,6 +211,11 @@ public class ChooseLockPattern extends Activity implements
 				mPatternView.enableInput();
 			}
 		});
+		
+		final AssetManager am = getAssets();
+		Utilities.setFontTextView(mTitle, am, res);
+		Utilities.setFontButtonView(mCancelButton, am, res);
+		Utilities.setFontButtonView(mCompButton, am, res);
 	}
 
 	/**
@@ -216,6 +238,11 @@ public class ChooseLockPattern extends Activity implements
 		mCancelButton.setEnabled(true);
 		mCancelButton.setOnClickListener(mCancelListener);
 		mCompButton.setEnabled(false);
+		
+		final AssetManager am = getAssets();
+		Utilities.setFontTextView(mTitle, am, res);
+		Utilities.setFontButtonView(mCancelButton, am, res);
+		Utilities.setFontButtonView(mCompButton, am, res);
 	}
 
 	/**
@@ -231,6 +258,11 @@ public class ChooseLockPattern extends Activity implements
 		mCancelButton.setOnClickListener(mCancelListener);
 		mCompButton.setText(res.getString(R.string.lock_pattern_next));
 		mCompButton.setEnabled(false);
+		
+		final AssetManager am = getAssets();
+		Utilities.setFontTextView(mTitle, am, res);
+		Utilities.setFontButtonView(mCancelButton, am, res);
+		Utilities.setFontButtonView(mCompButton, am, res);
 	}
 
 	/**
@@ -253,6 +285,11 @@ public class ChooseLockPattern extends Activity implements
 				isSecond = true;
 			}
 		});
+		
+		final AssetManager am = getAssets();
+		Utilities.setFontTextView(mTitle, am, res);
+		Utilities.setFontButtonView(mCancelButton, am, res);
+		Utilities.setFontButtonView(mCompButton, am, res);
 	}
 
 	/**
@@ -274,6 +311,11 @@ public class ChooseLockPattern extends Activity implements
 				complete(mPatternSecond.toString());
 			}
 		});
+		
+		final AssetManager am = getAssets();
+		Utilities.setFontTextView(mTitle, am, res);
+		Utilities.setFontButtonView(mCancelButton, am, res);
+		Utilities.setFontButtonView(mCompButton, am, res);
 	}
 
 	private View.OnClickListener changeStateListener(final int toState) {

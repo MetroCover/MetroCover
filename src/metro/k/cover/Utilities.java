@@ -20,6 +20,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.Display;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -112,6 +113,23 @@ public final class Utilities {
 		}
 
 		textView.setTypeface(Typeface.createFromAsset(am,
+				res.getString(R.string.font_free_wing)));
+	}
+
+	/**
+	 * Buttonに独自フォントを入れる
+	 * 
+	 * @param button
+	 * @param am
+	 * @param res
+	 */
+	public static void setFontButtonView(final Button button,
+			final AssetManager am, final Resources res) {
+		if (button == null || am == null || res == null) {
+			return;
+		}
+
+		button.setTypeface(Typeface.createFromAsset(am,
 				res.getString(R.string.font_free_wing)));
 	}
 

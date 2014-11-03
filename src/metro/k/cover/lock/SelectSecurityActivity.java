@@ -3,14 +3,18 @@ package metro.k.cover.lock;
 import metro.k.cover.PreferenceCommon;
 import metro.k.cover.R;
 import metro.k.cover.SettingActivity;
+import metro.k.cover.Utilities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -31,9 +35,30 @@ public class SelectSecurityActivity extends Activity implements OnClickListener 
 
 	private void setupViews() {
 		setContentView(R.layout.activity_select_scurity);
-		LinearLayout passLayout = (LinearLayout) findViewById(R.id.security_pass_layout);
-		LinearLayout noneLayout = (LinearLayout) findViewById(R.id.security_none_layout);
-		LinearLayout paternLayout = (LinearLayout) findViewById(R.id.security_patern_layout);
+
+		final Resources res = getResources();
+		final AssetManager am = getAssets();
+
+		TextView titleView = (TextView) findViewById(R.id.select_security_titleview);
+		Utilities.setFontTextView(titleView, am, res);
+
+		TextView passwordtitleView = (TextView) findViewById(R.id.select_security_password_titleview);
+		TextView nonetitleView = (TextView) findViewById(R.id.select_security_none_titleview);
+		TextView patterntitleView = (TextView) findViewById(R.id.select_security_pattern_titleview);
+		Utilities.setFontTextView(passwordtitleView, am, res);
+		Utilities.setFontTextView(nonetitleView, am, res);
+		Utilities.setFontTextView(patterntitleView, am, res);
+
+		TextView passwordLevelView = (TextView) findViewById(R.id.select_security_password_level);
+		TextView noneLevelView = (TextView) findViewById(R.id.select_security_none_level);
+		TextView patternLevelView = (TextView) findViewById(R.id.select_security_pattern_level);
+		Utilities.setFontTextView(passwordLevelView, am, res);
+		Utilities.setFontTextView(noneLevelView, am, res);
+		Utilities.setFontTextView(patternLevelView, am, res);
+
+		RelativeLayout passLayout = (RelativeLayout) findViewById(R.id.select_security_password_layout);
+		RelativeLayout noneLayout = (RelativeLayout) findViewById(R.id.select_security_none_layout);
+		RelativeLayout paternLayout = (RelativeLayout) findViewById(R.id.select_security_pattern_layout);
 
 		passLayout.setOnClickListener(this);
 		noneLayout.setOnClickListener(this);
@@ -46,7 +71,7 @@ public class SelectSecurityActivity extends Activity implements OnClickListener 
 		Intent intent = null;
 
 		// Password
-		// if (R.id.security_pass_layout == viewId) {
+		// if (R.id.select_security_password_layout == viewId) {
 		// intent = new Intent(SelectSecurityActivity.this,
 		// PasswordSecurityDialogActivity.class);
 		// intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -55,7 +80,7 @@ public class SelectSecurityActivity extends Activity implements OnClickListener 
 		// }
 
 		// None
-		if (R.id.security_none_layout == viewId) {
+		if (R.id.select_security_none_layout == viewId) {
 			// run on ui-thread
 			PreferenceCommon.setSecurityType(getApplicationContext(),
 					getResources()
@@ -67,7 +92,7 @@ public class SelectSecurityActivity extends Activity implements OnClickListener 
 		}
 
 		// Pattern
-		if (R.id.security_patern_layout == viewId) {
+		if (R.id.select_security_pattern_layout == viewId) {
 			intent = new Intent(SelectSecurityActivity.this,
 					ChooseLockPattern.class);
 			startActivitySafely(intent, Intent.FLAG_ACTIVITY_NEW_TASK);
