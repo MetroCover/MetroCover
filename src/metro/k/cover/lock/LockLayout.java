@@ -4,10 +4,13 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+import metro.k.cover.ImageCache;
 import metro.k.cover.PreferenceCommon;
 import metro.k.cover.R;
 import metro.k.cover.lock.LockPatternView.Cell;
 import metro.k.cover.lock.LockPatternView.DisplayMode;
+import metro.k.cover.wallpaper.WallpaperBitmapDB;
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -16,17 +19,21 @@ import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.AudioManager;
 import android.os.Build;
 import android.os.Vibrator;
 import android.provider.CallLog;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,9 +47,6 @@ import android.widget.TextView;
  */
 public class LockLayout extends FrameLayout implements View.OnClickListener,
 		View.OnLongClickListener {
-
-	private static final int WC = RelativeLayout.LayoutParams.WRAP_CONTENT;
-	private static final int MP = RelativeLayout.LayoutParams.MATCH_PARENT;
 
 	// Security Layout Resources
 	private View mPassView;
@@ -66,13 +70,12 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	// ステータスバー
 	private int mStatusBarHeight = -1;
 
-	// mainview
-	private RelativeLayout mLockLayout;
-
 	// vibe
 	private Vibrator mVib;
 	private static final int VIBELATE_TIME = 100;
 	private boolean isEnableLock;
+
+	private KeyView mKeyView;
 
 	public LockLayout(Context context) {
 		super(context);
@@ -105,7 +108,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		filter.addAction(AudioManager.RINGER_MODE_CHANGED_ACTION);
 		c.registerReceiver(mBroadcastReceiver, filter);
 	}
-	
+
 	// initialize SharedPreference
 	private void initPref(final Context context) {
 		mSecurity = PreferenceCommon.getSecurityType(context);
@@ -357,9 +360,6 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	private void initialize() {
 		final Context context = getContext().getApplicationContext();
 
-		// メンバ変数の初期化
-		mLockLayout = (RelativeLayout) findViewById(R.id.lock_foregroundLayout);
-
 		// vibe
 		mVib = (Vibrator) getContext().getApplicationContext()
 				.getSystemService(Context.VIBRATOR_SERVICE);
@@ -440,7 +440,6 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	// パスワードロックのView設定
 	private void addPasswordSecurityView() {
 		final Context c = getContext().getApplicationContext();
-		mLockLayout.setVisibility(View.GONE);
 		mPassView = LayoutInflater.from(c).inflate(R.layout.input_password,
 				null, false);
 		final TextView title = (TextView) mPassView
@@ -509,7 +508,6 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 
 	// パスワードロックのView設定
 	private void addPatternSecurityView() {
-		mLockLayout.setVisibility(View.GONE);
 		mPatternView = LayoutInflater
 				.from(getContext().getApplicationContext()).inflate(
 						R.layout.input_pattern, null, false);
@@ -606,15 +604,15 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			return;
 		}
 		// セリュリティなし
-		mLockLayout.setVisibility(View.VISIBLE);
 		LockUtil.getInstance().unlock(getContext());
 	}
 
 	private void checkAndRestart() {
 		final Context c = getContext().getApplicationContext();
 		final boolean isRunnning = LockService.isServiceRunning(c);
-		if (isRunnning)
+		if (isRunnning) {
 			return;
+		}
 
 		try {
 			c.startService(new Intent(c, LockService.class));
@@ -625,6 +623,155 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 
 	private void removePassView(View v) {
 		this.removeView(v);
-		mLockLayout.setVisibility(View.VISIBLE);
+	}
+
+	public class LockPagerAdapter extends PagerAdapter {
+		public static final String PAGE_LOCK = "page_lock";
+		public static final String PAGE_PAGE_TRAIN_INFO_1 = "page_train_info_1";
+		public static final String PAGE_PAGE_TRAIN_INFO_2 = "page_train_info_2";
+		private Context mContext;
+		private ArrayList<String> mList;
+		private Object mPrimaryItem;
+		private LayoutInflater mLayoutInflater;
+		private int mTestNum1 = 0;
+		private int mTestNum2 = 0;
+		private int mLastPosition = 0;
+
+		public LockPagerAdapter(Context context) {
+			mContext = context;
+			mList = new ArrayList<String>();
+			mLayoutInflater = LayoutInflater.from(mContext);
+		}
+
+		public void add(String pageName) {
+			mList.add(pageName);
+		}
+
+		@Override
+		public Object instantiateItem(ViewGroup container, int position) {
+			View pageView = null;
+			String pageName = mList.get(position);
+			if (pageName.equals(PAGE_LOCK)) {
+				RelativeLayout lockLayout = (RelativeLayout) mLayoutInflater
+						.inflate(R.layout.page_lock, null);
+				mKeyView = (KeyView) lockLayout
+						.findViewById(R.id.unlock_keyview);
+				mKeyView.setKeyViewListener(new KeyViewListener() {
+					@Override
+					public void onUnLock() {
+						checkSecurityInfo();
+					}
+				});
+				pageView = lockLayout;
+			} else if (pageName.equals(PAGE_PAGE_TRAIN_INFO_1)) {
+				RelativeLayout trainInfoLayout = (RelativeLayout) mLayoutInflater
+						.inflate(R.layout.page_train_info, null);
+				TextView tv = (TextView) trainInfoLayout
+						.findViewById(R.id.page_train_info_test);
+				tv.setText(String.valueOf(mTestNum1));
+				pageView = trainInfoLayout;
+			} else if (pageName.equals(PAGE_PAGE_TRAIN_INFO_2)) {
+				RelativeLayout trainInfoLayout = (RelativeLayout) mLayoutInflater
+						.inflate(R.layout.page_train_info, null);
+				TextView tv = (TextView) trainInfoLayout
+						.findViewById(R.id.page_train_info_test);
+				tv.setText(String.valueOf(mTestNum2));
+				pageView = trainInfoLayout;
+			}
+			setBackgrondLoadBitmap(pageView, position);
+			container.addView(pageView);
+			return pageView;
+		}
+
+		@SuppressLint("NewApi")
+		private void setBackgrondLoadBitmap(final View view, final int position) {
+			Bitmap bmp;
+			WallpaperBitmapDB db;
+			String keyCache = "";
+			String keyDB = "";
+
+			if (position == 0) {
+				keyCache = ImageCache.KEY_WALLPAPER_LEFT_CACHE;
+				keyDB = WallpaperBitmapDB.KEY_WALLPAPER_LEFT_DB;
+			} else if (position == 1) {
+				keyCache = ImageCache.KEY_WALLPAPER_CENTER_CACHE;
+				keyDB = WallpaperBitmapDB.KEY_WALLPAPER_CENTER_DB;
+			} else {
+				keyCache = ImageCache.KEY_WALLPAPER_RIGHT_CACHE;
+				keyDB = WallpaperBitmapDB.KEY_WALLPAPER_RIGHT_DB;
+			}
+
+			bmp = ImageCache.getImageBmp(keyCache);
+			if (bmp == null) {
+				db = new WallpaperBitmapDB(mContext);
+				bmp = db.getBitmp(keyDB);
+				if (bmp != null) {
+					compatibleSetBackground(view, bmp);
+				}
+			} else {
+				compatibleSetBackground(view, bmp);
+			}
+		}
+
+		@SuppressLint("NewApi")
+		private void compatibleSetBackground(final View layout, final Bitmap bmp) {
+			if (layout == null || bmp == null) {
+				return;
+			}
+
+			final Resources res = mContext.getResources();
+			if (Build.VERSION.SDK_INT >= 16) {
+				layout.setBackground(new BitmapDrawable(res, bmp));
+			} else {
+				layout.setBackgroundDrawable(new BitmapDrawable(res, bmp));
+			}
+		}
+
+		@Override
+		public void setPrimaryItem(ViewGroup container, int position,
+				Object object) {
+			super.setPrimaryItem(container, position, object);
+			if (mLastPosition == position) {
+				return;
+			}
+			mLastPosition = position;
+			mPrimaryItem = object;
+			countup(position);
+		}
+
+		public Object getPrimaryItem() {
+			return mPrimaryItem;
+		}
+
+		private void countup(int position) {
+			String pageName = mList.get(position);
+			int count = 0;
+			if (pageName.equals(PAGE_PAGE_TRAIN_INFO_1)) {
+				count = mTestNum1++;
+			} else if (pageName.equals(PAGE_PAGE_TRAIN_INFO_2)) {
+				count = mTestNum2++;
+			} else {
+				return;
+			}
+			RelativeLayout TrainInfoLayout = (RelativeLayout) getPrimaryItem();
+			TextView textView = (TextView) TrainInfoLayout
+					.findViewById(R.id.page_train_info_test);
+			textView.setText(String.valueOf(count));
+		}
+
+		@Override
+		public int getCount() {
+			return mList.size();
+		}
+
+		@Override
+		public boolean isViewFromObject(View view, Object keyObject) {
+			return view == keyObject;
+		}
+
+		@Override
+		public void destroyItem(ViewGroup container, int position, Object object) {
+			container.removeView((View) object);
+		}
 	}
 }

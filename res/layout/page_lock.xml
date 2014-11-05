@@ -5,6 +5,7 @@
     android:background="@android:color/holo_orange_light" >
 
     <metro.k.cover.lock.KeyView
+        android:id="@+id/unlock_keyview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

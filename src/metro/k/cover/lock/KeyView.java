@@ -28,6 +28,7 @@ public class KeyView extends View implements OnTouchListener, AnimationListener 
 	private Animation mAnimFadeIn;
 	private Animation mAnimFadeOut;
 	private boolean mIsAnimation = false;
+	private KeyViewListener mKeyViewListener;
 
 	public KeyView(Context context) {
 		super(context);
@@ -42,6 +43,10 @@ public class KeyView extends View implements OnTouchListener, AnimationListener 
 	public KeyView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		init(context);
+	}
+
+	public void setKeyViewListener(final KeyViewListener li) {
+		mKeyViewListener = li;
 	}
 
 	private void init(Context context) {
@@ -103,7 +108,11 @@ public class KeyView extends View implements OnTouchListener, AnimationListener 
 			final int dy = Math.abs(mY0 - y);
 			final double distance = Math.sqrt(dx * dx + dy * dy);
 			if (distance > mUnlockDistance) {
-				LockUtil.getInstance().unlock(mContext);
+				if (mKeyViewListener != null) {
+					mKeyViewListener.onUnLock();
+				} else {
+					LockUtil.getInstance().unlock(mContext);
+				}
 				return true;
 			}
 			mIsAnimation = true;

@@ -24,7 +24,6 @@ import android.view.animation.Animation.AnimationListener;
 public class LockUtil {
 
 	private static LockUtil sInstance = new LockUtil();
-	static final String LOCK_PREF = "LOCK_PREF";
 
 	// LockView
 	private View mLockView = null;
@@ -56,8 +55,6 @@ public class LockUtil {
 	 * @return
 	 */
 	private View createLockView(final Context context) {
-
-		// ロック画面の作成
 		View lockView = LayoutInflater.from(context.getApplicationContext())
 				.inflate(R.layout.locking, null, false);
 		lockView.setOnKeyListener(new OnKeyListener() {
