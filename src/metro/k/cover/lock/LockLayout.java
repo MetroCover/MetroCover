@@ -427,14 +427,16 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 				null, false);
 		final TextView title = (TextView) mPassView
 				.findViewById(R.id.lock_pass_title);
-		Utilities.setFontTextView(title, am, res);
 		final EditText edittext = (EditText) mPassView
 				.findViewById(R.id.lock_pass_edittext);
 		final Button comp = (Button) mPassView
 				.findViewById(R.id.lock_pass_comp_btn);
-		Utilities.setFontButtonView(comp, am, res);
 		final Button cancel = (Button) mPassView
 				.findViewById(R.id.lock_pass_cancel_btn);
+
+		Utilities.setFontTextView(title, am, res);
+		Utilities.setFontEditTextView(edittext, am, res);
+		Utilities.setFontButtonView(comp, am, res);
 		Utilities.setFontButtonView(cancel, am, res);
 
 		this.addView(mPassView);
@@ -457,7 +459,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			return;
 		mVib.vibrate(VIBELATE_TIME);
 		et.setText("");
-		tv.setText("間違ってるよ");
+		tv.setText(getResources().getString(R.string.lock_wrong_pass));
 	}
 
 	/**
@@ -520,9 +522,10 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 				.findViewById(R.id.lock_patternView);
 		final TextView titleView = (TextView) mPatternView
 				.findViewById(R.id.lock_pattern_title);
-		Utilities.setFontTextView(titleView, am, res);
 		final Button cancelBtn = (Button) mPatternView
 				.findViewById(R.id.lock_pattern_cancel_btn);
+		
+		Utilities.setFontTextView(titleView, am, res);
 		Utilities.setFontButtonView(cancelBtn, am, res);
 
 		patternView.setOnPatternListener(getPatternListener(patternView,

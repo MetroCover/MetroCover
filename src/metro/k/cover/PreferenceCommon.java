@@ -159,4 +159,22 @@ public final class PreferenceCommon {
 				Context.MODE_PRIVATE);
 		return sp.getString(KEY_SET_CURRENT_PASSWORD, "");
 	}
+
+	// 一回目に入力されたパスワードロックのパスワード
+	private static final String KEY_SET_FIRST_PASSWORD = "set_first_password";
+
+	public static void setFirstPassword(final Context context,
+			final String pattern) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sp.edit();
+		editor.putString(KEY_SET_FIRST_PASSWORD, pattern);
+		editor.commit();
+	}
+
+	public static String getFirstPassword(final Context context) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
+		return sp.getString(KEY_SET_FIRST_PASSWORD, "");
+	}
 }

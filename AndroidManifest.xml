@@ -62,6 +62,12 @@
             android:name="metro.k.cover.wallpaper.WallpaperHomeeActivity"
             android:label="@string/app_name" >
         </activity>
+        <activity
+            android:name="metro.k.cover.lock.LockPasswordDialogActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.PassWordDialog" >
+        </activity>
 
         <receiver android:name="cmetro.k.cover.lock.LockReceiver" >
             <intent-filter>

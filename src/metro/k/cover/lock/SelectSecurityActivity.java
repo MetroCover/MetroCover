@@ -71,13 +71,13 @@ public class SelectSecurityActivity extends Activity implements OnClickListener 
 		Intent intent = null;
 
 		// Password
-		// if (R.id.select_security_password_layout == viewId) {
-		// intent = new Intent(SelectSecurityActivity.this,
-		// PasswordSecurityDialogActivity.class);
-		// intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		// startActivity(intent);
-		// return;
-		// }
+		if (R.id.select_security_password_layout == viewId) {
+			intent = new Intent(SelectSecurityActivity.this,
+					LockPasswordDialogActivity.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(intent);
+			return;
+		}
 
 		// None
 		if (R.id.select_security_none_layout == viewId) {

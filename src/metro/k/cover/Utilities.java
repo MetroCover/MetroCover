@@ -24,6 +24,7 @@ import android.view.Display;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +39,9 @@ public final class Utilities {
 
 	// パターンロック画面に設定画面からきたかどうかの判定のKey
 	public static final String KEY_PATTERN_IS_FROM_SETTING = "lock_pattern_from_setting";
+
+	// パスワードロック画面に設定画面からきたかどうかの判定のKey
+	public static final String KEY_PASSWORD_IS_FROM_SETTING = "lock_password_from_setting";
 
 	// Homeeの壁紙を取得する
 	public static final String INTENT = "com.cfinc.launcehr2.THEMES";
@@ -133,6 +137,23 @@ public final class Utilities {
 		}
 
 		button.setTypeface(Typeface.createFromAsset(am,
+				res.getString(R.string.font_free_wing)));
+	}
+
+	/**
+	 * EditTextに独自フォントを入れる
+	 * 
+	 * @param et
+	 * @param am
+	 * @param res
+	 */
+	public static void setFontEditTextView(final EditText et,
+			final AssetManager am, final Resources res) {
+		if (et == null || am == null || res == null) {
+			return;
+		}
+
+		et.setTypeface(Typeface.createFromAsset(am,
 				res.getString(R.string.font_free_wing)));
 	}
 

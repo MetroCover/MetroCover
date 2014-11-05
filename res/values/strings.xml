@@ -10,6 +10,11 @@
     <string name="lock_missed_call_number_withheld">Unknown call(s)</string>
     <string name="lock_nothing">None</string>
     <string name="lock_password">Password</string>
+    <string name="lock_input_password">Enter your password</string>
+    <string name="lock_input_password_title">Enter your new password</string>
+    <string name="lock_input_old_password">Enter your current password</string>
+    <string name="lock_input_pass_one_more">Re-enter your password</string>
+    <string name="lock_input_pass_minlength">Enter a password composed of 4 to 16 characters</string>
     <string name="lock_pattern_confirm">Confirm</string>
     <string name="lock_pattern_next">Continue</string>
     <string name="lock_pattern_back">Retry</string>
@@ -38,11 +43,13 @@
     <string name="lock_start_calling">Start Calling</string>
     <string name="lock_state_calling">Idle or Finish Calling</string>
     <string name="lock_system_security_setting">System Security</string>
+    <string name="lock_wrong_pass">Wrong password</string>
     <string name="lockscreen_access_pattern_cell_added">Cell added</string>
     <string name="lockscreen_access_pattern_cleared">Pattern cleared</string>
     <string name="lockscreen_access_pattern_detected">Pattern completed</string>
     <string name="lockscreen_access_pattern_start">Pattern started</string>
     <string name="next">NEXT</string>
+    <string name="ok">OK</string>
     <string name="railway_chiyoda">Chiyoda-Line</string>
     <string name="railway_chiyoda_response">odpt.Railway:TokyoMetro.Chiyoda</string>
     <string name="railway_fukutoshin">Fukutoshin-Line</string>
