@@ -141,4 +141,22 @@ public final class PreferenceCommon {
 				Context.MODE_PRIVATE);
 		return sp.getBoolean(KEY_SET_PATTERN_TRACK, true);
 	}
+
+	// 現在設定されているパスワードロックのパスワード
+	private static final String KEY_SET_CURRENT_PASSWORD = "set_current_password";
+
+	public static void setCurrentPassword(final Context context,
+			final String pattern) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sp.edit();
+		editor.putString(KEY_SET_CURRENT_PASSWORD, pattern);
+		editor.apply();
+	}
+
+	public static String getCurrentPassword(final Context context) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
+		return sp.getString(KEY_SET_CURRENT_PASSWORD, "");
+	}
 }

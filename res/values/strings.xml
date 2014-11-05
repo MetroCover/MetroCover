@@ -6,6 +6,8 @@
     <string name="cancel">CANCEL</string>
     <string name="common_err">Sorry...Error Occurred</string>
     <string name="font_free_wing">freewing.ttf</string>
+    <string name="lock_get_calling">Calling</string>
+    <string name="lock_missed_call_number_withheld">Unknown call(s)</string>
     <string name="lock_nothing">None</string>
     <string name="lock_password">Password</string>
     <string name="lock_pattern_confirm">Confirm</string>
@@ -32,6 +34,9 @@
     <string name="lock_screen_image_center">Center Wallpaper</string>
     <string name="lock_screen_image_left">Left Wallpaper</string>
     <string name="lock_screen_image_right">Right Wallpaper</string>
+    <string name="lock_state_telinfo">State Calling:</string>
+    <string name="lock_start_calling">Start Calling</string>
+    <string name="lock_state_calling">Idle or Finish Calling</string>
     <string name="lock_system_security_setting">System Security</string>
     <string name="lockscreen_access_pattern_cell_added">Cell added</string>
     <string name="lockscreen_access_pattern_cleared">Pattern cleared</string>
@@ -66,5 +71,27 @@
     <string name="wallpaper_select">Select Wallpaper</string>
     <string name="wallpaper_select_gallery">Gallery\'s Wallpaper</string>
     <string name="wallpaper_select_homee">Homee\'s Wallpaper</string>
+    
+    <!-- 駅名 -->
+    <string name="station_akasaka">Akasaka</string>
+    <string name="station_ayase">Ayase</string>
+    <string name="station_machiya">Machiya</string>
+    <string name="station_hibiya">Hibiya</string>
+    <string name="station_kasumigazeki">Kasumigaseki</string>
+    <string name="station_kitaayase">Kitaayase</string>
+    <string name="station_kitasenju">Kitasenju</string>
+    <string name="station_kokkaigizidoumae">Kokkaigizidomae</string>
+    <string name="station_meijijinnguumae">Meizizingumae</string>
+    <string name="station_nedu">Nedu</string>
+    <string name="station_nijuubashimae">Nijubashimae</string>
+    <string name="station_nishinippori">Nishinippori</string>
+    <string name="station_nogizaka">Nogizaka</string>
+    <string name="station_omotesanndou">Omotesando</string>
+    <string name="station_ootemachi">Otemchi</string>
+    <string name="station_sendagi">Sendagi</string>
+    <string name="station_shinnochanomizu">Shinochanomizu</string>
+    <string name="station_yoyogiuehara">Yoyogiuehara</string>
+    <string name="station_yoyogikouenn">Yoyogikoen</string>
+    <string name="station_yushima">Yushima</string>
     
 </resources>

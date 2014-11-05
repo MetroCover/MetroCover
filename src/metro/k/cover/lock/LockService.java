@@ -1,15 +1,56 @@
 package metro.k.cover.lock;
 
+import java.util.List;
+
+import metro.k.cover.PreferenceCommon;
+import metro.k.cover.Utilities;
+import android.app.ActivityManager;
 import android.app.Service;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
 import android.os.IBinder;
+import android.telephony.TelephonyManager;
 
 public class LockService extends Service {
 
-	ScreenStateReceiver mScreenStateReceiver = new ScreenStateReceiver();
+	// レシーバー
+	private LockReceiver mReceiver = null;
+
+	private boolean isMetroCover = true;
+
+	// サービスが起動中かどうか
+	public static boolean isServiceRunning(final Context context) {
+		if (context == null)
+			return false;
+
+		final ActivityManager am = (ActivityManager) context
+				.getSystemService(ACTIVITY_SERVICE);
+		if (am == null)
+			return false;
+
+		final List<ActivityManager.RunningServiceInfo> serviceInfo = am
+				.getRunningServices(Integer.MAX_VALUE);
+		if (serviceInfo == null)
+			return false;
+
+		final int size = serviceInfo.size();
+		if (size == 0)
+			return false;
+
+		for (int i = 0; i < size; i++) {
+			try {
+				if (serviceInfo.get(i).service.getClassName().equals(
+						"metro.k.cover.lock.LockService")) {
+					return true;
+				}
+			} catch (NullPointerException e) {
+				continue;
+			}
+		}
+		return false;
+	}
 
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -19,42 +60,136 @@ public class LockService extends Service {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		setupReceiver();
+		registerLockReceiver();
 	}
 
-	private void setupReceiver() {
-		IntentFilter screenStateFilter = new IntentFilter();
-		screenStateFilter.addAction(Intent.ACTION_SCREEN_ON);
-		screenStateFilter.addAction(Intent.ACTION_SCREEN_OFF);
-		registerReceiver(mScreenStateReceiver, screenStateFilter);
-	}
+	private void registerLockReceiver() {
+		IntentFilter filter = new IntentFilter();
+		filter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
+		filter.addAction(Intent.ACTION_BOOT_COMPLETED);
+		filter.addAction(Intent.ACTION_SCREEN_OFF);
+		filter.addAction(Intent.ACTION_SCREEN_ON);
 
-	@Override
-	public int onStartCommand(Intent intent, int flags, int startId) {
-		super.onStartCommand(intent, flags, startId);
-		if (intent == null) {
-			setupReceiver();
+		mReceiver = new LockReceiver();
+
+		try {
+			getApplicationContext().registerReceiver(mReceiver, filter);
+			return;
+		} catch (Exception e) {
 		}
-		return START_STICKY;
+
+		try {
+			registerReceiver(mReceiver, filter);
+		} catch (Exception e) {
+		}
+	}
+
+	private void unregisterLockReceiver() {
+		try {
+			getApplicationContext().unregisterReceiver(mReceiver);
+			return;
+		} catch (Exception e) {
+		}
+		try {
+			unregisterReceiver(mReceiver);
+		} catch (Exception e) {
+		}
+	}
+
+	private void startLockService() {
+		if (!isMetroCover) {
+			return;
+		}
+
+		try {
+			startService(new Intent(getApplicationContext(), getClass()));
+			return;
+		} catch (Exception e) {
+		}
+		try {
+			startService(new Intent(this, getClass()));
+		} catch (Exception e) {
+		}
 	}
 
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		unregisterReceiver(mScreenStateReceiver);
+		unregisterLockReceiver();
+		stopSelf();
+		startLockService();
 	}
 
-	public class ScreenStateReceiver extends BroadcastReceiver {
+	@Override
+	public void onStart(Intent intent, int startId) {
+		handleCommand(intent);
+	}
 
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			String action = intent.getAction();
-			if (action.equals(Intent.ACTION_SCREEN_OFF)) {
-				Intent intentStartLock = new Intent(LockService.this, LockActivity.class);
-				intentStartLock.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				LockService.this.startActivity(intentStartLock);
+	@Override
+	public int onStartCommand(Intent intent, int flags, int startId) {
+		handleCommand(intent);
+		return START_STICKY;
+	}
+
+	/**
+	 * onStart時の処理
+	 * 
+	 * @param intent
+	 */
+	private void handleCommand(final Intent intent) {
+		if (intent == null)
+			return;
+
+		final String action = intent.getAction();
+		if (action == null)
+			return;
+
+		isMetroCover = PreferenceCommon.getMetroCover(getApplicationContext());
+		lock(action);
+	}
+
+	private void lock(String action) {
+		if (Utilities.isInvalidStr(action)) {
+			return;
+		}
+
+		if (Intent.ACTION_BOOT_COMPLETED.equals(action)
+				|| Intent.ACTION_SCREEN_OFF.equals(action)
+				|| Intent.ACTION_SCREEN_ON.equals(action)) {
+			final Context c = getApplicationContext();
+			final LockUtil lu = LockUtil.getInstance();
+			TelephonyManager tManager = null;
+			try {
+				tManager = (TelephonyManager) c
+						.getSystemService(Context.TELEPHONY_SERVICE);
+			} catch (Exception e) {
+			}
+			if (tManager == null) {
+				try {
+					tManager = (TelephonyManager) this
+							.getSystemService(Context.TELEPHONY_SERVICE);
+				} catch (Exception e) {
+					return;
+				}
+			}
+			if (tManager == null
+					|| tManager.getCallState() == TelephonyManager.CALL_STATE_OFFHOOK) {
+				return;
+			}
+
+			if (isMetroCover) {
+				lu.lock(c, true);
+				disableKeyguard();
 			}
 		}
 	}
 
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+	}
+
+	public void disableKeyguard() {
+		LockUtil.getInstance().disableKeyguard(getApplicationContext());
+	}
 }

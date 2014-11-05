@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -53,12 +54,23 @@
         </activity>
         <activity
             android:name="metro.k.cover.wallpaper.WallpaperDetailActivity"
-            android:label="@string/app_name" >
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="metro.k.cover.wallpaper.WallpaperHomeeActivity"
             android:label="@string/app_name" >
         </activity>
+
+        <receiver android:name="cmetro.k.cover.lock.LockReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.SCREEN_ON" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

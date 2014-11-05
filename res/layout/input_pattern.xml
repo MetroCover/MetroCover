@@ -1,0 +1,45 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/lock_pattern_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="#60000000"
+        android:paddingBottom="10dip"
+        android:paddingLeft="15dip"
+        android:paddingRight="15dip"
+        android:paddingTop="10dip"
+        android:text="@string/lock_pattern_input_miss"
+        android:textColor="#FFF"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:visibility="invisible" />
+
+    <metro.k.cover.lock.LockPatternView
+        android:id="@+id/lock_patternView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+    </metro.k.cover.lock.LockPatternView>
+
+    <Button
+        android:id="@+id/lock_pattern_cancel_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_metro_tranceblue"
+        android:gravity="center"
+        android:paddingBottom="8dip"
+        android:paddingLeft="20dip"
+        android:paddingRight="20dip"
+        android:paddingTop="8dip"
+        android:text="@string/cancel"
+        android:textColor="#333333"
+        android:textStyle="bold" />
+
+</LinearLayout>

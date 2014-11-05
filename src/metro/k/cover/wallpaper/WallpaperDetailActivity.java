@@ -28,7 +28,6 @@ public class WallpaperDetailActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		final Intent intent = getIntent();
 		final int page = intent.getIntExtra(
 				WallpaperHomeeActivity.KEY_PAGE_NUMBER, -1);

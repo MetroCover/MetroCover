@@ -1,0 +1,26 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <view
+        android:id="@+id/lock_layout_customview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        class="metro.k.cover.lock.LockLayout" >
+
+        <RelativeLayout
+            android:id="@+id/lock_foregroundLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/lock_layout_viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+            </android.support.v4.view.ViewPager>
+
+        </RelativeLayout>
+    </view>
+
+</FrameLayout>

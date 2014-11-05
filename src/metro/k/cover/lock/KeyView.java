@@ -1,19 +1,16 @@
 package metro.k.cover.lock;
 
 import metro.k.cover.R;
+import metro.k.cover.Utilities;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
@@ -62,17 +59,14 @@ public class KeyView extends View implements OnTouchListener, AnimationListener 
 	}
 
 	private void setupKeyPosition() {
-		Activity activity = (Activity) mContext;
-		WindowManager windowManager = activity.getWindowManager();
-		Display display = windowManager.getDefaultDisplay();
-		DisplayMetrics displayMetrics = new DisplayMetrics();
-		display.getMetrics(displayMetrics);
-		final int width = displayMetrics.widthPixels;
-		final int height = displayMetrics.heightPixels;
+		final int[] windows = Utilities.getWindowSize(mContext);
+		final int width = windows[0];
+		final int height = windows[1];
 		mOldx = mX0 = width / 2;
 
 		Resources res = getResources();
-		final int bottomMargin = res.getDimensionPixelSize(R.dimen.key_bottom_margin);
+		final int bottomMargin = res
+				.getDimensionPixelSize(R.dimen.key_bottom_margin);
 		mOldy = mY0 = height - bottomMargin;
 	}
 
@@ -87,7 +81,8 @@ public class KeyView extends View implements OnTouchListener, AnimationListener 
 			mIsAnimation = false;
 			return;
 		}
-		layout(mOldx - mRadius, mOldy - mRadius, mOldx + mRadius, mOldy + mRadius);
+		layout(mOldx - mRadius, mOldy - mRadius, mOldx + mRadius, mOldy
+				+ mRadius);
 	}
 
 	@Override
@@ -108,8 +103,7 @@ public class KeyView extends View implements OnTouchListener, AnimationListener 
 			final int dy = Math.abs(mY0 - y);
 			final double distance = Math.sqrt(dx * dx + dy * dy);
 			if (distance > mUnlockDistance) {
-				Activity activity = (Activity) mContext;
-				activity.finish();
+				LockUtil.getInstance().unlock(mContext);
 				return true;
 			}
 			mIsAnimation = true;

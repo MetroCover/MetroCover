@@ -27,4 +27,27 @@
         <item>#bb641d</item>
     </array>
 
+    <!-- 千代田線 -->
+    <string-array name="chiyoda_railway_stations">
+        <item>@string/station_kitaayase</item>
+        <item>@string/station_ayase</item>
+        <item>@string/station_kitasenju</item>
+        <item>@string/station_machiya</item>
+        <item>@string/station_nishinippori</item>
+        <item>@string/station_sendagi</item>
+        <item>@string/station_yushima</item>
+        <item>@string/station_shinnochanomizu</item>
+        <item>@string/station_ootemachi</item>
+        <item>@string/station_nijuubashimae</item>
+        <item>@string/station_hibiya</item>
+        <item>@string/station_kasumigazeki</item>
+        <item>@string/station_kokkaigizidoumae</item>
+        <item>@string/station_akasaka</item>
+        <item>@string/station_nogizaka</item>
+        <item>@string/station_omotesanndou</item>
+        <item>@string/station_meijijinnguumae</item>
+        <item>@string/station_yoyogikouenn</item>
+        <item>@string/station_yoyogiuehara</item>
+    </string-array>
+
 </resources>

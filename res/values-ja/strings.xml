@@ -48,4 +48,26 @@
     <string name="wallpaper_select_gallery">ギャラリーから選択</string>
     <string name="wallpaper_select_homee">Homeeから選択</string>
 
+    <!-- 駅名 -->
+    <string name="station_akasaka">赤坂</string>
+    <string name="station_ayase">綾瀬</string>
+    <string name="station_machiya">町屋</string>
+    <string name="station_hibiya">日比谷</string>
+    <string name="station_kasumigazeki">霞ヶ関</string>
+    <string name="station_kitaayase">北綾瀬</string>
+    <string name="station_kitasenju">北千住</string>
+    <string name="station_kokkaigizidoumae">国会議事堂前</string>
+    <string name="station_meijijinnguumae">明治神宮前</string>
+    <string name="station_nedu">根津</string>
+    <string name="station_nijuubashimae">二重橋前</string>
+    <string name="station_nishinippori">西日暮里</string>
+    <string name="station_nogizaka">乃木坂</string>
+    <string name="station_omotesanndou">表参道</string>
+    <string name="station_ootemachi">大手町</string>
+    <string name="station_sendagi">千駄木</string>
+    <string name="station_shinnochanomizu">新御茶ノ水</string>
+    <string name="station_yoyogiuehara">代々木上原</string>
+    <string name="station_yoyogikouenn">代々木公園</string>
+    <string name="station_yushima">湯島</string>
+
 </resources>
