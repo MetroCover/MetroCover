@@ -7,21 +7,25 @@ import java.util.List;
 import metro.k.cover.ImageCache;
 import metro.k.cover.PreferenceCommon;
 import metro.k.cover.R;
+import metro.k.cover.Utilities;
 import metro.k.cover.lock.LockPatternView.Cell;
 import metro.k.cover.lock.LockPatternView.DisplayMode;
 import metro.k.cover.wallpaper.WallpaperBitmapDB;
 import android.annotation.SuppressLint;
+import android.app.WallpaperManager;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.os.Build;
 import android.os.Vibrator;
@@ -76,6 +80,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	private boolean isEnableLock;
 
 	private KeyView mKeyView;
+	OnLockPageChangeListener mOnLockPageChangeListener = new OnLockPageChangeListener();
 
 	public LockLayout(Context context) {
 		super(context);
@@ -195,12 +200,8 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		return false;
 	}
 
-	/********************************************************
-	 * TEL
-	 *********************************************************/
-
 	/**
-	 * Listener
+	 * 着信のリスナー
 	 */
 	private PhoneStateListener mPhoneStateListener = new PhoneStateListener() {
 		private int mState = TelephonyManager.CALL_STATE_IDLE;
@@ -234,7 +235,9 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	};
 
 	/**
-	 * tel-info
+	 * 着信履歴取得
+	 * 
+	 * @param context
 	 */
 	private void getTelInfo(final Context context) {
 		if (context == null)
@@ -256,7 +259,11 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		setMissedCallView(telInfo[TEL_INFO_NUMBER]);
 	}
 
-	// 不在着信表示
+	/**
+	 * 不在着信表示
+	 * 
+	 * @param list
+	 */
 	private void setMissedCallView(final List<String> list) {
 		if (list == null)
 			return;
@@ -294,7 +301,12 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		// this.addView(telView);
 	}
 
-	// 不在着信取得
+	/**
+	 * 不在着信取得
+	 * 
+	 * @param context
+	 * @return
+	 */
 	private List<String>[] getMissedCall(final Context context) {
 		@SuppressWarnings("unchecked")
 		List<String>[] telInfo = new ArrayList[2];
@@ -351,11 +363,8 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		return telInfo;
 	}
 
-	/********************************************************
-	 * その他
-	 *********************************************************/
 	/**
-	 * init
+	 * Viewの準備
 	 */
 	private void initialize() {
 		final Context context = getContext().getApplicationContext();
@@ -381,35 +390,9 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		pager.setOnPageChangeListener(mOnLockPageChangeListener);
 	}
 
-	OnLockPageChangeListener mOnLockPageChangeListener = new OnLockPageChangeListener();
-
-	private class OnLockPageChangeListener extends
-			ViewPager.SimpleOnPageChangeListener {
-		@Override
-		public void onPageScrollStateChanged(int state) {
-			switch (state) {
-			case ViewPager.SCROLL_STATE_IDLE:
-				break;
-			case ViewPager.SCROLL_STATE_SETTLING:
-				break;
-			case ViewPager.SCROLL_STATE_DRAGGING:
-				break;
-			default:
-				break;
-			}
-		}
-
-		@Override
-		public void onPageScrolled(int position, float positionOffset,
-				int positionOffsetPixels) {
-		}
-
-		@Override
-		public void onPageSelected(int position) {
-		}
-	}
-
-	// その他のBroadcastReceiver（ユーザー動作）
+	/**
+	 * その他のBroadcastReceiver（ユーザー動作）
+	 */
 	private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent) {
@@ -433,23 +416,26 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		}
 	};
 
-	/********************************************************
-	 * セキュリティ
-	 *********************************************************/
-
-	// パスワードロックのView設定
+	/**
+	 * パスワードロックのView設定
+	 */
 	private void addPasswordSecurityView() {
 		final Context c = getContext().getApplicationContext();
+		final AssetManager am = c.getAssets();
+		final Resources res = c.getResources();
 		mPassView = LayoutInflater.from(c).inflate(R.layout.input_password,
 				null, false);
 		final TextView title = (TextView) mPassView
 				.findViewById(R.id.lock_pass_title);
+		Utilities.setFontTextView(title, am, res);
 		final EditText edittext = (EditText) mPassView
 				.findViewById(R.id.lock_pass_edittext);
 		final Button comp = (Button) mPassView
 				.findViewById(R.id.lock_pass_comp_btn);
+		Utilities.setFontButtonView(comp, am, res);
 		final Button cancel = (Button) mPassView
 				.findViewById(R.id.lock_pass_cancel_btn);
+		Utilities.setFontButtonView(cancel, am, res);
 
 		this.addView(mPassView);
 		edittext.requestFocus();
@@ -460,7 +446,12 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		cancel.setOnClickListener(getPasswordCancelListener());
 	}
 
-	// 間違ったパスワードが入力されたとき
+	/**
+	 * 間違ったパスワードが入力されたとき
+	 * 
+	 * @param et
+	 * @param tv
+	 */
 	private void setWrongPasswordView(final EditText et, final TextView tv) {
 		if (et == null || tv == null || mVib == null)
 			return;
@@ -469,7 +460,13 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		tv.setText("間違ってるよ");
 	}
 
-	// パスワードロックのOKボタン押下
+	/**
+	 * パスワードロックのOKボタン押下
+	 * 
+	 * @param et
+	 * @param tv
+	 * @return
+	 */
 	private final View.OnClickListener getPasswordOKListener(final EditText et,
 			final TextView tv) {
 		final View.OnClickListener listener = new View.OnClickListener() {
@@ -491,7 +488,11 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		return listener;
 	}
 
-	// パスワードロックのキャンセルボタン押下
+	/**
+	 * パスワードロックのキャンセルボタン押下
+	 * 
+	 * @return
+	 */
 	private final View.OnClickListener getPasswordCancelListener() {
 		final View.OnClickListener listener = new View.OnClickListener() {
 			@Override
@@ -506,17 +507,23 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		return listener;
 	}
 
-	// パスワードロックのView設定
+	/**
+	 * パターンロックのView設定
+	 */
 	private void addPatternSecurityView() {
-		mPatternView = LayoutInflater
-				.from(getContext().getApplicationContext()).inflate(
-						R.layout.input_pattern, null, false);
+		final Context c = getContext().getApplicationContext();
+		final AssetManager am = c.getAssets();
+		final Resources res = c.getResources();
+		mPatternView = LayoutInflater.from(c).inflate(R.layout.input_pattern,
+				null, false);
 		final LockPatternView patternView = (LockPatternView) mPatternView
 				.findViewById(R.id.lock_patternView);
 		final TextView titleView = (TextView) mPatternView
 				.findViewById(R.id.lock_pattern_title);
+		Utilities.setFontTextView(titleView, am, res);
 		final Button cancelBtn = (Button) mPatternView
 				.findViewById(R.id.lock_pattern_cancel_btn);
+		Utilities.setFontButtonView(cancelBtn, am, res);
 
 		patternView.setOnPatternListener(getPatternListener(patternView,
 				titleView));
@@ -524,7 +531,13 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		this.addView(mPatternView);
 	}
 
-	// パターンロックのパターンリスナー
+	/**
+	 * パターンロックのパターンリスナー
+	 * 
+	 * @param patternView
+	 * @param tv
+	 * @return
+	 */
 	private final LockPatternView.OnPatternListener getPatternListener(
 			final LockPatternView patternView, final TextView tv) {
 		final LockPatternView.OnPatternListener listener = new LockPatternView.OnPatternListener() {
@@ -567,7 +580,12 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		return listener;
 	}
 
-	// パターンロックのキャンセルボタン押下
+	/**
+	 * パターンロックのキャンセルボタン押下
+	 * 
+	 * @param patternView
+	 * @return
+	 */
 	private final View.OnClickListener getPatternCancelListener(
 			final LockPatternView patternView) {
 		final View.OnClickListener listener = new View.OnClickListener() {
@@ -589,7 +607,9 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		return listener;
 	}
 
-	// セキュリティ判定
+	/**
+	 * セキュリティタイプの判定
+	 */
 	private void checkSecurityInfo() {
 		checkAndRestart();
 		// パスワード
@@ -607,6 +627,9 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		LockUtil.getInstance().unlock(getContext());
 	}
 
+	/**
+	 * サービスが止まっていたら起動をかける
+	 */
 	private void checkAndRestart() {
 		final Context c = getContext().getApplicationContext();
 		final boolean isRunnning = LockService.isServiceRunning(c);
@@ -621,10 +644,21 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		}
 	}
 
+	/**
+	 * パスワードおよびパターンロックのViewの破棄
+	 * 
+	 * @param v
+	 */
 	private void removePassView(View v) {
 		this.removeView(v);
 	}
 
+	/**
+	 * ロック画面Viewpagerのアダプター
+	 * 
+	 * @author kohirose
+	 * 
+	 */
 	public class LockPagerAdapter extends PagerAdapter {
 		public static final String PAGE_LOCK = "page_lock";
 		public static final String PAGE_PAGE_TRAIN_INFO_1 = "page_train_info_1";
@@ -707,10 +741,35 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 				bmp = db.getBitmp(keyDB);
 				if (bmp != null) {
 					compatibleSetBackground(view, bmp);
+				} else {
+					bmp = getSystemWallpaper();
+					if (bmp != null) {
+						compatibleSetBackground(view, bmp);
+					}
 				}
 			} else {
 				compatibleSetBackground(view, bmp);
 			}
+		}
+
+		@SuppressLint("ServiceCast")
+		final Bitmap getSystemWallpaper() {
+			if (mContext == null) {
+				return null;
+			}
+
+			final WallpaperManager wm = (WallpaperManager) mContext
+					.getSystemService(Context.WALLPAPER_SERVICE);
+			if (wm == null) {
+				return null;
+			}
+
+			final Drawable d = wm.getDrawable();
+			if (d == null) {
+				return null;
+			}
+
+			return ((BitmapDrawable) d).getBitmap();
 		}
 
 		@SuppressLint("NewApi")
@@ -772,6 +831,38 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		@Override
 		public void destroyItem(ViewGroup container, int position, Object object) {
 			container.removeView((View) object);
+		}
+	}
+
+	/**
+	 * Viewpagerのページ変更リスナー
+	 * 
+	 * @author kohirose
+	 * 
+	 */
+	private class OnLockPageChangeListener extends
+			ViewPager.SimpleOnPageChangeListener {
+		@Override
+		public void onPageScrollStateChanged(int state) {
+			switch (state) {
+			case ViewPager.SCROLL_STATE_IDLE:
+				break;
+			case ViewPager.SCROLL_STATE_SETTLING:
+				break;
+			case ViewPager.SCROLL_STATE_DRAGGING:
+				break;
+			default:
+				break;
+			}
+		}
+
+		@Override
+		public void onPageScrolled(int position, float positionOffset,
+				int positionOffsetPixels) {
+		}
+
+		@Override
+		public void onPageSelected(int position) {
 		}
 	}
 }
