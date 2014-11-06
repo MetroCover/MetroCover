@@ -54,7 +54,7 @@ public class WallpaperDetailActivity extends FragmentActivity {
 	private void setupViews(final int page) {
 		setContentView(R.layout.activity_wallpaper_detail);
 		mViewPager = (JazzyViewPager) findViewById(R.id.wallpaper_detail_viewpager);
-		mViewPager.setTransitionEffect(TransitionEffect.Tablet);
+		mViewPager.setTransitionEffect(TransitionEffect.RotateDown);
 		mViewPager.setPageMargin(30);
 		mAdapter = new WallpaperDetailPagerAdapter(getSupportFragmentManager());
 		mViewPager.setAdapter(mAdapter);

@@ -1,3 +1,19 @@
+/**
+ * Copyright 2013 Jeremy Feinstein
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+ */
+
 package metro.k.cover.view;
 
 import metro.k.cover.R;
@@ -12,12 +28,12 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
 
-public class OutlineContainer extends FrameLayout implements Animatable {
+public class JazzyOutlineContainer extends FrameLayout implements Animatable {
 
 	private Paint mOutlinePaint;
-	
+
 	private boolean mIsRunning = false;
-    private long mStartTime;
+	private long mStartTime;
 	private float mAlpha = 1.0f;
 	private static final long ANIMATION_DURATION = 500;
 	private static final long FRAME_DURATION = 1000 / 60;
@@ -28,15 +44,18 @@ public class OutlineContainer extends FrameLayout implements Animatable {
 		}
 	};
 
-	public OutlineContainer(Context context) {
+	public JazzyOutlineContainer(Context context) {
 		super(context);
 		init();
 	}
-	public OutlineContainer(Context context, AttributeSet attrs) {
+
+	public JazzyOutlineContainer(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		init();
 	}
-	public OutlineContainer(Context context, AttributeSet attrs, int defStyle) {
+
+	public JazzyOutlineContainer(Context context, AttributeSet attrs,
+			int defStyle) {
 		super(context, attrs, defStyle);
 		init();
 	}
@@ -44,26 +63,27 @@ public class OutlineContainer extends FrameLayout implements Animatable {
 	private void init() {
 		mOutlinePaint = new Paint();
 		mOutlinePaint.setAntiAlias(true);
-		mOutlinePaint.setStrokeWidth(Util.dpToPx(getResources(), 2));
+		mOutlinePaint.setStrokeWidth(ViewUtilities.dpToPx(getResources(), 2));
 		mOutlinePaint.setColor(getResources().getColor(R.color.holo_blue));
 		mOutlinePaint.setStyle(Style.STROKE);
 
-		int padding = Util.dpToPx(getResources(), 10);
+		int padding = ViewUtilities.dpToPx(getResources(), 10);
 		setPadding(padding, padding, padding, padding);
 	}
 
 	@Override
 	protected void dispatchDraw(Canvas canvas) {
 		super.dispatchDraw(canvas);
-		int offset = Util.dpToPx(getResources(), 5);
+		int offset = ViewUtilities.dpToPx(getResources(), 5);
 		if (mOutlinePaint.getColor() != JazzyViewPager.sOutlineColor) {
 			mOutlinePaint.setColor(JazzyViewPager.sOutlineColor);
 		}
-		mOutlinePaint.setAlpha((int)(mAlpha * 255));
-		Rect rect = new Rect(offset, offset, getMeasuredWidth()-offset, getMeasuredHeight()-offset);
+		mOutlinePaint.setAlpha((int) (mAlpha * 255));
+		Rect rect = new Rect(offset, offset, getMeasuredWidth() - offset,
+				getMeasuredHeight() - offset);
 		canvas.drawRect(rect, mOutlinePaint);
 	}
-	
+
 	public void setOutlineAlpha(float alpha) {
 		mAlpha = alpha;
 	}
@@ -78,7 +98,7 @@ public class OutlineContainer extends FrameLayout implements Animatable {
 		if (mIsRunning)
 			return;
 		mIsRunning = true;
-		mStartTime = AnimationUtils.currentAnimationTimeMillis();	
+		mStartTime = AnimationUtils.currentAnimationTimeMillis();
 		post(mUpdater);
 	}
 
@@ -88,23 +108,24 @@ public class OutlineContainer extends FrameLayout implements Animatable {
 			return;
 		mIsRunning = false;
 	}
-	
+
 	private final Runnable mUpdater = new Runnable() {
-        @Override
-        public void run() {
-            long now = AnimationUtils.currentAnimationTimeMillis();
-            long duration = now - mStartTime;
-            if (duration >= ANIMATION_DURATION) {
-                mAlpha = 0.0f;
-                invalidate();
-                stop();
-                return;
-            } else {
-            	mAlpha = mInterpolator.getInterpolation(1 - duration / (float) ANIMATION_DURATION);
-                invalidate();
-            }
-            postDelayed(mUpdater, FRAME_DURATION);
-        }
-    };
+		@Override
+		public void run() {
+			long now = AnimationUtils.currentAnimationTimeMillis();
+			long duration = now - mStartTime;
+			if (duration >= ANIMATION_DURATION) {
+				mAlpha = 0.0f;
+				invalidate();
+				stop();
+				return;
+			} else {
+				mAlpha = mInterpolator.getInterpolation(1 - duration
+						/ (float) ANIMATION_DURATION);
+				invalidate();
+			}
+			postDelayed(mUpdater, FRAME_DURATION);
+		}
+	};
 
 }

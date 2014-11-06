@@ -114,6 +114,12 @@ public class SettingActivity extends Activity implements OnClickListener,
 		TextView railways_titleview = (TextView) findViewById(R.id.setting_railways_titleview);
 		Utilities.setFontTextView(railways_titleview, am, res);
 
+		// Railways
+		RelativeLayout license_layout = (RelativeLayout) findViewById(R.id.setting_license_layout);
+		license_layout.setOnClickListener(this);
+		TextView license_titleview = (TextView) findViewById(R.id.setting_license_titleview);
+		Utilities.setFontTextView(license_titleview, am, res);
+
 	}
 
 	/**
@@ -303,6 +309,11 @@ public class SettingActivity extends Activity implements OnClickListener,
 		// Railways
 		if (R.id.setting_railways_layout == viewId) {
 			startRailwaysActivity();
+			return;
+		}
+
+		// License
+		if (R.id.setting_license_layout == viewId) {
 			return;
 		}
 	}
