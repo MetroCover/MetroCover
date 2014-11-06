@@ -62,39 +62,11 @@ public final class Utilities {
 		}
 
 		final ArrayList<String> list = new ArrayList<String>();
-		final int size = getTargetCount(str, ",");
-		if (size > 0) {
-			for (int i = 0; i < size + 1; i++) {
-				list.add(str.split(",")[i]);
-			}
+		final String[] array = str.split(",", 0);
+		for (int i = 0; i < array.length; i++) {
+			list.add(array[i]);
 		}
 		return list;
-	}
-
-	/**
-	 * 文字列中に指定の文字列が何個含まれているか調べる
-	 * 
-	 * @param message
-	 * @param findStr
-	 * @return
-	 */
-	public static int getTargetCount(final String message, final String findStr) {
-		if (isInvalidStr(findStr) || isInvalidStr(message)) {
-			return 0;
-		}
-		if (!message.contains(findStr)) {
-			return 0;
-		}
-
-		final int len = message.length();
-		int count = 0;
-		for (int i = 0; i < len; i++) {
-			String s = String.valueOf(message.charAt(i));
-			if (s.equals(findStr)) {
-				count++;
-			}
-		}
-		return count;
 	}
 
 	/**
