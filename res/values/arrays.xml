@@ -27,6 +27,21 @@
         <item>#bb641d</item>
     </array>
 
+    <string-array name="jazzy_effects">
+        <item>Standard</item>
+        <item>Tablet</item>
+        <item>CubeIn</item>
+        <item>CubeOut</item>
+        <item>FlipVertical</item>
+        <item>FlipHorizontal</item>
+        <item>Stack</item>
+        <item>ZoomIn</item>
+        <item>ZoomOut</item>
+        <item>RotateUp</item>
+        <item>RotateDown</item>
+        <item>Accordion</item>
+    </string-array>
+    
     <!-- 千代田線 -->
     <string-array name="chiyoda_railway_stations">
         <item>@string/station_kitaayase</item>

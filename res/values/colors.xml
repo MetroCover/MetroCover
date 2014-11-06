@@ -16,4 +16,5 @@
     <color name="list_item_off">#00000000</color>
     <color name="list_item_on">#c0c0c0</color>
 
+    <color name="holo_blue">#FF33E5B5</color>
 </resources>

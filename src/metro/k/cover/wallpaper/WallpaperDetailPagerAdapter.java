@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import metro.k.cover.ImageCache;
 import metro.k.cover.R;
 import metro.k.cover.Utilities;
+import metro.k.cover.view.JazzyViewPager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
@@ -47,6 +48,23 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 
 	public WallpaperDetailPagerAdapter(FragmentManager fm) {
 		super(fm);
+	}
+
+	@Override
+	public Object instantiateItem(ViewGroup container, final int position) {
+		Object obj = super.instantiateItem(container, position);
+		((JazzyViewPager) WallpaperDetailActivity.getViewPager())
+				.setObjectForPosition(obj, position);
+		return obj;
+	}
+	
+	@Override
+	public boolean isViewFromObject(View view, Object object) {
+	    if(object != null){
+	        return ((Fragment)object).getView() == view;
+	    }else{
+	        return false;
+	    }
 	}
 
 	@Override

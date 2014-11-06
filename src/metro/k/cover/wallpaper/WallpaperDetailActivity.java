@@ -3,6 +3,8 @@ package metro.k.cover.wallpaper;
 import metro.k.cover.ImageCache;
 import metro.k.cover.R;
 import metro.k.cover.Utilities;
+import metro.k.cover.view.JazzyViewPager;
+import metro.k.cover.view.JazzyViewPager.TransitionEffect;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -20,7 +22,7 @@ import android.support.v4.view.ViewPager;
  */
 public class WallpaperDetailActivity extends FragmentActivity {
 
-	private static ViewPager mViewPager;
+	private static JazzyViewPager mViewPager;
 	private static WallpaperDetailPagerAdapter mAdapter;
 
 	public static final int REQUEST_CODE_HOMEE_WALLPAPER = 1231;
@@ -51,7 +53,9 @@ public class WallpaperDetailActivity extends FragmentActivity {
 
 	private void setupViews(final int page) {
 		setContentView(R.layout.activity_wallpaper_detail);
-		mViewPager = (ViewPager) findViewById(R.id.wallpaper_detail_viewpager);
+		mViewPager = (JazzyViewPager) findViewById(R.id.wallpaper_detail_viewpager);
+		mViewPager.setTransitionEffect(TransitionEffect.Tablet);
+		mViewPager.setPageMargin(30);
 		mAdapter = new WallpaperDetailPagerAdapter(getSupportFragmentManager());
 		mViewPager.setAdapter(mAdapter);
 		mViewPager.setCurrentItem(page);
