@@ -3,6 +3,7 @@
 
     <string name="cancel">キャンセル</string>
     <string name="common_err">何らかのエラーが発生しました。</string>
+    <string name="complete">完了</string>
     <string name="lock_missed_call_number_withheld">非通知着信</string>
     <string name="lock_nothing">なし</string>
     <string name="lock_password">パスワード</string>

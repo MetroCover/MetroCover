@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.KeyguardManager;
 import android.content.Context;
@@ -20,7 +21,9 @@ import android.graphics.Point;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.view.Display;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -214,6 +217,12 @@ public final class Utilities {
 		}
 	}
 
+	/**
+	 * Homee壁紙きせかえの壁紙のテーマアプリパッケージのリストを取得する
+	 * 
+	 * @param context
+	 * @return
+	 */
 	public static ArrayList<String> getHomeeWallpapers(final Context context) {
 		Intent intent = new Intent(INTENT);
 		intent.addCategory(ACTION);
@@ -410,6 +419,25 @@ public final class Utilities {
 			window.clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
 			window.clearFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
 		} catch (Exception e) {
+		}
+	}
+
+	/**
+	 * バージョンによってsetBackground()メソッド変える
+	 * 
+	 * @param view
+	 * @param d
+	 */
+	@SuppressLint("NewApi")
+	public static void setBackground(View view, Drawable d) {
+		if (view == null || d == null) {
+			return;
+		}
+
+		if (Build.VERSION.SDK_INT >= 16) {
+			view.setBackground(d);
+		} else {
+			view.setBackgroundDrawable(d);
 		}
 	}
 }

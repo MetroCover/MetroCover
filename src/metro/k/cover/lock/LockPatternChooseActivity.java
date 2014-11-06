@@ -18,7 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class ChooseLockPattern extends Activity implements
+public class LockPatternChooseActivity extends Activity implements
 		LockPatternView.OnPatternListener {
 
 	// pass
@@ -414,7 +414,7 @@ public class ChooseLockPattern extends Activity implements
 		if (mCurrentPattern.equals(input)
 				|| Utilities.getMasterPattern(getApplicationContext(),
 						compareMasterStr)) {
-			Intent intent = new Intent(this, SelectSecurityActivity.class);
+			Intent intent = new Intent(this, LockSecurityChooseActivity.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(intent);
 		} else {

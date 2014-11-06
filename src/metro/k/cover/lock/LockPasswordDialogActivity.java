@@ -183,7 +183,7 @@ public class LockPasswordDialogActivity extends Activity implements
 		}
 
 		// パスワード成功
-		Intent intent = new Intent(this, SelectSecurityActivity.class);
+		Intent intent = new Intent(this, LockSecurityChooseActivity.class);
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		startActivity(intent);
 	}

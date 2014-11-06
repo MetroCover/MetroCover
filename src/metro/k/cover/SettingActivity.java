@@ -1,10 +1,9 @@
 package metro.k.cover;
 
-import metro.k.cover.lock.ChooseLockPattern;
-import metro.k.cover.lock.LockService;
-import metro.k.cover.lock.LockUtil;
 import metro.k.cover.lock.LockPasswordDialogActivity;
-import metro.k.cover.lock.SelectSecurityActivity;
+import metro.k.cover.lock.LockPatternChooseActivity;
+import metro.k.cover.lock.LockSecurityChooseActivity;
+import metro.k.cover.lock.LockService;
 import metro.k.cover.wallpaper.WallpaperDetailActivity;
 import android.app.Activity;
 import android.content.Intent;
@@ -213,7 +212,7 @@ public class SettingActivity extends Activity implements OnClickListener,
 
 		// none
 		if (res.getInteger(R.integer.lock_security_type_none) == mCurrentSecurityType) {
-			intent = new Intent(this, SelectSecurityActivity.class);
+			intent = new Intent(this, LockSecurityChooseActivity.class);
 			Utilities.startActivitySafely(intent, this);
 			return;
 		}
@@ -228,7 +227,7 @@ public class SettingActivity extends Activity implements OnClickListener,
 
 		// pattern
 		if (res.getInteger(R.integer.lock_security_type_pattern) == mCurrentSecurityType) {
-			intent = new Intent(this, ChooseLockPattern.class);
+			intent = new Intent(this, LockPatternChooseActivity.class);
 			intent.putExtra(Utilities.KEY_PATTERN_IS_FROM_SETTING, true);
 			Utilities.startActivitySafely(intent, this);
 			return;

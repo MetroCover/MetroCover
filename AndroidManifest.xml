@@ -45,11 +45,11 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="metro.k.cover.lock.ChooseLockPattern"
+            android:name="metro.k.cover.lock.LockPatternChooseActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="metro.k.cover.lock.SelectSecurityActivity"
+            android:name="metro.k.cover.lock.LockSecurityChooseActivity"
             android:label="@string/app_name" >
         </activity>
         <activity

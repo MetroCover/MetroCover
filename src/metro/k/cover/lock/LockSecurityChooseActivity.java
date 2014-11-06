@@ -20,7 +20,7 @@ import android.widget.Toast;
 /**
  * セキュリティ設定画面
  */
-public class SelectSecurityActivity extends Activity implements OnClickListener {
+public class LockSecurityChooseActivity extends Activity implements OnClickListener {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +72,7 @@ public class SelectSecurityActivity extends Activity implements OnClickListener 
 
 		// Password
 		if (R.id.select_security_password_layout == viewId) {
-			intent = new Intent(SelectSecurityActivity.this,
+			intent = new Intent(LockSecurityChooseActivity.this,
 					LockPasswordDialogActivity.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(intent);
@@ -85,7 +85,7 @@ public class SelectSecurityActivity extends Activity implements OnClickListener 
 			PreferenceCommon.setSecurityType(getApplicationContext(),
 					getResources()
 							.getInteger(R.integer.lock_security_type_none));
-			intent = new Intent(SelectSecurityActivity.this,
+			intent = new Intent(LockSecurityChooseActivity.this,
 					SettingActivity.class);
 			startActivitySafely(intent, Intent.FLAG_ACTIVITY_NEW_TASK);
 			return;
@@ -93,8 +93,8 @@ public class SelectSecurityActivity extends Activity implements OnClickListener 
 
 		// Pattern
 		if (R.id.select_security_pattern_layout == viewId) {
-			intent = new Intent(SelectSecurityActivity.this,
-					ChooseLockPattern.class);
+			intent = new Intent(LockSecurityChooseActivity.this,
+					LockPatternChooseActivity.class);
 			startActivitySafely(intent, Intent.FLAG_ACTIVITY_NEW_TASK);
 			return;
 		}

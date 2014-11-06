@@ -1,9 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:layout_gravity="center"
     android:gravity="center"
+    android:background="#80000000"
     android:orientation="vertical" >
 
     <TextView
@@ -11,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@color/metro_main_tranc_color"
+        android:background="@color/metro_main_color"
         android:paddingBottom="10dip"
         android:paddingLeft="15dip"
         android:paddingRight="15dip"
@@ -34,6 +35,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/selector_metro_tranceblue"
         android:gravity="center"
+        android:layout_marginTop="10dip"
         android:paddingBottom="20dip"
         android:paddingLeft="100dip"
         android:paddingRight="100dip"

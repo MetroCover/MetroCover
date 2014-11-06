@@ -23,6 +23,7 @@ import android.view.animation.Animation.AnimationListener;
 @SuppressLint("HandlerLeak")
 public class LockUtil {
 
+	private static final int MIN_PATTERN_COUNT = 4;
 	private static LockUtil sInstance = new LockUtil();
 
 	// LockView
@@ -43,10 +44,6 @@ public class LockUtil {
 		}
 		return sInstance;
 	}
-
-	/********************************************************
-	 * 画面系
-	 *********************************************************/
 
 	/**
 	 * ロック画面を作成する
@@ -148,7 +145,6 @@ public class LockUtil {
 	public void lock(Context context) {
 		lock(context.getApplicationContext(), false);
 	}
-
 
 	/**
 	 * 画面をロック（ロック画面を表示）する
@@ -285,17 +281,25 @@ public class LockUtil {
 			}
 		}
 	}
-	
+
+	/**
+	 * パターンロックのマスターコード比較
+	 * 
+	 * @param context
+	 * @param inputPattern
+	 * @return
+	 */
 	public boolean getMasterPattern(Context context, String inputPattern) {
 		if (inputPattern == null) {
 			return false;
 		}
 
-		if (inputPattern.length() < 5) {
+		if (inputPattern.length() <= MIN_PATTERN_COUNT) {
 			return false;
 		}
 
-		final String masterPattern = "12369";
+		final String masterPattern = context.getResources().getString(
+				R.string.lock_pattern_master);
 		return masterPattern.equals(inputPattern);
 	}
 }

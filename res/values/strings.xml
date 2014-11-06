@@ -5,6 +5,7 @@
     <string name="app_name">MetroCover</string>
     <string name="cancel">CANCEL</string>
     <string name="common_err">Sorry...Error Occurred</string>
+    <string name="complete">COMPLETE</string>
     <string name="font_free_wing">freewing.ttf</string>
     <string name="lock_get_calling">Calling</string>
     <string name="lock_missed_call_number_withheld">Unknown call(s)</string>
