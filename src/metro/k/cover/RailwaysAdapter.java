@@ -104,6 +104,88 @@ public class RailwaysAdapter extends ArrayAdapter<Railways> {
 	}
 
 	/**
+	 * チェックがついている路線リスト
+	 * 
+	 * @return
+	 */
+	public ArrayList<Railways> getCheckedItemList() {
+		final ArrayList<Railways> checkedList = new ArrayList<Railways>();
+		if (list == null) {
+			return checkedList;
+		}
+		final int size = list.size();
+		if (size == 0) {
+			return checkedList;
+		}
+
+		for (int i = 0; i < size; i++) {
+			if (list.get(i).getChecked()) {
+				checkedList.add(list.get(i));
+			}
+		}
+
+		return checkedList;
+	}
+
+	/**
+	 * チェックがついている路線のAPI-IDをつなげたもの
+	 * 
+	 * @return
+	 */
+	public String getCheckedItemIDList() {
+		if (list == null) {
+			return "";
+		}
+
+		final int size = list.size();
+		if (size == 0) {
+			return "";
+		}
+
+		String str = "";
+		for (int i = 0; i < size; i++) {
+			if (list.get(i).getChecked()) {
+				str += list.get(i).getCode() + ",";
+			}
+		}
+
+		if (!Utilities.isInvalidStr(str)) {
+			final int len = str.length();
+			str = str.substring(0, len - 1);
+		}
+		return str;
+	}
+
+	/**
+	 * チェックがついている路線の番号をつなげたもの
+	 * 
+	 * @return
+	 */
+	public String getCheckedItemNumberList() {
+		if (list == null) {
+			return "";
+		}
+
+		final int size = list.size();
+		if (size == 0) {
+			return "";
+		}
+
+		String str = "";
+		for (int i = 0; i < size; i++) {
+			if (list.get(i).getChecked()) {
+				str += list.get(i).getRailwayNumber() + ",";
+			}
+		}
+
+		if (!Utilities.isInvalidStr(str)) {
+			final int len = str.length();
+			str = str.substring(0, len - 1);
+		}
+		return str;
+	}
+
+	/**
 	 * ViewHolder
 	 */
 	static class ViewHolder {

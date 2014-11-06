@@ -106,6 +106,13 @@ public class SettingActivity extends Activity implements OnClickListener,
 		wallpapers_layout.setOnClickListener(this);
 		TextView wallpapers_titleview = (TextView) findViewById(R.id.setting_wallpapers_titleview);
 		Utilities.setFontTextView(wallpapers_titleview, am, res);
+
+		// Railways
+		RelativeLayout railways_layout = (RelativeLayout) findViewById(R.id.setting_railways_layout);
+		railways_layout.setOnClickListener(this);
+		TextView railways_titleview = (TextView) findViewById(R.id.setting_railways_titleview);
+		Utilities.setFontTextView(railways_titleview, am, res);
+
 	}
 
 	/**
@@ -242,6 +249,14 @@ public class SettingActivity extends Activity implements OnClickListener,
 		Utilities.startActivitySafely(intent, this);
 	}
 
+	/**
+	 * 路線設定画面へ遷移
+	 */
+	private void startRailwaysActivity() {
+		Intent intent = new Intent(this, RailwaysActivity.class);
+		Utilities.startActivitySafely(intent, this);
+	}
+
 	@Override
 	public void onClick(View v) {
 		final int viewId = v.getId();
@@ -281,6 +296,12 @@ public class SettingActivity extends Activity implements OnClickListener,
 		// Wallpapers
 		if (R.id.setting_wallpapers_layout == viewId) {
 			startWallpaperDetailActivity();
+			return;
+		}
+
+		// Railways
+		if (R.id.setting_railways_layout == viewId) {
+			startRailwaysActivity();
 			return;
 		}
 	}

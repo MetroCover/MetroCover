@@ -31,6 +31,24 @@ public final class PreferenceCommon {
 		return sp.getString(KEY_SET_RAILWAYS_INFO, "");
 	}
 
+	// 遅延情報を出す路線（番号）
+	private static final String KEY_SET_RAILWAYS_NUMVER = "set_railways_number";
+
+	public static void setRailwaysNumber(final Context context,
+			final String railways) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sp.edit();
+		editor.putString(KEY_SET_RAILWAYS_NUMVER, railways);
+		editor.apply();
+	}
+
+	public static String getRailwaysNumber(final Context context) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
+		return sp.getString(KEY_SET_RAILWAYS_NUMVER, "");
+	}
+
 	// チュートリアルを起動したかどうか
 	private static final String KEY_SET_TUTORIAL_OPEND = "set_tutorial_opend";
 

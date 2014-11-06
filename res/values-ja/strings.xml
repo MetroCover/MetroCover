@@ -38,6 +38,7 @@
     <string name="lock_system_security_setting">システムのロック画面</string>
     <string name="lock_wrong_pass">パスワードが間違っています</string>
     <string name="next">次へ</string>
+    <string name="railways">路線</string>
     <string name="railway_chiyoda">千代田線</string>
     <string name="railway_fukutoshin">副都心線</string>
     <string name="railway_ginza">銀座線</string>

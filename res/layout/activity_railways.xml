@@ -1,0 +1,77 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_gray"
+    android:orientation="vertical"
+    tools:context="metro.k.cover.SettingActivity" >
+
+    <!-- タイトル -->
+
+    <LinearLayout
+        android:id="@+id/railways_titlelayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/railways_titleview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/metro_main_color"
+            android:gravity="center"
+            android:paddingBottom="18dip"
+            android:paddingTop="18dip"
+            android:text="@string/railways"
+            android:textColor="#FFF"
+            android:textSize="28sp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:background="?android:attr/listDivider"
+            android:contentDescription="@string/app_name" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/railways_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/railways_buttons"
+        android:layout_below="@+id/railways_titlelayout"
+        android:fadeScrollbars="false" />
+
+    <LinearLayout
+        android:id="@+id/railways_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:weightSum="2" >
+
+        <Button
+            android:id="@+id/railways_cancel_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="0.5dip"
+            android:layout_weight="1"
+            android:background="@drawable/selector_metro_tranceblue"
+            android:paddingBottom="10dip"
+            android:paddingTop="10dip"
+            android:text="@string/cancel"
+            android:textColor="#FFF" />
+
+        <Button
+            android:id="@+id/railways_complete_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0.5dip"
+            android:layout_weight="1"
+            android:background="@drawable/selector_metro_tranceblue"
+            android:paddingBottom="10dip"
+            android:paddingTop="10dip"
+            android:text="@string/complete"
+            android:textColor="#FFF" />
+    </LinearLayout>
+
+</RelativeLayout>

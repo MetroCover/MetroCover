@@ -30,15 +30,20 @@ public class TutorialSecond extends Fragment implements OnClickListener {
 		final View view = inflater.inflate(R.layout.tutorial_second, null);
 
 		// ListViewの設定
-		setupArraylists();
-		final ListView listview = (ListView) view
-				.findViewById(R.id.tutorial_second_listview);
-		final ArrayAdapter<Railways> adapter = new RailwaysAdapter(
-				getActivity(), R.layout.list_icon_title_check_at);
-		for (int i = 0; i < mList.size(); i++) {
-			adapter.add(mList.get(i));
+		mList = Utilities.getAllRailways(getActivity());
+		if (mList != null) {
+			final int size = mList.size();
+			if (size > 0) {
+				final ListView listview = (ListView) view
+						.findViewById(R.id.tutorial_second_listview);
+				final ArrayAdapter<Railways> adapter = new RailwaysAdapter(
+						getActivity(), R.layout.list_icon_title_check_at);
+				for (int i = 0; i < size; i++) {
+					adapter.add(mList.get(i));
+				}
+				listview.setAdapter(adapter);
+			}
 		}
-		listview.setAdapter(adapter);
 
 		final Resources res = getResources();
 		final AssetManager am = getActivity().getAssets();
@@ -57,73 +62,6 @@ public class TutorialSecond extends Fragment implements OnClickListener {
 		next.setOnClickListener(this);
 
 		return view;
-	}
-
-	private void setupArraylists() {
-		final Resources res = getResources();
-
-		// 千代田線
-		Railways item = new Railways(Railways.RAILWAY_NUM_CHIYODA,
-				Railways.RAILWAY_CODE_CHIYODA,
-				res.getString(R.string.railway_chiyoda),
-				res.getDrawable(R.drawable.ic_chiyoda), false);
-		mList.add(item);
-
-		// 副都心線
-		item = new Railways(Railways.RAILWAY_NUM_FUKUTOSHIN,
-				Railways.RAILWAY_CODE_FUKUTOSHIN,
-				res.getString(R.string.railway_fukutoshin),
-				res.getDrawable(R.drawable.ic_fukutoshin), false);
-		mList.add(item);
-
-		// 銀座線
-		item = new Railways(Railways.RAILWAY_NUM_GINZA,
-				Railways.RAILWAY_CODE_GINZA,
-				res.getString(R.string.railway_ginza),
-				res.getDrawable(R.drawable.ic_ginza), false);
-		mList.add(item);
-
-		// 半蔵門線
-		item = new Railways(Railways.RAILWAY_NUM_HANZOMON,
-				Railways.RAILWAY_CODE_HANZOMON,
-				res.getString(R.string.railway_hanzomon),
-				res.getDrawable(R.drawable.ic_hanzomon), false);
-		mList.add(item);
-
-		// 日比谷線
-		item = new Railways(Railways.RAILWAY_NUM_HIBIYA,
-				Railways.RAILWAY_CODE_GINZA,
-				res.getString(R.string.railway_hibiya),
-				res.getDrawable(R.drawable.ic_hibiya), false);
-		mList.add(item);
-
-		// 丸ノ内線
-		item = new Railways(Railways.RAILWAY_NUM_MARUNOUCHI,
-				Railways.RAILWAY_CODE_MARUNOUCHI,
-				res.getString(R.string.railway_marunouchi),
-				res.getDrawable(R.drawable.ic_marunouchi), false);
-		mList.add(item);
-
-		// 南北線
-		item = new Railways(Railways.RAILWAY_NUM_NAMBOKU,
-				Railways.RAILWAY_CODE_NAMBOKU,
-				res.getString(R.string.railway_namboku),
-				res.getDrawable(R.drawable.ic_namboku), false);
-		mList.add(item);
-
-		// 東西線
-		item = new Railways(Railways.RAILWAY_NUM_TOZAI,
-				Railways.RAILWAY_CODE_TOZAI,
-				res.getString(R.string.railway_tozai),
-				res.getDrawable(R.drawable.ic_tozai), false);
-		mList.add(item);
-
-		// 有楽町線
-		item = new Railways(Railways.RAILWAY_NUM_YURAKUCHO,
-				Railways.RAILWAY_CODE_YURAKUCHO,
-				res.getString(R.string.railway_yurakucho),
-				res.getDrawable(R.drawable.ic_yurakucho), false);
-		mList.add(item);
 	}
 
 	@Override
