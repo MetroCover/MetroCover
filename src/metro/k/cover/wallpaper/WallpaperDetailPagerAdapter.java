@@ -258,7 +258,7 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 		View.OnClickListener li = new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				final ArrayList<String> homees = Utilities
+				final ArrayList<String> homees = WallpaperUtilities
 						.getHomeeWallpapers(activity);
 				if (homees == null) {
 					pickupGallery(activity, page);

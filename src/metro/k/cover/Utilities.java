@@ -1,19 +1,13 @@
 package metro.k.cover;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -24,7 +18,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.view.Display;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,23 +25,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public final class Utilities {
-
-	// パターンセキュリティの最小の石数
-	public static final int PATTERN_MINIMUM_LENGTH = 4;
-
-	// パターンロック横画面対応時のStateを覚えておくためのKey
-	public static final String CONFIGURATION_STATE_STATE = "lock_pattern_configuration_state_state";
-	public static final String CONFIGURATION_STATE_PATTERN = "lock_pattern_configuration_state_pattern";
-
-	// パターンロック画面に設定画面からきたかどうかの判定のKey
-	public static final String KEY_PATTERN_IS_FROM_SETTING = "lock_pattern_from_setting";
-
-	// パスワードロック画面に設定画面からきたかどうかの判定のKey
-	public static final String KEY_PASSWORD_IS_FROM_SETTING = "lock_password_from_setting";
-
-	// Homeeの壁紙を取得する
-	public static final String INTENT = "com.cfinc.launcehr2.THEMES";
-	public static final String ACTION = "android.intent.category.DEFAULT";
 
 	/**
 	 * 「,」区切りのStringをArrayにして返す
@@ -137,27 +113,6 @@ public final class Utilities {
 	}
 
 	/**
-	 * マスターパターンと合致するか
-	 * 
-	 * @param context
-	 * @param inputPattern
-	 * @return
-	 */
-	public static boolean getMasterPattern(Context context, String inputPattern) {
-		if (inputPattern == null) {
-			return false;
-		}
-
-		if (inputPattern.length() < PATTERN_MINIMUM_LENGTH) {
-			return false;
-		}
-
-		final String masterPattern = context.getApplicationContext()
-				.getResources().getString(R.string.lock_pattern_master);
-		return masterPattern.equals(inputPattern);
-	}
-
-	/**
 	 * エラー発生時に共通エラーを発生させるstartActivity()
 	 * 
 	 * @param intent
@@ -190,63 +145,6 @@ public final class Utilities {
 					context.getResources().getString(R.string.common_err),
 					Toast.LENGTH_SHORT).show();
 		} catch (Exception e) {
-		}
-	}
-
-	/**
-	 * Homee壁紙きせかえの壁紙のテーマアプリパッケージのリストを取得する
-	 * 
-	 * @param context
-	 * @return
-	 */
-	public static ArrayList<String> getHomeeWallpapers(final Context context) {
-		Intent intent = new Intent(INTENT);
-		intent.addCategory(ACTION);
-
-		final PackageManager pm = context.getPackageManager();
-		if (pm == null) {
-			return null;
-		}
-
-		List<ResolveInfo> themes = new ArrayList<ResolveInfo>();
-		try {
-			themes = pm.queryIntentActivities(intent, 0);
-		} catch (Exception e) {
-		}
-		ThemeComparator c = new ThemeComparator();
-		Collections.sort(themes, c);
-
-		final int size = themes.size();
-		ArrayList<String> packageList = new ArrayList<String>();
-		if (size == 0) {
-			return packageList;
-		}
-
-		for (int i = 0; i < size; i++) {
-			String appPackageName = (themes.get(i)).activityInfo.packageName
-					.toString();
-			packageList.add(appPackageName);
-		}
-		return packageList;
-	}
-
-	/**
-	 * Homeeのテーマパッケージをソートする
-	 * 
-	 * @author kohirose
-	 * 
-	 */
-	public static class ThemeComparator implements Comparator<ResolveInfo> {
-		@Override
-		public int compare(ResolveInfo o1, ResolveInfo o2) {
-			final File f_1 = new File(
-					o1.activityInfo.applicationInfo.publicSourceDir);
-			final File f_2 = new File(
-					o2.activityInfo.applicationInfo.publicSourceDir);
-			final Integer value_1 = (int) f_1.lastModified();
-			final Integer value_2 = (int) f_2.lastModified();
-			final int result = value_2.compareTo(value_1);
-			return result;
 		}
 	}
 
@@ -318,86 +216,6 @@ public final class Utilities {
 		return new BitmapDrawable(c.getResources(), bitmapResized);
 	}
 
-	private static KeyguardManager mKeyguardManager;
-	private static KeyguardManager.KeyguardLock mKeyguardLock;
-
-	/**
-	 * キーガード(OS標準の画面ロック)を無効にする
-	 * 
-	 * @param context
-	 */
-	@SuppressWarnings("deprecation")
-	public static void disableKeyguard(Context context) {
-		if (context == null) {
-			return;
-		}
-
-		if (mKeyguardManager == null) {
-			mKeyguardManager = (KeyguardManager) context
-					.getApplicationContext().getSystemService(
-							Context.KEYGUARD_SERVICE);
-			mKeyguardLock = mKeyguardManager.newKeyguardLock("LockUtil");
-		}
-
-		try {
-			mKeyguardLock.disableKeyguard();
-		} catch (SecurityException se) {
-		}
-	}
-
-	/**
-	 * キーガード(OS標準の画面ロック)を有効にする
-	 */
-	@SuppressWarnings("deprecation")
-	public static void enableKeyguard(final Context context) {
-		if (context == null) {
-			return;
-		}
-
-		if (mKeyguardLock != null) {
-			mKeyguardLock.reenableKeyguard();
-			mKeyguardManager = null;
-			mKeyguardLock = null;
-		} else {
-			if (mKeyguardManager == null) {
-				mKeyguardManager = (KeyguardManager) context
-						.getApplicationContext().getSystemService(
-								Context.KEYGUARD_SERVICE);
-			}
-
-			if (mKeyguardLock == null) {
-				try {
-					mKeyguardLock = mKeyguardManager
-							.newKeyguardLock("LockUtil");
-					mKeyguardLock.reenableKeyguard();
-				} catch (SecurityException e) {
-				}
-				mKeyguardManager = null;
-				mKeyguardLock = null;
-			}
-		}
-	}
-
-	public static void disableKeyguardWindow(final Activity activity) {
-		try {
-			Window window = activity.getWindow();
-			window.setFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED,
-					WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
-			window.setFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD,
-					WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
-		} catch (Exception e) {
-		}
-	}
-
-	public static void enableKeyguardWindow(final Activity activity) {
-		try {
-			Window window = activity.getWindow();
-			window.clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
-			window.clearFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
-		} catch (Exception e) {
-		}
-	}
-
 	/**
 	 * バージョンによってsetBackground()メソッド変える
 	 * 
@@ -415,140 +233,5 @@ public final class Utilities {
 		} else {
 			view.setBackgroundDrawable(d);
 		}
-	}
-
-	/**
-	 * 全路線取得
-	 * 
-	 * @param context
-	 * @return
-	 */
-	public static ArrayList<Railways> getAllRailways(final Context context) {
-		if (context == null) {
-			return null;
-		}
-
-		final Resources res = context.getResources();
-		final ArrayList<Railways> list = new ArrayList<Railways>();
-		// 千代田線
-		Railways item = new Railways(Railways.RAILWAY_NUM_CHIYODA,
-				Railways.RAILWAY_CODE_CHIYODA,
-				res.getString(R.string.railway_chiyoda),
-				res.getDrawable(R.drawable.ic_chiyoda), false);
-		list.add(item);
-
-		// 副都心線
-		item = new Railways(Railways.RAILWAY_NUM_FUKUTOSHIN,
-				Railways.RAILWAY_CODE_FUKUTOSHIN,
-				res.getString(R.string.railway_fukutoshin),
-				res.getDrawable(R.drawable.ic_fukutoshin), false);
-		list.add(item);
-
-		// 銀座線
-		item = new Railways(Railways.RAILWAY_NUM_GINZA,
-				Railways.RAILWAY_CODE_GINZA,
-				res.getString(R.string.railway_ginza),
-				res.getDrawable(R.drawable.ic_ginza), false);
-		list.add(item);
-
-		// 半蔵門線
-		item = new Railways(Railways.RAILWAY_NUM_HANZOMON,
-				Railways.RAILWAY_CODE_HANZOMON,
-				res.getString(R.string.railway_hanzomon),
-				res.getDrawable(R.drawable.ic_hanzomon), false);
-		list.add(item);
-
-		// 日比谷線
-		item = new Railways(Railways.RAILWAY_NUM_HIBIYA,
-				Railways.RAILWAY_CODE_GINZA,
-				res.getString(R.string.railway_hibiya),
-				res.getDrawable(R.drawable.ic_hibiya), false);
-		list.add(item);
-
-		// 丸ノ内線
-		item = new Railways(Railways.RAILWAY_NUM_MARUNOUCHI,
-				Railways.RAILWAY_CODE_MARUNOUCHI,
-				res.getString(R.string.railway_marunouchi),
-				res.getDrawable(R.drawable.ic_marunouchi), false);
-		list.add(item);
-
-		// 南北線
-		item = new Railways(Railways.RAILWAY_NUM_NAMBOKU,
-				Railways.RAILWAY_CODE_NAMBOKU,
-				res.getString(R.string.railway_namboku),
-				res.getDrawable(R.drawable.ic_namboku), false);
-		list.add(item);
-
-		// 東西線
-		item = new Railways(Railways.RAILWAY_NUM_TOZAI,
-				Railways.RAILWAY_CODE_TOZAI,
-				res.getString(R.string.railway_tozai),
-				res.getDrawable(R.drawable.ic_tozai), false);
-		list.add(item);
-
-		// 有楽町線
-		item = new Railways(Railways.RAILWAY_NUM_YURAKUCHO,
-				Railways.RAILWAY_CODE_YURAKUCHO,
-				res.getString(R.string.railway_yurakucho),
-				res.getDrawable(R.drawable.ic_yurakucho), false);
-		list.add(item);
-		return list;
-	}
-
-	public static Railways getRailwaysFromNumber(final Context context,
-			final int num, final boolean checked) {
-		final Resources res = context.getResources();
-		Railways railways = null;
-		switch (num) {
-		case Railways.RAILWAY_NUM_CHIYODA:
-			railways = new Railways(Railways.RAILWAY_NUM_CHIYODA,
-					Railways.RAILWAY_CODE_CHIYODA,
-					res.getString(R.string.railway_chiyoda),
-					res.getDrawable(R.drawable.ic_chiyoda), checked);
-		case Railways.RAILWAY_NUM_FUKUTOSHIN:
-			railways = new Railways(Railways.RAILWAY_NUM_FUKUTOSHIN,
-					Railways.RAILWAY_CODE_FUKUTOSHIN,
-					res.getString(R.string.railway_fukutoshin),
-					res.getDrawable(R.drawable.ic_fukutoshin), checked);
-		case Railways.RAILWAY_NUM_GINZA:
-			railways = new Railways(Railways.RAILWAY_NUM_GINZA,
-					Railways.RAILWAY_CODE_GINZA,
-					res.getString(R.string.railway_ginza),
-					res.getDrawable(R.drawable.ic_ginza), checked);
-		case Railways.RAILWAY_NUM_HANZOMON:
-			railways = new Railways(Railways.RAILWAY_NUM_HANZOMON,
-					Railways.RAILWAY_CODE_HANZOMON,
-					res.getString(R.string.railway_hanzomon),
-					res.getDrawable(R.drawable.ic_hanzomon), checked);
-		case Railways.RAILWAY_NUM_HIBIYA:
-			railways = new Railways(Railways.RAILWAY_NUM_HIBIYA,
-					Railways.RAILWAY_CODE_GINZA,
-					res.getString(R.string.railway_hibiya),
-					res.getDrawable(R.drawable.ic_hibiya), checked);
-		case Railways.RAILWAY_NUM_MARUNOUCHI:
-			railways = new Railways(Railways.RAILWAY_NUM_MARUNOUCHI,
-					Railways.RAILWAY_CODE_MARUNOUCHI,
-					res.getString(R.string.railway_marunouchi),
-					res.getDrawable(R.drawable.ic_marunouchi), checked);
-		case Railways.RAILWAY_NUM_NAMBOKU:
-			railways = new Railways(Railways.RAILWAY_NUM_NAMBOKU,
-					Railways.RAILWAY_CODE_NAMBOKU,
-					res.getString(R.string.railway_namboku),
-					res.getDrawable(R.drawable.ic_namboku), checked);
-		case Railways.RAILWAY_NUM_TOZAI:
-			railways = new Railways(Railways.RAILWAY_NUM_TOZAI,
-					Railways.RAILWAY_CODE_TOZAI,
-					res.getString(R.string.railway_tozai),
-					res.getDrawable(R.drawable.ic_tozai), checked);
-		case Railways.RAILWAY_NUM_YURAKUCHO:
-			railways = new Railways(Railways.RAILWAY_NUM_YURAKUCHO,
-					Railways.RAILWAY_CODE_YURAKUCHO,
-					res.getString(R.string.railway_yurakucho),
-					res.getDrawable(R.drawable.ic_yurakucho), checked);
-		default:
-			break;
-		}
-
-		return railways;
 	}
 }

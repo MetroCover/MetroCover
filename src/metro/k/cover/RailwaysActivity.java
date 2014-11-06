@@ -75,7 +75,7 @@ public class RailwaysActivity extends Activity implements OnClickListener {
 	 * @return
 	 */
 	private ArrayList<Railways> getCheckedList() {
-		final ArrayList<Railways> list = Utilities.getAllRailways(this);
+		final ArrayList<Railways> list = RailwaysUtilities.getAllRailways(this);
 		final String str = PreferenceCommon.getRailwaysNumber(this);
 		final ArrayList<String> strs = Utilities.getSplitStr(str);
 		if (strs == null) {

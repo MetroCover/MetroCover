@@ -49,7 +49,7 @@ public class LockPasswordDialogActivity extends Activity implements
 				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 		isFirstTime = true;
 		isFromSetting = getIntent().getBooleanExtra(
-				Utilities.KEY_PASSWORD_IS_FROM_SETTING, false);
+				LockUtilities.KEY_PASSWORD_IS_FROM_SETTING, false);
 		setupViews();
 		setTitleView();
 	}

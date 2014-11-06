@@ -122,7 +122,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		isEnableLock = PreferenceCommon.getMetroCover(context);
 
 		if (isEnableLock) {
-			LockUtil.getInstance().disableKeyguard(context);
+			LockUtilities.getInstance().disableKeyguard(context);
 		}
 	}
 
@@ -149,8 +149,8 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			}
 		} catch (Exception e) {
 		} finally {
-			LockUtil.getInstance().lock(c, true);
-			LockUtil.getInstance().disableKeyguard(c);
+			LockUtilities.getInstance().lock(c, true);
+			LockUtilities.getInstance().disableKeyguard(c);
 		}
 	}
 
@@ -219,8 +219,8 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			if (state == TelephonyManager.CALL_STATE_RINGING) {
 				str += res.getString(R.string.lock_get_calling);
 				// ロック中に着信があったらアンロックする
-				if (LockUtil.getInstance().isShowing()) {
-					LockUtil.getInstance().unlock(getContext());
+				if (LockUtilities.getInstance().isShowing()) {
+					LockUtilities.getInstance().unlock(getContext());
 				}
 			}
 			if (state == TelephonyManager.CALL_STATE_OFFHOOK) {
@@ -481,7 +481,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 				}
 
 				if (mPassword.equals(pass) || HOMEE_SYSTEM_PASS.equals(pass)) {
-					LockUtil.getInstance().unlock(getContext());
+					LockUtilities.getInstance().unlock(getContext());
 				} else {
 					setWrongPasswordView(et, tv);
 				}
@@ -559,11 +559,11 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 				isPatternPressed = true;
 
 				if (mPattern.equals(mSecurityPattern)
-						|| LockUtil.getInstance().getMasterPattern(
+						|| LockUtilities.getInstance().getMasterPattern(
 								getContext().getApplicationContext(),
 								onlyNumStr)) {
 					tv.setVisibility(View.INVISIBLE);
-					LockUtil.getInstance().unlock(getContext());
+					LockUtilities.getInstance().unlock(getContext());
 				} else {
 					tv.setVisibility(View.VISIBLE);
 					patternView.setDisplayMode(DisplayMode.Wrong);
@@ -627,7 +627,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			return;
 		}
 		// セリュリティなし
-		LockUtil.getInstance().unlock(getContext());
+		LockUtilities.getInstance().unlock(getContext());
 	}
 
 	/**
@@ -642,7 +642,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 
 		try {
 			c.startService(new Intent(c, LockService.class));
-			LockUtil.getInstance().disableKeyguard(c);
+			LockUtilities.getInstance().disableKeyguard(c);
 		} catch (Exception e) {
 		}
 	}

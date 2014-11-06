@@ -4,6 +4,7 @@ import metro.k.cover.lock.LockPasswordDialogActivity;
 import metro.k.cover.lock.LockPatternChooseActivity;
 import metro.k.cover.lock.LockSecurityChooseActivity;
 import metro.k.cover.lock.LockService;
+import metro.k.cover.lock.LockUtilities;
 import metro.k.cover.wallpaper.WallpaperDetailActivity;
 import android.app.Activity;
 import android.content.Intent;
@@ -171,11 +172,11 @@ public class SettingActivity extends Activity implements OnClickListener,
 				isPatternLockTrack);
 
 		if (isMetroCoverEnable) {
-			Utilities.disableKeyguard(getApplicationContext());
-			Utilities.disableKeyguardWindow(this);
+			LockUtilities.disableKeyguard(getApplicationContext());
+			LockUtilities.disableKeyguardWindow(this);
 		} else {
-			Utilities.enableKeyguard(getApplicationContext());
-			Utilities.enableKeyguardWindow(this);
+			LockUtilities.enableKeyguard(getApplicationContext());
+			LockUtilities.enableKeyguardWindow(this);
 		}
 	}
 
@@ -227,7 +228,7 @@ public class SettingActivity extends Activity implements OnClickListener,
 		// pass
 		if (res.getInteger(R.integer.lock_security_type_password) == mCurrentSecurityType) {
 			intent = new Intent(this, LockPasswordDialogActivity.class);
-			intent.putExtra(Utilities.KEY_PASSWORD_IS_FROM_SETTING, true);
+			intent.putExtra(LockUtilities.KEY_PASSWORD_IS_FROM_SETTING, true);
 			startActivity(intent);
 			return;
 		}
@@ -235,7 +236,7 @@ public class SettingActivity extends Activity implements OnClickListener,
 		// pattern
 		if (res.getInteger(R.integer.lock_security_type_pattern) == mCurrentSecurityType) {
 			intent = new Intent(this, LockPatternChooseActivity.class);
-			intent.putExtra(Utilities.KEY_PATTERN_IS_FROM_SETTING, true);
+			intent.putExtra(LockUtilities.KEY_PATTERN_IS_FROM_SETTING, true);
 			Utilities.startActivitySafely(intent, this);
 			return;
 		}

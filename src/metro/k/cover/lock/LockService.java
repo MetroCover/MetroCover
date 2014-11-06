@@ -157,7 +157,7 @@ public class LockService extends Service {
 				|| Intent.ACTION_SCREEN_OFF.equals(action)
 				|| Intent.ACTION_SCREEN_ON.equals(action)) {
 			final Context c = getApplicationContext();
-			final LockUtil lu = LockUtil.getInstance();
+			final LockUtilities lu = LockUtilities.getInstance();
 			TelephonyManager tManager = null;
 			try {
 				tManager = (TelephonyManager) c
@@ -190,6 +190,6 @@ public class LockService extends Service {
 	}
 
 	public void disableKeyguard() {
-		LockUtil.getInstance().disableKeyguard(getApplicationContext());
+		LockUtilities.getInstance().disableKeyguard(getApplicationContext());
 	}
 }

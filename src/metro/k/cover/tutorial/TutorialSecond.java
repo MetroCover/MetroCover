@@ -6,6 +6,7 @@ import java.util.List;
 import metro.k.cover.R;
 import metro.k.cover.Railways;
 import metro.k.cover.RailwaysAdapter;
+import metro.k.cover.RailwaysUtilities;
 import metro.k.cover.Utilities;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
@@ -30,7 +31,7 @@ public class TutorialSecond extends Fragment implements OnClickListener {
 		final View view = inflater.inflate(R.layout.tutorial_second, null);
 
 		// ListViewの設定
-		mList = Utilities.getAllRailways(getActivity());
+		mList = RailwaysUtilities.getAllRailways(getActivity());
 		if (mList != null) {
 			final int size = mList.size();
 			if (size > 0) {

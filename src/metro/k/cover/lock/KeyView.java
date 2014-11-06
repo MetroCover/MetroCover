@@ -111,7 +111,7 @@ public class KeyView extends View implements OnTouchListener, AnimationListener 
 				if (mKeyViewListener != null) {
 					mKeyViewListener.onUnLock();
 				} else {
-					LockUtil.getInstance().unlock(mContext);
+					LockUtilities.getInstance().unlock(mContext);
 				}
 				return true;
 			}

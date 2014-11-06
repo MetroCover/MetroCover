@@ -113,7 +113,7 @@ public class WallpaperHomeeActivity extends FragmentActivity implements
 	 * @return
 	 */
 	private ArrayList<String> getHomeeThemePackagesList() {
-		return Utilities.getHomeeWallpapers(this);
+		return WallpaperUtilities.getHomeeWallpapers(this);
 	}
 
 	/**

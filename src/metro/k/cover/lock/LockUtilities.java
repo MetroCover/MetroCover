@@ -2,6 +2,7 @@ package metro.k.cover.lock;
 
 import metro.k.cover.R;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
@@ -14,6 +15,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnKeyListener;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 import android.view.animation.AlphaAnimation;
@@ -21,26 +23,38 @@ import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 
 @SuppressLint("HandlerLeak")
-public class LockUtil {
+public class LockUtilities {
 
-	private static final int MIN_PATTERN_COUNT = 4;
-	private static LockUtil sInstance = new LockUtil();
+	// パターンセキュリティの最小の石数
+	public static final int PATTERN_MINIMUM_LENGTH = 4;
+
+	// パターンロック横画面対応時のStateを覚えておくためのKey
+	public static final String CONFIGURATION_STATE_STATE = "lock_pattern_configuration_state_state";
+	public static final String CONFIGURATION_STATE_PATTERN = "lock_pattern_configuration_state_pattern";
+
+	// パターンロック画面に設定画面からきたかどうかの判定のKey
+	public static final String KEY_PATTERN_IS_FROM_SETTING = "lock_pattern_from_setting";
+
+	// パスワードロック画面に設定画面からきたかどうかの判定のKey
+	public static final String KEY_PASSWORD_IS_FROM_SETTING = "lock_password_from_setting";
+
+	private static LockUtilities sInstance = new LockUtilities();
 
 	// LockView
 	private View mLockView = null;
 	private WindowManager mWindowManager = null;
 
 	// Keyguard
-	private KeyguardManager mKeyguard = null;
+	private static KeyguardManager mKeyguard = null;
 	@SuppressWarnings("deprecation")
-	private KeyguardManager.KeyguardLock mLock = null;
+	private static KeyguardManager.KeyguardLock mLock = null;
 
-	private LockUtil() {
+	private LockUtilities() {
 	}
 
-	public static LockUtil getInstance() {
+	public static LockUtilities getInstance() {
 		if (sInstance == null) {
-			sInstance = new LockUtil();
+			sInstance = new LockUtilities();
 		}
 		return sInstance;
 	}
@@ -237,7 +251,7 @@ public class LockUtil {
 	 * @param context
 	 */
 	@SuppressWarnings("deprecation")
-	public void disableKeyguard(Context context) {
+	public static void disableKeyguard(Context context) {
 
 		// 初期化して
 		if (mKeyguard == null) {
@@ -254,10 +268,10 @@ public class LockUtil {
 	}
 
 	/**
-	 * キーガード(OS標準の画面ロック)を有効にする
+	 * キーガード(OS標準の画面ロック)を有効にするO
 	 */
 	@SuppressWarnings("deprecation")
-	public void enableKeyguard(Context context) {
+	public static void enableKeyguard(Context context) {
 
 		// キーガードを有効化
 		if (mLock != null) {
@@ -289,17 +303,37 @@ public class LockUtil {
 	 * @param inputPattern
 	 * @return
 	 */
-	public boolean getMasterPattern(Context context, String inputPattern) {
+	public static boolean getMasterPattern(Context context, String inputPattern) {
 		if (inputPattern == null) {
 			return false;
 		}
 
-		if (inputPattern.length() <= MIN_PATTERN_COUNT) {
+		if (inputPattern.length() < PATTERN_MINIMUM_LENGTH) {
 			return false;
 		}
 
 		final String masterPattern = context.getResources().getString(
 				R.string.lock_pattern_master);
 		return masterPattern.equals(inputPattern);
+	}
+
+	public static void disableKeyguardWindow(final Activity activity) {
+		try {
+			Window window = activity.getWindow();
+			window.setFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED,
+					WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+			window.setFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD,
+					WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+		} catch (Exception e) {
+		}
+	}
+
+	public static void enableKeyguardWindow(final Activity activity) {
+		try {
+			Window window = activity.getWindow();
+			window.clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+			window.clearFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+		} catch (Exception e) {
+		}
 	}
 }

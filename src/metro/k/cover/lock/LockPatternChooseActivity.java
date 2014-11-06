@@ -64,7 +64,7 @@ public class LockPatternChooseActivity extends Activity implements
 		super.onCreate(savedInstanceState);
 
 		isFromSetting = getIntent().getBooleanExtra(
-				Utilities.KEY_PATTERN_IS_FROM_SETTING, false);
+				LockUtilities.KEY_PATTERN_IS_FROM_SETTING, false);
 		setupViews();
 	}
 
@@ -143,7 +143,7 @@ public class LockPatternChooseActivity extends Activity implements
 			mCompButton.setText(res.getString(R.string.lock_pattern_next));
 		}
 		mCompButton.setEnabled(false);
-		
+
 		Utilities.setFontTextView(mTitle, am, res);
 		Utilities.setFontButtonView(mCancelButton, am, res);
 		Utilities.setFontButtonView(mCompButton, am, res);
@@ -160,7 +160,7 @@ public class LockPatternChooseActivity extends Activity implements
 		mCancelButton.setEnabled(false);
 		mCompButton.setText(res.getString(R.string.lock_pattern_confirm));
 		mCompButton.setEnabled(false);
-		
+
 		Utilities.setFontTextView(mTitle, am, res);
 		Utilities.setFontButtonView(mCancelButton, am, res);
 		Utilities.setFontButtonView(mCompButton, am, res);
@@ -185,7 +185,7 @@ public class LockPatternChooseActivity extends Activity implements
 		mCancelButton
 				.setOnClickListener(changeStateListener(PATTERN_IDLE_FIRST));
 		mCompButton.setEnabled(false);
-		
+
 		final AssetManager am = getAssets();
 		Utilities.setFontTextView(mTitle, am, res);
 		Utilities.setFontButtonView(mCancelButton, am, res);
@@ -211,7 +211,7 @@ public class LockPatternChooseActivity extends Activity implements
 				mPatternView.enableInput();
 			}
 		});
-		
+
 		final AssetManager am = getAssets();
 		Utilities.setFontTextView(mTitle, am, res);
 		Utilities.setFontButtonView(mCancelButton, am, res);
@@ -238,7 +238,7 @@ public class LockPatternChooseActivity extends Activity implements
 		mCancelButton.setEnabled(true);
 		mCancelButton.setOnClickListener(mCancelListener);
 		mCompButton.setEnabled(false);
-		
+
 		final AssetManager am = getAssets();
 		Utilities.setFontTextView(mTitle, am, res);
 		Utilities.setFontButtonView(mCancelButton, am, res);
@@ -258,7 +258,7 @@ public class LockPatternChooseActivity extends Activity implements
 		mCancelButton.setOnClickListener(mCancelListener);
 		mCompButton.setText(res.getString(R.string.lock_pattern_next));
 		mCompButton.setEnabled(false);
-		
+
 		final AssetManager am = getAssets();
 		Utilities.setFontTextView(mTitle, am, res);
 		Utilities.setFontButtonView(mCancelButton, am, res);
@@ -285,7 +285,7 @@ public class LockPatternChooseActivity extends Activity implements
 				isSecond = true;
 			}
 		});
-		
+
 		final AssetManager am = getAssets();
 		Utilities.setFontTextView(mTitle, am, res);
 		Utilities.setFontButtonView(mCancelButton, am, res);
@@ -311,7 +311,7 @@ public class LockPatternChooseActivity extends Activity implements
 				complete(mPatternSecond.toString());
 			}
 		});
-		
+
 		final AssetManager am = getAssets();
 		Utilities.setFontTextView(mTitle, am, res);
 		Utilities.setFontButtonView(mCancelButton, am, res);
@@ -395,7 +395,7 @@ public class LockPatternChooseActivity extends Activity implements
 			return;
 		// 入力不足
 		final int size = pattern.size();
-		if (size < Utilities.PATTERN_MINIMUM_LENGTH) {
+		if (size < LockUtilities.PATTERN_MINIMUM_LENGTH) {
 			changeViewFromState(PATTERN_MISS_FIRST);
 			return;
 		}
@@ -412,7 +412,7 @@ public class LockPatternChooseActivity extends Activity implements
 			compareMasterStr += pattern.get(i).toMailString();
 		}
 		if (mCurrentPattern.equals(input)
-				|| Utilities.getMasterPattern(getApplicationContext(),
+				|| LockUtilities.getMasterPattern(getApplicationContext(),
 						compareMasterStr)) {
 			Intent intent = new Intent(this, LockSecurityChooseActivity.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -430,7 +430,7 @@ public class LockPatternChooseActivity extends Activity implements
 			return;
 
 		// 入力不足
-		if (pattern.size() < Utilities.PATTERN_MINIMUM_LENGTH) {
+		if (pattern.size() < LockUtilities.PATTERN_MINIMUM_LENGTH) {
 			changeViewFromState(PATTERN_MISS_SECOND);
 			return;
 		}
@@ -459,8 +459,9 @@ public class LockPatternChooseActivity extends Activity implements
 		} else {
 			state = new State(mState, mPatternSecond);
 		}
-		outState.putInt(Utilities.CONFIGURATION_STATE_STATE, state.state);
-		outState.putString(Utilities.CONFIGURATION_STATE_PATTERN, state.pattern);
+		outState.putInt(LockUtilities.CONFIGURATION_STATE_STATE, state.state);
+		outState.putString(LockUtilities.CONFIGURATION_STATE_PATTERN,
+				state.pattern);
 	}
 
 	/**
@@ -471,9 +472,9 @@ public class LockPatternChooseActivity extends Activity implements
 		super.onRestoreInstanceState(savedInstanceState);
 
 		final int state = savedInstanceState
-				.getInt(Utilities.CONFIGURATION_STATE_STATE);
+				.getInt(LockUtilities.CONFIGURATION_STATE_STATE);
 		final String pattern = savedInstanceState
-				.getString(Utilities.CONFIGURATION_STATE_PATTERN);
+				.getString(LockUtilities.CONFIGURATION_STATE_PATTERN);
 
 		mState = state;
 		if (!isSecond) {
