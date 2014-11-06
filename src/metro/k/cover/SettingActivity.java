@@ -7,12 +7,16 @@ import metro.k.cover.lock.LockService;
 import metro.k.cover.lock.LockUtilities;
 import metro.k.cover.wallpaper.WallpaperDetailActivity;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -314,6 +318,7 @@ public class SettingActivity extends Activity implements OnClickListener,
 
 		// License
 		if (R.id.setting_license_layout == viewId) {
+			buildInfoDialog().show();
 			return;
 		}
 	}
@@ -341,5 +346,39 @@ public class SettingActivity extends Activity implements OnClickListener,
 			return;
 		}
 	}
+
+	/**
+	 * ライセンス表記
+	 * 
+	 * @param title
+	 * @param message
+	 * @return
+	 */
+	private AlertDialog.Builder buildInfoDialog() {
+		final Resources res = getResources();
+		final LayoutInflater inflater = LayoutInflater
+				.from(SettingActivity.this);
+		final View layout = inflater.inflate(R.layout.dialog_license,
+				(ViewGroup) findViewById(R.id.dialog_layout_root), false);
+		TextView msg = (TextView) layout.findViewById(R.id.dialog_msg);
+		msg.setText(res.getString(R.string.license_msg));
+
+		final String close = getResources().getString(R.string.close);
+		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle(res.getString(R.string.license));
+		builder.setView(layout);
+		builder.setNegativeButton(close, dialogCancelListener);
+		return builder;
+	}
+
+	/**
+	 * ライセンス表記ダイアログの「閉じる」ボタン
+	 */
+	private DialogInterface.OnClickListener dialogCancelListener = new DialogInterface.OnClickListener() {
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			dialog.cancel();
+		}
+	};
 
 }
