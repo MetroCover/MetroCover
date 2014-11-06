@@ -69,6 +69,10 @@ public class JazzyViewPager extends ViewPager {
 		Standard, Tablet, CubeIn, CubeOut, FlipVertical, FlipHorizontal, Stack, ZoomIn, ZoomOut, RotateUp, RotateDown, Accordion
 	}
 
+	public static String[] Effects = { "Standard", "Tablet", "CubeIn",
+			"CubeOut", "FlipVertical", "FlipHorizontal", "Stack", "ZoomIn",
+			"ZoomOut", "RotateUp", "RotateDown", "Accordion" };
+
 	private static final boolean API_11;
 	static {
 		API_11 = Build.VERSION.SDK_INT >= 11;

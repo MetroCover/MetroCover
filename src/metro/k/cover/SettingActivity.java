@@ -6,6 +6,7 @@ import metro.k.cover.lock.LockSecurityChooseActivity;
 import metro.k.cover.lock.LockService;
 import metro.k.cover.lock.LockUtilities;
 import metro.k.cover.wallpaper.WallpaperDetailActivity;
+import metro.k.cover.wallpaper.WallpaperEffectSelectActivity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -123,6 +124,12 @@ public class SettingActivity extends Activity implements OnClickListener,
 		license_layout.setOnClickListener(this);
 		TextView license_titleview = (TextView) findViewById(R.id.setting_license_titleview);
 		Utilities.setFontTextView(license_titleview, am, res);
+
+		// Efects
+		RelativeLayout effect_layout = (RelativeLayout) findViewById(R.id.setting_wallpaper_effect_layout);
+		effect_layout.setOnClickListener(this);
+		TextView effect_titleview = (TextView) findViewById(R.id.setting_wallpapers_effect_titleview);
+		Utilities.setFontTextView(effect_titleview, am, res);
 
 	}
 
@@ -261,6 +268,14 @@ public class SettingActivity extends Activity implements OnClickListener,
 	}
 
 	/**
+	 * エフェクト設定画面へ遷移
+	 */
+	private void startWallpaperEffectSelectActivity() {
+		Intent intent = new Intent(this, WallpaperEffectSelectActivity.class);
+		Utilities.startActivitySafely(intent, this);
+	}
+
+	/**
 	 * 路線設定画面へ遷移
 	 */
 	private void startRailwaysActivity() {
@@ -307,6 +322,12 @@ public class SettingActivity extends Activity implements OnClickListener,
 		// Wallpapers
 		if (R.id.setting_wallpapers_layout == viewId) {
 			startWallpaperDetailActivity();
+			return;
+		}
+
+		// Effects
+		if (R.id.setting_wallpaper_effect_layout == viewId) {
+			startWallpaperEffectSelectActivity();
 			return;
 		}
 

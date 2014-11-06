@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/wallpaper_effect_select_titleview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/metro_main_color"
+        android:gravity="center"
+        android:paddingBottom="18dip"
+        android:paddingTop="18dip"
+        android:text="@string/paging_effect"
+        android:textColor="#FFF"
+        android:textSize="28sp" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="?android:attr/listDivider"
+        android:contentDescription="@string/app_name" />
+
+    <ListView
+        android:id="@+id/wallpaper_effect_select_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadeScrollbars="false" />
+
+</LinearLayout>

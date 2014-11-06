@@ -218,4 +218,23 @@ public final class PreferenceCommon {
 				JazzyViewPager.EFFECT_ROTATEDOWN);
 		return ViewUtilities.getTransitionEffectFromNumber(num);
 	}
+
+	// ViewPagerのエフェクトID
+	private static final String KEY_SET_VIEWPAGER_EFFECT_ID = "set_viewpager_effect_id";
+
+	public static void setViewPagerEffectID(final Context context,
+			final int effect) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sp.edit();
+		editor.putInt(KEY_SET_VIEWPAGER_EFFECT_ID, effect);
+		editor.apply();
+	}
+
+	public static int getViewPagerEffectID(final Context context) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
+		return sp.getInt(KEY_SET_VIEWPAGER_EFFECT_ID,
+				JazzyViewPager.EFFECT_ROTATEDOWN);
+	}
 }

@@ -38,6 +38,9 @@ public final class WallpaperUtilities {
 	public static final int REQUEST_PICK_PICTURE_CENTER = 1;
 	public static final int REQUEST_PICK_PICTURE_RIGHT = 2;
 
+	// ViewPagerエフェクト選択してサンプルにIDを送る用のKey
+	public static final String KEY_WALLPAPER_EFFECT_SELECT_ID = "key_wallpaper_effect_select_id";
+
 	/**
 	 * Homee壁紙きせかえの壁紙のテーマアプリパッケージのリストを取得する
 	 * 

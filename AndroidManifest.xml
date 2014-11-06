@@ -49,6 +49,14 @@
             android:label="@string/app_name" >
         </activity>
         <activity
+            android:name="metro.k.cover.wallpaper.WallpaperEffectSampleActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="metro.k.cover.wallpaper.WallpaperEffectSelectActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
             android:name="metro.k.cover.lock.LockPatternChooseActivity"
             android:label="@string/app_name" >
         </activity>

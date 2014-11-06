@@ -51,6 +51,7 @@
     <string name="railway_namboku">南北線</string>
     <string name="railway_tozai">東西線</string>
     <string name="railway_yurakucho">有楽町線</string>
+    <string name="selected">選択F中</string>
     <string name="settings">設定</string>
     <string name="tutorial_select_railways">よく使う路線に\nチェックしてください</string>
     <string name="tutorial_select_station">よく使う駅を\n選んでください</string>
