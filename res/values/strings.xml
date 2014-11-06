@@ -53,6 +53,7 @@
     <string name="lockscreen_access_pattern_start">Pattern started</string>
     <string name="next">NEXT</string>
     <string name="ok">OK</string>
+    <string name="paging_effect">Paging Effect</string>
     <string name="railways">Railways</string>
     <string name="railway_chiyoda">Chiyoda-Line</string>
     <string name="railway_chiyoda_response">odpt.Railway:TokyoMetro.Chiyoda</string>

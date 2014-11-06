@@ -38,6 +38,19 @@ import com.nineoldandroids.view.ViewHelper;
 
 public class JazzyViewPager extends ViewPager {
 
+	public static final int EFFECT_STANDARD = 0;
+	public static final int EFFECT_TABLET = 1;
+	public static final int EFFECT_CUBEIN = 2;
+	public static final int EFFECT_CUBEOUT = 3;
+	public static final int EFFECT_FLIPVERTICAL = 4;
+	public static final int EFFECT_FLIPHORIZONTAL = 5;
+	public static final int EFFECT_STACK = 6;
+	public static final int EFFECT_ZOOMIN = 7;
+	public static final int EFFECT_ZOOMOUT = 8;
+	public static final int EFFECT_ROTATEUP = 9;
+	public static final int EFFECT_ROTATEDOWN = 10;
+	public static final int EFFECT_ACCODION = 11;
+
 	public static final String TAG = "JazzyViewPager";
 
 	private boolean mEnabled = true;

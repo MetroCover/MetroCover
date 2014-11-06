@@ -38,7 +38,6 @@ public class WallpaperHomeeActivity extends FragmentActivity implements
 	private int mWindowHeight = 0;
 
 	private final String PARAM_DRAWABLE = "drawable";
-	public static final String KEY_PAGE_NUMBER = "page_number";
 
 	private ArrayList<Drawable> mRealList = new ArrayList<Drawable>();
 	private ArrayList<Drawable> mThumbList = new ArrayList<Drawable>();
@@ -158,31 +157,6 @@ public class WallpaperHomeeActivity extends FragmentActivity implements
 		return preview;
 	}
 
-	/**
-	 * Run On UI-Thread
-	 * 
-	 * @param dbKey
-	 * @param bmp
-	 */
-	private void saveBmpDB(final String dbKey, final Bitmap bmp) {
-		if (bmp == null) {
-			return;
-		}
-		WallpaperBitmapDB db = new WallpaperBitmapDB(getApplicationContext());
-		try {
-			db.setBitmap(dbKey, bmp);
-		} catch (Exception e) {
-		} catch (OutOfMemoryError oom) {
-		} finally {
-			if (db != null) {
-				try {
-					db.close();
-				} catch (Exception e) {
-				}
-			}
-		}
-	}
-
 	class ViewHolder {
 		ImageView imageView;
 	}
@@ -244,10 +218,10 @@ public class WallpaperHomeeActivity extends FragmentActivity implements
 
 		String cahceKey = ImageCache.KEY_WALLPAPER_RIGHT_CACHE;
 		String dbKey = WallpaperBitmapDB.KEY_WALLPAPER_RIGHT_DB;
-		if (mPage == WallpaperDetailPagerAdapter.PAGE_LEFT) {
+		if (mPage == WallpaperUtilities.PAGE_LEFT) {
 			cahceKey = ImageCache.KEY_WALLPAPER_LEFT_CACHE;
 			dbKey = WallpaperBitmapDB.KEY_WALLPAPER_LEFT_DB;
-		} else if (mPage == WallpaperDetailPagerAdapter.PAGE_CENTER) {
+		} else if (mPage == WallpaperUtilities.PAGE_CENTER) {
 			cahceKey = ImageCache.KEY_WALLPAPER_CENTER_CACHE;
 			dbKey = WallpaperBitmapDB.KEY_WALLPAPER_CENTER_DB;
 		}
@@ -255,12 +229,12 @@ public class WallpaperHomeeActivity extends FragmentActivity implements
 		final Bitmap bmp = ((BitmapDrawable) mRealList.get(position))
 				.getBitmap();
 		ImageCache.setImageBmp(cahceKey, bmp);
-		saveBmpDB(dbKey, bmp);
+		WallpaperUtilities.syncSaveBmpDB(getApplicationContext(), dbKey, bmp);
 
 		Intent intent = new Intent(this, WallpaperDetailActivity.class);
 		Bundle bundle = new Bundle();
 		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		bundle.putInt(KEY_PAGE_NUMBER, mPage);
+		bundle.putInt(WallpaperUtilities.KEY_PAGE_NUMBER, mPage);
 		intent.putExtras(bundle);
 		Utilities.startActivitySafely(intent, this);
 	}

@@ -1,5 +1,8 @@
 package metro.k.cover;
 
+import metro.k.cover.view.JazzyViewPager;
+import metro.k.cover.view.JazzyViewPager.TransitionEffect;
+import metro.k.cover.view.ViewUtilities;
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -194,5 +197,25 @@ public final class PreferenceCommon {
 		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
 				Context.MODE_PRIVATE);
 		return sp.getString(KEY_SET_FIRST_PASSWORD, "");
+	}
+
+	// ViewPagerのエフェクト
+	private static final String KEY_SET_VIEWPAGER_EFFECT = "set_viewpager_effect";
+
+	public static void setViewPagerEffect(final Context context,
+			final int effect) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sp.edit();
+		editor.putInt(KEY_SET_VIEWPAGER_EFFECT, effect);
+		editor.apply();
+	}
+
+	public static TransitionEffect getViewPagerEffect(final Context context) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
+		int num = sp.getInt(KEY_SET_VIEWPAGER_EFFECT,
+				JazzyViewPager.EFFECT_ROTATEDOWN);
+		return ViewUtilities.getTransitionEffectFromNumber(num);
 	}
 }

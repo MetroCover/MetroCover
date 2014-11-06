@@ -1,10 +1,10 @@
 package metro.k.cover.wallpaper;
 
 import metro.k.cover.ImageCache;
+import metro.k.cover.PreferenceCommon;
 import metro.k.cover.R;
 import metro.k.cover.Utilities;
 import metro.k.cover.view.JazzyViewPager;
-import metro.k.cover.view.JazzyViewPager.TransitionEffect;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -25,14 +25,12 @@ public class WallpaperDetailActivity extends FragmentActivity {
 	private static JazzyViewPager mViewPager;
 	private static WallpaperDetailPagerAdapter mAdapter;
 
-	public static final int REQUEST_CODE_HOMEE_WALLPAPER = 1231;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		final Intent intent = getIntent();
-		final int page = intent.getIntExtra(
-				WallpaperHomeeActivity.KEY_PAGE_NUMBER, -1);
+		final int page = intent.getIntExtra(WallpaperUtilities.KEY_PAGE_NUMBER,
+				-1);
 		if (page < 0) {
 			setupViews(1);
 			return;
@@ -54,7 +52,8 @@ public class WallpaperDetailActivity extends FragmentActivity {
 	private void setupViews(final int page) {
 		setContentView(R.layout.activity_wallpaper_detail);
 		mViewPager = (JazzyViewPager) findViewById(R.id.wallpaper_detail_viewpager);
-		mViewPager.setTransitionEffect(TransitionEffect.RotateDown);
+		mViewPager.setTransitionEffect(PreferenceCommon
+				.getViewPagerEffect(this));
 		mViewPager.setPageMargin(30);
 		mAdapter = new WallpaperDetailPagerAdapter(getSupportFragmentManager());
 		mViewPager.setAdapter(mAdapter);
@@ -65,9 +64,9 @@ public class WallpaperDetailActivity extends FragmentActivity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 		// ギャラリーの壁紙
-		if (requestCode == WallpaperDetailPagerAdapter.REQUEST_PICK_PICTURE_LEFT
-				|| requestCode == WallpaperDetailPagerAdapter.REQUEST_PICK_PICTURE_CENTER
-				|| requestCode == WallpaperDetailPagerAdapter.REQUEST_PICK_PICTURE_RIGHT) {
+		if (requestCode == WallpaperUtilities.REQUEST_PICK_PICTURE_LEFT
+				|| requestCode == WallpaperUtilities.REQUEST_PICK_PICTURE_CENTER
+				|| requestCode == WallpaperUtilities.REQUEST_PICK_PICTURE_RIGHT) {
 			if (resultCode == RESULT_OK) {
 				final String[] columns = { MediaColumns.DATA };
 				Cursor cur = getContentResolver().query(data.getData(),
@@ -111,48 +110,24 @@ public class WallpaperDetailActivity extends FragmentActivity {
 
 				String cahceKey = ImageCache.KEY_WALLPAPER_LEFT_CACHE;
 				String dbKey = WallpaperBitmapDB.KEY_WALLPAPER_LEFT_DB;
-				int position = WallpaperDetailPagerAdapter.PAGE_LEFT;
-				if (requestCode == WallpaperDetailPagerAdapter.REQUEST_PICK_PICTURE_CENTER) {
-					position = WallpaperDetailPagerAdapter.PAGE_CENTER;
+				int position = WallpaperUtilities.PAGE_LEFT;
+				if (requestCode == WallpaperUtilities.REQUEST_PICK_PICTURE_CENTER) {
+					position = WallpaperUtilities.PAGE_CENTER;
 					cahceKey = ImageCache.KEY_WALLPAPER_CENTER_CACHE;
 					dbKey = WallpaperBitmapDB.KEY_WALLPAPER_CENTER_DB;
-				} else if (requestCode == WallpaperDetailPagerAdapter.REQUEST_PICK_PICTURE_RIGHT) {
-					position = WallpaperDetailPagerAdapter.PAGE_RIGHT;
+				} else if (requestCode == WallpaperUtilities.REQUEST_PICK_PICTURE_RIGHT) {
+					position = WallpaperUtilities.PAGE_RIGHT;
 					cahceKey = ImageCache.KEY_WALLPAPER_RIGHT_CACHE;
 					dbKey = WallpaperBitmapDB.KEY_WALLPAPER_RIGHT_DB;
 				}
 
 				ImageCache.setImageBmp(cahceKey, bitmap);
-				saveBmpDB(dbKey, bitmap);
+				WallpaperUtilities.assyncSaveBmpDB(getApplicationContext(),
+						dbKey, bitmap);
 
 				setupViews(position);
 			}
 		}
-	}
-
-	private void saveBmpDB(final String dbKey, final Bitmap bmp) {
-		if (bmp == null) {
-			return;
-		}
-		new Thread("save") {
-			@Override
-			public void run() {
-				WallpaperBitmapDB db = new WallpaperBitmapDB(
-						getApplicationContext());
-				try {
-					db.setBitmap(dbKey, bmp);
-				} catch (Exception e) {
-				} catch (OutOfMemoryError oom) {
-				} finally {
-					if (db != null) {
-						try {
-							db.close();
-						} catch (Exception e) {
-						}
-					}
-				}
-			}
-		}.start();
 	}
 
 	public static ViewPager getViewPager() {

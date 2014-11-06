@@ -34,18 +34,6 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 
 	private Handler mHandler = new Handler();
 
-	// 枚数
-	private final int MAX_PAGE = 3;
-
-	// ページ番号
-	public static final int PAGE_LEFT = 0;
-	public static final int PAGE_CENTER = 1;
-	public static final int PAGE_RIGHT = 2;
-
-	public static final int REQUEST_PICK_PICTURE_LEFT = 0;
-	public static final int REQUEST_PICK_PICTURE_CENTER = 1;
-	public static final int REQUEST_PICK_PICTURE_RIGHT = 2;
-
 	public WallpaperDetailPagerAdapter(FragmentManager fm) {
 		super(fm);
 	}
@@ -57,14 +45,14 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 				.setObjectForPosition(obj, position);
 		return obj;
 	}
-	
+
 	@Override
 	public boolean isViewFromObject(View view, Object object) {
-	    if(object != null){
-	        return ((Fragment)object).getView() == view;
-	    }else{
-	        return false;
-	    }
+		if (object != null) {
+			return ((Fragment) object).getView() == view;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
@@ -74,7 +62,7 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 
 	@Override
 	public int getCount() {
-		return MAX_PAGE;
+		return WallpaperUtilities.MAX_PAGE;
 	}
 
 	/**
@@ -125,10 +113,10 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 			final Resources res = getResources();
 			mTitleTextView = (TextView) view
 					.findViewById(R.id.wallpaper_detail_titleview);
-			if (mPage == PAGE_LEFT) {
+			if (mPage == WallpaperUtilities.PAGE_LEFT) {
 				mTitleTextView.setText(res
 						.getString(R.string.lock_screen_image_left));
-			} else if (mPage == PAGE_CENTER) {
+			} else if (mPage == WallpaperUtilities.PAGE_CENTER) {
 				mTitleTextView.setText(res
 						.getString(R.string.lock_screen_image_center));
 			} else {
@@ -151,9 +139,9 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 
 			// キャッシュKey
 			String cacheKey = ImageCache.KEY_WALLPAPER_RIGHT_CACHE;
-			if (mPage == PAGE_LEFT) {
+			if (mPage == WallpaperUtilities.PAGE_LEFT) {
 				cacheKey = ImageCache.KEY_WALLPAPER_LEFT_CACHE;
-			} else if (mPage == PAGE_CENTER) {
+			} else if (mPage == WallpaperUtilities.PAGE_CENTER) {
 				cacheKey = ImageCache.KEY_WALLPAPER_CENTER_CACHE;
 			} else {
 				cacheKey = ImageCache.KEY_WALLPAPER_RIGHT_CACHE;
@@ -161,9 +149,9 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 
 			// DB Key
 			String dbKey = WallpaperBitmapDB.KEY_WALLPAPER_RIGHT_DB;
-			if (mPage == PAGE_LEFT) {
+			if (mPage == WallpaperUtilities.PAGE_LEFT) {
 				dbKey = WallpaperBitmapDB.KEY_WALLPAPER_LEFT_DB;
-			} else if (mPage == PAGE_CENTER) {
+			} else if (mPage == WallpaperUtilities.PAGE_CENTER) {
 				dbKey = WallpaperBitmapDB.KEY_WALLPAPER_CENTER_DB;
 			} else {
 				dbKey = WallpaperBitmapDB.KEY_WALLPAPER_RIGHT_DB;
@@ -306,13 +294,13 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 	 * @param page
 	 */
 	private void pickupGallery(final FragmentActivity activity, final int page) {
-		int requestId = REQUEST_PICK_PICTURE_LEFT;
-		if (page == PAGE_LEFT) {
-			requestId = REQUEST_PICK_PICTURE_LEFT;
-		} else if (page == PAGE_CENTER) {
-			requestId = REQUEST_PICK_PICTURE_CENTER;
+		int requestId = WallpaperUtilities.REQUEST_PICK_PICTURE_LEFT;
+		if (page == WallpaperUtilities.PAGE_LEFT) {
+			requestId = WallpaperUtilities.REQUEST_PICK_PICTURE_LEFT;
+		} else if (page == WallpaperUtilities.PAGE_CENTER) {
+			requestId = WallpaperUtilities.REQUEST_PICK_PICTURE_CENTER;
 		} else {
-			requestId = REQUEST_PICK_PICTURE_RIGHT;
+			requestId = WallpaperUtilities.REQUEST_PICK_PICTURE_RIGHT;
 		}
 
 		Intent intent = new Intent(Intent.ACTION_PICK);

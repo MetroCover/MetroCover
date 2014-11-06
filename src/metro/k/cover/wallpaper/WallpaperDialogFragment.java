@@ -91,7 +91,7 @@ public class WallpaperDialogFragment extends DialogFragment {
 				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				intent.putExtra(KEY_SELECTED_PAGE, page);
 				startActivityForResult(intent,
-						WallpaperDetailActivity.REQUEST_CODE_HOMEE_WALLPAPER);
+						WallpaperUtilities.REQUEST_CODE_HOMEE_WALLPAPER);
 			}
 		};
 		return li;
@@ -107,13 +107,13 @@ public class WallpaperDialogFragment extends DialogFragment {
 			@Override
 			public void onClick(View v) {
 				dismiss();
-				int requestId = WallpaperDetailPagerAdapter.REQUEST_PICK_PICTURE_LEFT;
-				if (page == WallpaperDetailPagerAdapter.PAGE_LEFT) {
-					requestId = WallpaperDetailPagerAdapter.REQUEST_PICK_PICTURE_LEFT;
-				} else if (page == WallpaperDetailPagerAdapter.PAGE_CENTER) {
-					requestId = WallpaperDetailPagerAdapter.REQUEST_PICK_PICTURE_CENTER;
+				int requestId = WallpaperUtilities.REQUEST_PICK_PICTURE_LEFT;
+				if (page == WallpaperUtilities.PAGE_LEFT) {
+					requestId = WallpaperUtilities.REQUEST_PICK_PICTURE_LEFT;
+				} else if (page == WallpaperUtilities.PAGE_CENTER) {
+					requestId = WallpaperUtilities.REQUEST_PICK_PICTURE_CENTER;
 				} else {
-					requestId = WallpaperDetailPagerAdapter.REQUEST_PICK_PICTURE_RIGHT;
+					requestId = WallpaperUtilities.REQUEST_PICK_PICTURE_RIGHT;
 				}
 
 				Intent intent = new Intent(Intent.ACTION_PICK);
