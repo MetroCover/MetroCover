@@ -3,8 +3,14 @@
 
     <string name="cancel">キャンセル</string>
     <string name="common_err">何らかのエラーが発生しました。</string>
+    <string name="lock_missed_call_number_withheld">非通知着信</string>
     <string name="lock_nothing">なし</string>
     <string name="lock_password">パスワード</string>
+    <string name="lock_input_password">パスワードの入力</string>
+    <string name="lock_input_password_title">新しいパスワードを設定してください</string>
+    <string name="lock_input_old_password">現在のパスワードを入力してください</string>
+    <string name="lock_input_pass_one_more">確認のため再度入力してください</string>
+    <string name="lock_input_pass_minlength">パスワードは４文字以上、１６字以内で入力してください</string>
     <string name="lock_pattern_confirm">確認</string>
     <string name="lock_pattern_next">続行</string>
     <string name="lock_pattern_back">やり直す</string>
@@ -29,6 +35,7 @@
     <string name="lock_screen_image_left">左壁紙</string>
     <string name="lock_screen_image_right">右壁紙</string>
     <string name="lock_system_security_setting">システムのロック画面</string>
+    <string name="lock_wrong_pass">パスワードが間違っています</string>
     <string name="next">次へ</string>
     <string name="railway_chiyoda">千代田線</string>
     <string name="railway_fukutoshin">副都心線</string>
