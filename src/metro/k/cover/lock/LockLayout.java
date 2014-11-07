@@ -38,6 +38,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
+import android.text.method.DigitsKeyListener;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -1033,27 +1034,28 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			final boolean is24h = type == LockUtilities.CLOCK_TYPE_24;
 			Date date = new Date();
 			mCalendar.setTime(date);
-			final int year = mCalendar.get(Calendar.YEAR);
 			final int am_pm = mCalendar.get(Calendar.AM_PM);
 			final int hour = mCalendar.get(is24h ? Calendar.HOUR_OF_DAY
 					: Calendar.HOUR);
+			final int minute = mCalendar.get(Calendar.MINUTE);
+			final int year = mCalendar.get(Calendar.YEAR);
 			final int month = mCalendar.get(Calendar.MONTH) + 1;
 			final int day = mCalendar.get(Calendar.DAY_OF_MONTH);
 			final int week_of_day = mCalendar.get(Calendar.DAY_OF_WEEK);
-			final int minite = mCalendar.get(Calendar.MINUTE);
 
 			final Resources res = getResources();
 
 			// 時間
+			final String minuteStr = getTwoDigits(minute);
 			final String col = res.getString(R.string.colon);
 			boolean isAm = am_pm == 0;
 			String timeStr = "";
 			if (is24h) {
-				timeStr = hour + col + minite;
+				timeStr = hour + col + minuteStr;
 			} else {
 				final String am = res.getString(R.string.clock_am);
 				final String pm = res.getString(R.string.clock_pm);
-				timeStr = hour + col + minite + " " + (isAm ? am : pm);
+				timeStr = hour + col + minuteStr + " " + (isAm ? am : pm);
 			}
 			mClockTextView.setText(timeStr);
 			Utilities
@@ -1078,6 +1080,13 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			}
 			mDataTextView.setText(dateStr);
 			Utilities.setFontTextView(mDataTextView, mAssetManager, mResources);
+		}
+
+		private String getTwoDigits(final int num) {
+			if (num >= 10) {
+				return String.valueOf(num);
+			}
+			return "0" + num;
 		}
 
 		/**

@@ -417,7 +417,7 @@ public class SettingActivity extends Activity implements OnClickListener,
 				res.getString(R.string.clock_24) };
 
 		new AlertDialog.Builder(SettingActivity.this)
-				.setIcon(android.R.drawable.ic_dialog_info)
+				.setIcon(R.drawable.ic_clock)
 				.setTitle(res.getString(R.string.clock_type))
 				.setSingleChoiceItems(item_list, mCurrentClockType,
 						new DialogInterface.OnClickListener() {
