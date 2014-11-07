@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="arrow">＞</string>
     <string name="api_railways_info">https://api.tokyometroapp.jp/api/v2/datapoints</string>
     <string name="app_name">MetroCover</string>
     <string name="cancel">CANCEL</string>

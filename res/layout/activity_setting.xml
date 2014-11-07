@@ -47,7 +47,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:text="@string/app_name"
-                    android:textColor="@color/metro_main_color"
+                    android:textColor="#000"
                     android:textSize="18sp" />
 
                 <CheckBox
@@ -80,17 +80,19 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:text="@string/lock_system_security_setting"
-                    android:textColor="@color/metro_main_color"
+                    android:textColor="#000"
                     android:textSize="18sp" />
 
-                <ImageView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="12dip"
                     android:contentDescription="@string/app_name"
-                    android:src="@drawable/arrow_right" />
+                    android:text="@string/arrow"
+                    android:textColor="#000"
+                    android:textSize="18sp" />
             </RelativeLayout>
 
             <ImageView
@@ -115,7 +117,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:text="@string/lock_security"
-                    android:textColor="@color/metro_main_color"
+                    android:textColor="#000"
                     android:textSize="18sp" />
 
                 <TextView
@@ -126,7 +128,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="12dip"
                     android:text="@string/lock_nothing"
-                    android:textColor="@color/metro_main_color"
+                    android:textColor="#000"
                     android:textSize="18sp" />
             </RelativeLayout>
 
@@ -152,7 +154,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:text="@string/clock_type"
-                    android:textColor="@color/metro_main_color"
+                    android:textColor="#000"
                     android:textSize="18sp" />
 
                 <TextView
@@ -163,7 +165,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="12dip"
                     android:text="@string/clock_24"
-                    android:textColor="@color/metro_main_color"
+                    android:textColor="#000"
                     android:textSize="18sp" />
             </RelativeLayout>
 
@@ -188,7 +190,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:text="@string/lock_patern_vibe"
-                    android:textColor="@color/metro_main_color"
+                    android:textColor="#000"
                     android:textSize="18sp" />
 
                 <CheckBox
@@ -221,7 +223,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:text="@string/lock_patern_track"
-                    android:textColor="@color/metro_main_color"
+                    android:textColor="#000"
                     android:textSize="18sp" />
 
                 <CheckBox
@@ -254,17 +256,19 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:text="@string/lock_screen_image"
-                    android:textColor="@color/metro_main_color"
+                    android:textColor="#000"
                     android:textSize="18sp" />
 
-                <ImageView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="12dip"
                     android:contentDescription="@string/app_name"
-                    android:src="@drawable/arrow_right" />
+                    android:text="@string/arrow"
+                    android:textColor="#000"
+                    android:textSize="18sp" />
             </RelativeLayout>
 
             <ImageView
@@ -289,7 +293,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:text="@string/paging_effect"
-                    android:textColor="@color/metro_main_color"
+                    android:textColor="#000"
                     android:textSize="18sp" />
 
                 <TextView
@@ -299,7 +303,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="12dip"
-                    android:textColor="@color/metro_main_color"
+                    android:textColor="#000"
                     android:textSize="18sp" />
             </RelativeLayout>
 
@@ -324,17 +328,19 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:text="@string/railways"
-                    android:textColor="@color/metro_main_color"
+                    android:textColor="#000"
                     android:textSize="18sp" />
 
-                <ImageView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="12dip"
                     android:contentDescription="@string/app_name"
-                    android:src="@drawable/arrow_right" />
+                    android:text="@string/arrow"
+                    android:textColor="#000"
+                    android:textSize="18sp" />
             </RelativeLayout>
 
             <ImageView
@@ -359,17 +365,19 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:text="@string/license"
-                    android:textColor="@color/metro_main_color"
+                    android:textColor="#000"
                     android:textSize="18sp" />
 
-                <ImageView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="12dip"
                     android:contentDescription="@string/app_name"
-                    android:src="@drawable/arrow_right" />
+                    android:text="@string/arrow"
+                    android:textColor="#000"
+                    android:textSize="18sp" />
             </RelativeLayout>
 
             <ImageView
