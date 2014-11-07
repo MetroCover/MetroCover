@@ -8,6 +8,7 @@ import metro.k.cover.Utilities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.content.res.Resources.NotFoundException;
 import android.graphics.Bitmap;
@@ -41,6 +42,9 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 
 	private ArrayList<Drawable> mRealList = new ArrayList<Drawable>();
 	private ArrayList<Drawable> mThumbList = new ArrayList<Drawable>();
+
+	private GridView mGridView;
+	private TextView mEmptyView;
 
 	private int mPage = -1;
 	private int mHomeAppID;
@@ -77,28 +81,51 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 	private void setupViews() {
 		setContentView(R.layout.wallpaper_other_home);
 
+		final Resources res = getResources();
+		final AssetManager am = getAssets();
+
 		// Title
 		TextView titleView = (TextView) findViewById(R.id.wallpaper_other_home_titleview);
 		if (mHomeAppID != WallpaperUtilities.HOMEE_APP_ID) {
 			titleView.setText(R.string.wallpaper_plushome_title);
 		}
-		Utilities.setFontTextView(titleView, getAssets(), getResources());
+		Utilities.setFontTextView(titleView, am, res);
+
+		// Empty
+		mEmptyView = (TextView) findViewById(R.id.wallpaper_other_home_emptyview);
+		Utilities.setFontTextView(mEmptyView, am, res);
 
 		// GridView
+		mGridView = (GridView) findViewById(R.id.wallpaper_other_home_gridview);
 		setupGridView();
+	}
+
+	private void setEmptyView() {
+		if (mGridView == null || mEmptyView == null) {
+			return;
+		}
+
+		mGridView.setVisibility(View.GONE);
+		mEmptyView.setVisibility(View.VISIBLE);
 	}
 
 	/**
 	 * GridViewの設定
 	 */
 	private void setupGridView() {
+		if (mGridView == null) {
+			return;
+		}
+
 		final ArrayList<String> pkgList = getThemePackagesList();
 		if (pkgList == null) {
+			setEmptyView();
 			return;
 		}
 
 		final int size = pkgList.size();
 		if (size == 0) {
+			setEmptyView();
 			return;
 		}
 
@@ -111,11 +138,10 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 					mWindowWidth / 2, mWindowHeight / 2, this));
 		}
 
-		GridView gridview = (GridView) findViewById(R.id.wallpaper_other_home_gridview);
 		GridAdapter adapter = new GridAdapter(this.getApplicationContext(),
 				R.layout.wallpaper_other_home_grid_items, mThumbList);
-		gridview.setAdapter(adapter);
-		gridview.setOnItemClickListener(this);
+		mGridView.setAdapter(adapter);
+		mGridView.setOnItemClickListener(this);
 	}
 
 	/**

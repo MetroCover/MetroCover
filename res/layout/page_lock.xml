@@ -5,7 +5,7 @@
     android:background="@android:color/holo_orange_light" >
 
     <LinearLayout
-        android:id="@+id/lock_calender_layout"
+        android:id="@+id/lock_data_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -21,6 +21,14 @@
 
         <TextView
             android:id="@+id/lock_date_textview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textColor="#FFF"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/lock_battery_textview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"

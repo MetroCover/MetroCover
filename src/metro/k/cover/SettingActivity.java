@@ -33,7 +33,14 @@ public class SettingActivity extends Activity implements OnClickListener,
 
 	// 現在のセキュリティタイプ
 	private int mCurrentSecurityType;
+
+	// 現在のエフェクトタイプ
 	private String mCurrentEffectType;
+
+	// 現在の時計表記
+	private int mClockSelected = LockUtilities.CLOCK_TYPE_24;
+	private TextView mCurrentClockTypeView;
+	private int mCurrentClockType;
 
 	// パターンロックのバイブレーション
 	private boolean isPatternLockVibe = false;
@@ -91,6 +98,12 @@ public class SettingActivity extends Activity implements OnClickListener,
 		security_layout.setOnClickListener(this);
 		TextView security_titleview = (TextView) findViewById(R.id.setting_metrocover_security_titleview);
 		Utilities.setFontTextView(security_titleview, am, res);
+
+		// Clock Type
+		RelativeLayout clocktype_layout = (RelativeLayout) findViewById(R.id.setting_clocktype_layout);
+		clocktype_layout.setOnClickListener(this);
+		TextView clocktype_titleview = (TextView) findViewById(R.id.setting_clocktype_titleview);
+		Utilities.setFontTextView(clocktype_titleview, am, res);
 
 		// PatternLockVibe
 		RelativeLayout pattern_vibe_layout = (RelativeLayout) findViewById(R.id.setting_pattern_vibe_layout);
@@ -167,6 +180,15 @@ public class SettingActivity extends Activity implements OnClickListener,
 		TextView current_effect = (TextView) findViewById(R.id.setting_wallpapers_effect_currentview);
 		current_effect.setText(mCurrentEffectType);
 		Utilities.setFontTextView(current_effect, am, res);
+
+		// 現在の時計表記
+		mCurrentClockTypeView = (TextView) findViewById(R.id.setting_clocktype_currentview);
+		if (mCurrentClockType == LockUtilities.CLOCK_TYPE_12) {
+			mCurrentClockTypeView.setText(res.getString(R.string.clock_12));
+		} else {
+			mCurrentClockTypeView.setText(res.getString(R.string.clock_24));
+		}
+		Utilities.setFontTextView(mCurrentClockTypeView, am, res);
 	}
 
 	/**
@@ -183,6 +205,8 @@ public class SettingActivity extends Activity implements OnClickListener,
 				.getLockPatternTrack(getApplicationContext());
 		mCurrentEffectType = String.valueOf(PreferenceCommon
 				.getViewPagerEffect(getApplicationContext()));
+		mCurrentClockType = PreferenceCommon
+				.getClockType(getApplicationContext());
 	}
 
 	/**
@@ -321,6 +345,12 @@ public class SettingActivity extends Activity implements OnClickListener,
 			return;
 		}
 
+		// Clock-Type
+		if (R.id.setting_clocktype_layout == viewId) {
+			buildClockTypeDialog();
+			return;
+		}
+
 		// Track
 		if (R.id.setting_pattern_track_layout == viewId) {
 			mPatternLockTrackCheckBox.setChecked(!mPatternLockTrackCheckBox
@@ -375,6 +405,47 @@ public class SettingActivity extends Activity implements OnClickListener,
 			isPatternLockTrack = isChecked;
 			return;
 		}
+	}
+
+	/**
+	 * 時計表記タイプ選択ダイアログ
+	 */
+	private void buildClockTypeDialog() {
+		final Resources res = getResources();
+		final String item_list[] = new String[] {
+				res.getString(R.string.clock_12),
+				res.getString(R.string.clock_24) };
+
+		new AlertDialog.Builder(SettingActivity.this)
+				.setIcon(android.R.drawable.ic_dialog_info)
+				.setTitle(res.getString(R.string.clock_type))
+				.setSingleChoiceItems(item_list, mCurrentClockType,
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								mClockSelected = whichButton;
+							}
+						})
+				.setPositiveButton(res.getString(R.string.ok),
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								mCurrentClockTypeView
+										.setText(item_list[mClockSelected]);
+								PreferenceCommon
+										.setClockType(getApplicationContext(),
+												mClockSelected);
+								mCurrentClockType = mClockSelected;
+								dialog.cancel();
+							}
+						})
+				.setNegativeButton(R.string.cancel,
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								dialog.cancel();
+							}
+						}).show();
 	}
 
 	/**

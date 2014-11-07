@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import metro.k.cover.ImageCache;
 import metro.k.cover.PreferenceCommon;
@@ -17,7 +18,6 @@ import metro.k.cover.view.JazzyViewPager.TransitionEffect;
 import metro.k.cover.wallpaper.WallpaperBitmapDB;
 import metro.k.cover.wallpaper.WallpaperUtilities;
 import android.annotation.SuppressLint;
-import android.app.WallpaperManager;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -30,7 +30,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.os.Build;
 import android.os.Vibrator;
@@ -40,7 +39,6 @@ import android.support.v4.view.ViewPager;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.AttributeSet;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,14 +90,15 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	private OnLockPageChangeListener mOnLockPageChangeListener = new OnLockPageChangeListener();
 	private TransitionEffect mEffect = TransitionEffect.RotateDown;
 
-	// Clock Layout Resources
+	// Clock
+	private int mClockType = LockUtilities.CLOCK_TYPE_24;
 	private LinearLayout mClockLinearLayout;
 	private TextView mClockTextView;
-	private TextView mDataTExtView;
+	private TextView mDataTextView;
 	private static Calendar mCalendar = Calendar.getInstance();
-	private int[] mClockDigit = new int[4];
-	private int[] mClockDigitOld = new int[4];
-	private int[] mClockDateDigit = new int[4];
+
+	// Battery
+	private TextView mBatteryView;
 
 	public LockLayout(Context context) {
 		super(context);
@@ -255,6 +254,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		}
 
 		mEffect = PreferenceCommon.getViewPagerEffect(context);
+		mClockType = PreferenceCommon.getClockType(context);
 	}
 
 	/**
@@ -284,7 +284,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 
 			if (action.equals(Intent.ACTION_SCREEN_ON)) {
 				if (mLockPagerAdapter != null) {
-					mLockPagerAdapter.initClock(true, context);
+					mLockPagerAdapter.initClock(context, mClockType);
 				}
 				registClockReceiver();
 			}
@@ -736,20 +736,27 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	}
 
 	/**
-	 * 時計更新のBroadcastReceiver
+	 * 時計&バッテリーのBroadcastReceiver
 	 */
-	private BroadcastReceiver mClockUpdateReceiver = new BroadcastReceiver() {
+	private BroadcastReceiver mUpdateReceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			if (context == null || intent == null)
 				return;
 
+			if (mLockPagerAdapter == null) {
+				return;
+			}
+
 			final String action = intent.getAction();
 			if (action.equals(Intent.ACTION_TIME_TICK)) {
-				if (mLockPagerAdapter != null) {
-					mLockPagerAdapter.initClock(false, context);
-				}
+				mLockPagerAdapter.initClock(context, mClockType);
 				return;
+			}
+
+			if (action.equals(Intent.ACTION_BATTERY_CHANGED)) {
+				final int battery = intent.getIntExtra("level", 0);
+				mLockPagerAdapter.initBatteryView(battery);
 			}
 		}
 	};
@@ -764,7 +771,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	private void unregistClockReceiver() {
 		try {
 			getContext().getApplicationContext().unregisterReceiver(
-					mClockUpdateReceiver);
+					mUpdateReceiver);
 		} catch (Exception e) {
 		}
 	}
@@ -775,9 +782,10 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	private void registClockReceiver() {
 		IntentFilter filter = new IntentFilter();
 		filter.addAction(Intent.ACTION_TIME_TICK);
+		filter.addAction(Intent.ACTION_BATTERY_CHANGED);
 		try {
 			getContext().getApplicationContext().registerReceiver(
-					mClockUpdateReceiver, filter);
+					mUpdateReceiver, filter);
 		} catch (Exception e) {
 		}
 	}
@@ -898,14 +906,19 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			RelativeLayout lockLayout = (RelativeLayout) mLayoutInflater
 					.inflate(R.layout.page_lock, null);
 			mClockLinearLayout = (LinearLayout) lockLayout
-					.findViewById(R.id.lock_calender_layout);
+					.findViewById(R.id.lock_data_layout);
 			mClockTextView = (TextView) lockLayout
 					.findViewById(R.id.lock_time_textview);
-			mDataTExtView = (TextView) lockLayout
+			mDataTextView = (TextView) lockLayout
 					.findViewById(R.id.lock_date_textview);
+			mBatteryView = (TextView) lockLayout
+					.findViewById(R.id.lock_battery_textview);
 			mKeyView = (KeyView) lockLayout.findViewById(R.id.unlock_keyview);
 			mKeyView.setKeyViewListener(getKeyViewListener());
-			initClock(true, mContext);
+			initClock(mContext, mClockType);
+			Intent bat = mContext.registerReceiver(null, new IntentFilter(
+					Intent.ACTION_BATTERY_CHANGED));
+			initBatteryView(bat.getIntExtra("level", 0));
 			return lockLayout;
 		}
 
@@ -1006,65 +1019,79 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		}
 
 		/**
-		 * 時計の更新
+		 * 時計の描画
 		 * 
-		 * @param forceUpdate
 		 * @param context
+		 * @param is24h
 		 */
-		private void initClock(boolean forceUpdate, final Context context) {
+		private void initClock(final Context context, final int type) {
+			if (mClockLinearLayout == null || mClockTextView == null
+					|| mDataTextView == null) {
+				return;
+			}
+
+			final boolean is24h = type == LockUtilities.CLOCK_TYPE_24;
 			Date date = new Date();
 			mCalendar.setTime(date);
-			final int hour = mCalendar.get(Calendar.HOUR_OF_DAY);
-			final int month = mCalendar.get(Calendar.MONTH);
+			final int year = mCalendar.get(Calendar.YEAR);
+			final int am_pm = mCalendar.get(Calendar.AM_PM);
+			final int hour = mCalendar.get(is24h ? Calendar.HOUR_OF_DAY
+					: Calendar.HOUR);
+			final int month = mCalendar.get(Calendar.MONTH) + 1;
 			final int day = mCalendar.get(Calendar.DAY_OF_MONTH);
 			final int week_of_day = mCalendar.get(Calendar.DAY_OF_WEEK);
 			final int minite = mCalendar.get(Calendar.MINUTE);
 
-			mClockDigit[0] = (int) (hour / 10);
-			mClockDigit[1] = (int) (hour % 10);
-			mClockDigit[2] = (int) (minite / 10);
-			mClockDigit[3] = (int) (minite % 10);
+			final Resources res = getResources();
 
-			if (!forceUpdate && mClockDigitOld[0] == mClockDigit[0]
-					&& mClockDigitOld[1] == mClockDigit[1]
-					&& mClockDigitOld[2] == mClockDigit[2]
-					&& mClockDigitOld[3] == mClockDigit[3]) {
-				return;
+			// 時間
+			final String col = res.getString(R.string.colon);
+			boolean isAm = am_pm == 0;
+			String timeStr = "";
+			if (is24h) {
+				timeStr = hour + col + minite;
 			} else {
-				mClockLinearLayout.setGravity(Gravity.CENTER);
+				final String am = res.getString(R.string.clock_am);
+				final String pm = res.getString(R.string.clock_pm);
+				timeStr = hour + col + minite + " " + (isAm ? am : pm);
 			}
-
-			mClockDateDigit[0] = (int) ((month + 1) / 10);
-			mClockDateDigit[1] = (int) ((month + 1) % 10);
-			mClockDateDigit[2] = (int) (day / 10);
-			mClockDateDigit[3] = (int) (day % 10);
-
-			try {
-
-			} catch (Exception e) {
-			}
-
-			for (int i = 0; i < 4; i++) {
-				mClockDigitOld[i] = mClockDigit[i];
-			}
-
-			final String timeStr = String.valueOf(mClockDigit[0])
-					+ String.valueOf(mClockDigit[1]) + "："
-					+ String.valueOf(mClockDigit[2])
-					+ String.valueOf(mClockDigit[3]);
 			mClockTextView.setText(timeStr);
 			Utilities
 					.setFontTextView(mClockTextView, mAssetManager, mResources);
-			final String dateStr = String.valueOf(mClockDateDigit[0])
-					+ String.valueOf(mClockDateDigit[1])
-					+ "月"
-					+ String.valueOf(mClockDateDigit[2])
-					+ String.valueOf(mClockDateDigit[3])
-					+ "日"
-					+ LockUtilities.getInstance().getDatOfWeek(context,
-							week_of_day);
-			mDataTExtView.setText(dateStr);
-			Utilities.setFontTextView(mDataTExtView, mAssetManager, mResources);
+
+			// 日にち
+			boolean isJp = false;
+			Locale locale = Locale.getDefault();
+			if (locale.equals(Locale.JAPAN)) {
+				isJp = true;
+			}
+			String dateStr = "";
+			final String wod = LockUtilities.getInstance().getDatOfWeek(
+					context, week_of_day);
+			if (isJp) {
+				final String y = res.getString(R.string.date_year);
+				final String m = res.getString(R.string.date_month);
+				final String d = res.getString(R.string.date_day);
+				dateStr = year + y + month + m + day + d + wod;
+			} else {
+				dateStr = wod + "," + month + "/" + day + "/" + year;
+			}
+			mDataTextView.setText(dateStr);
+			Utilities.setFontTextView(mDataTextView, mAssetManager, mResources);
+		}
+
+		/**
+		 * バッテリー状態の更新
+		 * 
+		 * @param battery
+		 */
+		private void initBatteryView(final int battery) {
+			if (mBatteryView == null) {
+				return;
+			}
+
+			mBatteryView.setText(String.valueOf(battery) + "%");
+			Utilities.setFontTextView(mBatteryView, mAssetManager, mResources);
 		}
 	}
 

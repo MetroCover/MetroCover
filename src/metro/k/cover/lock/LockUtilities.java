@@ -41,6 +41,10 @@ public class LockUtilities {
 
 	private static LockUtilities sInstance = new LockUtilities();
 
+	// 時計の表示
+	public static final int CLOCK_TYPE_12 = 0;
+	public static final int CLOCK_TYPE_24 = 1;
+
 	// LockView
 	private View mLockView = null;
 	private WindowManager mWindowManager = null;

@@ -1,5 +1,6 @@
 package metro.k.cover;
 
+import metro.k.cover.lock.LockUtilities;
 import metro.k.cover.view.JazzyViewPager;
 import metro.k.cover.view.JazzyViewPager.TransitionEffect;
 import metro.k.cover.view.ViewUtilities;
@@ -89,6 +90,23 @@ public final class PreferenceCommon {
 		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
 				Context.MODE_PRIVATE);
 		return sp.getBoolean(KEY_SET_METROCOVER, false);
+	}
+
+	// ロック画面の時計が12時間表記か24時間表記か（デフォルトは24時間）
+	private static final String KEY_SET_CLOCK_TYPE = "set_clock_type";
+
+	public static void setClockType(final Context context, final int type) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sp.edit();
+		editor.putInt(KEY_SET_CLOCK_TYPE, type);
+		editor.apply();
+	}
+
+	public static int getClockType(final Context context) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
+		return sp.getInt(KEY_SET_CLOCK_TYPE, LockUtilities.CLOCK_TYPE_24);
 	}
 
 	// ロック画面のセキュリティのタイプ

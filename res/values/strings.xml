@@ -4,9 +4,18 @@
     <string name="api_railways_info">https://api.tokyometroapp.jp/api/v2/datapoints</string>
     <string name="app_name">MetroCover</string>
     <string name="cancel">CANCEL</string>
+    <string name="clock_am">AM</string>
+    <string name="clock_pm">PM</string>
+    <string name="clock_type">Clock Notation</string>
+    <string name="clock_24">24-hour clock</string>
+    <string name="clock_12">12-hour clock</string>
     <string name="close">CLOSE</string>
+    <string name="colon">：</string>
     <string name="common_err">Sorry...Error Occurred</string>
     <string name="complete">COMPLETE</string>
+    <string name="date_day">Day</string>
+    <string name="date_month">Month</string>
+    <string name="date_year">Year</string>
     <string name="day_of_week_monday">Mon.</string>
     <string name="day_of_week_tuesday">Tue.</string>
     <string name="day_of_week_wednesday">Wed.</string>
@@ -91,6 +100,7 @@
     <string name="tutorial_select_railways">Check Lines\nYou Use Often.</string>
     <string name="tutorial_select_station">Select A Station\nYou Use Often.</string>
     <string name="tutorial_use_metrocover">USE IT!</string>
+    <string name="wallpaper_empty">No Wallpapers</string>
     <string name="wallpaper_homee_title">HOMEE\'S WALLPAPER</string>
     <string name="wallpaper_plushome_title">[+]HOME\'S WALLPAPER</string>
     <string name="wallpaper_select">Select Wallpaper</string>
