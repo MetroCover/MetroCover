@@ -38,7 +38,6 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
-import android.text.method.DigitsKeyListener;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -97,6 +96,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	private TextView mClockTextView;
 	private TextView mDataTextView;
 	private static Calendar mCalendar = Calendar.getInstance();
+	private int mClockColorID;
 
 	// Battery
 	private TextView mBatteryView;
@@ -256,6 +256,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 
 		mEffect = PreferenceCommon.getViewPagerEffect(context);
 		mClockType = PreferenceCommon.getClockType(context);
+		mClockColorID = PreferenceCommon.getClockColor(context);
 	}
 
 	/**
@@ -1058,6 +1059,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 				timeStr = hour + col + minuteStr + " " + (isAm ? am : pm);
 			}
 			mClockTextView.setText(timeStr);
+			mClockTextView.setTextColor(mResources.getColor(mClockColorID));
 			Utilities
 					.setFontTextView(mClockTextView, mAssetManager, mResources);
 
@@ -1079,6 +1081,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 				dateStr = wod + "," + month + "/" + day + "/" + year;
 			}
 			mDataTextView.setText(dateStr);
+			mDataTextView.setTextColor(mResources.getColor(mClockColorID));
 			Utilities.setFontTextView(mDataTextView, mAssetManager, mResources);
 		}
 
@@ -1100,6 +1103,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			}
 
 			mBatteryView.setText(String.valueOf(battery) + "%");
+			mBatteryView.setTextColor(mResources.getColor(mClockColorID));
 			Utilities.setFontTextView(mBatteryView, mAssetManager, mResources);
 		}
 	}

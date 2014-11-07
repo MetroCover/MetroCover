@@ -101,6 +101,80 @@
                 android:background="?android:attr/listDivider"
                 android:contentDescription="@string/app_name" />
 
+            <!-- 時計表記設定 -->
+
+            <RelativeLayout
+                android:id="@+id/setting_clocktype_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/activity_setting_list_item_height"
+                android:background="@drawable/selector_setting_list_at"
+                android:padding="15dip" >
+
+                <TextView
+                    android:id="@+id/setting_clocktype_titleview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/clock_type"
+                    android:textColor="#000"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/setting_clocktype_currentview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="12dip"
+                    android:text="@string/clock_24"
+                    android:textColor="#000"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:background="?android:attr/listDivider"
+                android:contentDescription="@string/app_name" />
+
+            <!-- 時計の色設定 -->
+
+            <RelativeLayout
+                android:id="@+id/setting_clock_color_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/activity_setting_list_item_height"
+                android:background="@drawable/selector_setting_list_at"
+                android:padding="15dip" >
+
+                <TextView
+                    android:id="@+id/setting_clock_color_titleview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/lock_clock_text_color"
+                    android:textColor="#000"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/setting_clock_color_currentview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="12dip"
+                    android:text="@string/color_white"
+                    android:textColor="#000"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:background="?android:attr/listDivider"
+                android:contentDescription="@string/app_name" />
+
             <!-- MetoroCoverのセキュリティ設定 -->
 
             <RelativeLayout
@@ -138,42 +212,6 @@
                 android:background="?android:attr/listDivider"
                 android:contentDescription="@string/app_name" />
 
-            <!-- 時計表記設定 -->
-
-            <RelativeLayout
-                android:id="@+id/setting_clocktype_layout"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/activity_setting_list_item_height"
-                android:background="@drawable/selector_setting_list_at"
-                android:padding="15dip" >
-
-                <TextView
-                    android:id="@+id/setting_clocktype_titleview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:text="@string/clock_type"
-                    android:textColor="#000"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/setting_clocktype_currentview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="12dip"
-                    android:text="@string/clock_24"
-                    android:textColor="#000"
-                    android:textSize="18sp" />
-            </RelativeLayout>
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="1dip"
-                android:background="?android:attr/listDivider"
-                android:contentDescription="@string/app_name" />
             <!-- パターンロックのバイブレーション -->
 
             <RelativeLayout

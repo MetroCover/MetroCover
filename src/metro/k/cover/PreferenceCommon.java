@@ -6,6 +6,7 @@ import metro.k.cover.view.JazzyViewPager.TransitionEffect;
 import metro.k.cover.view.ViewUtilities;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 
 /**
  * SharedPreference管理クラス
@@ -107,6 +108,61 @@ public final class PreferenceCommon {
 		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
 				Context.MODE_PRIVATE);
 		return sp.getInt(KEY_SET_CLOCK_TYPE, LockUtilities.CLOCK_TYPE_24);
+	}
+
+	// ロック画面の時計の色（デフォルトは白）
+	private static final String KEY_SET_CLOCK_COLOR = "set_clock_color";
+
+	public static void setClockColor(final Context context, final int color) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sp.edit();
+		editor.putInt(KEY_SET_CLOCK_COLOR, color);
+		editor.apply();
+	}
+
+	public static int getClockColor(final Context context) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
+		return sp.getInt(KEY_SET_CLOCK_COLOR, R.color.color_white);
+	}
+
+	// ロック画面の時計の色（デフォルトは白）
+	private static final String KEY_SET_CLOCK_COLOR_STR = "set_clock_color_str";
+
+	public static void setClockColorStr(final Context context,
+			final String color) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sp.edit();
+		editor.putString(KEY_SET_CLOCK_COLOR_STR, color);
+		editor.apply();
+	}
+
+	public static String getClockColorStr(final Context context) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
+		return sp.getString(KEY_SET_CLOCK_COLOR_STR, context.getResources()
+				.getString(R.string.color_white));
+	}
+
+	// ロック画面の時計の色(Selected表示用)
+	private static final String KEY_SET_CLOCK_COLOR_FOR_SELECTED = "set_clock_color_selected";
+
+	public static void setClockColorForSelected(final Context context,
+			final int selectedId) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sp.edit();
+		editor.putInt(KEY_SET_CLOCK_COLOR_FOR_SELECTED, selectedId);
+		editor.apply();
+	}
+
+	public static int getClockColorForSelected(final Context context) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
+		return sp.getInt(KEY_SET_CLOCK_COLOR_FOR_SELECTED,
+				R.id.clock_text_color_white_selected);
 	}
 
 	// ロック画面のセキュリティのタイプ

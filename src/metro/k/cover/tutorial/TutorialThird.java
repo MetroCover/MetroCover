@@ -6,6 +6,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import metro.k.cover.R;
+import metro.k.cover.SettingActivity;
 import metro.k.cover.Utilities;
 
 import org.apache.http.HttpEntity;
@@ -23,12 +24,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.net.ParseException;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -68,6 +69,9 @@ public class TutorialThird extends Fragment implements OnClickListener {
 	public void onClick(View v) {
 		final int viewId = v.getId();
 		if (R.id.tutorial_third_finish_btn == viewId) {
+			Intent intent = new Intent(getActivity(), SettingActivity.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			Utilities.startActivitySafely(intent, getActivity());
 			getActivity().finish();
 			return;
 		}

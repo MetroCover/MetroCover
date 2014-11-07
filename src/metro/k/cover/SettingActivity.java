@@ -1,5 +1,6 @@
 package metro.k.cover;
 
+import metro.k.cover.lock.LockClockTextColorSelectActivity;
 import metro.k.cover.lock.LockPasswordDialogActivity;
 import metro.k.cover.lock.LockPatternChooseActivity;
 import metro.k.cover.lock.LockSecurityChooseActivity;
@@ -14,6 +15,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +44,11 @@ public class SettingActivity extends Activity implements OnClickListener,
 	private int mClockSelected = LockUtilities.CLOCK_TYPE_24;
 	private TextView mCurrentClockTypeView;
 	private int mCurrentClockType;
+
+	// 現在の時計の色
+	private int mClockColorID;
+	private String mClockColorStr;
+	private TextView mCurrentClockColorView;
 
 	// パターンロックのバイブレーション
 	private boolean isPatternLockVibe = false;
@@ -146,6 +153,11 @@ public class SettingActivity extends Activity implements OnClickListener,
 		TextView effect_titleview = (TextView) findViewById(R.id.setting_wallpapers_effect_titleview);
 		Utilities.setFontTextView(effect_titleview, am, res);
 
+		// Coloc color
+		RelativeLayout clockcol_layout = (RelativeLayout) findViewById(R.id.setting_clock_color_layout);
+		clockcol_layout.setOnClickListener(this);
+		TextView clockcol_titleview = (TextView) findViewById(R.id.setting_clock_color_titleview);
+		Utilities.setFontTextView(clockcol_titleview, am, res);
 	}
 
 	/**
@@ -190,6 +202,17 @@ public class SettingActivity extends Activity implements OnClickListener,
 			mCurrentClockTypeView.setText(res.getString(R.string.clock_24));
 		}
 		Utilities.setFontTextView(mCurrentClockTypeView, am, res);
+
+		// 時計色
+		mCurrentClockColorView = (TextView) findViewById(R.id.setting_clock_color_currentview);
+		mCurrentClockColorView.setText(mClockColorStr);
+		if (mClockColorID == R.color.color_white) {
+			mCurrentClockColorView.setTextColor(res
+					.getColor(R.color.color_black));
+		} else {
+			mCurrentClockColorView.setTextColor(res.getColor(mClockColorID));
+		}
+		Utilities.setFontTextView(mCurrentClockColorView, am, res);
 	}
 
 	/**
@@ -208,6 +231,9 @@ public class SettingActivity extends Activity implements OnClickListener,
 				.getViewPagerEffect(getApplicationContext()));
 		mCurrentClockType = PreferenceCommon
 				.getClockType(getApplicationContext());
+		mClockColorID = PreferenceCommon.getClockColor(getApplicationContext());
+		mClockColorStr = PreferenceCommon
+				.getClockColorStr(getApplicationContext());
 	}
 
 	/**
@@ -317,6 +343,14 @@ public class SettingActivity extends Activity implements OnClickListener,
 		Utilities.startActivitySafely(intent, this);
 	}
 
+	/**
+	 * 時計色設定画面へ遷移
+	 */
+	private void startColorSelectActivity() {
+		Intent intent = new Intent(this, LockClockTextColorSelectActivity.class);
+		Utilities.startActivitySafely(intent, this);
+	}
+
 	@Override
 	public void onClick(View v) {
 		final int viewId = v.getId();
@@ -349,6 +383,12 @@ public class SettingActivity extends Activity implements OnClickListener,
 		// Clock-Type
 		if (R.id.setting_clocktype_layout == viewId) {
 			buildClockTypeDialog();
+			return;
+		}
+
+		// Clock-Color
+		if (R.id.setting_clock_color_layout == viewId) {
+			startColorSelectActivity();
 			return;
 		}
 
