@@ -27,6 +27,7 @@
     <string name="day_of_week_friday">Fri.</string>
     <string name="day_of_week_saturday">Sat.</string>
     <string name="day_of_week_sunday">Sun.</string>
+    <string name="err_msg_picasa_img">You can\'t select Picasa Image</string>
     <string name="font_free_wing">freewing.ttf</string>
     <string name="license">License</string>
     <string name="lock_clock_text_color">Clock Color</string>

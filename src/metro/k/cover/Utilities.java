@@ -149,6 +149,19 @@ public final class Utilities {
 	}
 
 	/**
+	 * 指定の文言のトースト表示
+	 * @param context
+	 * @param message
+	 */
+	public static void showToast(final Context context,
+			final String message) {
+		try {
+			Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+		} catch (Exception e) {
+		}
+	}
+
+	/**
 	 * 指定のアプリがインストール済みかどうか
 	 * 
 	 * @param context

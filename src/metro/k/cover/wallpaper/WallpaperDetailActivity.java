@@ -75,7 +75,9 @@ public class WallpaperDetailActivity extends FragmentActivity {
 
 				final String filePath = cur.getString(0);
 				if (filePath == null) {
-					Utilities.showErrorCommonToast(getApplicationContext());
+					// おそらくPicasaの画像
+					Utilities.showToast(getApplicationContext(), getResources()
+							.getString(R.string.err_msg_picasa_img));
 					return;
 				}
 

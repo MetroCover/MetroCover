@@ -21,6 +21,7 @@
     <string name="day_of_week_friday">(金)</string>
     <string name="day_of_week_saturday">(土)</string>
     <string name="day_of_week_sunday">(日)</string>
+    <string name="err_msg_picasa_img">Picasaの画像は現在読み込みできません</string>
     <string name="license">ライセンス</string>
     <string name="lock_clock_text_color">時計カラー</string>
     <string name="lock_missed_call_number_withheld">非通知着信</string>
