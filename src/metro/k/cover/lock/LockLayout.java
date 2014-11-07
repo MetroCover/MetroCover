@@ -15,6 +15,7 @@ import metro.k.cover.lock.LockPatternView.DisplayMode;
 import metro.k.cover.view.JazzyViewPager;
 import metro.k.cover.view.JazzyViewPager.TransitionEffect;
 import metro.k.cover.wallpaper.WallpaperBitmapDB;
+import metro.k.cover.wallpaper.WallpaperUtilities;
 import android.annotation.SuppressLint;
 import android.app.WallpaperManager;
 import android.content.BroadcastReceiver;
@@ -954,7 +955,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 				if (bmp != null) {
 					compatibleSetBackground(view, bmp);
 				} else {
-					bmp = getSystemWallpaper();
+					bmp = WallpaperUtilities.getSystemWallpaper(mContext);
 					if (bmp != null) {
 						compatibleSetBackground(view, bmp);
 					}
@@ -962,31 +963,6 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			} else {
 				compatibleSetBackground(view, bmp);
 			}
-		}
-
-		/**
-		 * ホーム画面に設定している画像取得
-		 * 
-		 * @return
-		 */
-		@SuppressLint("ServiceCast")
-		final Bitmap getSystemWallpaper() {
-			if (mContext == null) {
-				return null;
-			}
-
-			final WallpaperManager wm = (WallpaperManager) mContext
-					.getSystemService(Context.WALLPAPER_SERVICE);
-			if (wm == null) {
-				return null;
-			}
-
-			final Drawable d = wm.getDrawable();
-			if (d == null) {
-				return null;
-			}
-
-			return ((BitmapDrawable) d).getBitmap();
 		}
 
 		/**

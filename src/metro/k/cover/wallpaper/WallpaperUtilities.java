@@ -8,12 +8,16 @@ import java.util.List;
 
 import metro.k.cover.R;
 import metro.k.cover.Utilities;
+import android.annotation.SuppressLint;
+import android.app.WallpaperManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 
 public final class WallpaperUtilities {
 
@@ -173,5 +177,31 @@ public final class WallpaperUtilities {
 				}
 			}
 		}
+	}
+
+	/**
+	 * ホーム画面の壁紙取得
+	 * 
+	 * @param context
+	 * @return
+	 */
+	@SuppressLint("ServiceCast")
+	public static final Bitmap getSystemWallpaper(final Context context) {
+		if (context == null) {
+			return null;
+		}
+
+		final WallpaperManager wm = (WallpaperManager) context
+				.getSystemService(Context.WALLPAPER_SERVICE);
+		if (wm == null) {
+			return null;
+		}
+
+		final Drawable d = wm.getDrawable();
+		if (d == null) {
+			return null;
+		}
+
+		return ((BitmapDrawable) d).getBitmap();
 	}
 }

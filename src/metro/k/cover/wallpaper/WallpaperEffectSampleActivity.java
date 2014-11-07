@@ -10,6 +10,8 @@ import metro.k.cover.view.ViewUtilities;
 import android.app.Activity;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
@@ -17,6 +19,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 /**
@@ -64,6 +67,11 @@ public class WallpaperEffectSampleActivity extends Activity implements
 		cancel.setOnClickListener(this);
 		complete.setOnClickListener(this);
 
+		RelativeLayout root = (RelativeLayout) findViewById(R.id.wallpaper_effect_root);
+		final Drawable d = new BitmapDrawable(res,
+				WallpaperUtilities.getSystemWallpaper(this));
+		Utilities.setBackground(root, d);
+
 		mJazzyViewPager = (JazzyViewPager) findViewById(R.id.wallpaper_effect_viewpager);
 		mJazzyViewPager.setTransitionEffect(mEffect);
 		mJazzyViewPager.setAdapter(new MainAdapter());
@@ -88,6 +96,7 @@ public class WallpaperEffectSampleActivity extends Activity implements
 	private class MainAdapter extends PagerAdapter {
 		@Override
 		public Object instantiateItem(ViewGroup container, final int position) {
+			final Resources res = getResources();
 			final View view = LayoutInflater.from(getApplicationContext())
 					.inflate(R.layout.wallpaper_sample, null);
 			final TextView effect_name = (TextView) view
