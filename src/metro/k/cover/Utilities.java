@@ -15,6 +15,8 @@ import android.graphics.Point;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.view.Display;
 import android.view.View;
@@ -150,15 +152,43 @@ public final class Utilities {
 
 	/**
 	 * 指定の文言のトースト表示
+	 * 
 	 * @param context
 	 * @param message
 	 */
-	public static void showToast(final Context context,
-			final String message) {
+	public static void showToast(final Context context, final String message) {
 		try {
 			Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
 		} catch (Exception e) {
 		}
+	}
+
+	/**
+	 * Network確認
+	 * 
+	 * @param context
+	 * @return
+	 */
+	public static boolean isOnline(Context context) {
+		try {
+			final ConnectivityManager cm = (ConnectivityManager) context
+					.getSystemService(Context.CONNECTIVITY_SERVICE);
+			if (cm == null) {
+				return false;
+			}
+			final NetworkInfo info = cm.getActiveNetworkInfo();
+			if (info == null) {
+				return false;
+			}
+
+			if (info.isConnected()) {
+				return true;
+			}
+		} catch (SecurityException e) {
+			return false;
+		}
+
+		return false;
 	}
 
 	/**
