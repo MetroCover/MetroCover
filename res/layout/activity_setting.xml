@@ -254,14 +254,15 @@
                     android:textColor="@color/metro_main_color"
                     android:textSize="18sp" />
 
-                <ImageView
+                <TextView
+                    android:id="@+id/setting_wallpapers_effect_currentview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="12dip"
-                    android:contentDescription="@string/app_name"
-                    android:src="@drawable/arrow_right" />
+                    android:textColor="@color/metro_main_color"
+                    android:textSize="18sp" />
             </RelativeLayout>
 
             <ImageView

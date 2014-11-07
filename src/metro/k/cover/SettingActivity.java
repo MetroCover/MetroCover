@@ -33,6 +33,7 @@ public class SettingActivity extends Activity implements OnClickListener,
 
 	// 現在のセキュリティタイプ
 	private int mCurrentSecurityType;
+	private String mCurrentEffectType;
 
 	// パターンロックのバイブレーション
 	private boolean isPatternLockVibe = false;
@@ -119,7 +120,7 @@ public class SettingActivity extends Activity implements OnClickListener,
 		TextView railways_titleview = (TextView) findViewById(R.id.setting_railways_titleview);
 		Utilities.setFontTextView(railways_titleview, am, res);
 
-		// Railways
+		// License
 		RelativeLayout license_layout = (RelativeLayout) findViewById(R.id.setting_license_layout);
 		license_layout.setOnClickListener(this);
 		TextView license_titleview = (TextView) findViewById(R.id.setting_license_titleview);
@@ -161,6 +162,11 @@ public class SettingActivity extends Activity implements OnClickListener,
 
 		// パターンロックの軌跡
 		mPatternLockTrackCheckBox.setChecked(isPatternLockTrack);
+
+		// Effect
+		TextView current_effect = (TextView) findViewById(R.id.setting_wallpapers_effect_currentview);
+		current_effect.setText(mCurrentEffectType);
+		Utilities.setFontTextView(current_effect, am, res);
 	}
 
 	/**
@@ -175,6 +181,8 @@ public class SettingActivity extends Activity implements OnClickListener,
 				.getLockPatternVib(getApplicationContext());
 		isPatternLockTrack = PreferenceCommon
 				.getLockPatternTrack(getApplicationContext());
+		mCurrentEffectType = String.valueOf(PreferenceCommon
+				.getViewPagerEffect(getApplicationContext()));
 	}
 
 	/**
