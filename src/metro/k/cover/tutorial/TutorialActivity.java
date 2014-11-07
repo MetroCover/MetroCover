@@ -3,15 +3,20 @@ package metro.k.cover.tutorial;
 import metro.k.cover.PreferenceCommon;
 import metro.k.cover.R;
 import metro.k.cover.SettingActivity;
+import metro.k.cover.Utilities;
+import metro.k.cover.view.JazzyViewPager;
+import metro.k.cover.wallpaper.WallpaperUtilities;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
+import android.widget.RelativeLayout;
 
 public class TutorialActivity extends FragmentActivity {
 
-	private static ViewPager mViewPager;
+	private static JazzyViewPager mViewPager;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +78,14 @@ public class TutorialActivity extends FragmentActivity {
 
 	private void setupViews() {
 		setContentView(R.layout.activity_tutorial);
-		mViewPager = (ViewPager) findViewById(R.id.tutorial_viewpager);
+		RelativeLayout root = (RelativeLayout) findViewById(R.id.tutorial_root);
+		final Drawable d = new BitmapDrawable(getResources(),
+				WallpaperUtilities.getSystemWallpaper(this));
+		Utilities.setBackground(root, d);
+		mViewPager = (JazzyViewPager) findViewById(R.id.tutorial_viewpager);
+		mViewPager.setTransitionEffect(PreferenceCommon
+				.getViewPagerEffect(this));
+		mViewPager.setPageMargin(30);
 		mViewPager.setAdapter(new TutorialPagerAdapter(
 				getSupportFragmentManager()));
 	}
@@ -105,5 +117,9 @@ public class TutorialActivity extends FragmentActivity {
 	 */
 	private String getCheckedRailways() {
 		return TutorialSecond.getCheckedStr();
+	}
+
+	public static JazzyViewPager getViewPager() {
+		return mViewPager;
 	}
 }
