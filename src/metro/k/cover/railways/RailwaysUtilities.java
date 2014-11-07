@@ -1,7 +1,8 @@
-package metro.k.cover;
+package metro.k.cover.railways;
 
 import java.util.ArrayList;
 
+import metro.k.cover.R;
 import android.content.Context;
 import android.content.res.Resources;
 

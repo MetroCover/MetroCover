@@ -5,6 +5,7 @@ import metro.k.cover.lock.LockPatternChooseActivity;
 import metro.k.cover.lock.LockSecurityChooseActivity;
 import metro.k.cover.lock.LockService;
 import metro.k.cover.lock.LockUtilities;
+import metro.k.cover.railways.RailwaysActivity;
 import metro.k.cover.wallpaper.WallpaperDetailActivity;
 import metro.k.cover.wallpaper.WallpaperEffectSelectActivity;
 import android.app.Activity;
@@ -481,5 +482,4 @@ public class SettingActivity extends Activity implements OnClickListener,
 			dialog.cancel();
 		}
 	};
-
 }

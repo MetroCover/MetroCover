@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import metro.k.cover.R;
-import metro.k.cover.Railways;
-import metro.k.cover.RailwaysAdapter;
-import metro.k.cover.RailwaysUtilities;
 import metro.k.cover.Utilities;
+import metro.k.cover.railways.Railways;
+import metro.k.cover.railways.RailwaysAdapter;
+import metro.k.cover.railways.RailwaysUtilities;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.Typeface;

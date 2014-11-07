@@ -1,7 +1,10 @@
-package metro.k.cover;
+package metro.k.cover.railways;
 
 import java.util.ArrayList;
 
+import metro.k.cover.PreferenceCommon;
+import metro.k.cover.R;
+import metro.k.cover.Utilities;
 import android.app.Activity;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
