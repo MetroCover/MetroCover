@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -20,6 +21,8 @@ public class WallpaperDialogFragment extends DialogFragment {
 
 	private String mTAG = "";
 	private int mPosition;
+	private boolean isHomeeWallpaper = false;
+	private boolean isPlusHomeWallpaper = false;
 
 	public static String KEY_SELECTED_PAGE = "key_selected_page";
 
@@ -27,9 +30,12 @@ public class WallpaperDialogFragment extends DialogFragment {
 		super();
 	}
 
-	public void showThemeDialogFragment(String tag, int position) {
+	public void showThemeDialogFragment(String tag, int position,
+			boolean homee, boolean plushome) {
 		mTAG = tag;
 		mPosition = position;
+		isHomeeWallpaper = homee;
+		isPlusHomeWallpaper = plushome;
 	}
 
 	@Override
@@ -56,10 +62,39 @@ public class WallpaperDialogFragment extends DialogFragment {
 			// Homeeの壁紙
 			RelativeLayout homee_layout = (RelativeLayout) dialog
 					.findViewById(R.id.wallpaper_dialog_homee_layout);
-			homee_layout.setOnClickListener(getHomeeListener(mPosition));
-			TextView homee_titleView = (TextView) dialog
-					.findViewById(R.id.wallpaper_dialog_homee_titleview);
-			Utilities.setFontTextView(homee_titleView, am, res);
+			ImageView homee_sep = (ImageView) dialog
+					.findViewById(R.id.wallpaper_dialog_homee_sep);
+			if (isHomeeWallpaper) {
+				homee_layout.setVisibility(View.VISIBLE);
+				homee_sep.setVisibility(View.VISIBLE);
+				homee_layout.setOnClickListener(getOtherHomeWallpaperListener(
+						mPosition, WallpaperUtilities.HOMEE_APP_ID));
+				TextView homee_titleView = (TextView) dialog
+						.findViewById(R.id.wallpaper_dialog_homee_titleview);
+				Utilities.setFontTextView(homee_titleView, am, res);
+			} else {
+				homee_layout.setVisibility(View.GONE);
+				homee_sep.setVisibility(View.GONE);
+			}
+
+			// [+]HOMEの壁紙
+			RelativeLayout plushome_layout = (RelativeLayout) dialog
+					.findViewById(R.id.wallpaper_dialog_plushome_layout);
+			ImageView plushome_sep = (ImageView) dialog
+					.findViewById(R.id.wallpaper_dialog_plushome_sep);
+			if (isPlusHomeWallpaper) {
+				plushome_layout.setVisibility(View.VISIBLE);
+				plushome_sep.setVisibility(View.VISIBLE);
+				plushome_layout
+						.setOnClickListener(getOtherHomeWallpaperListener(
+								mPosition, WallpaperUtilities.PLUSHOME_APP_ID));
+				TextView homee_titleView = (TextView) dialog
+						.findViewById(R.id.wallpaper_dialog_plushome_titleview);
+				Utilities.setFontTextView(homee_titleView, am, res);
+			} else {
+				plushome_layout.setVisibility(View.GONE);
+				plushome_sep.setVisibility(View.GONE);
+			}
 
 			// 暗黙投げる
 			RelativeLayout gallery_layout = (RelativeLayout) dialog
@@ -77,18 +112,21 @@ public class WallpaperDialogFragment extends DialogFragment {
 	}
 
 	/**
-	 * Homeeの壁紙一覧へ
+	 * 他のホームアプリの壁紙一覧へ
 	 * 
 	 * @return
 	 */
-	private View.OnClickListener getHomeeListener(final int page) {
+	private View.OnClickListener getOtherHomeWallpaperListener(final int page,
+			final int HomeID) {
 		View.OnClickListener li = new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				dismiss();
 				Intent intent = new Intent(getActivity(),
-						WallpaperHomeeActivity.class);
+						WallpaperOtherHomeActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				intent.putExtra(WallpaperUtilities.KEY_OTHER_HOMEAPP_WALLPAPER,
+						HomeID);
 				intent.putExtra(KEY_SELECTED_PAGE, page);
 				startActivityForResult(intent,
 						WallpaperUtilities.REQUEST_CODE_HOMEE_WALLPAPER);

@@ -6,15 +6,21 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import metro.k.cover.R;
 import metro.k.cover.Utilities;
-
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 
 public final class WallpaperUtilities {
+
+	// 他のホームアプリの壁紙の一覧を表示するためのKey
+	public static final String KEY_OTHER_HOMEAPP_WALLPAPER = "key_other_home_app_wallpaper";
+	public static final int HOMEE_APP_ID = 0;
+	public static final int PLUSHOME_APP_ID = 1;
 
 	// Homeeの壁紙を取得する
 	public static final String INTENT = "com.cfinc.launcehr2.THEMES";
@@ -76,6 +82,33 @@ public final class WallpaperUtilities {
 			packageList.add(appPackageName);
 		}
 		return packageList;
+	}
+
+	public static ArrayList<String> getPlusHomeWallpapers(final Context context) {
+		if (context == null) {
+			return null;
+		}
+
+		final PackageManager packageManager = context.getPackageManager();
+		if (packageManager == null) {
+			return null;
+		}
+
+		final ArrayList<String> list = new ArrayList<String>();
+		List<ApplicationInfo> applicationInfo = packageManager
+				.getInstalledApplications(PackageManager.GET_META_DATA);
+		final String plushome_theme_head = context.getResources().getString(
+				R.string.pkg_plus_home_theme_head);
+		for (ApplicationInfo info : applicationInfo) {
+			if ((info.flags & ApplicationInfo.FLAG_SYSTEM) == ApplicationInfo.FLAG_SYSTEM) {
+				continue;
+			}
+			String pkg = info.packageName;
+			if (pkg.startsWith(plushome_theme_head)) {
+				list.add(pkg);
+			}
+		}
+		return list;
 	}
 
 	/**

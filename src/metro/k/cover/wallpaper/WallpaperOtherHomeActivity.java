@@ -31,7 +31,7 @@ import android.widget.TextView;
  * @author kohirose
  * 
  */
-public class WallpaperHomeeActivity extends FragmentActivity implements
+public class WallpaperOtherHomeActivity extends FragmentActivity implements
 		OnItemClickListener {
 
 	private int mWindowWidth = 0;
@@ -43,6 +43,7 @@ public class WallpaperHomeeActivity extends FragmentActivity implements
 	private ArrayList<Drawable> mThumbList = new ArrayList<Drawable>();
 
 	private int mPage = -1;
+	private int mHomeAppID;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +51,16 @@ public class WallpaperHomeeActivity extends FragmentActivity implements
 		final int[] windows = Utilities.getWindowSize(this);
 		mWindowWidth = windows[0];
 		mWindowHeight = windows[1];
-		mPage = getIntent().getIntExtra(
-				WallpaperDialogFragment.KEY_SELECTED_PAGE, -1);
+		final Intent in = getIntent();
+		if (in == null) {
+			Utilities.showErrorCommonToast(this);
+			finish();
+			return;
+		}
+		mPage = in.getIntExtra(WallpaperDialogFragment.KEY_SELECTED_PAGE, -1);
+		mHomeAppID = in.getIntExtra(
+				WallpaperUtilities.KEY_OTHER_HOMEAPP_WALLPAPER,
+				WallpaperUtilities.HOMEE_APP_ID);
 		setupViews();
 	}
 
@@ -66,10 +75,13 @@ public class WallpaperHomeeActivity extends FragmentActivity implements
 	}
 
 	private void setupViews() {
-		setContentView(R.layout.wallpaper_homee);
+		setContentView(R.layout.wallpaper_other_home);
 
 		// Title
-		TextView titleView = (TextView) findViewById(R.id.wallpaper_homee_titleview);
+		TextView titleView = (TextView) findViewById(R.id.wallpaper_other_home_titleview);
+		if (mHomeAppID != WallpaperUtilities.HOMEE_APP_ID) {
+			titleView.setText(R.string.wallpaper_plushome_title);
+		}
 		Utilities.setFontTextView(titleView, getAssets(), getResources());
 
 		// GridView
@@ -80,7 +92,7 @@ public class WallpaperHomeeActivity extends FragmentActivity implements
 	 * GridViewの設定
 	 */
 	private void setupGridView() {
-		final ArrayList<String> pkgList = getHomeeThemePackagesList();
+		final ArrayList<String> pkgList = getThemePackagesList();
 		if (pkgList == null) {
 			return;
 		}
@@ -91,7 +103,7 @@ public class WallpaperHomeeActivity extends FragmentActivity implements
 		}
 
 		for (int i = 0; i < size; i++) {
-			mRealList.add(getHomeeLockscreen(pkgList.get(i)));
+			mRealList.add(getScreen(pkgList.get(i)));
 		}
 
 		for (int i = 0; i < mRealList.size(); i++) {
@@ -99,9 +111,9 @@ public class WallpaperHomeeActivity extends FragmentActivity implements
 					mWindowWidth / 2, mWindowHeight / 2, this));
 		}
 
-		GridView gridview = (GridView) findViewById(R.id.wallpaper_homee_gridview);
+		GridView gridview = (GridView) findViewById(R.id.wallpaper_other_home_gridview);
 		GridAdapter adapter = new GridAdapter(this.getApplicationContext(),
-				R.layout.wallpaper_homee_grid_items, mThumbList);
+				R.layout.wallpaper_other_home_grid_items, mThumbList);
 		gridview.setAdapter(adapter);
 		gridview.setOnItemClickListener(this);
 	}
@@ -111,8 +123,14 @@ public class WallpaperHomeeActivity extends FragmentActivity implements
 	 * 
 	 * @return
 	 */
-	private ArrayList<String> getHomeeThemePackagesList() {
-		return WallpaperUtilities.getHomeeWallpapers(this);
+	private ArrayList<String> getThemePackagesList() {
+		if (mHomeAppID == WallpaperUtilities.HOMEE_APP_ID) {
+			return WallpaperUtilities.getHomeeWallpapers(this);
+		} else if (mHomeAppID == WallpaperUtilities.PLUSHOME_APP_ID) {
+			return WallpaperUtilities.getPlusHomeWallpapers(this);
+		} else {
+			return null;
+		}
 	}
 
 	/**
@@ -121,10 +139,18 @@ public class WallpaperHomeeActivity extends FragmentActivity implements
 	 * @param packageName
 	 * @return
 	 */
-	private Drawable getHomeeLockscreen(final String packageName) {
-		final String str = getResources().getString(
-				R.string.theme_lock_bg_image);
-		return getDrawableResource(packageName, str);
+	private Drawable getScreen(final String packageName) {
+		if (mHomeAppID == WallpaperUtilities.HOMEE_APP_ID) {
+			final String str = getResources().getString(
+					R.string.theme_homee_bg_image);
+			return getDrawableResource(packageName, str);
+		} else if (mHomeAppID == WallpaperUtilities.PLUSHOME_APP_ID) {
+			final String str = getResources().getString(
+					R.string.theme_plushome_bg_image);
+			return getDrawableResource(packageName, str);
+		} else {
+			return null;
+		}
 	}
 
 	/**
@@ -184,7 +210,7 @@ public class WallpaperHomeeActivity extends FragmentActivity implements
 				convertView = inflater.inflate(layoutId, parent, false);
 				holder = new ViewHolder();
 				holder.imageView = (ImageView) convertView
-						.findViewById(R.id.wallpaper_homee_grid_imageview);
+						.findViewById(R.id.wallpaper_other_home_grid_imageview);
 				convertView.setTag(holder);
 			} else {
 				holder = (ViewHolder) convertView.getTag();

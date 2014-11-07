@@ -59,6 +59,45 @@
     </RelativeLayout>
 
     <ImageView
+        android:id="@+id/wallpaper_dialog_homee_sep"
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="#e0e0e0"
+        android:contentDescription="@string/app_name" />
+
+    <RelativeLayout
+        android:id="@+id/wallpaper_dialog_plushome_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_setting_list_at"
+        android:paddingBottom="8dip"
+        android:paddingLeft="12dip"
+        android:paddingRight="15dip"
+        android:paddingTop="8dip" >
+
+        <ImageView
+            android:id="@+id/wallpaper_dialog_plushome_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_wallpaper_homee" />
+
+        <TextView
+            android:id="@+id/wallpaper_dialog_plushome_titleview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dip"
+            android:layout_toRightOf="@+id/wallpaper_dialog_plushome_icon"
+            android:text="@string/wallpaper_select_plushome"
+            android:textColor="#000"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/wallpaper_dialog_plushome_sep"
         android:layout_width="match_parent"
         android:layout_height="1dip"
         android:background="#e0e0e0"

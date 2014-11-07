@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -172,7 +173,8 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 			final Bitmap cahce = ImageCache.getImageBmp(cacheKey);
 			int col = -1;
 			if (cahce != null) {
-				mMainImageView.setImageBitmap(cahce);
+				Utilities.setBackground(mRootView, new BitmapDrawable(
+						getResources(), cahce));
 				mMainImageView.setVisibility(View.VISIBLE);
 				deleteView.setVisibility(View.VISIBLE);
 				deleteView.setOnClickListener(getDeleteListener(getActivity(),
@@ -184,7 +186,8 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 				WallpaperBitmapDB db = new WallpaperBitmapDB(getActivity());
 				final Bitmap dbBmp = db.getBitmp(dbKey);
 				if (dbBmp != null) {
-					mMainImageView.setImageBitmap(dbBmp);
+					Utilities.setBackground(mRootView, new BitmapDrawable(
+							getResources(), dbBmp));
 					mMainImageView.setVisibility(View.VISIBLE);
 					deleteView.setVisibility(View.VISIBLE);
 					deleteView.setOnClickListener(getDeleteListener(
@@ -266,19 +269,23 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 			public void onClick(View v) {
 				final ArrayList<String> homees = WallpaperUtilities
 						.getHomeeWallpapers(activity);
-				if (homees == null) {
-					pickupGallery(activity, page);
-					return;
+				final ArrayList<String> plushomes = WallpaperUtilities
+						.getPlusHomeWallpapers(activity);
+				boolean plushome = false;
+				boolean homee = false;
+				if (homees != null) {
+					if (homees.size() > 0) {
+						homee = true;
+					}
+				}
+				if (plushomes != null) {
+					if (plushomes.size() > 0) {
+						plushome = true;
+					}
 				}
 
-				final int size = homees.size();
-				if (size == 0) {
-					pickupGallery(activity, page);
-					return;
-				}
-
-				if (Utilities.findInstallApp(activity, "com.cfinc.launcher2")) {
-					buildSelectDialog(activity, page);
+				if (homee || plushome) {
+					buildSelectDialog(activity, page, plushome, homee);
 				} else {
 					pickupGallery(activity, page);
 				}
@@ -318,12 +325,13 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 	 * @param page
 	 */
 	private void buildSelectDialog(final FragmentActivity activity,
-			final int page) {
+			final int page, final boolean isPlushome, final boolean isHomee) {
 		try {
 			final android.app.FragmentManager fm = activity
 					.getFragmentManager();
 			final WallpaperDialogFragment dialog = new WallpaperDialogFragment();
-			dialog.showThemeDialogFragment("wallpaper_dialog", page);
+			dialog.showThemeDialogFragment("wallpaper_dialog", page, isHomee,
+					isPlushome);
 			final FragmentTransaction ft = fm.beginTransaction();
 			ft.add(dialog, "wallpaper_dialog");
 			ft.commit();

@@ -71,7 +71,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="metro.k.cover.wallpaper.WallpaperHomeeActivity"
+            android:name="metro.k.cover.wallpaper.WallpaperOtherHomeActivity"
             android:label="@string/app_name" >
         </activity>
         <activity

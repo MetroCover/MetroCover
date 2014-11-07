@@ -6,7 +6,7 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/wallpaper_homee_titleview"
+        android:id="@+id/wallpaper_other_home_titleview"
         android:layout_width="match_parent"
         android:layout_height="@dimen/activity_setting_list_item_height"
         android:background="@color/metro_main_color"
@@ -16,7 +16,7 @@
         android:textSize="18sp" />
 
     <GridView
-        android:id="@+id/wallpaper_homee_gridview"
+        android:id="@+id/wallpaper_other_home_gridview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"

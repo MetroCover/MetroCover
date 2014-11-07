@@ -54,6 +54,9 @@
     <string name="next">NEXT</string>
     <string name="ok">OK</string>
     <string name="paging_effect">Paging Effect</string>
+    <string name="pkg_homee">com.cfinc.launcher2</string>
+    <string name="pkg_plus_home">jp.co.a_tm.android.launcher</string>
+    <string name="pkg_plus_home_theme_head">jp.co.a_tm.android.plus_</string>
     <string name="railways">Railways</string>
     <string name="railway_chiyoda">Chiyoda-Line</string>
     <string name="railway_chiyoda_response">odpt.Railway:TokyoMetro.Chiyoda</string>
@@ -76,14 +79,17 @@
     <string name="railway_yurakucho_response">odpt.Railway:TokyoMetro.Yurakucho</string>
     <string name="selected">Selected</string>
     <string name="settings">Settings</string>
-    <string name="theme_lock_bg_image">theme_lock_bg</string>
+    <string name="theme_homee_bg_image">theme_lock_bg</string>
+    <string name="theme_plushome_bg_image">drawer_wallpaper</string>
     <string name="tutorial_select_railways">Check Lines\nYou Use Often.</string>
     <string name="tutorial_select_station">Select A Station\nYou Use Often.</string>
     <string name="tutorial_use_metrocover">USE IT!</string>
     <string name="wallpaper_homee_title">HOMEE\'S WALLPAPER</string>
+    <string name="wallpaper_plushome_title">[+]HOME\'S WALLPAPER</string>
     <string name="wallpaper_select">Select Wallpaper</string>
     <string name="wallpaper_select_gallery">Gallery\'s Wallpaper</string>
     <string name="wallpaper_select_homee">Homee\'s Wallpaper</string>
+    <string name="wallpaper_select_plushome">[+]HOME\'s Wallpaper</string>
 
     <!-- 駅名 -->
     <string name="station_akasaka">Akasaka</string>
