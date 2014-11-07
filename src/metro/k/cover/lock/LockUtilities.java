@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.content.res.Resources;
 import android.graphics.PixelFormat;
 import android.media.AudioManager;
 import android.os.Handler;
@@ -251,7 +252,7 @@ public class LockUtilities {
 	 * @param context
 	 */
 	@SuppressWarnings("deprecation")
-	public static void disableKeyguard(Context context) {
+	public void disableKeyguard(Context context) {
 
 		// 初期化して
 		if (mKeyguard == null) {
@@ -271,7 +272,7 @@ public class LockUtilities {
 	 * キーガード(OS標準の画面ロック)を有効にするO
 	 */
 	@SuppressWarnings("deprecation")
-	public static void enableKeyguard(Context context) {
+	public void enableKeyguard(Context context) {
 
 		// キーガードを有効化
 		if (mLock != null) {
@@ -303,7 +304,7 @@ public class LockUtilities {
 	 * @param inputPattern
 	 * @return
 	 */
-	public static boolean getMasterPattern(Context context, String inputPattern) {
+	public boolean getMasterPattern(Context context, String inputPattern) {
 		if (inputPattern == null) {
 			return false;
 		}
@@ -317,7 +318,7 @@ public class LockUtilities {
 		return masterPattern.equals(inputPattern);
 	}
 
-	public static void disableKeyguardWindow(final Activity activity) {
+	public void disableKeyguardWindow(final Activity activity) {
 		try {
 			Window window = activity.getWindow();
 			window.setFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED,
@@ -328,12 +329,42 @@ public class LockUtilities {
 		}
 	}
 
-	public static void enableKeyguardWindow(final Activity activity) {
+	public void enableKeyguardWindow(final Activity activity) {
 		try {
 			Window window = activity.getWindow();
 			window.clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
 			window.clearFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
 		} catch (Exception e) {
 		}
+	}
+
+	/**
+	 * 曜日を取得
+	 * 
+	 * @param context
+	 * @param weekId
+	 * @return
+	 */
+	public String getDatOfWeek(final Context context, final int weekId) {
+		final Resources res = context.getResources();
+		switch (weekId) {
+		case 0:
+			return res.getString(R.string.day_of_week_saturday);
+		case 1:
+			return res.getString(R.string.day_of_week_sunday);
+		case 2:
+			return res.getString(R.string.day_of_week_monday);
+		case 3:
+			return res.getString(R.string.day_of_week_tuesday);
+		case 4:
+			return res.getString(R.string.day_of_week_wednesday);
+		case 5:
+			return res.getString(R.string.day_of_week_thursday);
+		case 6:
+			return res.getString(R.string.day_of_week_friday);
+		default:
+			break;
+		}
+		return "";
 	}
 }

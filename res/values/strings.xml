@@ -7,6 +7,13 @@
     <string name="close">CLOSE</string>
     <string name="common_err">Sorry...Error Occurred</string>
     <string name="complete">COMPLETE</string>
+    <string name="day_of_week_monday">Mon.</string>
+    <string name="day_of_week_tuesday">Tue.</string>
+    <string name="day_of_week_wednesday">Wed.</string>
+    <string name="day_of_week_thursday">Thu.</string>
+    <string name="day_of_week_friday">Fri.</string>
+    <string name="day_of_week_saturday">Sat.</string>
+    <string name="day_of_week_sunday">Sun.</string>
     <string name="font_free_wing">freewing.ttf</string>
     <string name="license">License</string>
     <string name="lock_get_calling">Calling</string>

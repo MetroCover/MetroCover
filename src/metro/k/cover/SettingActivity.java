@@ -197,11 +197,12 @@ public class SettingActivity extends Activity implements OnClickListener,
 				isPatternLockTrack);
 
 		if (isMetroCoverEnable) {
-			LockUtilities.disableKeyguard(getApplicationContext());
-			LockUtilities.disableKeyguardWindow(this);
+			LockUtilities.getInstance()
+					.disableKeyguard(getApplicationContext());
+			LockUtilities.getInstance().disableKeyguardWindow(this);
 		} else {
-			LockUtilities.enableKeyguard(getApplicationContext());
-			LockUtilities.enableKeyguardWindow(this);
+			LockUtilities.getInstance().enableKeyguard(getApplicationContext());
+			LockUtilities.getInstance().enableKeyguardWindow(this);
 		}
 	}
 

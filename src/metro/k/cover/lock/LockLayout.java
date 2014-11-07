@@ -2,6 +2,8 @@ package metro.k.cover.lock;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import metro.k.cover.ImageCache;
@@ -10,6 +12,8 @@ import metro.k.cover.R;
 import metro.k.cover.Utilities;
 import metro.k.cover.lock.LockPatternView.Cell;
 import metro.k.cover.lock.LockPatternView.DisplayMode;
+import metro.k.cover.view.JazzyViewPager;
+import metro.k.cover.view.JazzyViewPager.TransitionEffect;
 import metro.k.cover.wallpaper.WallpaperBitmapDB;
 import android.annotation.SuppressLint;
 import android.app.WallpaperManager;
@@ -35,6 +39,7 @@ import android.support.v4.view.ViewPager;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,8 +84,21 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	private static final int VIBELATE_TIME = 100;
 	private boolean isEnableLock;
 
+	// Pager
+	private LockPagerAdapter mLockPagerAdapter;
+	private JazzyViewPager mViewPager;
 	private KeyView mKeyView;
-	OnLockPageChangeListener mOnLockPageChangeListener = new OnLockPageChangeListener();
+	private OnLockPageChangeListener mOnLockPageChangeListener = new OnLockPageChangeListener();
+	private TransitionEffect mEffect = TransitionEffect.RotateDown;
+
+	// Clock Layout Resources
+	private LinearLayout mClockLinearLayout;
+	private TextView mClockTextView;
+	private TextView mDataTExtView;
+	private static Calendar mCalendar = Calendar.getInstance();
+	private int[] mClockDigit = new int[4];
+	private int[] mClockDigitOld = new int[4];
+	private int[] mClockDateDigit = new int[4];
 
 	public LockLayout(Context context) {
 		super(context);
@@ -94,40 +112,27 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		super(context, attrs, defStyle);
 	}
 
+	/**************************************
+	 * Override
+	 **************************************/
 	@Override
 	protected void onAttachedToWindow() {
 		super.onAttachedToWindow();
 		final Context c = getContext().getApplicationContext();
 		regist(c);
+		initPref(c);
 		initialize();
 		getTelInfo(c);
-		initPref(c);
 	}
 
-	private void regist(final Context c) {
-		if (c == null)
-			return;
-		IntentFilter filter = new IntentFilter();
-		filter.addAction(Intent.ACTION_SCREEN_OFF);
-		filter.addAction(Intent.ACTION_SCREEN_ON);
-		filter.addAction(AudioManager.RINGER_MODE_CHANGED_ACTION);
-		c.registerReceiver(mBroadcastReceiver, filter);
-	}
-
-	// initialize SharedPreference
-	private void initPref(final Context context) {
-		mSecurity = PreferenceCommon.getSecurityType(context);
-		mPassword = PreferenceCommon.getCurrentPassword(context);
-		mSecurityPattern = PreferenceCommon.getCurrentPattern(context);
-		isEnableLock = PreferenceCommon.getMetroCover(context);
-
-		if (isEnableLock) {
-			LockUtilities.getInstance().disableKeyguard(context);
-		}
+	@Override
+	protected void onDetachedFromWindow() {
+		super.onDetachedFromWindow();
+		disableTelephonyReceiver(getContext().getApplicationContext());
 	}
 
 	/**
-	 * Control Statusbar
+	 * ステータスバーの制御
 	 */
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {
@@ -152,20 +157,6 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			LockUtilities.getInstance().lock(c, true);
 			LockUtilities.getInstance().disableKeyguard(c);
 		}
-	}
-
-	@Override
-	protected void onDetachedFromWindow() {
-		super.onDetachedFromWindow();
-		disableTelephonyReceiver(getContext().getApplicationContext());
-	}
-
-	private void disableTelephonyReceiver(Context context) {
-		context.unregisterReceiver(mBroadcastReceiver);
-
-		final TelephonyManager tm = (TelephonyManager) context
-				.getSystemService(Context.TELEPHONY_SERVICE);
-		tm.listen(mPhoneStateListener, PhoneStateListener.LISTEN_NONE);
 	}
 
 	@Override
@@ -198,6 +189,139 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	@Override
 	public boolean onLongClick(View v) {
 		return false;
+	}
+
+	/**************************************
+	 * Lock画面の設定
+	 **************************************/
+
+	/**
+	 * Viewの準備
+	 */
+	private void initialize() {
+		final Context context = getContext().getApplicationContext();
+
+		// vibe
+		mVib = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+
+		// 電話情報の受信開始
+		final TelephonyManager telephonyManager = (TelephonyManager) context
+				.getSystemService(Context.TELEPHONY_SERVICE);
+		telephonyManager.listen(mPhoneStateListener,
+				PhoneStateListener.LISTEN_CALL_STATE);
+
+		// Viewpager
+		mLockPagerAdapter = new LockPagerAdapter(context);
+		mLockPagerAdapter.add(LockPagerAdapter.PAGE_PAGE_TRAIN_INFO_1);
+		mLockPagerAdapter.add(LockPagerAdapter.PAGE_LOCK);
+		mLockPagerAdapter.add(LockPagerAdapter.PAGE_PAGE_TRAIN_INFO_2);
+		mViewPager = (JazzyViewPager) findViewById(R.id.lock_layout_viewpager);
+		mViewPager.setAdapter(mLockPagerAdapter);
+		mViewPager.setCurrentItem(1);
+		mViewPager.setTransitionEffect(mEffect);
+		mViewPager.setOnPageChangeListener(mOnLockPageChangeListener);
+	}
+
+	/**
+	 * ロック画面を表示するReceiver登録
+	 * 
+	 * @param c
+	 */
+	private void regist(final Context c) {
+		if (c == null) {
+			return;
+		}
+		IntentFilter filter = new IntentFilter();
+		filter.addAction(Intent.ACTION_SCREEN_OFF);
+		filter.addAction(Intent.ACTION_SCREEN_ON);
+		filter.addAction(AudioManager.RINGER_MODE_CHANGED_ACTION);
+		c.registerReceiver(mBroadcastReceiver, filter);
+	}
+
+	/**
+	 * Preferenceのデータを取得
+	 * 
+	 * @param context
+	 */
+	private void initPref(final Context context) {
+		mSecurity = PreferenceCommon.getSecurityType(context);
+		mPassword = PreferenceCommon.getCurrentPassword(context);
+		mSecurityPattern = PreferenceCommon.getCurrentPattern(context);
+		isEnableLock = PreferenceCommon.getMetroCover(context);
+
+		if (isEnableLock) {
+			LockUtilities.getInstance().disableKeyguard(context);
+		}
+
+		mEffect = PreferenceCommon.getViewPagerEffect(context);
+	}
+
+	/**
+	 * その他のBroadcastReceiver（ユーザー動作）
+	 */
+	private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			final String action = intent.getAction();
+			final Context c = getContext().getApplicationContext();
+
+			// セキュリティチェックの際にスクリーンオフされたらセキュリティのViewを廃棄
+			if (action.equals(Intent.ACTION_SCREEN_OFF)) {
+				if (mPassView != null) {
+					InputMethodManager inputMethodManager = (InputMethodManager) c
+							.getSystemService(Context.INPUT_METHOD_SERVICE);
+					inputMethodManager.hideSoftInputFromWindow(
+							mPassView.getWindowToken(), 0);
+					removePassView(mPassView);
+				}
+				if (mPatternView != null) {
+					removePassView(mPatternView);
+				}
+				unregistClockReceiver();
+				return;
+			}
+
+			if (action.equals(Intent.ACTION_SCREEN_ON)) {
+				if (mLockPagerAdapter != null) {
+					mLockPagerAdapter.initClock(true, context);
+				}
+				registClockReceiver();
+			}
+		}
+	};
+
+	/**
+	 * サービスが止まっていたら起動をかける
+	 */
+	private void checkAndRestart() {
+		final Context c = getContext().getApplicationContext();
+		final boolean isRunnning = LockService.isServiceRunning(c);
+		if (isRunnning) {
+			return;
+		}
+
+		try {
+			c.startService(new Intent(c, LockService.class));
+			LockUtilities.getInstance().disableKeyguard(c);
+		} catch (Exception e) {
+		}
+	}
+
+	/**************************************
+	 * 着信系
+	 **************************************/
+
+	/**
+	 * 着信のReceiverを解除
+	 * 
+	 * @param context
+	 */
+	private void disableTelephonyReceiver(Context context) {
+		context.unregisterReceiver(mBroadcastReceiver);
+
+		final TelephonyManager tm = (TelephonyManager) context
+				.getSystemService(Context.TELEPHONY_SERVICE);
+		tm.listen(mPhoneStateListener, PhoneStateListener.LISTEN_NONE);
 	}
 
 	/**
@@ -363,58 +487,9 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		return telInfo;
 	}
 
-	/**
-	 * Viewの準備
-	 */
-	private void initialize() {
-		final Context context = getContext().getApplicationContext();
-
-		// vibe
-		mVib = (Vibrator) getContext().getApplicationContext()
-				.getSystemService(Context.VIBRATOR_SERVICE);
-
-		// 電話情報の受信開始
-		final TelephonyManager telephonyManager = (TelephonyManager) context
-				.getSystemService(Context.TELEPHONY_SERVICE);
-		telephonyManager.listen(mPhoneStateListener,
-				PhoneStateListener.LISTEN_CALL_STATE);
-
-		// Viewpager
-		LockPagerAdapter mLockPagerAdapter = new LockPagerAdapter(context);
-		mLockPagerAdapter.add(LockPagerAdapter.PAGE_PAGE_TRAIN_INFO_1);
-		mLockPagerAdapter.add(LockPagerAdapter.PAGE_LOCK);
-		mLockPagerAdapter.add(LockPagerAdapter.PAGE_PAGE_TRAIN_INFO_2);
-		ViewPager pager = (ViewPager) findViewById(R.id.lock_layout_viewpager);
-		pager.setAdapter(mLockPagerAdapter);
-		pager.setCurrentItem(1);
-		pager.setOnPageChangeListener(mOnLockPageChangeListener);
-	}
-
-	/**
-	 * その他のBroadcastReceiver（ユーザー動作）
-	 */
-	private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			final String action = intent.getAction();
-			final Context c = getContext().getApplicationContext();
-
-			// セキュリティチェックの際にスクリーンオフされたらセキュリティのViewを廃棄
-			if (action.equals(Intent.ACTION_SCREEN_OFF)) {
-				if (mPassView != null) {
-					InputMethodManager inputMethodManager = (InputMethodManager) c
-							.getSystemService(Context.INPUT_METHOD_SERVICE);
-					inputMethodManager.hideSoftInputFromWindow(
-							mPassView.getWindowToken(), 0);
-					removePassView(mPassView);
-				}
-				if (mPatternView != null) {
-					removePassView(mPatternView);
-				}
-				return;
-			}
-		}
-	};
+	/**************************************
+	 * セキュリティ系
+	 **************************************/
 
 	/**
 	 * パスワードロックのView設定
@@ -524,7 +599,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 				.findViewById(R.id.lock_pattern_title);
 		final Button cancelBtn = (Button) mPatternView
 				.findViewById(R.id.lock_pattern_cancel_btn);
-		
+
 		Utilities.setFontTextView(titleView, am, res);
 		Utilities.setFontButtonView(cancelBtn, am, res);
 
@@ -619,11 +694,13 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		final Resources res = getResources();
 		if (res.getInteger(R.integer.lock_security_type_password) == mSecurity) {
 			addPasswordSecurityView();
+			hideCalenderLayout();
 			return;
 		}
 		// パターン
 		if (res.getInteger(R.integer.lock_security_type_pattern) == mSecurity) {
 			addPatternSecurityView();
+			hideCalenderLayout();
 			return;
 		}
 		// セリュリティなし
@@ -631,20 +708,16 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	}
 
 	/**
-	 * サービスが止まっていたら起動をかける
+	 * 時計を非表示
 	 */
-	private void checkAndRestart() {
-		final Context c = getContext().getApplicationContext();
-		final boolean isRunnning = LockService.isServiceRunning(c);
-		if (isRunnning) {
+	private void hideCalenderLayout() {
+		if (mClockLinearLayout == null) {
 			return;
 		}
-
-		try {
-			c.startService(new Intent(c, LockService.class));
-			LockUtilities.getInstance().disableKeyguard(c);
-		} catch (Exception e) {
+		if (mClockLinearLayout.getVisibility() == View.INVISIBLE) {
+			return;
 		}
+		mClockLinearLayout.setVisibility(View.INVISIBLE);
 	}
 
 	/**
@@ -654,6 +727,58 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	 */
 	private void removePassView(View v) {
 		this.removeView(v);
+		if (mClockLinearLayout != null) {
+			if (mClockLinearLayout.getVisibility() != View.VISIBLE) {
+				mClockLinearLayout.setVisibility(View.VISIBLE);
+			}
+		}
+	}
+
+	/**
+	 * 時計更新のBroadcastReceiver
+	 */
+	private BroadcastReceiver mClockUpdateReceiver = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			if (context == null || intent == null)
+				return;
+
+			final String action = intent.getAction();
+			if (action.equals(Intent.ACTION_TIME_TICK)) {
+				if (mLockPagerAdapter != null) {
+					mLockPagerAdapter.initClock(false, context);
+				}
+				return;
+			}
+		}
+	};
+
+	/**************************************
+	 * 時計系
+	 **************************************/
+
+	/**
+	 * 時計更新のBroadcastReceiverを解除
+	 */
+	private void unregistClockReceiver() {
+		try {
+			getContext().getApplicationContext().unregisterReceiver(
+					mClockUpdateReceiver);
+		} catch (Exception e) {
+		}
+	}
+
+	/**
+	 * 時計更新のBroadcastReceiverを登録
+	 */
+	private void registClockReceiver() {
+		IntentFilter filter = new IntentFilter();
+		filter.addAction(Intent.ACTION_TIME_TICK);
+		try {
+			getContext().getApplicationContext().registerReceiver(
+					mClockUpdateReceiver, filter);
+		} catch (Exception e) {
+		}
 	}
 
 	/**
@@ -663,6 +788,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	 * 
 	 */
 	public class LockPagerAdapter extends PagerAdapter {
+
 		public static final String PAGE_LOCK = "page_lock";
 		public static final String PAGE_PAGE_TRAIN_INFO_1 = "page_train_info_1";
 		public static final String PAGE_PAGE_TRAIN_INFO_2 = "page_train_info_2";
@@ -673,11 +799,15 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		private int mTestNum1 = 0;
 		private int mTestNum2 = 0;
 		private int mLastPosition = 0;
+		private Resources mResources = getResources();
+		private AssetManager mAssetManager;
 
 		public LockPagerAdapter(Context context) {
 			mContext = context;
 			mList = new ArrayList<String>();
 			mLayoutInflater = LayoutInflater.from(mContext);
+			mResources = getResources();
+			mAssetManager = context.getAssets();
 		}
 
 		public void add(String pageName) {
@@ -689,37 +819,116 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			View pageView = null;
 			String pageName = mList.get(position);
 			if (pageName.equals(PAGE_LOCK)) {
-				RelativeLayout lockLayout = (RelativeLayout) mLayoutInflater
-						.inflate(R.layout.page_lock, null);
-				mKeyView = (KeyView) lockLayout
-						.findViewById(R.id.unlock_keyview);
-				mKeyView.setKeyViewListener(new KeyViewListener() {
-					@Override
-					public void onUnLock() {
-						checkSecurityInfo();
-					}
-				});
-				pageView = lockLayout;
+				pageView = getCenterLayout();
 			} else if (pageName.equals(PAGE_PAGE_TRAIN_INFO_1)) {
-				RelativeLayout trainInfoLayout = (RelativeLayout) mLayoutInflater
-						.inflate(R.layout.page_train_info, null);
-				TextView tv = (TextView) trainInfoLayout
-						.findViewById(R.id.page_train_info_test);
-				tv.setText(String.valueOf(mTestNum1));
-				pageView = trainInfoLayout;
+				pageView = getleftLayout();
 			} else if (pageName.equals(PAGE_PAGE_TRAIN_INFO_2)) {
-				RelativeLayout trainInfoLayout = (RelativeLayout) mLayoutInflater
-						.inflate(R.layout.page_train_info, null);
-				TextView tv = (TextView) trainInfoLayout
-						.findViewById(R.id.page_train_info_test);
-				tv.setText(String.valueOf(mTestNum2));
-				pageView = trainInfoLayout;
+				pageView = getRightLayout();
 			}
 			setBackgrondLoadBitmap(pageView, position);
 			container.addView(pageView);
+			mViewPager.setObjectForPosition(pageView, position);
 			return pageView;
 		}
 
+		@Override
+		public void setPrimaryItem(ViewGroup container, int position,
+				Object object) {
+			super.setPrimaryItem(container, position, object);
+			if (mLastPosition == position) {
+				return;
+			}
+			mLastPosition = position;
+			mPrimaryItem = object;
+			countup(position);
+		}
+
+		@Override
+		public int getCount() {
+			return mList.size();
+		}
+
+		@Override
+		public boolean isViewFromObject(View view, Object keyObject) {
+			return view == keyObject;
+		}
+
+		@Override
+		public void destroyItem(ViewGroup container, int position, Object object) {
+			container.removeView((View) object);
+		}
+
+		/**
+		 * 左画面のレイアウト取得
+		 * 
+		 * @return
+		 */
+		private RelativeLayout getleftLayout() {
+			RelativeLayout trainInfoLayout = (RelativeLayout) mLayoutInflater
+					.inflate(R.layout.page_train_info, null);
+			TextView tv = (TextView) trainInfoLayout
+					.findViewById(R.id.page_train_info_test);
+			tv.setText(String.valueOf(mTestNum1));
+			Utilities.setFontTextView(tv, mAssetManager, mResources);
+			return trainInfoLayout;
+		}
+
+		/**
+		 * 右画面のレイアウト取得
+		 * 
+		 * @return
+		 */
+		private RelativeLayout getRightLayout() {
+			RelativeLayout trainInfoLayout = (RelativeLayout) mLayoutInflater
+					.inflate(R.layout.page_train_info, null);
+			TextView tv = (TextView) trainInfoLayout
+					.findViewById(R.id.page_train_info_test);
+			tv.setText(String.valueOf(mTestNum2));
+			Utilities.setFontTextView(tv, mAssetManager, mResources);
+			return trainInfoLayout;
+		}
+
+		/**
+		 * ロック解除画面のレイアウト取得
+		 * 
+		 * @return
+		 */
+		private RelativeLayout getCenterLayout() {
+			RelativeLayout lockLayout = (RelativeLayout) mLayoutInflater
+					.inflate(R.layout.page_lock, null);
+			mClockLinearLayout = (LinearLayout) lockLayout
+					.findViewById(R.id.lock_calender_layout);
+			mClockTextView = (TextView) lockLayout
+					.findViewById(R.id.lock_time_textview);
+			mDataTExtView = (TextView) lockLayout
+					.findViewById(R.id.lock_date_textview);
+			mKeyView = (KeyView) lockLayout.findViewById(R.id.unlock_keyview);
+			mKeyView.setKeyViewListener(getKeyViewListener());
+			initClock(true, mContext);
+			return lockLayout;
+		}
+
+		/**
+		 * ロック解除のリスナー
+		 * 
+		 * @return
+		 */
+		private KeyViewListener getKeyViewListener() {
+			KeyViewListener li = new KeyViewListener() {
+				@Override
+				public void onUnLock() {
+					checkSecurityInfo();
+				}
+			};
+			return li;
+		}
+
+		/**
+		 * 背景設定
+		 * 
+		 * @param view
+		 * @param position
+		 */
 		@SuppressLint("NewApi")
 		private void setBackgrondLoadBitmap(final View view, final int position) {
 			Bitmap bmp;
@@ -755,6 +964,11 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			}
 		}
 
+		/**
+		 * ホーム画面に設定している画像取得
+		 * 
+		 * @return
+		 */
 		@SuppressLint("ServiceCast")
 		final Bitmap getSystemWallpaper() {
 			if (mContext == null) {
@@ -775,6 +989,12 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			return ((BitmapDrawable) d).getBitmap();
 		}
 
+		/**
+		 * 背景へセットする
+		 * 
+		 * @param layout
+		 * @param bmp
+		 */
 		@SuppressLint("NewApi")
 		private void compatibleSetBackground(final View layout, final Bitmap bmp) {
 			if (layout == null || bmp == null) {
@@ -787,18 +1007,6 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			} else {
 				layout.setBackgroundDrawable(new BitmapDrawable(res, bmp));
 			}
-		}
-
-		@Override
-		public void setPrimaryItem(ViewGroup container, int position,
-				Object object) {
-			super.setPrimaryItem(container, position, object);
-			if (mLastPosition == position) {
-				return;
-			}
-			mLastPosition = position;
-			mPrimaryItem = object;
-			countup(position);
 		}
 
 		public Object getPrimaryItem() {
@@ -821,19 +1029,66 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			textView.setText(String.valueOf(count));
 		}
 
-		@Override
-		public int getCount() {
-			return mList.size();
-		}
+		/**
+		 * 時計の更新
+		 * 
+		 * @param forceUpdate
+		 * @param context
+		 */
+		private void initClock(boolean forceUpdate, final Context context) {
+			Date date = new Date();
+			mCalendar.setTime(date);
+			final int hour = mCalendar.get(Calendar.HOUR_OF_DAY);
+			final int month = mCalendar.get(Calendar.MONTH);
+			final int day = mCalendar.get(Calendar.DAY_OF_MONTH);
+			final int week_of_day = mCalendar.get(Calendar.DAY_OF_WEEK);
+			final int minite = mCalendar.get(Calendar.MINUTE);
 
-		@Override
-		public boolean isViewFromObject(View view, Object keyObject) {
-			return view == keyObject;
-		}
+			mClockDigit[0] = (int) (hour / 10);
+			mClockDigit[1] = (int) (hour % 10);
+			mClockDigit[2] = (int) (minite / 10);
+			mClockDigit[3] = (int) (minite % 10);
 
-		@Override
-		public void destroyItem(ViewGroup container, int position, Object object) {
-			container.removeView((View) object);
+			if (!forceUpdate && mClockDigitOld[0] == mClockDigit[0]
+					&& mClockDigitOld[1] == mClockDigit[1]
+					&& mClockDigitOld[2] == mClockDigit[2]
+					&& mClockDigitOld[3] == mClockDigit[3]) {
+				return;
+			} else {
+				mClockLinearLayout.setGravity(Gravity.CENTER);
+			}
+
+			mClockDateDigit[0] = (int) ((month + 1) / 10);
+			mClockDateDigit[1] = (int) ((month + 1) % 10);
+			mClockDateDigit[2] = (int) (day / 10);
+			mClockDateDigit[3] = (int) (day % 10);
+
+			try {
+
+			} catch (Exception e) {
+			}
+
+			for (int i = 0; i < 4; i++) {
+				mClockDigitOld[i] = mClockDigit[i];
+			}
+
+			final String timeStr = String.valueOf(mClockDigit[0])
+					+ String.valueOf(mClockDigit[1]) + "："
+					+ String.valueOf(mClockDigit[2])
+					+ String.valueOf(mClockDigit[3]);
+			mClockTextView.setText(timeStr);
+			Utilities
+					.setFontTextView(mClockTextView, mAssetManager, mResources);
+			final String dateStr = String.valueOf(mClockDateDigit[0])
+					+ String.valueOf(mClockDateDigit[1])
+					+ "月"
+					+ String.valueOf(mClockDateDigit[2])
+					+ String.valueOf(mClockDateDigit[3])
+					+ "日"
+					+ LockUtilities.getInstance().getDatOfWeek(context,
+							week_of_day);
+			mDataTExtView.setText(dateStr);
+			Utilities.setFontTextView(mDataTExtView, mAssetManager, mResources);
 		}
 	}
 

@@ -5,6 +5,13 @@
     <string name="common_err">何らかのエラーが発生しました。</string>
     <string name="complete">完了</string>
     <string name="close">閉じる</string>
+    <string name="day_of_week_monday">(月)</string>
+    <string name="day_of_week_tuesday">(火)</string>
+    <string name="day_of_week_wednesday">(水)</string>
+    <string name="day_of_week_thursday">(木)</string>
+    <string name="day_of_week_friday">(金)</string>
+    <string name="day_of_week_saturday">(土)</string>
+    <string name="day_of_week_sunday">(日)</string>
     <string name="license">ライセンス</string>
     <string name="lock_missed_call_number_withheld">非通知着信</string>
     <string name="lock_nothing">なし</string>

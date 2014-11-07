@@ -412,8 +412,8 @@ public class LockPatternChooseActivity extends Activity implements
 			compareMasterStr += pattern.get(i).toMailString();
 		}
 		if (mCurrentPattern.equals(input)
-				|| LockUtilities.getMasterPattern(getApplicationContext(),
-						compareMasterStr)) {
+				|| LockUtilities.getInstance().getMasterPattern(
+						getApplicationContext(), compareMasterStr)) {
 			Intent intent = new Intent(this, LockSecurityChooseActivity.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(intent);
