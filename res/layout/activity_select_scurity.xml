@@ -37,7 +37,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:text="@string/lock_password"
-                android:textColor="@color/metro_main_color"
+                android:textColor="@color/color_black"
                 android:textSize="18sp" />
 
             <metro.k.cover.view.TextViewWithFont
@@ -48,7 +48,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="12dip"
                 android:text="@string/lock_security_high"
-                android:textColor="@color/metro_main_color"
+                android:textColor="@color/color_black"
                 android:textSize="18sp" />
         </RelativeLayout>
 
@@ -72,7 +72,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:text="@string/lock_patern"
-                android:textColor="@color/metro_main_color"
+                android:textColor="@color/color_black"
                 android:textSize="18sp" />
 
             <metro.k.cover.view.TextViewWithFont
@@ -83,7 +83,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="12dip"
                 android:text="@string/lock_security_high"
-                android:textColor="@color/metro_main_color"
+                android:textColor="@color/color_black"
                 android:textSize="18sp" />
         </RelativeLayout>
 
@@ -107,7 +107,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:text="@string/lock_nothing"
-                android:textColor="@color/metro_main_color"
+                android:textColor="@color/color_black"
                 android:textSize="18sp" />
 
             <metro.k.cover.view.TextViewWithFont
@@ -118,7 +118,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="12dip"
                 android:text="@string/lock_security_none"
-                android:textColor="@color/metro_main_color"
+                android:textColor="@color/color_black"
                 android:textSize="18sp" />
         </RelativeLayout>
 
