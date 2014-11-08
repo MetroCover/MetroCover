@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-        <TextView
+        <metro.k.cover.view.TextViewWithFont
             android:id="@+id/railways_titleview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

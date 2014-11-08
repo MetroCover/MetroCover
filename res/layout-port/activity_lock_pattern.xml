@@ -7,7 +7,7 @@
 
     <!-- タイトル -->
 
-    <TextView
+    <metro.k.cover.view.TextViewWithFont
         android:id="@+id/pattern_title"
         android:layout_width="match_parent"
         android:layout_height="@dimen/activity_setting_list_item_height"
@@ -19,7 +19,7 @@
         android:textColor="#FFF"
         android:textIsSelectable="false"
         android:textSize="18sp" >
-    </TextView>
+    </metro.k.cover.view.TextViewWithFont>
 
     <!-- パターン -->
 

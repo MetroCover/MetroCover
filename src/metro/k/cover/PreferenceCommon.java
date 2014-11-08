@@ -6,7 +6,6 @@ import metro.k.cover.view.JazzyViewPager.TransitionEffect;
 import metro.k.cover.view.ViewUtilities;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 
 /**
  * SharedPreference管理クラス

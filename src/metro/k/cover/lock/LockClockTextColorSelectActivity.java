@@ -2,15 +2,13 @@ package metro.k.cover.lock;
 
 import metro.k.cover.PreferenceCommon;
 import metro.k.cover.R;
-import metro.k.cover.Utilities;
+import metro.k.cover.view.TextViewWithFont;
 import android.app.Activity;
-import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 /**
  * ロック画面のテキストカラー設定画面
@@ -42,40 +40,9 @@ public class LockClockTextColorSelectActivity extends Activity implements
 	private void setupViews() {
 		setContentView(R.layout.activity_clock_color_select);
 
-		final Resources res = getResources();
-		final AssetManager am = getAssets();
-
-		TextView textView = (TextView) findViewById(R.id.clock_text_color_select_titleview);
-		Utilities.setFontTextView(textView, am, res);
-		textView = (TextView) findViewById(R.id.clock_text_color_black_title);
-		Utilities.setFontTextView(textView, am, res);
-		textView = (TextView) findViewById(R.id.clock_text_color_white_title);
-		textView.setTextAppearance(getApplicationContext(), R.style.WhiteText20);
-		Utilities.setFontTextView(textView, am, res);
-		textView = (TextView) findViewById(R.id.clock_text_color_metro_title);
-		Utilities.setFontTextView(textView, am, res);
-		textView = (TextView) findViewById(R.id.clock_text_color_chiyoda_title);
-		Utilities.setFontTextView(textView, am, res);
-		textView = (TextView) findViewById(R.id.clock_text_color_fukutoshin_title);
-		Utilities.setFontTextView(textView, am, res);
-		textView = (TextView) findViewById(R.id.clock_text_color_ginza_title);
-		Utilities.setFontTextView(textView, am, res);
-		textView = (TextView) findViewById(R.id.clock_text_color_hanzomon_title);
-		Utilities.setFontTextView(textView, am, res);
-		textView = (TextView) findViewById(R.id.clock_text_color_hibiya_title);
-		Utilities.setFontTextView(textView, am, res);
-		textView = (TextView) findViewById(R.id.clock_text_color_marunouchi_title);
-		Utilities.setFontTextView(textView, am, res);
-		textView = (TextView) findViewById(R.id.clock_text_color_namboku_title);
-		Utilities.setFontTextView(textView, am, res);
-		textView = (TextView) findViewById(R.id.clock_text_color_tozai_title);
-		Utilities.setFontTextView(textView, am, res);
-		textView = (TextView) findViewById(R.id.clock_text_color_yurakucho_title);
-		Utilities.setFontTextView(textView, am, res);
-		textView = (TextView) findViewById(PreferenceCommon
+		TextViewWithFont textView = (TextViewWithFont) findViewById(PreferenceCommon
 				.getClockColorForSelected(this));
 		textView.setVisibility(View.VISIBLE);
-		Utilities.setFontTextView(textView, am, res);
 
 		RelativeLayout layout = (RelativeLayout) findViewById(R.id.clock_text_color_white_layout);
 		layout.setOnClickListener(this);

@@ -41,7 +41,7 @@
         <item>RotateDown</item>
         <item>Accordion</item>
     </string-array>
-    
+
     <!-- 千代田線 -->
     <string-array name="chiyoda_railway_stations">
         <item>@string/station_kitaayase</item>
@@ -64,5 +64,235 @@
         <item>@string/station_yoyogikouenn</item>
         <item>@string/station_yoyogiuehara</item>
     </string-array>
+    <string-array name="chiyoda_railway_icons">
+        <item>@drawable/station_c_1</item>
+        <item>@drawable/station_c_2</item>
+        <item>@drawable/station_c_3</item>
+        <item>@drawable/station_c_4</item>
+        <item>@drawable/station_c_5</item>
+        <item>@drawable/station_c_6</item>
+        <item>@drawable/station_c_7</item>
+        <item>@drawable/station_c_8</item>
+        <item>@drawable/station_c_9</item>
+        <item>@drawable/station_c_10</item>
+        <item>@drawable/station_c_11</item>
+        <item>@drawable/station_c_12</item>
+        <item>@drawable/station_c_13</item>
+        <item>@drawable/station_c_14</item>
+        <item>@drawable/station_c_15</item>
+        <item>@drawable/station_c_16</item>
+        <item>@drawable/station_c_17</item>
+        <item>@drawable/station_c_18</item>
+        <item>@drawable/station_c_19</item>
+        <item>@drawable/station_c_20</item>
+    </string-array>
 
+    <!-- 副都心線 -->
+    <string-array name="fukutoshin_railway_stations">
+        <item>@string/station_wakoshi</item>
+        <item>@string/station_chikatetsunarimasu</item>
+        <item>@string/station_chikatetsuakatsuka</item>
+        <item>@string/station_heiwadai</item>
+        <item>@string/station_hikawadai</item>
+        <item>@string/station_kotakemukaihara</item>
+        <item>@string/station_senkawa</item>
+        <item>@string/station_kanamecho</item>
+        <item>@string/station_ikebukuro</item>
+        <item>@string/station_zoshigaya</item>
+        <item>@string/station_nishiwaseda</item>
+        <item>@string/station_higashishinnjuku</item>
+        <item>@string/station_shinjukusanchome</item>
+        <item>@string/station_kitasando</item>
+        <item>@string/station_meijijinnguumae</item>
+        <item>@string/station_shibuya</item>
+    </string-array>
+    <string-array name="fukutoshin_railway_icons">
+        <item>@drawable/station_f_1</item>
+        <item>@drawable/station_f_2</item>
+        <item>@drawable/station_f_3</item>
+        <item>@drawable/station_f_4</item>
+        <item>@drawable/station_f_5</item>
+        <item>@drawable/station_f_6</item>
+        <item>@drawable/station_f_7</item>
+        <item>@drawable/station_f_8</item>
+        <item>@drawable/station_f_9</item>
+        <item>@drawable/station_f_10</item>
+        <item>@drawable/station_f_11</item>
+        <item>@drawable/station_f_12</item>
+        <item>@drawable/station_f_13</item>
+        <item>@drawable/station_f_14</item>
+        <item>@drawable/station_f_15</item>
+        <item>@drawable/station_f_16</item>
+    </string-array>
+
+    <!-- 銀座線 -->
+    <string-array name="ginza_railway_stations">
+        <item>@string/station_shibuya</item>
+        <item>@string/station_omotesanndou</item>
+        <item>@string/station_gaienmae</item>
+        <item>@string/station_aoyamaichome</item>
+        <item>@string/station_akasakamitsuke</item>
+        <item>@string/station_tameikesanno</item>
+        <item>@string/station_toranomon</item>
+        <item>@string/station_shinbashi</item>
+        <item>@string/station_ginza</item>
+        <item>@string/station_kyobashi</item>
+        <item>@string/station_nihonbashi</item>
+        <item>@string/station_mitsukoshimae</item>
+        <item>@string/station_kanda</item>
+        <item>@string/station_suehiromachi</item>
+        <item>@string/station_uenohirokoji</item>
+        <item>@string/station_ueno</item>
+        <item>@string/station_inaricho</item>
+        <item>@string/station_taharacho</item>
+        <item>@string/station_asakusa</item>
+    </string-array>
+    <string-array name="ginza_railway_icons">
+        <item>@drawable/station_g_1</item>
+        <item>@drawable/station_g_2</item>
+        <item>@drawable/station_g_3</item>
+        <item>@drawable/station_g_4</item>
+        <item>@drawable/station_g_5</item>
+        <item>@drawable/station_g_6</item>
+        <item>@drawable/station_g_7</item>
+        <item>@drawable/station_g_8</item>
+        <item>@drawable/station_g_9</item>
+        <item>@drawable/station_g_10</item>
+        <item>@drawable/station_g_11</item>
+        <item>@drawable/station_g_12</item>
+        <item>@drawable/station_g_13</item>
+        <item>@drawable/station_g_14</item>
+        <item>@drawable/station_g_15</item>
+        <item>@drawable/station_g_16</item>
+        <item>@drawable/station_g_17</item>
+        <item>@drawable/station_g_18</item>
+        <item>@drawable/station_g_19</item>
+    </string-array>
+
+    <!-- 半蔵門線 -->
+    <string-array name="hanzomon_railway_stations">
+        <item>@string/station_shibuya</item>
+        <item>@string/station_omotesanndou</item>
+        <item>@string/station_aoyamaichome</item>
+        <item>@string/station_nagatacho</item>
+        <item>@string/station_hanzomon</item>
+        <item>@string/station_kudanshita</item>
+        <item>@string/station_jimbocho</item>
+        <item>@string/station_ootemachi</item>
+        <item>@string/station_mitsukoshimae</item>
+        <item>@string/station_suitengumae</item>
+        <item>@string/station_kiyosumishirakawa</item>
+        <item>@string/station_sumiyoshi</item>
+        <item>@string/station_kinshicho</item>
+        <item>@string/station_oshiage</item>
+    </string-array>
+    <string-array name="hanzomon_railway_icons">
+        <item>@drawable/station_z_1</item>
+        <item>@drawable/station_z_2</item>
+        <item>@drawable/station_z_3</item>
+        <item>@drawable/station_z_4</item>
+        <item>@drawable/station_z_5</item>
+        <item>@drawable/station_z_6</item>
+        <item>@drawable/station_z_7</item>
+        <item>@drawable/station_z_8</item>
+        <item>@drawable/station_z_9</item>
+        <item>@drawable/station_z_10</item>
+        <item>@drawable/station_z_11</item>
+        <item>@drawable/station_z_12</item>
+        <item>@drawable/station_z_13</item>
+        <item>@drawable/station_z_14</item>
+    </string-array>
+
+    <!-- 日比谷線　 -->
+    <string-array name="hibiya_railway_stations">
+        <item>@string/station_nakameguro</item>
+        <item>@string/station_ebisu</item>
+        <item>@string/station_hiroo</item>
+        <item>@string/station_roppongi</item>
+        <item>@string/station_kamiyacho</item>
+        <item>@string/station_kasumigazeki</item>
+        <item>@string/station_hibiya</item>
+        <item>@string/station_ginza</item>
+        <item>@string/station_higashiginza</item>
+        <item>@string/station_tsukidi</item>
+        <item>@string/station_hacchoubori</item>
+        <item>@string/station_kayabacho</item>
+        <item>@string/station_ningyoucho</item>
+        <item>@string/station_kodenmacho</item>
+        <item>@string/station_akihabara</item>
+        <item>@string/station_nakaokachimachi</item>
+        <item>@string/station_ueno</item>
+        <item>@string/station_iriya</item>
+        <item>@string/station_minowa</item>
+        <item>@string/station_minamisenju</item>
+        <item>@string/station_kitasenju</item>
+    </string-array>
+    <string-array name="hibiya_railway_icons">
+        <item>@drawable/station_h_1</item>
+        <item>@drawable/station_h_2</item>
+        <item>@drawable/station_h_3</item>
+        <item>@drawable/station_h_4</item>
+        <item>@drawable/station_h_5</item>
+        <item>@drawable/station_h_6</item>
+        <item>@drawable/station_h_7</item>
+        <item>@drawable/station_h_8</item>
+        <item>@drawable/station_h_9</item>
+        <item>@drawable/station_h_10</item>
+        <item>@drawable/station_h_11</item>
+        <item>@drawable/station_h_12</item>
+        <item>@drawable/station_h_13</item>
+        <item>@drawable/station_h_14</item>
+        <item>@drawable/station_h_15</item>
+        <item>@drawable/station_h_16</item>
+        <item>@drawable/station_h_17</item>
+        <item>@drawable/station_h_18</item>
+        <item>@drawable/station_h_19</item>
+        <item>@drawable/station_h_20</item>
+        <item>@drawable/station_h_21</item>
+    </string-array>
+
+    <!-- 南北線　 -->
+    <string-array name="namboku_railway_stations">
+        <item>@string/station_meguro</item>
+        <item>@string/station_shiroganedai</item>
+        <item>@string/station_shiroganetakanawa</item>
+        <item>@string/station_azabujuban</item>
+        <item>@string/station_roppongiichome</item>
+        <item>@string/station_tameikesanno</item>
+        <item>@string/station_nagatacho</item>
+        <item>@string/station_yotsuya</item>
+        <item>@string/station_ichigaya</item>
+        <item>@string/station_iidabashi</item>
+        <item>@string/station_korakuen</item>
+        <item>@string/station_todaimae</item>
+        <item>@string/station_honkomagome</item>
+        <item>@string/station_komagome</item>
+        <item>@string/station_nishigahara</item>
+        <item>@string/station_oji</item>
+        <item>@string/station_ojikamiya</item>
+        <item>@string/station_shimo</item>
+        <item>@string/station_akabaneiwabuchi</item>
+    </string-array>
+    
+    <string-array name="namboku_railway_icons">
+        <item>@drawable/station_n_1</item>
+        <item>@drawable/station_n_2</item>
+        <item>@drawable/station_n_3</item>
+        <item>@drawable/station_n_4</item>
+        <item>@drawable/station_n_5</item>
+        <item>@drawable/station_n_6</item>
+        <item>@drawable/station_n_7</item>
+        <item>@drawable/station_n_8</item>
+        <item>@drawable/station_n_9</item>
+        <item>@drawable/station_n_10</item>
+        <item>@drawable/station_n_11</item>
+        <item>@drawable/station_n_12</item>
+        <item>@drawable/station_n_13</item>
+        <item>@drawable/station_n_14</item>
+        <item>@drawable/station_n_15</item>
+        <item>@drawable/station_n_16</item>
+        <item>@drawable/station_n_17</item>
+        <item>@drawable/station_n_18</item>
+        <item>@drawable/station_n_19</item>
+    </string-array>
 </resources>

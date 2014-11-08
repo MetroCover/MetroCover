@@ -9,7 +9,7 @@
 
     <!-- タイトル -->
 
-    <TextView
+    <metro.k.cover.view.TextViewWithFont
         android:id="@+id/setting_main_titleview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
                 android:background="@drawable/selector_setting_list_at"
                 android:padding="15dip" >
 
-                <TextView
+                <metro.k.cover.view.TextViewWithFont
                     android:id="@+id/setting_metrocover_titleview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
                 android:background="@drawable/selector_setting_list_at"
                 android:padding="15dip" >
 
-                <TextView
+                <metro.k.cover.view.TextViewWithFont
                     android:id="@+id/setting_systemlock_titleview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
                     android:textColor="#000"
                     android:textSize="18sp" />
 
-                <TextView
+                <metro.k.cover.view.TextViewWithFont
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -110,7 +110,7 @@
                 android:background="@drawable/selector_setting_list_at"
                 android:padding="15dip" >
 
-                <TextView
+                <metro.k.cover.view.TextViewWithFont
                     android:id="@+id/setting_clocktype_titleview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -120,7 +120,7 @@
                     android:textColor="#000"
                     android:textSize="18sp" />
 
-                <TextView
+                <metro.k.cover.view.TextViewWithFont
                     android:id="@+id/setting_clocktype_currentview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -147,7 +147,7 @@
                 android:background="@drawable/selector_setting_list_at"
                 android:padding="15dip" >
 
-                <TextView
+                <metro.k.cover.view.TextViewWithFont
                     android:id="@+id/setting_clock_color_titleview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -157,7 +157,7 @@
                     android:textColor="#000"
                     android:textSize="18sp" />
 
-                <TextView
+                <metro.k.cover.view.TextViewWithFont
                     android:id="@+id/setting_clock_color_currentview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -184,7 +184,7 @@
                 android:background="@drawable/selector_setting_list_at"
                 android:padding="15dip" >
 
-                <TextView
+                <metro.k.cover.view.TextViewWithFont
                     android:id="@+id/setting_metrocover_security_titleview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -194,7 +194,7 @@
                     android:textColor="#000"
                     android:textSize="18sp" />
 
-                <TextView
+                <metro.k.cover.view.TextViewWithFont
                     android:id="@+id/setting_metrocover_security_currentview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -221,7 +221,7 @@
                 android:background="@drawable/selector_setting_list_at"
                 android:padding="15dip" >
 
-                <TextView
+                <metro.k.cover.view.TextViewWithFont
                     android:id="@+id/setting_pattern_vibe_titleview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -254,7 +254,7 @@
                 android:background="@drawable/selector_setting_list_at"
                 android:padding="15dip" >
 
-                <TextView
+                <metro.k.cover.view.TextViewWithFont
                     android:id="@+id/setting_pattern_track_titleview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -287,7 +287,7 @@
                 android:background="@drawable/selector_setting_list_at"
                 android:padding="15dip" >
 
-                <TextView
+                <metro.k.cover.view.TextViewWithFont
                     android:id="@+id/setting_wallpapers_titleview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -297,7 +297,7 @@
                     android:textColor="#000"
                     android:textSize="18sp" />
 
-                <TextView
+                <metro.k.cover.view.TextViewWithFont
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -324,7 +324,7 @@
                 android:background="@drawable/selector_setting_list_at"
                 android:padding="15dip" >
 
-                <TextView
+                <metro.k.cover.view.TextViewWithFont
                     android:id="@+id/setting_wallpapers_effect_titleview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -334,7 +334,7 @@
                     android:textColor="#000"
                     android:textSize="18sp" />
 
-                <TextView
+                <metro.k.cover.view.TextViewWithFont
                     android:id="@+id/setting_wallpapers_effect_currentview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -359,7 +359,7 @@
                 android:background="@drawable/selector_setting_list_at"
                 android:padding="15dip" >
 
-                <TextView
+                <metro.k.cover.view.TextViewWithFont
                     android:id="@+id/setting_railways_titleview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -369,7 +369,7 @@
                     android:textColor="#000"
                     android:textSize="18sp" />
 
-                <TextView
+                <metro.k.cover.view.TextViewWithFont
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -396,7 +396,7 @@
                 android:background="@drawable/selector_setting_list_at"
                 android:padding="15dip" >
 
-                <TextView
+                <metro.k.cover.view.TextViewWithFont
                     android:id="@+id/setting_license_titleview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -406,7 +406,7 @@
                     android:textColor="#000"
                     android:textSize="18sp" />
 
-                <TextView
+                <metro.k.cover.view.TextViewWithFont
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"

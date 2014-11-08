@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1" >
 
-        <TextView
+        <metro.k.cover.view.TextViewWithFont
             android:id="@+id/pattern_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

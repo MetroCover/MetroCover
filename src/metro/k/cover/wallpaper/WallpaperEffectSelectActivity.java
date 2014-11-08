@@ -7,14 +7,11 @@ import metro.k.cover.Utilities;
 import metro.k.cover.view.JazzyViewPager;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.AssetManager;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.TextView;
 
 /**
  * エフェクト設定画面
@@ -44,21 +41,15 @@ public class WallpaperEffectSelectActivity extends Activity implements
 
 	private void setupViews() {
 		setContentView(R.layout.activity_wallpaper_select_effect);
-
-		final Resources res = getResources();
-		final AssetManager am = getAssets();
-		TextView titleView = (TextView) findViewById(R.id.wallpaper_effect_select_titleview);
-		Utilities.setFontTextView(titleView, am, res);
 	}
 
 	private void setupListView() {
 		final ListView listView = (ListView) findViewById(R.id.wallpaper_effect_select_listview);
-		ArrayList<String> effects = new ArrayList<String>();
+		EffectListAdapter adapter = new EffectListAdapter(this, 0);
 		for (int i = 0; i < JazzyViewPager.Effects.length; i++) {
-			effects.add(JazzyViewPager.Effects[i]);
+			adapter.add(JazzyViewPager.Effects[i]);
 		}
 
-		EffectListAdapter adapter = new EffectListAdapter(this, 0, effects);
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(this);
 	}

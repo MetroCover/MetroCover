@@ -7,6 +7,7 @@ import metro.k.cover.lock.LockSecurityChooseActivity;
 import metro.k.cover.lock.LockService;
 import metro.k.cover.lock.LockUtilities;
 import metro.k.cover.railways.RailwaysActivity;
+import metro.k.cover.view.TextViewWithFont;
 import metro.k.cover.wallpaper.WallpaperDetailActivity;
 import metro.k.cover.wallpaper.WallpaperEffectSelectActivity;
 import android.app.Activity;
@@ -15,7 +16,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,13 +42,13 @@ public class SettingActivity extends Activity implements OnClickListener,
 
 	// 現在の時計表記
 	private int mClockSelected = LockUtilities.CLOCK_TYPE_24;
-	private TextView mCurrentClockTypeView;
+	private TextViewWithFont mCurrentClockTypeView;
 	private int mCurrentClockType;
 
 	// 現在の時計の色
 	private int mClockColorID;
 	private String mClockColorStr;
-	private TextView mCurrentClockColorView;
+	private TextViewWithFont mCurrentClockColorView;
 
 	// パターンロックのバイブレーション
 	private boolean isPatternLockVibe = false;
@@ -83,81 +83,55 @@ public class SettingActivity extends Activity implements OnClickListener,
 		final AssetManager am = getAssets();
 		final Resources res = getResources();
 
-		// Title
-		TextView main_titleview = (TextView) findViewById(R.id.setting_main_titleview);
-		Utilities.setFontTextView(main_titleview, am, res);
-
 		// MetroCover
 		RelativeLayout metrocover_layout = (RelativeLayout) findViewById(R.id.setting_metrocover_layout);
 		metrocover_layout.setOnClickListener(this);
-		TextView metrocover_titleview = (TextView) findViewById(R.id.setting_metrocover_titleview);
-		Utilities.setFontTextView(metrocover_titleview, am, res);
 		mMetroCoverCheckBox = (CheckBox) findViewById(R.id.setting_metrocover_checkbox);
 		mMetroCoverCheckBox.setOnCheckedChangeListener(this);
 
 		// System-Lock
 		RelativeLayout systemlock_layout = (RelativeLayout) findViewById(R.id.setting_systemlock_layout);
 		systemlock_layout.setOnClickListener(this);
-		TextView systemlock_titleview = (TextView) findViewById(R.id.setting_systemlock_titleview);
-		Utilities.setFontTextView(systemlock_titleview, am, res);
 
 		// MetroCover Security
 		RelativeLayout security_layout = (RelativeLayout) findViewById(R.id.setting_metrocover_security_layout);
 		security_layout.setOnClickListener(this);
-		TextView security_titleview = (TextView) findViewById(R.id.setting_metrocover_security_titleview);
-		Utilities.setFontTextView(security_titleview, am, res);
 
 		// Clock Type
 		RelativeLayout clocktype_layout = (RelativeLayout) findViewById(R.id.setting_clocktype_layout);
 		clocktype_layout.setOnClickListener(this);
-		TextView clocktype_titleview = (TextView) findViewById(R.id.setting_clocktype_titleview);
-		Utilities.setFontTextView(clocktype_titleview, am, res);
 
 		// PatternLockVibe
 		RelativeLayout pattern_vibe_layout = (RelativeLayout) findViewById(R.id.setting_pattern_vibe_layout);
 		pattern_vibe_layout.setOnClickListener(this);
-		TextView pattern_vibe_titleview = (TextView) findViewById(R.id.setting_pattern_vibe_titleview);
-		Utilities.setFontTextView(pattern_vibe_titleview, am, res);
 		mPatternLockVibeCheckBox = (CheckBox) findViewById(R.id.setting_pattern_vibe_checkbox);
 		mPatternLockVibeCheckBox.setOnCheckedChangeListener(this);
 
 		// PatternLockTrack
 		RelativeLayout pattern_track_layout = (RelativeLayout) findViewById(R.id.setting_pattern_track_layout);
 		pattern_track_layout.setOnClickListener(this);
-		TextView pattern_track_titleview = (TextView) findViewById(R.id.setting_pattern_track_titleview);
-		Utilities.setFontTextView(pattern_track_titleview, am, res);
 		mPatternLockTrackCheckBox = (CheckBox) findViewById(R.id.setting_pattern_track_checkbox);
 		mPatternLockTrackCheckBox.setOnCheckedChangeListener(this);
 
 		// Wallpaper
 		RelativeLayout wallpapers_layout = (RelativeLayout) findViewById(R.id.setting_wallpapers_layout);
 		wallpapers_layout.setOnClickListener(this);
-		TextView wallpapers_titleview = (TextView) findViewById(R.id.setting_wallpapers_titleview);
-		Utilities.setFontTextView(wallpapers_titleview, am, res);
 
 		// Railways
 		RelativeLayout railways_layout = (RelativeLayout) findViewById(R.id.setting_railways_layout);
 		railways_layout.setOnClickListener(this);
-		TextView railways_titleview = (TextView) findViewById(R.id.setting_railways_titleview);
-		Utilities.setFontTextView(railways_titleview, am, res);
 
 		// License
 		RelativeLayout license_layout = (RelativeLayout) findViewById(R.id.setting_license_layout);
 		license_layout.setOnClickListener(this);
-		TextView license_titleview = (TextView) findViewById(R.id.setting_license_titleview);
-		Utilities.setFontTextView(license_titleview, am, res);
 
 		// Efects
 		RelativeLayout effect_layout = (RelativeLayout) findViewById(R.id.setting_wallpaper_effect_layout);
 		effect_layout.setOnClickListener(this);
-		TextView effect_titleview = (TextView) findViewById(R.id.setting_wallpapers_effect_titleview);
-		Utilities.setFontTextView(effect_titleview, am, res);
 
 		// Coloc color
 		RelativeLayout clockcol_layout = (RelativeLayout) findViewById(R.id.setting_clock_color_layout);
 		clockcol_layout.setOnClickListener(this);
-		TextView clockcol_titleview = (TextView) findViewById(R.id.setting_clock_color_titleview);
-		Utilities.setFontTextView(clockcol_titleview, am, res);
 	}
 
 	/**
@@ -171,7 +145,7 @@ public class SettingActivity extends Activity implements OnClickListener,
 		// 現在のセキュリティタイプ
 		final AssetManager am = getAssets();
 		final Resources res = getResources();
-		TextView current_securityview = (TextView) findViewById(R.id.setting_metrocover_security_currentview);
+		TextViewWithFont current_securityview = (TextViewWithFont) findViewById(R.id.setting_metrocover_security_currentview);
 		if (mCurrentSecurityType == res
 				.getInteger(R.integer.lock_security_type_password)) {
 			current_securityview.setText(res.getString(R.string.lock_password));
@@ -181,7 +155,6 @@ public class SettingActivity extends Activity implements OnClickListener,
 		} else {
 			current_securityview.setText(res.getString(R.string.lock_nothing));
 		}
-		Utilities.setFontTextView(current_securityview, am, res);
 
 		// パターンロックのバイブレーション
 		mPatternLockVibeCheckBox.setChecked(isPatternLockVibe);
@@ -190,21 +163,19 @@ public class SettingActivity extends Activity implements OnClickListener,
 		mPatternLockTrackCheckBox.setChecked(isPatternLockTrack);
 
 		// Effect
-		TextView current_effect = (TextView) findViewById(R.id.setting_wallpapers_effect_currentview);
+		TextViewWithFont current_effect = (TextViewWithFont) findViewById(R.id.setting_wallpapers_effect_currentview);
 		current_effect.setText(mCurrentEffectType);
-		Utilities.setFontTextView(current_effect, am, res);
 
 		// 現在の時計表記
-		mCurrentClockTypeView = (TextView) findViewById(R.id.setting_clocktype_currentview);
+		mCurrentClockTypeView = (TextViewWithFont) findViewById(R.id.setting_clocktype_currentview);
 		if (mCurrentClockType == LockUtilities.CLOCK_TYPE_12) {
 			mCurrentClockTypeView.setText(res.getString(R.string.clock_12));
 		} else {
 			mCurrentClockTypeView.setText(res.getString(R.string.clock_24));
 		}
-		Utilities.setFontTextView(mCurrentClockTypeView, am, res);
 
 		// 時計色
-		mCurrentClockColorView = (TextView) findViewById(R.id.setting_clock_color_currentview);
+		mCurrentClockColorView = (TextViewWithFont) findViewById(R.id.setting_clock_color_currentview);
 		mCurrentClockColorView.setText(mClockColorStr);
 		if (mClockColorID == R.color.color_white) {
 			mCurrentClockColorView.setTextColor(res
@@ -212,7 +183,6 @@ public class SettingActivity extends Activity implements OnClickListener,
 		} else {
 			mCurrentClockColorView.setTextColor(res.getColor(mClockColorID));
 		}
-		Utilities.setFontTextView(mCurrentClockColorView, am, res);
 	}
 
 	/**

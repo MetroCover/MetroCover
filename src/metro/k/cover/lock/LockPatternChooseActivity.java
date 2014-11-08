@@ -8,6 +8,7 @@ import metro.k.cover.SettingActivity;
 import metro.k.cover.Utilities;
 import metro.k.cover.lock.LockPatternView.Cell;
 import metro.k.cover.lock.LockPatternView.DisplayMode;
+import metro.k.cover.view.TextViewWithFont;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -16,7 +17,6 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 public class LockPatternChooseActivity extends Activity implements
 		LockPatternView.OnPatternListener {
@@ -41,7 +41,7 @@ public class LockPatternChooseActivity extends Activity implements
 	private boolean isSecond;
 
 	// タイトル
-	private TextView mTitle;
+	private TextViewWithFont mTitle;
 
 	// キャンセルボタン
 	private Button mCancelButton;
@@ -81,7 +81,7 @@ public class LockPatternChooseActivity extends Activity implements
 	private void setupViews() {
 		requestWindowFeature(1);
 		setContentView(R.layout.activity_lock_pattern);
-		mTitle = ((TextView) findViewById(R.id.pattern_title));
+		mTitle = ((TextViewWithFont) findViewById(R.id.pattern_title));
 		mCancelButton = ((Button) findViewById(R.id.lock_pattern_cancel_btn));
 		mCompButton = ((Button) findViewById(R.id.lock_pattern_comp_btn));
 		mPatternView = ((LockPatternView) findViewById(R.id.patternView));
@@ -134,7 +134,6 @@ public class LockPatternChooseActivity extends Activity implements
 		final Resources res = getResources();
 		final AssetManager am = getAssets();
 		mTitle.setText(res.getString(R.string.lock_pattern_title_drawing));
-		Utilities.setFontTextView(mTitle, am, res);
 		mCancelButton.setText(res.getString(R.string.cancel));
 		mCancelButton.setEnabled(false);
 		if (isFromSetting) {
@@ -144,7 +143,6 @@ public class LockPatternChooseActivity extends Activity implements
 		}
 		mCompButton.setEnabled(false);
 
-		Utilities.setFontTextView(mTitle, am, res);
 		Utilities.setFontButtonView(mCancelButton, am, res);
 		Utilities.setFontButtonView(mCompButton, am, res);
 	}
@@ -161,7 +159,6 @@ public class LockPatternChooseActivity extends Activity implements
 		mCompButton.setText(res.getString(R.string.lock_pattern_confirm));
 		mCompButton.setEnabled(false);
 
-		Utilities.setFontTextView(mTitle, am, res);
 		Utilities.setFontButtonView(mCancelButton, am, res);
 		Utilities.setFontButtonView(mCompButton, am, res);
 	}
@@ -187,7 +184,6 @@ public class LockPatternChooseActivity extends Activity implements
 		mCompButton.setEnabled(false);
 
 		final AssetManager am = getAssets();
-		Utilities.setFontTextView(mTitle, am, res);
 		Utilities.setFontButtonView(mCancelButton, am, res);
 		Utilities.setFontButtonView(mCompButton, am, res);
 	}
@@ -213,7 +209,6 @@ public class LockPatternChooseActivity extends Activity implements
 		});
 
 		final AssetManager am = getAssets();
-		Utilities.setFontTextView(mTitle, am, res);
 		Utilities.setFontButtonView(mCancelButton, am, res);
 		Utilities.setFontButtonView(mCompButton, am, res);
 	}
@@ -240,7 +235,6 @@ public class LockPatternChooseActivity extends Activity implements
 		mCompButton.setEnabled(false);
 
 		final AssetManager am = getAssets();
-		Utilities.setFontTextView(mTitle, am, res);
 		Utilities.setFontButtonView(mCancelButton, am, res);
 		Utilities.setFontButtonView(mCompButton, am, res);
 	}
@@ -260,7 +254,6 @@ public class LockPatternChooseActivity extends Activity implements
 		mCompButton.setEnabled(false);
 
 		final AssetManager am = getAssets();
-		Utilities.setFontTextView(mTitle, am, res);
 		Utilities.setFontButtonView(mCancelButton, am, res);
 		Utilities.setFontButtonView(mCompButton, am, res);
 	}
@@ -287,7 +280,6 @@ public class LockPatternChooseActivity extends Activity implements
 		});
 
 		final AssetManager am = getAssets();
-		Utilities.setFontTextView(mTitle, am, res);
 		Utilities.setFontButtonView(mCancelButton, am, res);
 		Utilities.setFontButtonView(mCompButton, am, res);
 	}
@@ -313,7 +305,6 @@ public class LockPatternChooseActivity extends Activity implements
 		});
 
 		final AssetManager am = getAssets();
-		Utilities.setFontTextView(mTitle, am, res);
 		Utilities.setFontButtonView(mCancelButton, am, res);
 		Utilities.setFontButtonView(mCompButton, am, res);
 	}

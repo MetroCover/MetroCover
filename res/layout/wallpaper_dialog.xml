@@ -9,7 +9,7 @@
     android:gravity="center_horizontal"
     android:orientation="vertical" >
 
-    <TextView
+    <metro.k.cover.view.TextViewWithFont
         android:id="@+id/wallpaper_dialog_titleview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
             android:contentDescription="@string/app_name"
             android:src="@drawable/ic_wallpaper_homee" />
 
-        <TextView
+        <metro.k.cover.view.TextViewWithFont
             android:id="@+id/wallpaper_dialog_homee_titleview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -84,7 +84,7 @@
             android:contentDescription="@string/app_name"
             android:src="@drawable/ic_wallpaper_homee" />
 
-        <TextView
+        <metro.k.cover.view.TextViewWithFont
             android:id="@+id/wallpaper_dialog_plushome_titleview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -122,7 +122,7 @@
             android:contentDescription="@string/app_name"
             android:src="@drawable/ic_wallpaper_gallery" />
 
-        <TextView
+        <metro.k.cover.view.TextViewWithFont
             android:id="@+id/wallpaper_dialog_gallery_titleview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -4,6 +4,7 @@ import metro.k.cover.PreferenceCommon;
 import metro.k.cover.R;
 import metro.k.cover.SettingActivity;
 import metro.k.cover.Utilities;
+import metro.k.cover.view.TextViewWithFont;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -17,7 +18,6 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 /**
  * パスワードセキュリティのダイアログ
@@ -26,7 +26,7 @@ public class LockPasswordDialogActivity extends Activity implements
 		OnClickListener {
 
 	private EditText mEditText;
-	private TextView mOnceAgain;
+	private TextViewWithFont mOnceAgain;
 
 	private String mOldPass;
 	private final String HOMEE_SYSTEM_PASS = "###***&&&";
@@ -69,8 +69,7 @@ public class LockPasswordDialogActivity extends Activity implements
 		mEditText = (EditText) findViewById(R.id.security_pass_edittext);
 		Utilities.setFontEditTextView(mEditText, am, res);
 		
-		mOnceAgain = (TextView) findViewById(R.id.security_pass_title);
-		Utilities.setFontTextView(mOnceAgain, getAssets(), getResources());
+		mOnceAgain = (TextViewWithFont) findViewById(R.id.security_pass_title);
 		mVibe = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
 		Button cancelBtn = (Button) findViewById(R.id.security_pass_cancel_btn);

@@ -6,6 +6,7 @@ import metro.k.cover.Utilities;
 import metro.k.cover.view.JazzyOutlineContainer;
 import metro.k.cover.view.JazzyViewPager;
 import metro.k.cover.view.JazzyViewPager.TransitionEffect;
+import metro.k.cover.view.TextViewWithFont;
 import metro.k.cover.view.ViewUtilities;
 import android.app.Activity;
 import android.content.res.AssetManager;
@@ -20,7 +21,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 /**
  * エフェクト設定画面
@@ -96,13 +96,11 @@ public class WallpaperEffectSampleActivity extends Activity implements
 	private class MainAdapter extends PagerAdapter {
 		@Override
 		public Object instantiateItem(ViewGroup container, final int position) {
-			final Resources res = getResources();
 			final View view = LayoutInflater.from(getApplicationContext())
 					.inflate(R.layout.wallpaper_sample, null);
-			final TextView effect_name = (TextView) view
+			final TextViewWithFont effect_name = (TextViewWithFont) view
 					.findViewById(R.id.wallpaper_sample_textview);
 			effect_name.setText(String.valueOf(mEffect));
-			Utilities.setFontTextView(effect_name, getAssets(), getResources());
 			container.addView(view);
 			mJazzyViewPager.setObjectForPosition(view, position);
 			return view;

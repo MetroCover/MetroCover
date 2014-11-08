@@ -1,12 +1,47 @@
 package metro.k.cover.railways;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import metro.k.cover.R;
+import metro.k.cover.Utilities;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 
 public final class RailwaysUtilities {
+
+	public static ArrayList<String> getAllRailwaysCode() {
+		ArrayList<String> list = new ArrayList<String>();
+		list.add(Railways.RAILWAY_CODE_CHIYODA);
+		list.add(Railways.RAILWAY_CODE_FUKUTOSHIN);
+		list.add(Railways.RAILWAY_CODE_GINZA);
+		list.add(Railways.RAILWAY_CODE_HANZOMON);
+		list.add(Railways.RAILWAY_CODE_HIBIYA);
+//		list.add(Railways.RAILWAY_CODE_MARUNOUCHI);
+		list.add(Railways.RAILWAY_CODE_NAMBOKU);
+//		list.add(Railways.RAILWAY_CODE_TOZAI);
+//		list.add(Railways.RAILWAY_CODE_YURAKUCHO);
+		return list;
+	}
+	
+	public static ArrayList<String> getAllRailwaysName(final Context context) {
+		ArrayList<String> list = new ArrayList<String>();
+		final Resources res = context.getResources();
+		list.add(res.getString(R.string.railway_chiyoda));
+		list.add(res.getString(R.string.railway_fukutoshin));
+		list.add(res.getString(R.string.railway_ginza));
+		list.add(res.getString(R.string.railway_hanzomon));
+		list.add(res.getString(R.string.railway_hibiya));
+//		list.add(res.getString(R.string.railway_marunouchi));
+		list.add(res.getString(R.string.railway_namboku));
+//		list.add(res.getString(R.string.railway_tozai));
+//		list.add(res.getString(R.string.railway_yurakucho));
+		return list;
+	}
 
 	/**
 	 * 全路線取得
@@ -141,5 +176,97 @@ public final class RailwaysUtilities {
 		}
 
 		return railways;
+	}
+
+	/**
+	 * 指定の路線から駅名リストを取得する
+	 * 
+	 * @param railway
+	 * @return
+	 */
+	public static List<String> getStationList(final Context context,
+			final String railwayCode) {
+		if (context == null || Utilities.isInvalidStr(railwayCode)) {
+			return null;
+		}
+
+		final Resources res = context.getResources();
+		String[] array_str = null;
+		if (railwayCode.equals(Railways.RAILWAY_CODE_CHIYODA)) {
+			array_str = res.getStringArray(R.array.chiyoda_railway_stations);
+			return Arrays.asList(array_str);
+		}
+
+		if (railwayCode.equals(Railways.RAILWAY_CODE_FUKUTOSHIN)) {
+			array_str = res.getStringArray(R.array.fukutoshin_railway_stations);
+			return Arrays.asList(array_str);
+		}
+
+		if (railwayCode.equals(Railways.RAILWAY_CODE_GINZA)) {
+			array_str = res.getStringArray(R.array.ginza_railway_stations);
+			return Arrays.asList(array_str);
+		}
+
+		if (railwayCode.equals(Railways.RAILWAY_CODE_HANZOMON)) {
+			array_str = res.getStringArray(R.array.hanzomon_railway_stations);
+			return Arrays.asList(array_str);
+		}
+
+		return null;
+	}
+
+	@SuppressLint("Recycle")
+	public static ArrayList<Drawable> getStationIconList(final Context context,
+			final String railwayCode) {
+		if (context == null || Utilities.isInvalidStr(railwayCode)) {
+			return null;
+		}
+
+		final Resources res = context.getResources();
+		TypedArray images = null;
+		if (railwayCode.equals(Railways.RAILWAY_CODE_CHIYODA)) {
+			images = res.obtainTypedArray(R.array.chiyoda_railway_icons);
+			return convertTypedArray(images);
+		}
+
+		if (railwayCode.equals(Railways.RAILWAY_CODE_FUKUTOSHIN)) {
+			images = res.obtainTypedArray(R.array.fukutoshin_railway_icons);
+			return convertTypedArray(images);
+		}
+
+		if (railwayCode.equals(Railways.RAILWAY_CODE_GINZA)) {
+			images = res.obtainTypedArray(R.array.ginza_railway_icons);
+			return convertTypedArray(images);
+		}
+
+		if (railwayCode.equals(Railways.RAILWAY_CODE_HANZOMON)) {
+			images = res.obtainTypedArray(R.array.hanzomon_railway_icons);
+			return convertTypedArray(images);
+		}
+		
+		if (railwayCode.equals(Railways.RAILWAY_CODE_HIBIYA)) {
+			images = res.obtainTypedArray(R.array.hibiya_railway_icons);
+			return convertTypedArray(images);
+		}
+		
+		if (railwayCode.equals(Railways.RAILWAY_CODE_NAMBOKU)) {
+			images = res.obtainTypedArray(R.array.namboku_railway_icons);
+			return convertTypedArray(images);
+		}
+
+		return null;
+	}
+
+	private static ArrayList<Drawable> convertTypedArray(TypedArray array) {
+		if (array == null) {
+			return null;
+		}
+
+		final ArrayList<Drawable> list = new ArrayList<Drawable>();
+		final int size = array.length();
+		for (int i = 0; i < size; i++) {
+			list.add(array.getDrawable(i));
+		}
+		return list;
 	}
 }

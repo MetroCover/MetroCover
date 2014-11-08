@@ -11,7 +11,7 @@
         android:layout_centerInParent="true"
         android:orientation="vertical" >
 
-        <TextView
+        <metro.k.cover.view.TextViewWithFont
             android:id="@+id/lock_time_textview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -19,7 +19,7 @@
             android:textColor="#FFF"
             android:textSize="40sp" />
 
-        <TextView
+        <metro.k.cover.view.TextViewWithFont
             android:id="@+id/lock_date_textview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -27,7 +27,7 @@
             android:textColor="#FFF"
             android:textSize="18sp" />
 
-        <TextView
+        <metro.k.cover.view.TextViewWithFont
             android:id="@+id/lock_battery_textview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

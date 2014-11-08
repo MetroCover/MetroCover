@@ -4,10 +4,9 @@ import java.util.ArrayList;
 
 import metro.k.cover.R;
 import metro.k.cover.Utilities;
+import metro.k.cover.view.TextViewWithFont;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.AssetManager;
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,6 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 /**
  * 路線リストのアダプター
@@ -26,20 +24,15 @@ import android.widget.TextView;
  * 
  */
 public class RailwaysAdapter extends ArrayAdapter<Railways> {
-
-	private Context mContext;
 	private ArrayList<Railways> list = new ArrayList<Railways>();
 	private LayoutInflater inflater;
 	private int layout;
-	private AssetManager mAssetManager;
 
 	public RailwaysAdapter(Context context, int layoutAt) {
 		super(context, layoutAt);
 		this.inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		this.layout = layoutAt;
-		mContext = context;
-		mAssetManager = context.getAssets();
 	}
 
 	@SuppressLint("NewApi")
@@ -51,7 +44,7 @@ public class RailwaysAdapter extends ArrayAdapter<Railways> {
 			view = inflater.inflate(layout, null, false);
 			RelativeLayout relativeLayout = (RelativeLayout) view
 					.findViewById(R.id.list_icon_check_retativelayout);
-			TextView titleView = (TextView) view
+			TextViewWithFont titleView = (TextViewWithFont) view
 					.findViewById(R.id.list_icon_check_title);
 			ImageView iconView = (ImageView) view
 					.findViewById(R.id.list_icon_check_icon);
@@ -71,8 +64,6 @@ public class RailwaysAdapter extends ArrayAdapter<Railways> {
 		Railways railway = list.get(position);
 
 		holder.textView.setText(railway.getTitle());
-		holder.textView.setTypeface(Typeface.createFromAsset(mAssetManager,
-				mContext.getResources().getString(R.string.font_free_wing)));
 		Utilities.setBackground(holder.imageView, railway.getIcon());
 
 		final int id = position;
@@ -192,7 +183,7 @@ public class RailwaysAdapter extends ArrayAdapter<Railways> {
 	 */
 	static class ViewHolder {
 		RelativeLayout layout;
-		TextView textView;
+		TextViewWithFont textView;
 		ImageView imageView;
 		CheckBox checkbox;
 	}

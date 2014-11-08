@@ -12,7 +12,7 @@
         android:contentDescription="@string/app_name"
         android:src="@drawable/ic_tokyo_metro" />
 
-    <TextView
+    <metro.k.cover.view.TextViewWithFont
         android:id="@+id/tutorial_first_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,7 +24,7 @@
         android:textSize="40sp"
         android:textStyle="bold" />
 
-    <TextView
+    <metro.k.cover.view.TextViewWithFont
         android:id="@+id/tutorial_first_next_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

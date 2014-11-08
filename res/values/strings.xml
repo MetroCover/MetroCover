@@ -2,6 +2,7 @@
 <resources>
 
     <string name="arrow">＞</string>
+    <string name="api_id">14f420dec5cf32d3c092fbe8a9f3ecb065e5473c9a16be79049131a7d0ea1bff</string>
     <string name="api_railways_info">https://api.tokyometroapp.jp/api/v2/datapoints</string>
     <string name="app_name">MetroCover</string>
     <string name="cancel">CANCEL</string>
@@ -124,26 +125,118 @@
     <string name="wallpaper_select_plushome">[+]HOME\'s Wallpaper</string>
 
     <!-- 駅名 -->
+    <!-- A -->
+    <string name="station_akabaneiwabuchi">Akabane-iwabuchi</string>
     <string name="station_akasaka">Akasaka</string>
+    <string name="station_akasakamitsuke">Akasaka-mitsuke</string>
+    <string name="station_akihabara">Akihabara</string>
+    <string name="station_aoyamaichome">Aoyama-ichome</string>
+    <string name="station_asakusa">Asakusa</string>
     <string name="station_ayase">Ayase</string>
-    <string name="station_machiya">Machiya</string>
+    <string name="station_azabujuban">Azabujuban</string>
+    <!-- C -->
+    <string name="station_chikatetsuakatsuka">Chikatetsu-Akatsuka</string>
+    <string name="station_chikatetsunarimasu">Chikatetsu-Narimasu</string>
+    <!-- E -->
+    <string name="station_ebisu">Ebisu</string>
+    <!-- G -->
+    <string name="station_gaienmae">Gaienmae</string>
+    <string name="station_ginza">Ginza</string>
+    <!-- H -->
+    <string name="station_hacchoubori">Haccoubori</string>
+    <string name="station_hanzomon">Hanzomon</string>
+    <string name="station_heiwadai">Heiwadai</string>
     <string name="station_hibiya">Hibiya</string>
+    <string name="station_higashiginza">Higashi-Ginza</string>
+    <string name="station_higashishinnjuku">Higashi-Shinjuku</string>
+    <string name="station_hikawadai">Hikawadai</string>
+    <string name="station_hiroo">Hiroo</string>
+    <string name="station_honkomagome">Honkomagome</string>
+    <!-- I -->
+    <string name="station_ichigaya">Ichigaya</string>
+    <string name="station_iidabashi">Iidabashi</string>
+    <string name="station_ikebukuro">Ikebukuro</string>
+    <string name="station_jimbocho">Jimbocho</string>
+    <string name="station_inaricho">Inarimachi</string>
+    <string name="station_iriya">Iriya</string>
+    <!-- K -->
+    <string name="station_kanamecho">Kanamecho</string>
+    <string name="station_kamiyacho">Kamiyacho</string>
+    <string name="station_kanda">Kanda</string>
     <string name="station_kasumigazeki">Kasumigaseki</string>
+    <string name="station_kayabacho">Kayabacho</string>
+    <string name="station_kinshicho">Kinshicho</string>
     <string name="station_kitaayase">Kitaayase</string>
+    <string name="station_kitasando">Kitasando</string>
     <string name="station_kitasenju">Kitasenju</string>
+    <string name="station_kiyosumishirakawa">Kiyosumishirakawa</string>
+    <string name="station_kodenmacho">Kodenmacho</string>
     <string name="station_kokkaigizidoumae">Kokkaigizidomae</string>
+    <string name="station_komagome">Komagome</string>
+    <string name="station_kotakemukaihara">Kotakemukaihara</string>
+    <string name="station_korakuen">Korakuen</string>
+    <string name="station_kudanshita">Kudanshita</string>
+    <string name="station_kyobashi">Kyouubashi</string>
+    <!-- M -->
+    <string name="station_machiya">Machiya</string>
+    <string name="station_meguro">Meguro</string>
     <string name="station_meijijinnguumae">Meizizingumae</string>
+    <string name="station_minamisenju">Minami-Senju</string>
+    <string name="station_minowa">Minowa</string>
+    <string name="station_mitsukoshimae">Mitsukoshimae</string>
+    <!-- N -->
+    <string name="station_nagatacho">Nagatacho</string>
+    <string name="station_nakameguro">Nakameguro</string>
+    <string name="station_nakaokachimachi">Nakaokachimachi</string>
     <string name="station_nedu">Nedu</string>
+    <string name="station_nihonbashi">Nihonbashi</string>
     <string name="station_nijuubashimae">Nijubashimae</string>
+    <string name="station_ningyoucho">Ningyocho</string>
+    <string name="station_nishigahara">Nishigahara</string>
     <string name="station_nishinippori">Nishinippori</string>
+    <string name="station_nishiwaseda">Nishiwaseda</string>
     <string name="station_nogizaka">Nogizaka</string>
+    <!-- O -->
+    <string name="station_oji">Oji</string>
+    <string name="station_ojikamiya">Oji-kamiya</string>
+    <string name="station_oshiage">Oshiage</string>
     <string name="station_omotesanndou">Omotesando</string>
     <string name="station_ootemachi">Otemchi</string>
+    <!-- R -->
+    <string name="station_roppongi">Roppongi</string>
+    <string name="station_roppongiichome">Roppongi-Ichome</string>
+    <!-- S -->
     <string name="station_sendagi">Sendagi</string>
-    <string name="station_shinnochanomizu">Shinochanomizu</string>
+    <string name="station_senkawa">Senkawa</string>
+    <string name="station_shibuya">Shibiya</string>
+    <string name="station_shimo">Shimo</string>
+    <string name="station_shinbashi">Shinbashi</string>
+    <string name="station_shinjukusanchome">Shinjuku-Sanchome</string>
+    <string name="station_shinnochanomizu">Shin-ochanomizu</string>
+    <string name="station_shiroganedai">Shiroganedai</string>
+    <string name="station_shiroganetakanawa">Shirogane-takanawa</string>
+    <string name="station_suehiromachi">Suehiromachi</string>
+    <string name="station_suitengumae">Suitengumae</string>
+    <string name="station_sumiyoshi">Sumiyoshi</string>
+    <!-- T -->
+    <string name="station_taharacho">Taharamachi</string>
+    <string name="station_tameikesanno">Tameikesanno</string>
+    <string name="station_todaimae">Todaimae</string>
+    <string name="station_toranomon">Toranomon</string>
+    <string name="station_tsukidi">Tsukizi</string>
+    <!-- U -->
+    <string name="station_ueno">Ueno</string>
+    <string name="station_uenohirokoji">Ueno-Hirokoji</string>
+    <!-- Y -->
     <string name="station_yoyogiuehara">Yoyogiuehara</string>
     <string name="station_yoyogikouenn">Yoyogikoen</string>
     <string name="station_yushima">Yushima</string>
+    <!-- W -->
+    <string name="station_wakoshi">Wakoshi</string>
+    <!-- Z -->
+    <string name="station_zoshigaya">Zoshigaya</string>
+
+    <!-- ライセンス -->
     <string name="license_msg" formatted="false">   This software is based on or includes portions of software available under open source licenses.\n\n
         
    The Android Open Source Project\n

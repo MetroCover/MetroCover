@@ -17,7 +17,7 @@
             android:contentDescription="@string/app_name"
             android:src="@drawable/ic_tokyo_metro" />
 
-        <TextView
+        <metro.k.cover.view.TextViewWithFont
             android:id="@+id/wallpaper_sample_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

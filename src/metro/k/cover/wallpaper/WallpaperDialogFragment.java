@@ -1,12 +1,9 @@
 package metro.k.cover.wallpaper;
 
 import metro.k.cover.R;
-import metro.k.cover.Utilities;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Intent;
-import android.content.res.AssetManager;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -15,7 +12,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 public class WallpaperDialogFragment extends DialogFragment {
 
@@ -51,14 +47,6 @@ public class WallpaperDialogFragment extends DialogFragment {
 			dialog.getWindow().setBackgroundDrawable(
 					new ColorDrawable(Color.TRANSPARENT));
 
-			final Resources res = getResources();
-			final AssetManager am = getActivity().getAssets();
-
-			// タイトル
-			TextView titleView = (TextView) dialog
-					.findViewById(R.id.wallpaper_dialog_titleview);
-			Utilities.setFontTextView(titleView, am, res);
-
 			// Homeeの壁紙
 			RelativeLayout homee_layout = (RelativeLayout) dialog
 					.findViewById(R.id.wallpaper_dialog_homee_layout);
@@ -69,9 +57,6 @@ public class WallpaperDialogFragment extends DialogFragment {
 				homee_sep.setVisibility(View.VISIBLE);
 				homee_layout.setOnClickListener(getOtherHomeWallpaperListener(
 						mPosition, WallpaperUtilities.HOMEE_APP_ID));
-				TextView homee_titleView = (TextView) dialog
-						.findViewById(R.id.wallpaper_dialog_homee_titleview);
-				Utilities.setFontTextView(homee_titleView, am, res);
 			} else {
 				homee_layout.setVisibility(View.GONE);
 				homee_sep.setVisibility(View.GONE);
@@ -88,9 +73,6 @@ public class WallpaperDialogFragment extends DialogFragment {
 				plushome_layout
 						.setOnClickListener(getOtherHomeWallpaperListener(
 								mPosition, WallpaperUtilities.PLUSHOME_APP_ID));
-				TextView homee_titleView = (TextView) dialog
-						.findViewById(R.id.wallpaper_dialog_plushome_titleview);
-				Utilities.setFontTextView(homee_titleView, am, res);
 			} else {
 				plushome_layout.setVisibility(View.GONE);
 				plushome_sep.setVisibility(View.GONE);
@@ -100,9 +82,6 @@ public class WallpaperDialogFragment extends DialogFragment {
 			RelativeLayout gallery_layout = (RelativeLayout) dialog
 					.findViewById(R.id.wallpaper_dialog_gallery_layout);
 			gallery_layout.setOnClickListener(getGalleryListener(mPosition));
-			TextView gallery_titleView = (TextView) dialog
-					.findViewById(R.id.wallpaper_dialog_gallery_titleview);
-			Utilities.setFontTextView(gallery_titleView, am, res);
 
 			dialog.setCanceledOnTouchOutside(true);
 			return dialog;

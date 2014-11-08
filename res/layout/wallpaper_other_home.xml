@@ -5,7 +5,7 @@
     android:background="@color/background_gray"
     android:orientation="vertical" >
 
-    <TextView
+    <metro.k.cover.view.TextViewWithFont
         android:id="@+id/wallpaper_other_home_titleview"
         android:layout_width="match_parent"
         android:layout_height="@dimen/activity_setting_list_item_height"
@@ -25,7 +25,7 @@
         android:numColumns="auto_fit"
         android:stretchMode="columnWidth" />
 
-    <TextView
+    <metro.k.cover.view.TextViewWithFont
         android:id="@+id/wallpaper_other_home_emptyview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

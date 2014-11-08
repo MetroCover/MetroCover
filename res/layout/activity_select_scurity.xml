@@ -11,7 +11,7 @@
 
         <!-- タイトル -->
 
-        <TextView
+        <metro.k.cover.view.metro.k.cover.view.TextViewWithFontWithFont
             android:id="@+id/select_security_titleview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
             android:background="@drawable/selector_setting_list_at"
             android:padding="15dip" >
 
-            <TextView
+            <metro.k.cover.view.metro.k.cover.view.TextViewWithFontWithFont
                 android:id="@+id/select_security_password_titleview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
                 android:textColor="@color/metro_main_color"
                 android:textSize="18sp" />
 
-            <TextView
+            <metro.k.cover.view.metro.k.cover.view.TextViewWithFontWithFont
                 android:id="@+id/select_security_password_level"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
             android:background="@drawable/selector_setting_list_at"
             android:padding="15dip" >
 
-            <TextView
+            <metro.k.cover.view.metro.k.cover.view.TextViewWithFontWithFont
                 android:id="@+id/select_security_pattern_titleview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -75,7 +75,7 @@
                 android:textColor="@color/metro_main_color"
                 android:textSize="18sp" />
 
-            <TextView
+            <metro.k.cover.view.metro.k.cover.view.TextViewWithFontWithFont
                 android:id="@+id/select_security_pattern_level"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -100,7 +100,7 @@
             android:background="@drawable/selector_setting_list_at"
             android:padding="15dip" >
 
-            <TextView
+            <metro.k.cover.view.metro.k.cover.view.TextViewWithFontWithFont
                 android:id="@+id/select_security_none_titleview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -110,7 +110,7 @@
                 android:textColor="@color/metro_main_color"
                 android:textSize="18sp" />
 
-            <TextView
+            <metro.k.cover.view.TextViewWithFont
                 android:id="@+id/select_security_none_level"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

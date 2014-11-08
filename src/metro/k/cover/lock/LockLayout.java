@@ -15,6 +15,7 @@ import metro.k.cover.lock.LockPatternView.Cell;
 import metro.k.cover.lock.LockPatternView.DisplayMode;
 import metro.k.cover.view.JazzyViewPager;
 import metro.k.cover.view.JazzyViewPager.TransitionEffect;
+import metro.k.cover.view.TextViewWithFont;
 import metro.k.cover.wallpaper.WallpaperBitmapDB;
 import metro.k.cover.wallpaper.WallpaperUtilities;
 import android.annotation.SuppressLint;
@@ -48,7 +49,6 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 /**
  * ロック画面のView
@@ -93,13 +93,13 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	// Clock
 	private int mClockType = LockUtilities.CLOCK_TYPE_24;
 	private LinearLayout mClockLinearLayout;
-	private TextView mClockTextView;
-	private TextView mDataTextView;
+	private TextViewWithFont mClockTextView;
+	private TextViewWithFont mDataTextView;
 	private static Calendar mCalendar = Calendar.getInstance();
 	private int mClockColorID;
 
 	// Battery
-	private TextView mBatteryView;
+	private TextViewWithFont mBatteryView;
 
 	public LockLayout(Context context) {
 		super(context);
@@ -503,7 +503,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		final Resources res = c.getResources();
 		mPassView = LayoutInflater.from(c).inflate(R.layout.input_password,
 				null, false);
-		final TextView title = (TextView) mPassView
+		final TextViewWithFont title = (TextViewWithFont) mPassView
 				.findViewById(R.id.lock_pass_title);
 		final EditText edittext = (EditText) mPassView
 				.findViewById(R.id.lock_pass_edittext);
@@ -512,7 +512,6 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		final Button cancel = (Button) mPassView
 				.findViewById(R.id.lock_pass_cancel_btn);
 
-		Utilities.setFontTextView(title, am, res);
 		Utilities.setFontEditTextView(edittext, am, res);
 		Utilities.setFontButtonView(comp, am, res);
 		Utilities.setFontButtonView(cancel, am, res);
@@ -532,7 +531,8 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	 * @param et
 	 * @param tv
 	 */
-	private void setWrongPasswordView(final EditText et, final TextView tv) {
+	private void setWrongPasswordView(final EditText et,
+			final TextViewWithFont tv) {
 		if (et == null || tv == null || mVib == null)
 			return;
 		mVib.vibrate(VIBELATE_TIME);
@@ -548,7 +548,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	 * @return
 	 */
 	private final View.OnClickListener getPasswordOKListener(final EditText et,
-			final TextView tv) {
+			final TextViewWithFont tv) {
 		final View.OnClickListener listener = new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -598,12 +598,11 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 				null, false);
 		final LockPatternView patternView = (LockPatternView) mPatternView
 				.findViewById(R.id.lock_patternView);
-		final TextView titleView = (TextView) mPatternView
+		final TextViewWithFont titleView = (TextViewWithFont) mPatternView
 				.findViewById(R.id.lock_pattern_title);
 		final Button cancelBtn = (Button) mPatternView
 				.findViewById(R.id.lock_pattern_cancel_btn);
 
-		Utilities.setFontTextView(titleView, am, res);
 		Utilities.setFontButtonView(cancelBtn, am, res);
 
 		patternView.setOnPatternListener(getPatternListener(patternView,
@@ -620,7 +619,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	 * @return
 	 */
 	private final LockPatternView.OnPatternListener getPatternListener(
-			final LockPatternView patternView, final TextView tv) {
+			final LockPatternView patternView, final TextViewWithFont tv) {
 		final LockPatternView.OnPatternListener listener = new LockPatternView.OnPatternListener() {
 
 			@Override
@@ -877,10 +876,9 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		private RelativeLayout getleftLayout() {
 			RelativeLayout trainInfoLayout = (RelativeLayout) mLayoutInflater
 					.inflate(R.layout.page_train_info, null);
-			TextView tv = (TextView) trainInfoLayout
+			TextViewWithFont tv = (TextViewWithFont) trainInfoLayout
 					.findViewById(R.id.page_train_info_test);
 			tv.setText(String.valueOf(mTestNum1));
-			Utilities.setFontTextView(tv, mAssetManager, mResources);
 			return trainInfoLayout;
 		}
 
@@ -892,10 +890,9 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		private RelativeLayout getRightLayout() {
 			RelativeLayout trainInfoLayout = (RelativeLayout) mLayoutInflater
 					.inflate(R.layout.page_train_info, null);
-			TextView tv = (TextView) trainInfoLayout
+			TextViewWithFont tv = (TextViewWithFont) trainInfoLayout
 					.findViewById(R.id.page_train_info_test);
 			tv.setText(String.valueOf(mTestNum2));
-			Utilities.setFontTextView(tv, mAssetManager, mResources);
 			return trainInfoLayout;
 		}
 
@@ -909,11 +906,11 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 					.inflate(R.layout.page_lock, null);
 			mClockLinearLayout = (LinearLayout) lockLayout
 					.findViewById(R.id.lock_data_layout);
-			mClockTextView = (TextView) lockLayout
+			mClockTextView = (TextViewWithFont) lockLayout
 					.findViewById(R.id.lock_time_textview);
-			mDataTextView = (TextView) lockLayout
+			mDataTextView = (TextViewWithFont) lockLayout
 					.findViewById(R.id.lock_date_textview);
-			mBatteryView = (TextView) lockLayout
+			mBatteryView = (TextViewWithFont) lockLayout
 					.findViewById(R.id.lock_battery_textview);
 			mKeyView = (KeyView) lockLayout.findViewById(R.id.unlock_keyview);
 			mKeyView.setKeyViewListener(getKeyViewListener());
@@ -1015,7 +1012,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 				return;
 			}
 			RelativeLayout TrainInfoLayout = (RelativeLayout) getPrimaryItem();
-			TextView textView = (TextView) TrainInfoLayout
+			TextViewWithFont textView = (TextViewWithFont) TrainInfoLayout
 					.findViewById(R.id.page_train_info_test);
 			textView.setText(String.valueOf(count));
 		}
@@ -1060,8 +1057,6 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			}
 			mClockTextView.setText(timeStr);
 			mClockTextView.setTextColor(mResources.getColor(mClockColorID));
-			Utilities
-					.setFontTextView(mClockTextView, mAssetManager, mResources);
 
 			// 日にち
 			boolean isJp = false;
@@ -1082,7 +1077,6 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			}
 			mDataTextView.setText(dateStr);
 			mDataTextView.setTextColor(mResources.getColor(mClockColorID));
-			Utilities.setFontTextView(mDataTextView, mAssetManager, mResources);
 		}
 
 		private String getTwoDigits(final int num) {
@@ -1104,7 +1098,6 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 
 			mBatteryView.setText(String.valueOf(battery) + "%");
 			mBatteryView.setTextColor(mResources.getColor(mClockColorID));
-			Utilities.setFontTextView(mBatteryView, mAssetManager, mResources);
 		}
 	}
 

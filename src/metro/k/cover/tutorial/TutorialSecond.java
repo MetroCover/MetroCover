@@ -8,9 +8,7 @@ import metro.k.cover.Utilities;
 import metro.k.cover.railways.Railways;
 import metro.k.cover.railways.RailwaysAdapter;
 import metro.k.cover.railways.RailwaysUtilities;
-import android.content.res.AssetManager;
-import android.content.res.Resources;
-import android.graphics.Typeface;
+import metro.k.cover.view.TextViewWithFont;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -19,7 +17,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 public class TutorialSecond extends Fragment implements OnClickListener {
 
@@ -45,21 +42,10 @@ public class TutorialSecond extends Fragment implements OnClickListener {
 				listview.setAdapter(adapter);
 			}
 		}
-
-		final Resources res = getResources();
-		final AssetManager am = getActivity().getAssets();
-
-		// タイトル
-		final TextView titleView = (TextView) view
-				.findViewById(R.id.tutorial_second_title);
-		titleView.setTypeface(Typeface.createFromAsset(am,
-				res.getString(R.string.font_free_wing)));
-
+		
 		// 次へ
-		final TextView next = (TextView) view
+		final TextViewWithFont next = (TextViewWithFont) view
 				.findViewById(R.id.tutorial_second_next_btn);
-		next.setTypeface(Typeface.createFromAsset(am,
-				res.getString(R.string.font_free_wing)));
 		next.setOnClickListener(this);
 
 		return view;

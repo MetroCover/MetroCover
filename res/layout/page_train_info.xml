@@ -4,14 +4,14 @@
     android:layout_height="match_parent"
     android:background="@android:color/holo_green_light" >
 
-    <TextView
+    <metro.k.cover.view.TextViewWithFont
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:text="TrainInfo"
         android:textSize="50sp" />
 
-    <TextView
+    <metro.k.cover.view.TextViewWithFont
         android:id="@+id/page_train_info_test"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

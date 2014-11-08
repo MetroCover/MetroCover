@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
 public class RailwaysActivity extends Activity implements OnClickListener {
 
@@ -37,7 +36,6 @@ public class RailwaysActivity extends Activity implements OnClickListener {
 
 	private void setupViews() {
 		setContentView(R.layout.activity_railways);
-		TextView titleView = (TextView) findViewById(R.id.railways_titleview);
 		Button cancel = (Button) findViewById(R.id.railways_cancel_btn);
 		Button complete = (Button) findViewById(R.id.railways_complete_btn);
 		cancel.setOnClickListener(this);
@@ -45,7 +43,6 @@ public class RailwaysActivity extends Activity implements OnClickListener {
 
 		final Resources res = getResources();
 		final AssetManager am = getAssets();
-		Utilities.setFontTextView(titleView, am, res);
 		Utilities.setFontButtonView(cancel, am, res);
 		Utilities.setFontButtonView(complete, am, res);
 

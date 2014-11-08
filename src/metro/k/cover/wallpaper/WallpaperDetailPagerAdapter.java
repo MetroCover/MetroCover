@@ -6,6 +6,7 @@ import metro.k.cover.ImageCache;
 import metro.k.cover.R;
 import metro.k.cover.Utilities;
 import metro.k.cover.view.JazzyViewPager;
+import metro.k.cover.view.TextViewWithFont;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
@@ -23,7 +24,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 /**
  * 壁紙設定のViewPagerアダプター
@@ -77,7 +77,7 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 		private View mRootView;
 		private int mPage;
 		private ImageView mMainImageView;
-		private TextView mTitleTextView;
+		private TextViewWithFont mTitleTextView;
 
 		public WallpaperFragment(final int page) {
 			mPage = page;
@@ -112,7 +112,7 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 			}
 
 			final Resources res = getResources();
-			mTitleTextView = (TextView) view
+			mTitleTextView = (TextViewWithFont) view
 					.findViewById(R.id.wallpaper_detail_titleview);
 			if (mPage == WallpaperUtilities.PAGE_LEFT) {
 				mTitleTextView.setText(res
@@ -124,8 +124,6 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 				mTitleTextView.setText(res
 						.getString(R.string.lock_screen_image_right));
 			}
-			Utilities.setFontTextView(mTitleTextView,
-					getActivity().getAssets(), res);
 		}
 
 		/**

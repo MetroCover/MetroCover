@@ -64,23 +64,6 @@ public final class Utilities {
 	}
 
 	/**
-	 * TextViewに独自フォントを入れる
-	 * 
-	 * @param textView
-	 * @param am
-	 * @param res
-	 */
-	public static void setFontTextView(final TextView textView,
-			final AssetManager am, final Resources res) {
-		if (textView == null || am == null || res == null) {
-			return;
-		}
-
-		textView.setTypeface(Typeface.createFromAsset(am,
-				res.getString(R.string.font_free_wing)));
-	}
-
-	/**
 	 * Buttonに独自フォントを入れる
 	 * 
 	 * @param button

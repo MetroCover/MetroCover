@@ -7,7 +7,7 @@
     android:background="#80000000"
     android:orientation="vertical" >
 
-    <TextView
+    <metro.k.cover.view.TextViewWithFont
         android:id="@+id/lock_pattern_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
