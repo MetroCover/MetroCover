@@ -10,12 +10,14 @@ import android.graphics.drawable.Drawable;
  */
 public class Station {
 
+	private String railway;
 	private String title;
 	private Drawable icon;
 
-	public Station(String title, Drawable icon) {
+	public Station(String railway, String title, Drawable icon) {
 		this.title = title;
 		this.icon = icon;
+		this.railway = railway;
 	}
 
 	public String getTitle() {
@@ -24,6 +26,10 @@ public class Station {
 
 	public Drawable getIcon() {
 		return this.icon;
+	}
+
+	public String getRailway() {
+		return railway;
 	}
 
 }

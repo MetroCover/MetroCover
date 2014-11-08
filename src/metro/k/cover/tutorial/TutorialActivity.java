@@ -21,10 +21,10 @@ public class TutorialActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		 if (PreferenceCommon.getTutorialOpend(getApplicationContext())) {
-		 startSettingActivity();
-		 } else {
-		setupViews();
+		if (PreferenceCommon.getTutorialOpend(getApplicationContext())) {
+			startSettingActivity();
+		} else {
+			setupViews();
 			PreferenceCommon.setTutorialOpend(getApplicationContext(), true);
 		}
 	}

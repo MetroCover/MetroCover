@@ -40,7 +40,8 @@ public class StationsAdapter extends ArrayAdapter<Station> {
 			view = (StationLayout) convertView;
 		}
 
-		view.bindView(getItem(position));
+		final Station station = getItem(position);
+		view.bindView(position, station);
 
 		return view;
 	}

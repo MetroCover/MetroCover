@@ -49,6 +49,10 @@
             android:label="@string/app_name" >
         </activity>
         <activity
+            android:name="metro.k.cover.railways.StationsActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
             android:name="metro.k.cover.wallpaper.WallpaperEffectSampleActivity"
             android:label="@string/app_name" >
         </activity>

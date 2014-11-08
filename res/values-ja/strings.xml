@@ -58,6 +58,7 @@
     <string name="lock_system_security_setting">システムのロック画面</string>
     <string name="lock_wrong_pass">パスワードが間違っています</string>
     <string name="next">次へ</string>
+    <string name="nothing">未設定</string>
     <string name="paging_effect">ページエフェクト</string>
     <string name="railways">路線</string>
     <string name="railway_chiyoda">千代田線</string>
@@ -80,9 +81,10 @@
     <string name="railway_yurakucho_color">有楽町線色</string>
     <string name="selected">選択中</string>
     <string name="settings">設定</string>
+    <string name="station">駅</string>
     <string name="tutorial_select_railways">よく使う路線に\nチェックしてください</string>
     <string name="tutorial_select_station">よく使う駅を\n選んでください</string>
-    <string name="tutorial_use_metrocover">さっそく使う</string>
+    <string name="tutorial_use_metrocover">さっそく使ってみよう</string>
     <string name="wallpaper_empty">選択できる\n壁紙はありません</string>
     <string name="wallpaper_homee_title">Homeeの壁紙</string>
     <string name="wallpaper_select">壁紙を選択</string>
@@ -90,6 +92,7 @@
     <string name="wallpaper_select_homee">Homeeから選択</string>
 
     <!-- 駅名 -->
+    <!-- A -->
     <string name="station_akabaneiwabuchi">赤羽岩淵</string>
     <string name="station_akasaka">赤坂</string>
     <string name="station_akasakamitsuke">赤坂見附</string>
@@ -98,11 +101,18 @@
     <string name="station_asakusa">浅草</string>
     <string name="station_ayase">綾瀬</string>
     <string name="station_azabujuban">麻布十番</string>
+    <!-- B -->
+    <string name="station_barakinakayama">原木中山</string>
+    <!-- C -->
     <string name="station_chikatetsuakatsuka">地下鉄赤塚</string>
     <string name="station_chikatetsunarimasu">地下鉄成増</string>
+    <!-- E -->
     <string name="station_ebisu">恵比寿</string>
+    <!-- G -->
     <string name="station_gaienmae">外苑前</string>
     <string name="station_ginza">銀座</string>
+    <string name="station_gyotoku">行徳</string>
+    <!-- H -->
     <string name="station_hacchoubori">八丁堀</string>
     <string name="station_hanzomon">半蔵門</string>
     <string name="station_heiwadai">平和台</string>
@@ -112,17 +122,23 @@
     <string name="station_hikawadai">氷川台</string>
     <string name="station_hiroo">広尾</string>
     <string name="station_honkomagome">本駒込</string>
+    <!-- I -->
     <string name="station_ichigaya">市ヶ谷</string>
     <string name="station_iidabashi">飯田橋</string>
     <string name="station_ikebukuro">池袋</string>
     <string name="station_inaricho">稲荷町</string>
     <string name="station_iriya">入谷</string>
+    <!-- J -->
     <string name="station_jimbocho">神保町</string>
+    <!-- K -->
+    <string name="station_kagurazaka">神楽坂</string>
+    <string name="station_kasai">葛西</string>
     <string name="station_kanamecho">要町</string>
     <string name="station_kamiyacho">神谷町</string>
     <string name="station_kanda">神田</string>
     <string name="station_kasumigazeki">霞ヶ関</string>
     <string name="station_kayabacho">茅場町</string>
+    <string name="station_kiba">木場</string>
     <string name="station_kinshicho">錦糸町</string>
     <string name="station_kitaayase">北綾瀬</string>
     <string name="station_kitasando">北参道</string>
@@ -135,30 +151,43 @@
     <string name="station_korakuen">後楽園</string>
     <string name="station_kudanshita">九段下</string>
     <string name="station_kyobashi">京橋</string>
+    <!-- M -->
     <string name="station_machiya">町屋</string>
     <string name="station_meijijinnguumae">明治神宮前</string>
     <string name="station_meguro">目黒</string>
+    <string name="station_minamigyotoku">南行徳</string>
     <string name="station_minamisenju">南千住</string>
+    <string name="station_minamisunamachi">南砂町</string>
     <string name="station_minowa">三ノ輪</string>
     <string name="station_mitsukoshimae">三越前</string>
+    <string name="station_monzennakacho">門前仲町</string>
+    <string name="station_myoden">妙典</string>
+    <!-- N -->
     <string name="station_nagatacho">永田町</string>
+    <string name="station_nakano">中野</string>
     <string name="station_nakameguro">中目黒</string>
     <string name="station_nakaokachimachi">仲御徒町</string>
     <string name="station_nedu">根津</string>
     <string name="station_nihonbashi">日本橋</string>
     <string name="station_nijuubashimae">二重橋前</string>
     <string name="station_ningyoucho">人形町</string>
+    <string name="station_nishifunabashi">西船橋</string>
     <string name="station_nishigahara">西ヶ原</string>
     <string name="station_nishinippori">西日暮里</string>
+    <string name="station_nishikasai">西葛西</string>
     <string name="station_nishiwaseda">西早稲田</string>
     <string name="station_nogizaka">乃木坂</string>
+    <!-- O -->
+    <string name="station_ochiai">落合</string>
     <string name="station_oji">王子</string>
     <string name="station_ojikamiya">王子神谷</string>
     <string name="station_oshiage">押上</string>
     <string name="station_omotesanndou">表参道</string>
     <string name="station_ootemachi">大手町</string>
+    <!-- R -->
     <string name="station_roppongi">六本木</string>
     <string name="station_roppongiichome">六本木一丁目</string>
+    <!-- S -->
     <string name="station_sendagi">千駄木</string>
     <string name="station_senkawa">千川</string>
     <string name="station_shibuya">渋谷</string>
@@ -171,18 +200,28 @@
     <string name="station_suehiromachi">末広町</string>
     <string name="station_suitengumae">水天宮前</string>
     <string name="station_sumiyoshi">住吉</string>
+    <!-- T -->
     <string name="station_taharacho">田原町</string>
     <string name="station_tameikesanno">溜池山王</string>
+    <string name="station_takadanobaba">高田馬場</string>
+    <string name="station_takebashi">竹橋</string>
     <string name="station_todaimae">東大前</string>
     <string name="station_toranomon">虎ノ門</string>
+    <string name="station_touyoucho">東陽町</string>
     <string name="station_tsukidi">築地</string>
+    <!-- U -->
     <string name="station_ueno">上野</string>
     <string name="station_uenohirokoji">上野広小路</string>
+    <string name="station_urayasu">浦安</string>
+    <!-- Y -->
     <string name="station_yotsuya">四ッ谷</string>
     <string name="station_yoyogiuehara">代々木上原</string>
     <string name="station_yoyogikouenn">代々木公園</string>
     <string name="station_yushima">湯島</string>
+    <!-- W -->
     <string name="station_wakoshi">和光市</string>
+    <string name="station_waseda">早稲田</string>
+    <!-- Z -->
     <string name="station_zoshigaya">雑司が谷</string>
 
 </resources>

@@ -33,38 +33,6 @@
         android:id="@+id/tutorial_third_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/tutorial_third_finish_btn_layout"
         android:layout_below="@+id/tutorial_third_title_layout" />
-
-    <LinearLayout
-        android:id="@+id/tutorial_third_finish_btn_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:orientation="vertical" >
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dip"
-            android:background="?android:attr/listDivider"
-            android:contentDescription="@string/app_name" />
-
-        <metro.k.cover.view.TextViewWithFont
-            android:id="@+id/tutorial_third_finish_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="25dip"
-            android:layout_marginTop="25dip"
-            android:paddingBottom="5dip"
-            android:paddingLeft="20dip"
-            android:paddingRight="20dip"
-            android:paddingTop="5dip"
-            android:text="@string/tutorial_use_metrocover"
-            android:textColor="@color/metro_main_color"
-            android:textSize="30sp"
-            android:textStyle="bold" />
-    </LinearLayout>
 
 </RelativeLayout>

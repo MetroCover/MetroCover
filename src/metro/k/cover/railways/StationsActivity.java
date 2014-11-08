@@ -1,45 +1,43 @@
-package metro.k.cover.tutorial;
+package metro.k.cover.railways;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import metro.k.cover.PreferenceCommon;
 import metro.k.cover.R;
-import metro.k.cover.railways.RailwaysUtilities;
-import metro.k.cover.railways.Station;
-import metro.k.cover.railways.StationsAdapter;
+import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class TutorialThird extends Fragment {
+public class StationsActivity extends Activity {
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		final View view = inflater.inflate(R.layout.tutorial_third, null);
-		setListView(view);
-
-		return view;
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setupViews();
 	}
 
-	private void setListView(final View view) {
-		if (view == null) {
-			return;
-		}
+	@Override
+	protected void onResume() {
+		super.onResume();
+	}
 
-		final ListView listView = (ListView) view
-				.findViewById(R.id.tutorial_third_listview);
+	@Override
+	protected void onPause() {
+		super.onPause();
+	}
+
+	private void setupViews() {
+		setContentView(R.layout.tutorial_third);
+		final ListView listView = (ListView) findViewById(R.id.tutorial_third_listview);
 		final ArrayList<String> checkedIdList = RailwaysUtilities
 				.getAllRailwaysCode();
 		final ArrayList<String> checkedNameList = RailwaysUtilities
-				.getAllRailwaysName(getActivity());
+				.getAllRailwaysName(this);
 		if (checkedIdList == null) {
 			return;
 		}
@@ -48,16 +46,16 @@ public class TutorialThird extends Fragment {
 			return;
 		}
 
-		final ArrayAdapter<Station> adapter = new StationsAdapter(
-				getActivity(), R.layout.list_icon_title_radio_at);
+		final ArrayAdapter<Station> adapter = new StationsAdapter(this,
+				R.layout.list_icon_title_radio_at);
 
 		for (int i = 0; i < size; i++) {
 			String code = checkedIdList.get(i);
 			String railway = checkedNameList.get(i);
-			List<String> stations = RailwaysUtilities.getStationList(
-					getActivity(), code);
+			List<String> stations = RailwaysUtilities
+					.getStationList(this, code);
 			ArrayList<Drawable> icons = RailwaysUtilities.getStationIconList(
-					getActivity(), code);
+					this, code);
 			if (stations == null) {
 				continue;
 			}
@@ -75,12 +73,11 @@ public class TutorialThird extends Fragment {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				final Station station = adapter.getItem(position);
-				PreferenceCommon.setStationName(getActivity(),
+				PreferenceCommon.setStationName(getApplicationContext(),
 						station.getTitle());
-				PreferenceCommon.setStationsRailwayName(getActivity(),
-						station.getRailway());
-				TutorialActivity.setNextPage();
-
+				PreferenceCommon.setStationsRailwayName(
+						getApplicationContext(), station.getRailway());
+				finish();
 			}
 		});
 	}

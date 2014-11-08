@@ -273,7 +273,6 @@
         <item>@string/station_shimo</item>
         <item>@string/station_akabaneiwabuchi</item>
     </string-array>
-    
     <string-array name="namboku_railway_icons">
         <item>@drawable/station_n_1</item>
         <item>@drawable/station_n_2</item>
@@ -295,4 +294,57 @@
         <item>@drawable/station_n_18</item>
         <item>@drawable/station_n_19</item>
     </string-array>
+
+    <!-- 東西線　 -->
+    <string-array name="tozai_railway_stations">
+        <item>@string/station_nakano</item>
+        <item>@string/station_ochiai</item>
+        <item>@string/station_takadanobaba</item>
+        <item>@string/station_waseda</item>
+        <item>@string/station_kagurazaka</item>
+        <item>@string/station_iidabashi</item>
+        <item>@string/station_kudanshita</item>
+        <item>@string/station_takebashi</item>
+        <item>@string/station_ootemachi</item>
+        <item>@string/station_nihonbashi</item>
+        <item>@string/station_kayabacho</item>
+        <item>@string/station_monzennakacho</item>
+        <item>@string/station_kiba</item>
+        <item>@string/station_touyoucho</item>
+        <item>@string/station_minamisunamachi</item>
+        <item>@string/station_nishikasai</item>
+        <item>@string/station_kasai</item>
+        <item>@string/station_urayasu</item>
+        <item>@string/station_minamigyotoku</item>
+        <item>@string/station_gyotoku</item>
+        <item>@string/station_myoden</item>
+        <item>@string/station_barakinakayama</item>
+        <item>@string/station_nishifunabashi</item>
+    </string-array>
+    <string-array name="tozai_railway_icons">
+        <item>@drawable/station_t_1</item>
+        <item>@drawable/station_t_2</item>
+        <item>@drawable/station_t_3</item>
+        <item>@drawable/station_t_4</item>
+        <item>@drawable/station_t_5</item>
+        <item>@drawable/station_t_6</item>
+        <item>@drawable/station_t_7</item>
+        <item>@drawable/station_t_8</item>
+        <item>@drawable/station_t_9</item>
+        <item>@drawable/station_t_10</item>
+        <item>@drawable/station_t_11</item>
+        <item>@drawable/station_t_12</item>
+        <item>@drawable/station_t_13</item>
+        <item>@drawable/station_t_14</item>
+        <item>@drawable/station_t_15</item>
+        <item>@drawable/station_t_16</item>
+        <item>@drawable/station_t_17</item>
+        <item>@drawable/station_t_18</item>
+        <item>@drawable/station_t_19</item>
+        <item>@drawable/station_t_20</item>
+        <item>@drawable/station_t_21</item>
+        <item>@drawable/station_t_22</item>
+        <item>@drawable/station_t_23</item>
+    </string-array>
+
 </resources>
