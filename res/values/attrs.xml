@@ -9,7 +9,6 @@
     <declare-styleable name="LockPatternView">
         <attr name="aspect" format="string" />
     </declare-styleable>
-    
     <declare-styleable name="JazzyViewPager">
         <attr name="style">
             <enum name="standard" value="0" />
@@ -29,4 +28,15 @@
         <attr name="outlineEnabled" format="boolean" />
         <attr name="outlineColor" format="color|reference" />
     </declare-styleable>
+    <declare-styleable name="CircularProgressBar">
+        <attr name="cpbStyle" format="reference" />
+        <attr name="cpb_color" format="color" />
+        <attr name="cpb_colors" format="reference" />
+        <attr name="cpb_stroke_width" format="dimension" />
+        <attr name="cpb_min_sweep_angle" format="integer" />
+        <attr name="cpb_max_sweep_angle" format="integer" />
+        <attr name="cpb_sweep_speed" format="float" />
+        <attr name="cpb_rotation_speed" format="float" />
+    </declare-styleable>
+
 </resources>
