@@ -179,6 +179,35 @@ public class RailwaysAdapter extends ArrayAdapter<Railways> {
 	}
 
 	/**
+	 * チェックボックスにチェックされている路線のレスポンスネームを取得する
+	 * 
+	 * @return
+	 */
+	public String getCheckedResponseNmae() {
+		if (list == null) {
+			return "";
+		}
+
+		final int size = list.size();
+		if (size == 0) {
+			return "";
+		}
+
+		String str = "";
+		for (int i = 0; i < size; i++) {
+			if (list.get(i).getChecked()) {
+				str += list.get(i).getResponseName() + ",";
+			}
+		}
+
+		if (!Utilities.isInvalidStr(str)) {
+			final int len = str.length();
+			str = str.substring(0, len - 1);
+		}
+		return str;
+	}
+
+	/**
 	 * ViewHolder
 	 */
 	static class ViewHolder {

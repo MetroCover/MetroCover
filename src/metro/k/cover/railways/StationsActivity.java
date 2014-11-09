@@ -1,17 +1,12 @@
 package metro.k.cover.railways;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import metro.k.cover.MetroCoverApplication;
 import metro.k.cover.PreferenceCommon;
 import metro.k.cover.R;
 import android.app.Activity;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class StationsActivity extends Activity {

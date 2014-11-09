@@ -28,8 +28,7 @@ public final class RailwaysUtilities {
 			return res.getString(R.string.railway_chiyoda);
 		}
 		// 副都心線
-		if (res.getString(R.string.railway_fukutoshin_response).equals(
-				apiResponse)) {
+		if (res.getString(R.string.railway_ginza_response).equals(apiResponse)) {
 			return res.getString(R.string.railway_fukutoshin);
 		}
 		// 銀座線
@@ -66,6 +65,65 @@ public final class RailwaysUtilities {
 			return res.getString(R.string.railway_hanzomon);
 		}
 		return "";
+	}
+
+	/**
+	 * // APIから返ってきたレスポンス名からアイコンを取得する
+	 * @param context
+	 * @param apiResponse
+	 * @return
+	 */
+	public static Drawable getRailwayIcon(final Context context,
+			final String apiResponse) {
+		if (context == null || Utilities.isInvalidStr(apiResponse)) {
+			return null;
+		}
+
+		final Resources res = context.getResources();
+
+		// 千代田線
+		if (res.getString(R.string.railway_chiyoda_response)
+				.equals(apiResponse)) {
+			return res.getDrawable(R.drawable.ic_chiyoda);
+		}
+		// 副都心線
+		if (res.getString(R.string.railway_fukutoshin_response).equals(
+				apiResponse)) {
+			return res.getDrawable(R.drawable.ic_fukutoshin);
+		}
+		// 銀座線
+		if (res.getString(R.string.railway_ginza_response).equals(apiResponse)) {
+			return res.getDrawable(R.drawable.ic_ginza);
+		}
+		// 日比谷線
+		if (res.getString(R.string.railway_hibiya_response).equals(apiResponse)) {
+			return res.getDrawable(R.drawable.ic_hibiya);
+		}
+		// 丸ノ内線
+		if (res.getString(R.string.railway_marunouchi_response).equals(
+				apiResponse)) {
+			return res.getDrawable(R.drawable.ic_marunouchi);
+		}
+		// 南北線
+		if (res.getString(R.string.railway_namboku_response)
+				.equals(apiResponse)) {
+			return res.getDrawable(R.drawable.ic_namboku);
+		}
+		// 東西線
+		if (res.getString(R.string.railway_tozai_response).equals(apiResponse)) {
+			return res.getDrawable(R.drawable.ic_tozai);
+		}
+		// 有楽町線
+		if (res.getString(R.string.railway_yurakucho_response).equals(
+				apiResponse)) {
+			return res.getDrawable(R.drawable.ic_yurakucho);
+		}
+		// 半蔵門線
+		if (res.getString(R.string.railway_hanzomon_response).equals(
+				apiResponse)) {
+			return res.getDrawable(R.drawable.ic_hanzomon);
+		}
+		return null;
 	}
 
 	/**
@@ -118,6 +176,7 @@ public final class RailwaysUtilities {
 		// 千代田線
 		Railways item = new Railways(Railways.RAILWAY_NUM_CHIYODA,
 				Railways.RAILWAY_CODE_CHIYODA,
+				res.getString(R.string.railway_chiyoda_response),
 				res.getString(R.string.railway_chiyoda),
 				res.getDrawable(R.drawable.ic_chiyoda), false);
 		list.add(item);
@@ -125,6 +184,7 @@ public final class RailwaysUtilities {
 		// 副都心線
 		item = new Railways(Railways.RAILWAY_NUM_FUKUTOSHIN,
 				Railways.RAILWAY_CODE_FUKUTOSHIN,
+				res.getString(R.string.railway_fukutoshin_response),
 				res.getString(R.string.railway_fukutoshin),
 				res.getDrawable(R.drawable.ic_fukutoshin), false);
 		list.add(item);
@@ -132,6 +192,7 @@ public final class RailwaysUtilities {
 		// 銀座線
 		item = new Railways(Railways.RAILWAY_NUM_GINZA,
 				Railways.RAILWAY_CODE_GINZA,
+				res.getString(R.string.railway_ginza_response),
 				res.getString(R.string.railway_ginza),
 				res.getDrawable(R.drawable.ic_ginza), false);
 		list.add(item);
@@ -139,13 +200,15 @@ public final class RailwaysUtilities {
 		// 半蔵門線
 		item = new Railways(Railways.RAILWAY_NUM_HANZOMON,
 				Railways.RAILWAY_CODE_HANZOMON,
+				res.getString(R.string.railway_hanzomon_response),
 				res.getString(R.string.railway_hanzomon),
 				res.getDrawable(R.drawable.ic_hanzomon), false);
 		list.add(item);
 
 		// 日比谷線
 		item = new Railways(Railways.RAILWAY_NUM_HIBIYA,
-				Railways.RAILWAY_CODE_GINZA,
+				Railways.RAILWAY_CODE_HIBIYA,
+				res.getString(R.string.railway_hibiya_response),
 				res.getString(R.string.railway_hibiya),
 				res.getDrawable(R.drawable.ic_hibiya), false);
 		list.add(item);
@@ -153,6 +216,7 @@ public final class RailwaysUtilities {
 		// 丸ノ内線
 		item = new Railways(Railways.RAILWAY_NUM_MARUNOUCHI,
 				Railways.RAILWAY_CODE_MARUNOUCHI,
+				res.getString(R.string.railway_marunouchi_response),
 				res.getString(R.string.railway_marunouchi),
 				res.getDrawable(R.drawable.ic_marunouchi), false);
 		list.add(item);
@@ -160,6 +224,7 @@ public final class RailwaysUtilities {
 		// 南北線
 		item = new Railways(Railways.RAILWAY_NUM_NAMBOKU,
 				Railways.RAILWAY_CODE_NAMBOKU,
+				res.getString(R.string.railway_namboku_response),
 				res.getString(R.string.railway_namboku),
 				res.getDrawable(R.drawable.ic_namboku), false);
 		list.add(item);
@@ -167,6 +232,7 @@ public final class RailwaysUtilities {
 		// 東西線
 		item = new Railways(Railways.RAILWAY_NUM_TOZAI,
 				Railways.RAILWAY_CODE_TOZAI,
+				res.getString(R.string.railway_tozai_response),
 				res.getString(R.string.railway_tozai),
 				res.getDrawable(R.drawable.ic_tozai), false);
 		list.add(item);
@@ -174,6 +240,7 @@ public final class RailwaysUtilities {
 		// 有楽町線
 		item = new Railways(Railways.RAILWAY_NUM_YURAKUCHO,
 				Railways.RAILWAY_CODE_YURAKUCHO,
+				res.getString(R.string.railway_yurakucho_response),
 				res.getString(R.string.railway_yurakucho),
 				res.getDrawable(R.drawable.ic_yurakucho), false);
 		list.add(item);
@@ -188,46 +255,55 @@ public final class RailwaysUtilities {
 		case Railways.RAILWAY_NUM_CHIYODA:
 			railways = new Railways(Railways.RAILWAY_NUM_CHIYODA,
 					Railways.RAILWAY_CODE_CHIYODA,
+					res.getString(R.string.railway_chiyoda_response),
 					res.getString(R.string.railway_chiyoda),
 					res.getDrawable(R.drawable.ic_chiyoda), checked);
 		case Railways.RAILWAY_NUM_FUKUTOSHIN:
 			railways = new Railways(Railways.RAILWAY_NUM_FUKUTOSHIN,
 					Railways.RAILWAY_CODE_FUKUTOSHIN,
+					res.getString(R.string.railway_fukutoshin_response),
 					res.getString(R.string.railway_fukutoshin),
 					res.getDrawable(R.drawable.ic_fukutoshin), checked);
 		case Railways.RAILWAY_NUM_GINZA:
 			railways = new Railways(Railways.RAILWAY_NUM_GINZA,
 					Railways.RAILWAY_CODE_GINZA,
+					res.getString(R.string.railway_ginza_response),
 					res.getString(R.string.railway_ginza),
 					res.getDrawable(R.drawable.ic_ginza), checked);
 		case Railways.RAILWAY_NUM_HANZOMON:
 			railways = new Railways(Railways.RAILWAY_NUM_HANZOMON,
 					Railways.RAILWAY_CODE_HANZOMON,
+					res.getString(R.string.railway_hanzomon_response),
 					res.getString(R.string.railway_hanzomon),
 					res.getDrawable(R.drawable.ic_hanzomon), checked);
 		case Railways.RAILWAY_NUM_HIBIYA:
 			railways = new Railways(Railways.RAILWAY_NUM_HIBIYA,
-					Railways.RAILWAY_CODE_GINZA,
+					Railways.RAILWAY_CODE_HIBIYA,
+					res.getString(R.string.railway_hibiya_response),
 					res.getString(R.string.railway_hibiya),
 					res.getDrawable(R.drawable.ic_hibiya), checked);
 		case Railways.RAILWAY_NUM_MARUNOUCHI:
 			railways = new Railways(Railways.RAILWAY_NUM_MARUNOUCHI,
 					Railways.RAILWAY_CODE_MARUNOUCHI,
+					res.getString(R.string.railway_marunouchi_response),
 					res.getString(R.string.railway_marunouchi),
 					res.getDrawable(R.drawable.ic_marunouchi), checked);
 		case Railways.RAILWAY_NUM_NAMBOKU:
 			railways = new Railways(Railways.RAILWAY_NUM_NAMBOKU,
 					Railways.RAILWAY_CODE_NAMBOKU,
+					res.getString(R.string.railway_namboku_response),
 					res.getString(R.string.railway_namboku),
 					res.getDrawable(R.drawable.ic_namboku), checked);
 		case Railways.RAILWAY_NUM_TOZAI:
 			railways = new Railways(Railways.RAILWAY_NUM_TOZAI,
 					Railways.RAILWAY_CODE_TOZAI,
+					res.getString(R.string.railway_tozai_response),
 					res.getString(R.string.railway_tozai),
 					res.getDrawable(R.drawable.ic_tozai), checked);
 		case Railways.RAILWAY_NUM_YURAKUCHO:
 			railways = new Railways(Railways.RAILWAY_NUM_YURAKUCHO,
 					Railways.RAILWAY_CODE_YURAKUCHO,
+					res.getString(R.string.railway_yurakucho_response),
 					res.getString(R.string.railway_yurakucho),
 					res.getDrawable(R.drawable.ic_yurakucho), checked);
 		default:

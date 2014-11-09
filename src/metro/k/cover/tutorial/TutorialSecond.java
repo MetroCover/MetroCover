@@ -42,7 +42,7 @@ public class TutorialSecond extends Fragment implements OnClickListener {
 				listview.setAdapter(adapter);
 			}
 		}
-		
+
 		// 次へ
 		final TextViewWithFont next = (TextViewWithFont) view
 				.findViewById(R.id.tutorial_second_next_btn);
@@ -135,5 +135,34 @@ public class TutorialSecond extends Fragment implements OnClickListener {
 			}
 		}
 		return list;
+	}
+
+	/**
+	 * チェックボックスにチェックされている路線のレスポンスネームを取得する
+	 * 
+	 * @return
+	 */
+	public static String getCheckedResponseNmae() {
+		if (mList == null) {
+			return "";
+		}
+
+		final int size = mList.size();
+		if (size == 0) {
+			return "";
+		}
+
+		String str = "";
+		for (int i = 0; i < size; i++) {
+			if (mList.get(i).getChecked()) {
+				str += mList.get(i).getResponseName() + ",";
+			}
+		}
+
+		if (!Utilities.isInvalidStr(str)) {
+			final int len = str.length();
+			str = str.substring(0, len - 1);
+		}
+		return str;
 	}
 }

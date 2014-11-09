@@ -2,6 +2,7 @@ package metro.k.cover.railways;
 
 import java.util.ArrayList;
 
+import metro.k.cover.MetroCoverApplication;
 import metro.k.cover.PreferenceCommon;
 import metro.k.cover.R;
 import metro.k.cover.Utilities;
@@ -124,6 +125,10 @@ public class RailwaysActivity extends Activity implements OnClickListener {
 						mRailwaysAdapter.getCheckedItemIDList());
 				PreferenceCommon.setRailwaysNumber(this,
 						mRailwaysAdapter.getCheckedItemNumberList());
+				PreferenceCommon.setRailwaysResponseName(this,
+						mRailwaysAdapter.getCheckedResponseNmae());
+				MetroCoverApplication app = (MetroCoverApplication) getApplication();
+				app.createRailwaysInfoList();
 			}
 			finish();
 			return;

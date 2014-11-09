@@ -53,6 +53,24 @@ public final class PreferenceCommon {
 		return sp.getString(KEY_SET_RAILWAYS_NUMVER, "");
 	}
 
+	// 遅延情報を出す路線（APIレスポンス）
+	private static final String KEY_SET_RAILWAYS_RES_NAME = "set_railways_res_name";
+
+	public static void setRailwaysResponseName(final Context context,
+			final String railways) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sp.edit();
+		editor.putString(KEY_SET_RAILWAYS_RES_NAME, railways);
+		editor.apply();
+	}
+
+	public static String getRailwaysResponseName(final Context context) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
+		return sp.getString(KEY_SET_RAILWAYS_RES_NAME, "");
+	}
+
 	// 登録している駅名
 	private static final String KEY_SET_STATION_NAME = "set_station_name";
 

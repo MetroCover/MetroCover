@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import metro.k.cover.Utilities;
 import metro.k.cover.railways.RailwaysInfo;
+import metro.k.cover.railways.RailwaysUtilities;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
@@ -22,6 +23,9 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 
 /**
  * 列車の運行情報を取得する
@@ -65,7 +69,11 @@ public class ApiRquestRailwaysInfo {
 		return sInstance;
 	}
 
-	public ArrayList<RailwaysInfo> getApiRquestRailwaysInfo() {
+	public ArrayList<RailwaysInfo> getApiRquestRailwaysInfo(
+			final Context context, ArrayList<String> target) {
+		if (target == null || context == null) {
+			return null;
+		}
 		HttpGet httpGet = new HttpGet(REQUEST_URL);
 		String response = null;
 		try {
@@ -75,7 +83,6 @@ public class ApiRquestRailwaysInfo {
 			}
 			response = EntityUtils.toString(httpResponse.getEntity(), "UTF-8");
 		} catch (Exception e) {
-			e.printStackTrace();
 		}
 		if (Utilities.isInvalidStr(response)) {
 			return null;
@@ -90,10 +97,19 @@ public class ApiRquestRailwaysInfo {
 			}
 			for (int i = 0; i < railwaysObj.length; i++) {
 				RailwaysInfo info = new RailwaysInfo();
-				info.setRailway(railwaysObj[i].getString("odpt:railway"));
-				info.setMessage(railwaysObj[i]
-						.getString("odpt:trainInformationText"));
-				infos.add(info);
+				String railway = railwaysObj[i].getString("odpt:railway");
+				String message = railwaysObj[i]
+						.getString("odpt:trainInformationText");
+				Drawable icon = RailwaysUtilities.getRailwayIcon(context,
+						railway);
+				String name = RailwaysUtilities.getRailwaysName(context,
+						railway);
+				if (target.contains(railway)) {
+					info.setRailway(name);
+					info.setMessage(message);
+					info.setIcon(icon);
+					infos.add(info);
+				}
 			}
 		} catch (JSONException e) {
 		}

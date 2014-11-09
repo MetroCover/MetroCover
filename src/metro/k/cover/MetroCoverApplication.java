@@ -3,24 +3,63 @@ package metro.k.cover;
 import java.util.ArrayList;
 import java.util.List;
 
+import metro.k.cover.api.ApiRquestRailwaysInfo;
+import metro.k.cover.lock.LockRailwaysInfoAdapter;
+import metro.k.cover.railways.RailwaysInfo;
 import metro.k.cover.railways.RailwaysUtilities;
 import metro.k.cover.railways.Station;
 import metro.k.cover.railways.StationsAdapter;
-
 import android.app.Application;
 import android.graphics.drawable.Drawable;
 import android.widget.ArrayAdapter;
 
 public class MetroCoverApplication extends Application {
 
+	// 全駅名リスト
 	public static ArrayAdapter<Station> sStationAllListAdapter;
+
+	// 登録している路線の遅延情報リスト
+	public static ArrayAdapter<RailwaysInfo> sRailwaysInfoAdapter;
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		createRailwaysInfoList();
 		createAllStationList();
 	}
 
+	public void createRailwaysInfoList() {
+		new Thread("createRailwaysInfoList") {
+			@Override
+			public void run() {
+				ApiRquestRailwaysInfo info = ApiRquestRailwaysInfo
+						.getInstance();
+				info.openConnection();
+				final String str = PreferenceCommon
+						.getRailwaysResponseName(getApplicationContext());
+				final ArrayList<String> list = Utilities.getSplitStr(str);
+				final ArrayList<RailwaysInfo> infos = info
+						.getApiRquestRailwaysInfo(getApplicationContext(), list);
+				info.closeConnection();
+				if (infos == null) {
+					if (sRailwaysInfoAdapter != null) {
+						sRailwaysInfoAdapter.clear();
+					}
+					return;
+				}
+				sRailwaysInfoAdapter = new LockRailwaysInfoAdapter(
+						getApplicationContext(), R.layout.lock_railways_info_at);
+				final int size = infos.size();
+				for (int i = 0; i < size; i++) {
+					sRailwaysInfoAdapter.add(infos.get(i));
+				}
+			}
+		}.start();
+	}
+
+	/**
+	 * アプリ起動時に遅延情報リストを取得しておく
+	 */
 	/**
 	 * アプリ起動時に全駅名リストを作成しておく
 	 */

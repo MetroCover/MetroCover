@@ -1,0 +1,58 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/lock_railways_info_mainlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="20dip"
+        android:background="@drawable/bg_lock_railway_info"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <metro.k.cover.view.TextViewWithFont
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/empty_title_lock_railway_info_title"
+            android:textColor="@color/color_white"
+            android:textSize="28sp" />
+
+        <ListView
+            android:id="@+id/lock_railways_info_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fadeScrollbars="false" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lock_railways_empty_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/bg_lock_railway_info"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="20dip"
+        android:visibility="visible" >
+
+        <metro.k.cover.view.TextViewWithFont
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/empty_title_lock_railway_info_title"
+            android:textColor="@color/color_white"
+            android:textSize="28sp" />
+
+        <metro.k.cover.view.TextViewWithFont
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/empty_title_lock_railway_info_message"
+            android:textColor="@color/color_white"
+            android:textSize="32sp" />
+    </LinearLayout>
+
+</RelativeLayout>

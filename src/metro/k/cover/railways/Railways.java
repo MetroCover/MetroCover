@@ -31,17 +31,19 @@ public class Railways {
 	public static final String RAILWAY_CODE_NAMBOKU = "N";
 	public static final String RAILWAY_CODE_TOZAI = "T";
 	public static final String RAILWAY_CODE_YURAKUCHO = "Y";
-	
+
 	private int railwayNum;
 	private String code;
+	private String response;
 	private String title;
 	private Drawable icon;
 	private boolean isCheck;
 
-	public Railways(int num, String stringID, String title, Drawable icon,
-			boolean ischeck) {
+	public Railways(int num, String stringID, String apiResName, String title,
+			Drawable icon, boolean ischeck) {
 		this.railwayNum = num;
 		this.code = stringID;
+		this.response = apiResName;
 		this.title = title;
 		this.icon = icon;
 		this.isCheck = ischeck;
@@ -57,6 +59,10 @@ public class Railways {
 
 	public String getTitle() {
 		return this.title;
+	}
+
+	public String getResponseName() {
+		return this.response;
 	}
 
 	public Drawable getIcon() {

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Locale;
 
 import metro.k.cover.ImageCache;
+import metro.k.cover.MetroCoverApplication;
 import metro.k.cover.PreferenceCommon;
 import metro.k.cover.R;
 import metro.k.cover.Utilities;
@@ -48,6 +49,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 /**
@@ -875,10 +877,9 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		 */
 		private RelativeLayout getleftLayout() {
 			RelativeLayout trainInfoLayout = (RelativeLayout) mLayoutInflater
-					.inflate(R.layout.page_train_info, null);
-			TextViewWithFont tv = (TextViewWithFont) trainInfoLayout
-					.findViewById(R.id.page_train_info_test);
-			tv.setText(String.valueOf(mTestNum1));
+					.inflate(R.layout.lock_railways_info, null);
+			ListView lv = (ListView) trainInfoLayout
+					.findViewById(R.id.lock_railways_info_listview);
 			return trainInfoLayout;
 		}
 
@@ -1006,6 +1007,8 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			int count = 0;
 			if (pageName.equals(PAGE_PAGE_TRAIN_INFO_1)) {
 				count = mTestNum1++;
+				readRailwaysInfo();
+				return;
 			} else if (pageName.equals(PAGE_PAGE_TRAIN_INFO_2)) {
 				count = mTestNum2++;
 			} else {
@@ -1015,6 +1018,24 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			TextViewWithFont textView = (TextViewWithFont) TrainInfoLayout
 					.findViewById(R.id.page_train_info_test);
 			textView.setText(String.valueOf(count));
+		}
+
+		private void readRailwaysInfo() {
+			RelativeLayout layout = (RelativeLayout) getPrimaryItem();
+			LinearLayout listLayout = (LinearLayout) layout
+					.findViewById(R.id.lock_railways_info_mainlayout);
+			ListView listview = (ListView) layout
+					.findViewById(R.id.lock_railways_info_listview);
+			LinearLayout emptyView = (LinearLayout) layout
+					.findViewById(R.id.lock_railways_empty_view);
+			if (MetroCoverApplication.sRailwaysInfoAdapter == null) {
+				listLayout.setVisibility(View.GONE);
+				emptyView.setVisibility(View.VISIBLE);
+				return;
+			}
+			listview.setAdapter(MetroCoverApplication.sRailwaysInfoAdapter);
+			emptyView.setVisibility(View.GONE);
+			listLayout.setVisibility(View.VISIBLE);
 		}
 
 		/**
