@@ -15,6 +15,7 @@ import metro.k.cover.Utilities;
 import metro.k.cover.circularprogressbar.CircularProgressBar;
 import metro.k.cover.lock.LockPatternView.Cell;
 import metro.k.cover.lock.LockPatternView.DisplayMode;
+import metro.k.cover.railways.RailwaysInfo;
 import metro.k.cover.view.JazzyViewPager;
 import metro.k.cover.view.JazzyViewPager.TransitionEffect;
 import metro.k.cover.view.TextViewWithFont;
@@ -46,6 +47,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -1043,6 +1045,9 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			textView.setText(String.valueOf(count));
 		}
 
+		/**
+		 * 路線遅延情報のViewを形成する
+		 */
 		private void readRailwaysInfo() {
 			RelativeLayout layout = (RelativeLayout) getPrimaryItem();
 			LinearLayout listLayout = (LinearLayout) layout
@@ -1057,17 +1062,37 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 					.findViewById(R.id.lock_railways_empty_title);
 			TextViewWithFont msg = (TextViewWithFont) layout
 					.findViewById(R.id.lock_railways_empty_message);
-			if (MetroCoverApplication.sRailwaysInfoAdapter == null) {
-				listLayout.setVisibility(View.GONE);
-				empty.setVisibility(View.VISIBLE);
-				title.setVisibility(View.VISIBLE);
-				msg.setVisibility(View.VISIBLE);
-				cpb.setVisibility(View.GONE);
+			final ArrayAdapter<RailwaysInfo> adapter = MetroCoverApplication.sRailwaysInfoAdapter;
+			if (adapter == null) {
+				setEmptyRailwayInfoView(listLayout, empty, cpb, title, msg);
+				return;
+			}
+			if (adapter.isEmpty()) {
+				setEmptyRailwayInfoView(listLayout, empty, cpb, title, msg);
 				return;
 			}
 			listview.setAdapter(MetroCoverApplication.sRailwaysInfoAdapter);
 			empty.setVisibility(View.INVISIBLE);
 			listLayout.setVisibility(View.VISIBLE);
+		}
+
+		/**
+		 * 登録の路線が空の場合もしくはエラーの場合
+		 * 
+		 * @param listLayout
+		 * @param empty
+		 * @param cpb
+		 * @param title
+		 * @param msg
+		 */
+		private void setEmptyRailwayInfoView(LinearLayout listLayout,
+				LinearLayout empty, CircularProgressBar cpb,
+				TextViewWithFont title, TextViewWithFont msg) {
+			listLayout.setVisibility(View.GONE);
+			empty.setVisibility(View.VISIBLE);
+			title.setVisibility(View.VISIBLE);
+			msg.setVisibility(View.VISIBLE);
+			cpb.setVisibility(View.GONE);
 		}
 
 		/**
