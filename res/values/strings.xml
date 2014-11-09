@@ -28,7 +28,8 @@
     <string name="day_of_week_friday">Fri.</string>
     <string name="day_of_week_saturday">Sat.</string>
     <string name="day_of_week_sunday">Sun.</string>
-    <string name="empty_title_lock_railway_info_title">NO DATA</string>
+    <string name="empty_title_lock_railway_info_title">TRAIN DELAY\nINFOMATION</string>
+    <string name="empty_title_lock_railway_info_message">NO DATA</string>
     <string name="err_msg_picasa_img">You can\'t select Picasa Image</string>
     <string name="font_free_wing">freewing.ttf</string>
     <string name="license">License</string>
