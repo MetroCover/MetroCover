@@ -219,6 +219,26 @@ public final class PreferenceCommon {
 				R.id.clock_text_color_white_selected);
 	}
 
+	// ロック画面の時計のサイズ
+	private static final String KEY_SET_CLOCK_SIZE = "set_clock_size";
+
+	public static void setClockSize(final Context context, final int size) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sp.edit();
+		editor.putInt(KEY_SET_CLOCK_SIZE, size);
+		editor.apply();
+	}
+
+	public static int getClockSize(final Context context) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
+		return sp.getInt(
+				KEY_SET_CLOCK_SIZE,
+				context.getResources().getInteger(
+						R.integer.lock_clock_size_midium));
+	}
+
 	// ロック画面のセキュリティのタイプ
 	private static String KEY_SET_SECURITY_TYPE = "set_security_type";
 

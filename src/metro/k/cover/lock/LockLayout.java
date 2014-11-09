@@ -100,6 +100,9 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	private TextViewWithFont mDataTextView;
 	private static Calendar mCalendar = Calendar.getInstance();
 	private int mClockColorID;
+	private int mClockSizeID;
+	private float mClockTimeSize;
+	private float mClockDateSize;
 
 	// Battery
 	private TextViewWithFont mBatteryView;
@@ -260,6 +263,27 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		mEffect = PreferenceCommon.getViewPagerEffect(context);
 		mClockType = PreferenceCommon.getClockType(context);
 		mClockColorID = PreferenceCommon.getClockColor(context);
+		mClockSizeID = PreferenceCommon.getClockSize(context);
+
+		final Resources res = getResources();
+		if (mClockSizeID == res.getInteger(R.integer.lock_clock_size_small)) {
+			mClockDateSize = res
+					.getDimensionPixelSize(R.dimen.clock_size_date_small);
+			mClockTimeSize = res
+					.getDimensionPixelSize(R.dimen.clock_size_time_small);
+		} else if (mClockSizeID == res
+				.getInteger(R.integer.lock_clock_size_midium)) {
+			mClockDateSize = res
+					.getDimensionPixelSize(R.dimen.clock_size_date_midium);
+			mClockTimeSize = res
+					.getDimensionPixelSize(R.dimen.clock_size_time_midium);
+		} else if (mClockSizeID == res
+				.getInteger(R.integer.lock_clock_size_large)) {
+			mClockDateSize = res
+					.getDimensionPixelSize(R.dimen.clock_size_date_large);
+			mClockTimeSize = res
+					.getDimensionPixelSize(R.dimen.clock_size_time_large);
+		}
 	}
 
 	/**
@@ -1086,6 +1110,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			}
 			mClockTextView.setText(timeStr);
 			mClockTextView.setTextColor(mResources.getColor(mClockColorID));
+			mClockTextView.setTextSize(mClockTimeSize);
 
 			// 日にち
 			boolean isJp = false;
@@ -1106,6 +1131,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			}
 			mDataTextView.setText(dateStr);
 			mDataTextView.setTextColor(mResources.getColor(mClockColorID));
+			mDataTextView.setTextSize(mClockDateSize);
 		}
 
 		private String getTwoDigits(final int num) {
@@ -1126,6 +1152,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			}
 
 			mBatteryView.setText(String.valueOf(battery) + "%");
+			mBatteryView.setTextSize(mClockDateSize);
 			mBatteryView.setTextColor(mResources.getColor(mClockColorID));
 		}
 	}

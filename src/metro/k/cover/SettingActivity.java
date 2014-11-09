@@ -47,6 +47,11 @@ public class SettingActivity extends Activity implements OnClickListener,
 	private TextViewWithFont mCurrentClockTypeView;
 	private int mCurrentClockType;
 
+	// 現在の時計表記サイズ
+	private int mClockSizeSelected = 1;
+	private TextViewWithFont mCurrentClockSizeView;
+	private int mCurrentClockSize;
+
 	// 現在の時計の色
 	private int mClockColorID;
 	private String mClockColorStr;
@@ -133,13 +138,17 @@ public class SettingActivity extends Activity implements OnClickListener,
 		RelativeLayout license_layout = (RelativeLayout) findViewById(R.id.setting_license_layout);
 		license_layout.setOnClickListener(this);
 
-		// Efects
+		// Effects
 		RelativeLayout effect_layout = (RelativeLayout) findViewById(R.id.setting_wallpaper_effect_layout);
 		effect_layout.setOnClickListener(this);
 
-		// Coloc color
+		// Clock color
 		RelativeLayout clockcol_layout = (RelativeLayout) findViewById(R.id.setting_clock_color_layout);
 		clockcol_layout.setOnClickListener(this);
+
+		// Clock color
+		RelativeLayout clocksize_layout = (RelativeLayout) findViewById(R.id.setting_clock_size_layout);
+		clocksize_layout.setOnClickListener(this);
 	}
 
 	/**
@@ -179,6 +188,22 @@ public class SettingActivity extends Activity implements OnClickListener,
 			mCurrentClockTypeView.setText(res.getString(R.string.clock_12));
 		} else {
 			mCurrentClockTypeView.setText(res.getString(R.string.clock_24));
+		}
+
+		// 現在の時計表記サイズ　
+		mCurrentClockSizeView = (TextViewWithFont) findViewById(R.id.setting_clock_size_currentview);
+		if (mCurrentClockSize == res
+				.getInteger(R.integer.lock_clock_size_small)) {
+			mCurrentClockSizeView.setText(res
+					.getString(R.string.clock_size_small));
+		} else if (mCurrentClockSize == res
+				.getInteger(R.integer.lock_clock_size_midium)) {
+			mCurrentClockSizeView.setText(res
+					.getString(R.string.clock_size_midium));
+		} else if (mCurrentClockSize == res
+				.getInteger(R.integer.lock_clock_size_large)) {
+			mCurrentClockSizeView.setText(res
+					.getString(R.string.clock_size_large));
 		}
 
 		// 時計色
@@ -226,6 +251,8 @@ public class SettingActivity extends Activity implements OnClickListener,
 				.getStationName(getApplicationContext());
 		mCurrentStationsRailwayName = PreferenceCommon
 				.getStationsRailwayName(getApplicationContext());
+		mClockSizeSelected = mCurrentClockSize = PreferenceCommon
+				.getClockSize(getApplicationContext());
 	}
 
 	/**
@@ -390,6 +417,12 @@ public class SettingActivity extends Activity implements OnClickListener,
 			return;
 		}
 
+		// Clock-Size
+		if (R.id.setting_clock_size_layout == viewId) {
+			buildClockSizeDialog();
+			return;
+		}
+
 		// Clock-Color
 		if (R.id.setting_clock_color_layout == viewId) {
 			startColorSelectActivity();
@@ -481,6 +514,48 @@ public class SettingActivity extends Activity implements OnClickListener,
 										.setClockType(getApplicationContext(),
 												mClockSelected);
 								mCurrentClockType = mClockSelected;
+								dialog.cancel();
+							}
+						})
+				.setNegativeButton(R.string.cancel,
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								dialog.cancel();
+							}
+						}).show();
+	}
+
+	/**
+	 * 時計表記サイズ　選択ダイアログ
+	 */
+	private void buildClockSizeDialog() {
+		final Resources res = getResources();
+		final String item_list[] = new String[] {
+				res.getString(R.string.clock_size_small),
+				res.getString(R.string.clock_size_midium),
+				res.getString(R.string.clock_size_large) };
+
+		new AlertDialog.Builder(SettingActivity.this)
+				.setIcon(R.drawable.ic_clock)
+				.setTitle(res.getString(R.string.clock_size))
+				.setSingleChoiceItems(item_list, mCurrentClockSize,
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								mClockSizeSelected = whichButton;
+							}
+						})
+				.setPositiveButton(res.getString(R.string.ok),
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								mCurrentClockSizeView
+										.setText(item_list[mClockSizeSelected]);
+								PreferenceCommon.setClockSize(
+										getApplicationContext(),
+										mClockSizeSelected);
+								mCurrentClockSize = mClockSizeSelected;
 								dialog.cancel();
 							}
 						})

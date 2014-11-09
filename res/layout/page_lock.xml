@@ -16,24 +16,21 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textColor="#FFF"
-            android:textSize="40sp" />
+            android:textColor="#FFF" />
 
         <metro.k.cover.view.TextViewWithFont
             android:id="@+id/lock_date_textview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textColor="#FFF"
-            android:textSize="18sp" />
+            android:textColor="#FFF" />
 
         <metro.k.cover.view.TextViewWithFont
             android:id="@+id/lock_battery_textview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textColor="#FFF"
-            android:textSize="18sp" />
+            android:textColor="#FFF" />
     </LinearLayout>
 
     <metro.k.cover.lock.KeyView

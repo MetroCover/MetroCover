@@ -5,5 +5,8 @@
     <integer name="lock_security_type_none">0</integer>
     <integer name="lock_security_type_pattern">1</integer>
     <integer name="lock_security_type_password">2</integer>
+    <integer name="lock_clock_size_small">0</integer>
+    <integer name="lock_clock_size_midium">1</integer>
+    <integer name="lock_clock_size_large">2</integer>
 
 </resources>
