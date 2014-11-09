@@ -16,7 +16,7 @@
         android:orientation="horizontal"
         android:weightSum="2" >
 
-        <Button
+        <metro.k.cover.view.ButtonWithFont
             android:id="@+id/wallpaper_effect_cancel_btn"
             android:layout_width="fill_parent"
             android:layout_height="52dp"
@@ -29,7 +29,7 @@
             android:textColor="#FFF"
             android:textStyle="bold" />
 
-        <Button
+        <metro.k.cover.view.ButtonWithFont
             android:id="@+id/wallpaper_effect_comp_btn"
             android:layout_width="fill_parent"
             android:layout_height="52dp"

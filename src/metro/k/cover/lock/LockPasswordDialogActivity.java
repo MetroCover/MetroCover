@@ -4,6 +4,7 @@ import metro.k.cover.PreferenceCommon;
 import metro.k.cover.R;
 import metro.k.cover.SettingActivity;
 import metro.k.cover.Utilities;
+import metro.k.cover.view.ButtonWithFont;
 import metro.k.cover.view.TextViewWithFont;
 import android.app.Activity;
 import android.content.Context;
@@ -16,7 +17,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.EditText;
 
 /**
@@ -72,12 +72,10 @@ public class LockPasswordDialogActivity extends Activity implements
 		mOnceAgain = (TextViewWithFont) findViewById(R.id.security_pass_title);
 		mVibe = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
-		Button cancelBtn = (Button) findViewById(R.id.security_pass_cancel_btn);
-		Button confBtn = (Button) findViewById(R.id.security_pass_complete_btn);
+		ButtonWithFont cancelBtn = (ButtonWithFont) findViewById(R.id.security_pass_cancel_btn);
+		ButtonWithFont confBtn = (ButtonWithFont) findViewById(R.id.security_pass_complete_btn);
 		cancelBtn.setOnClickListener(this);
 		confBtn.setOnClickListener(this);
-		Utilities.setFontButtonView(cancelBtn, am, res);
-		Utilities.setFontButtonView(confBtn, am, res);
 	}
 
 	private void setTitleView() {

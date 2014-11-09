@@ -21,7 +21,6 @@ import android.os.Build;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -60,23 +59,6 @@ public final class Utilities {
 			return true;
 		}
 		return false;
-	}
-
-	/**
-	 * Buttonに独自フォントを入れる
-	 * 
-	 * @param button
-	 * @param am
-	 * @param res
-	 */
-	public static void setFontButtonView(final Button button,
-			final AssetManager am, final Resources res) {
-		if (button == null || am == null || res == null) {
-			return;
-		}
-
-		button.setTypeface(Typeface.createFromAsset(am,
-				res.getString(R.string.font_free_wing)));
 	}
 
 	/**

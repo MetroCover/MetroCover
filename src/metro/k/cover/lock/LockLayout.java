@@ -16,6 +16,7 @@ import metro.k.cover.circularprogressbar.CircularProgressBar;
 import metro.k.cover.lock.LockPatternView.Cell;
 import metro.k.cover.lock.LockPatternView.DisplayMode;
 import metro.k.cover.railways.RailwaysInfo;
+import metro.k.cover.view.ButtonWithFont;
 import metro.k.cover.view.JazzyViewPager;
 import metro.k.cover.view.JazzyViewPager.TransitionEffect;
 import metro.k.cover.view.TextViewWithFont;
@@ -48,7 +49,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -536,14 +536,12 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 				.findViewById(R.id.lock_pass_title);
 		final EditText edittext = (EditText) mPassView
 				.findViewById(R.id.lock_pass_edittext);
-		final Button comp = (Button) mPassView
+		final ButtonWithFont comp = (ButtonWithFont) mPassView
 				.findViewById(R.id.lock_pass_comp_btn);
-		final Button cancel = (Button) mPassView
+		final ButtonWithFont cancel = (ButtonWithFont) mPassView
 				.findViewById(R.id.lock_pass_cancel_btn);
 
 		Utilities.setFontEditTextView(edittext, am, res);
-		Utilities.setFontButtonView(comp, am, res);
-		Utilities.setFontButtonView(cancel, am, res);
 
 		this.addView(mPassView);
 		edittext.requestFocus();
@@ -629,10 +627,8 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 				.findViewById(R.id.lock_patternView);
 		final TextViewWithFont titleView = (TextViewWithFont) mPatternView
 				.findViewById(R.id.lock_pattern_title);
-		final Button cancelBtn = (Button) mPatternView
+		final ButtonWithFont cancelBtn = (ButtonWithFont) mPatternView
 				.findViewById(R.id.lock_pattern_cancel_btn);
-
-		Utilities.setFontButtonView(cancelBtn, am, res);
 
 		patternView.setOnPatternListener(getPatternListener(patternView,
 				titleView));

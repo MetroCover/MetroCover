@@ -6,13 +6,11 @@ import metro.k.cover.MetroCoverApplication;
 import metro.k.cover.PreferenceCommon;
 import metro.k.cover.R;
 import metro.k.cover.Utilities;
+import metro.k.cover.view.ButtonWithFont;
 import android.app.Activity;
-import android.content.res.AssetManager;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ListView;
 
 public class RailwaysActivity extends Activity implements OnClickListener {
@@ -37,15 +35,10 @@ public class RailwaysActivity extends Activity implements OnClickListener {
 
 	private void setupViews() {
 		setContentView(R.layout.activity_railways);
-		Button cancel = (Button) findViewById(R.id.railways_cancel_btn);
-		Button complete = (Button) findViewById(R.id.railways_complete_btn);
+		ButtonWithFont cancel = (ButtonWithFont) findViewById(R.id.railways_cancel_btn);
+		ButtonWithFont complete = (ButtonWithFont) findViewById(R.id.railways_complete_btn);
 		cancel.setOnClickListener(this);
 		complete.setOnClickListener(this);
-
-		final Resources res = getResources();
-		final AssetManager am = getAssets();
-		Utilities.setFontButtonView(cancel, am, res);
-		Utilities.setFontButtonView(complete, am, res);
 
 		setupListView();
 	}

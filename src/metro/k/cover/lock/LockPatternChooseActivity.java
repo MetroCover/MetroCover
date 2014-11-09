@@ -5,18 +5,16 @@ import java.util.List;
 import metro.k.cover.PreferenceCommon;
 import metro.k.cover.R;
 import metro.k.cover.SettingActivity;
-import metro.k.cover.Utilities;
 import metro.k.cover.lock.LockPatternView.Cell;
 import metro.k.cover.lock.LockPatternView.DisplayMode;
+import metro.k.cover.view.ButtonWithFont;
 import metro.k.cover.view.TextViewWithFont;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
 public class LockPatternChooseActivity extends Activity implements
 		LockPatternView.OnPatternListener {
@@ -44,10 +42,10 @@ public class LockPatternChooseActivity extends Activity implements
 	private TextViewWithFont mTitle;
 
 	// キャンセルボタン
-	private Button mCancelButton;
+	private ButtonWithFont mCancelButton;
 
 	// 完了ボタン
-	private Button mCompButton;
+	private ButtonWithFont mCompButton;
 
 	// １回目と２回目のパターン
 	private String mPatternFirst;
@@ -82,8 +80,8 @@ public class LockPatternChooseActivity extends Activity implements
 		requestWindowFeature(1);
 		setContentView(R.layout.activity_lock_pattern);
 		mTitle = ((TextViewWithFont) findViewById(R.id.pattern_title));
-		mCancelButton = ((Button) findViewById(R.id.lock_pattern_cancel_btn));
-		mCompButton = ((Button) findViewById(R.id.lock_pattern_comp_btn));
+		mCancelButton = ((ButtonWithFont) findViewById(R.id.lock_pattern_cancel_btn));
+		mCompButton = ((ButtonWithFont) findViewById(R.id.lock_pattern_comp_btn));
 		mPatternView = ((LockPatternView) findViewById(R.id.patternView));
 		mPatternView.setOnPatternListener(this);
 		changeViewFromState(mState);
@@ -132,7 +130,6 @@ public class LockPatternChooseActivity extends Activity implements
 	 */
 	private void setDrawingStateViewFirst() {
 		final Resources res = getResources();
-		final AssetManager am = getAssets();
 		mTitle.setText(res.getString(R.string.lock_pattern_title_drawing));
 		mCancelButton.setText(res.getString(R.string.cancel));
 		mCancelButton.setEnabled(false);
@@ -142,9 +139,6 @@ public class LockPatternChooseActivity extends Activity implements
 			mCompButton.setText(res.getString(R.string.lock_pattern_next));
 		}
 		mCompButton.setEnabled(false);
-
-		Utilities.setFontButtonView(mCancelButton, am, res);
-		Utilities.setFontButtonView(mCompButton, am, res);
 	}
 
 	/**
@@ -152,15 +146,11 @@ public class LockPatternChooseActivity extends Activity implements
 	 */
 	private void setDrawingStateSecond() {
 		final Resources res = getResources();
-		final AssetManager am = getAssets();
 		mTitle.setText(res.getString(R.string.lock_pattern_title_drawing));
 		mCancelButton.setText(res.getString(R.string.cancel));
 		mCancelButton.setEnabled(false);
 		mCompButton.setText(res.getString(R.string.lock_pattern_confirm));
 		mCompButton.setEnabled(false);
-
-		Utilities.setFontButtonView(mCancelButton, am, res);
-		Utilities.setFontButtonView(mCompButton, am, res);
 	}
 
 	/**
@@ -182,10 +172,6 @@ public class LockPatternChooseActivity extends Activity implements
 		mCancelButton
 				.setOnClickListener(changeStateListener(PATTERN_IDLE_FIRST));
 		mCompButton.setEnabled(false);
-
-		final AssetManager am = getAssets();
-		Utilities.setFontButtonView(mCancelButton, am, res);
-		Utilities.setFontButtonView(mCompButton, am, res);
 	}
 
 	/**
@@ -207,10 +193,6 @@ public class LockPatternChooseActivity extends Activity implements
 				mPatternView.enableInput();
 			}
 		});
-
-		final AssetManager am = getAssets();
-		Utilities.setFontButtonView(mCancelButton, am, res);
-		Utilities.setFontButtonView(mCompButton, am, res);
 	}
 
 	/**
@@ -233,10 +215,6 @@ public class LockPatternChooseActivity extends Activity implements
 		mCancelButton.setEnabled(true);
 		mCancelButton.setOnClickListener(mCancelListener);
 		mCompButton.setEnabled(false);
-
-		final AssetManager am = getAssets();
-		Utilities.setFontButtonView(mCancelButton, am, res);
-		Utilities.setFontButtonView(mCompButton, am, res);
 	}
 
 	/**
@@ -252,10 +230,6 @@ public class LockPatternChooseActivity extends Activity implements
 		mCancelButton.setOnClickListener(mCancelListener);
 		mCompButton.setText(res.getString(R.string.lock_pattern_next));
 		mCompButton.setEnabled(false);
-
-		final AssetManager am = getAssets();
-		Utilities.setFontButtonView(mCancelButton, am, res);
-		Utilities.setFontButtonView(mCompButton, am, res);
 	}
 
 	/**
@@ -278,10 +252,6 @@ public class LockPatternChooseActivity extends Activity implements
 				isSecond = true;
 			}
 		});
-
-		final AssetManager am = getAssets();
-		Utilities.setFontButtonView(mCancelButton, am, res);
-		Utilities.setFontButtonView(mCompButton, am, res);
 	}
 
 	/**
@@ -303,10 +273,6 @@ public class LockPatternChooseActivity extends Activity implements
 				complete(mPatternSecond.toString());
 			}
 		});
-
-		final AssetManager am = getAssets();
-		Utilities.setFontButtonView(mCancelButton, am, res);
-		Utilities.setFontButtonView(mCompButton, am, res);
 	}
 
 	private View.OnClickListener changeStateListener(final int toState) {
