@@ -2,7 +2,6 @@ package metro.k.cover.lock;
 
 import metro.k.cover.R;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
@@ -16,7 +15,6 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnKeyListener;
-import android.view.Window;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 import android.view.animation.AlphaAnimation;
@@ -320,26 +318,6 @@ public class LockUtilities {
 		final String masterPattern = context.getResources().getString(
 				R.string.lock_pattern_master);
 		return masterPattern.equals(inputPattern);
-	}
-
-	public void disableKeyguardWindow(final Activity activity) {
-		try {
-			Window window = activity.getWindow();
-			window.setFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED,
-					WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
-			window.setFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD,
-					WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
-		} catch (Exception e) {
-		}
-	}
-
-	public void enableKeyguardWindow(final Activity activity) {
-		try {
-			Window window = activity.getWindow();
-			window.clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
-			window.clearFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
-		} catch (Exception e) {
-		}
 	}
 
 	/**

@@ -345,6 +345,131 @@
         <item>@drawable/station_t_21</item>
         <item>@drawable/station_t_22</item>
         <item>@drawable/station_t_23</item>
+        <item>@drawable/station_t_23</item>
+    </string-array>
+
+    <!-- 有楽町線　 -->
+    <string-array name="yurakucho_railway_stations">
+        <item>@string/station_wakoshi</item>
+        <item>@string/station_chikatetsunarimasu</item>
+        <item>@string/station_chikatetsuakatsuka</item>
+        <item>@string/station_heiwadai</item>
+        <item>@string/station_hikawadai</item>
+        <item>@string/station_kotakemukaihara</item>
+        <item>@string/station_senkawa</item>
+        <item>@string/station_kanamecho</item>
+        <item>@string/station_ikebukuro</item>
+        <item>@string/station_higashiikebukuro</item>
+        <item>@string/station_gokokuji</item>
+        <item>@string/station_edogawabashi</item>
+        <item>@string/station_iidabashi</item>
+        <item>@string/station_ichigaya</item>
+        <item>@string/station_kojimachi</item>
+        <item>@string/station_nagatacho</item>
+        <item>@string/station_sakuradamon</item>
+        <item>@string/station_yurakucho</item>
+        <item>@string/station_ginzaichoume</item>
+        <item>@string/station_shintomicho</item>
+        <item>@string/station_tsukishima</item>
+        <item>@string/station_toyosu</item>
+        <item>@string/station_tatsumi</item>
+        <item>@string/station_shinkiba</item>
+    </string-array>
+    <string-array name="yurakucho_railway_icons">
+        <item>@drawable/station_y_1</item>
+        <item>@drawable/station_y_2</item>
+        <item>@drawable/station_y_3</item>
+        <item>@drawable/station_y_4</item>
+        <item>@drawable/station_y_5</item>
+        <item>@drawable/station_y_6</item>
+        <item>@drawable/station_y_7</item>
+        <item>@drawable/station_y_8</item>
+        <item>@drawable/station_y_9</item>
+        <item>@drawable/station_y_10</item>
+        <item>@drawable/station_y_11</item>
+        <item>@drawable/station_y_12</item>
+        <item>@drawable/station_y_13</item>
+        <item>@drawable/station_y_14</item>
+        <item>@drawable/station_y_15</item>
+        <item>@drawable/station_y_16</item>
+        <item>@drawable/station_y_17</item>
+        <item>@drawable/station_y_18</item>
+        <item>@drawable/station_y_19</item>
+        <item>@drawable/station_y_20</item>
+        <item>@drawable/station_y_21</item>
+        <item>@drawable/station_y_22</item>
+        <item>@drawable/station_y_23</item>
+        <item>@drawable/station_y_24</item>
+    </string-array>
+
+    <!-- 丸ノ内線　 -->
+    <string-array name="marunouchi_railway_stations">
+        <item>@string/station_ogikubo</item>
+        <item>@string/station_minamiasagaya</item>
+        <item>@string/station_shinnkoenji</item>
+        <item>@string/station_higashikoenji</item>
+        <item>@string/station_shinnnakano</item>
+        <item>@string/station_nakanosakaue</item>
+        <item>@string/station_nishishinjuku</item>
+        <item>@string/station_shinjuku</item>
+        <item>@string/station_shinjukusanchome</item>
+        <item>@string/station_shinjukugyoennmae</item>
+        <item>@string/station_yotsuyasanchome</item>
+        <item>@string/station_yotsuya</item>
+        <item>@string/station_akasakamitsuke</item>
+        <item>@string/station_kokkaigizidoumae</item>
+        <item>@string/station_kasumigazeki</item>
+        <item>@string/station_ginza</item>
+        <item>@string/station_tokyo</item>
+        <item>@string/station_ootemachi</item>
+        <item>@string/station_awajicho</item>
+        <item>@string/station_ochanomizu</item>
+        <item>@string/station_hongosanchome</item>
+        <item>@string/station_korakuen</item>
+        <item>@string/station_myogadani</item>
+        <item>@string/station_shinnootsuka</item>
+        <item>@string/station_ikebukuro</item>
+    </string-array>
+    <string-array name="marunouchi_railway_icons">
+        <item>@drawable/station_m_1</item>
+        <item>@drawable/station_m_2</item>
+        <item>@drawable/station_m_3</item>
+        <item>@drawable/station_m_4</item>
+        <item>@drawable/station_m_5</item>
+        <item>@drawable/station_m_6</item>
+        <item>@drawable/station_m_7</item>
+        <item>@drawable/station_m_8</item>
+        <item>@drawable/station_m_9</item>
+        <item>@drawable/station_m_10</item>
+        <item>@drawable/station_m_11</item>
+        <item>@drawable/station_m_12</item>
+        <item>@drawable/station_m_13</item>
+        <item>@drawable/station_m_14</item>
+        <item>@drawable/station_m_15</item>
+        <item>@drawable/station_m_16</item>
+        <item>@drawable/station_m_17</item>
+        <item>@drawable/station_m_18</item>
+        <item>@drawable/station_m_19</item>
+        <item>@drawable/station_m_20</item>
+        <item>@drawable/station_m_21</item>
+        <item>@drawable/station_m_22</item>
+        <item>@drawable/station_m_23</item>
+        <item>@drawable/station_m_24</item>
+        <item>@drawable/station_m_25</item>
+    </string-array>
+
+    <!-- 丸ノ内線Branch　 -->
+    <string-array name="marunouchi_branch_railway_stations">
+        <item>@string/station_hounanncho</item>
+        <item>@string/station_nakanofujimicho</item>
+        <item>@string/station_nakanoshinnbashi</item>
+        <item>@string/station_nakanosakaue</item>
+    </string-array>
+    <string-array name="marunouchi_branch_railway_icons">
+        <item>@drawable/station_mm_3</item>
+        <item>@drawable/station_mm_4</item>
+        <item>@drawable/station_mm_5</item>
+        <item>@drawable/station_m_6</item>
     </string-array>
 
 </resources>

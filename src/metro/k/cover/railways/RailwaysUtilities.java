@@ -69,6 +69,7 @@ public final class RailwaysUtilities {
 
 	/**
 	 * // APIから返ってきたレスポンス名からアイコンを取得する
+	 * 
 	 * @param context
 	 * @param apiResponse
 	 * @return
@@ -138,10 +139,11 @@ public final class RailwaysUtilities {
 		list.add(Railways.RAILWAY_CODE_GINZA);
 		list.add(Railways.RAILWAY_CODE_HANZOMON);
 		list.add(Railways.RAILWAY_CODE_HIBIYA);
-		// list.add(Railways.RAILWAY_CODE_MARUNOUCHI);
+		list.add(Railways.RAILWAY_CODE_MARUNOUCHI);
+		list.add(Railways.RAILWAY_CODE_MARUNOUCHI_M);
 		list.add(Railways.RAILWAY_CODE_NAMBOKU);
 		list.add(Railways.RAILWAY_CODE_TOZAI);
-		// list.add(Railways.RAILWAY_CODE_YURAKUCHO);
+		list.add(Railways.RAILWAY_CODE_YURAKUCHO);
 		return list;
 	}
 
@@ -153,10 +155,11 @@ public final class RailwaysUtilities {
 		list.add(res.getString(R.string.railway_ginza));
 		list.add(res.getString(R.string.railway_hanzomon));
 		list.add(res.getString(R.string.railway_hibiya));
-		// list.add(res.getString(R.string.railway_marunouchi));
+		list.add(res.getString(R.string.railway_marunouchi));
+		list.add(res.getString(R.string.railway_marunouchi_m));
 		list.add(res.getString(R.string.railway_namboku));
 		list.add(res.getString(R.string.railway_tozai));
-		// list.add(res.getString(R.string.railway_yurakucho));
+		list.add(res.getString(R.string.railway_yurakucho));
 		return list;
 	}
 
@@ -221,6 +224,14 @@ public final class RailwaysUtilities {
 				res.getDrawable(R.drawable.ic_marunouchi), false);
 		list.add(item);
 
+		// 丸ノ内線支線
+		item = new Railways(Railways.RAILWAY_NUM_MARUNOUCHI_M,
+				Railways.RAILWAY_CODE_MARUNOUCHI_M,
+				res.getString(R.string.railway_marunouchi_branch_response),
+				res.getString(R.string.railway_marunouchi_m),
+				res.getDrawable(R.drawable.station_mm_3), false);
+		list.add(item);
+
 		// 南北線
 		item = new Railways(Railways.RAILWAY_NUM_NAMBOKU,
 				Railways.RAILWAY_CODE_NAMBOKU,
@@ -244,6 +255,7 @@ public final class RailwaysUtilities {
 				res.getString(R.string.railway_yurakucho),
 				res.getDrawable(R.drawable.ic_yurakucho), false);
 		list.add(item);
+
 		return list;
 	}
 
@@ -288,6 +300,12 @@ public final class RailwaysUtilities {
 					res.getString(R.string.railway_marunouchi_response),
 					res.getString(R.string.railway_marunouchi),
 					res.getDrawable(R.drawable.ic_marunouchi), checked);
+		case Railways.RAILWAY_NUM_MARUNOUCHI_M:
+			railways = new Railways(Railways.RAILWAY_NUM_MARUNOUCHI_M,
+					Railways.RAILWAY_CODE_MARUNOUCHI_M,
+					res.getString(R.string.railway_marunouchi_branch_response),
+					res.getString(R.string.railway_marunouchi_m),
+					res.getDrawable(R.drawable.station_mm_3), checked);
 		case Railways.RAILWAY_NUM_NAMBOKU:
 			railways = new Railways(Railways.RAILWAY_NUM_NAMBOKU,
 					Railways.RAILWAY_CODE_NAMBOKU,
@@ -362,6 +380,22 @@ public final class RailwaysUtilities {
 			return Arrays.asList(array_str);
 		}
 
+		if (railwayCode.equals(Railways.RAILWAY_CODE_YURAKUCHO)) {
+			array_str = res.getStringArray(R.array.yurakucho_railway_stations);
+			return Arrays.asList(array_str);
+		}
+
+		if (railwayCode.equals(Railways.RAILWAY_CODE_MARUNOUCHI)) {
+			array_str = res.getStringArray(R.array.marunouchi_railway_stations);
+			return Arrays.asList(array_str);
+		}
+
+		if (railwayCode.equals(Railways.RAILWAY_CODE_MARUNOUCHI_M)) {
+			array_str = res
+					.getStringArray(R.array.marunouchi_branch_railway_stations);
+			return Arrays.asList(array_str);
+		}
+
 		return null;
 	}
 
@@ -406,6 +440,22 @@ public final class RailwaysUtilities {
 
 		if (railwayCode.equals(Railways.RAILWAY_CODE_TOZAI)) {
 			images = res.obtainTypedArray(R.array.tozai_railway_icons);
+			return convertTypedArray(images);
+		}
+
+		if (railwayCode.equals(Railways.RAILWAY_CODE_YURAKUCHO)) {
+			images = res.obtainTypedArray(R.array.yurakucho_railway_icons);
+			return convertTypedArray(images);
+		}
+
+		if (railwayCode.equals(Railways.RAILWAY_CODE_MARUNOUCHI)) {
+			images = res.obtainTypedArray(R.array.marunouchi_railway_icons);
+			return convertTypedArray(images);
+		}
+
+		if (railwayCode.equals(Railways.RAILWAY_CODE_MARUNOUCHI_M)) {
+			images = res
+					.obtainTypedArray(R.array.marunouchi_branch_railway_icons);
 			return convertTypedArray(images);
 		}
 

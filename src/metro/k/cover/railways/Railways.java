@@ -17,9 +17,10 @@ public class Railways {
 	public static final int RAILWAY_NUM_HANZOMON = 3;
 	public static final int RAILWAY_NUM_HIBIYA = 4;
 	public static final int RAILWAY_NUM_MARUNOUCHI = 5;
-	public static final int RAILWAY_NUM_NAMBOKU = 6;
-	public static final int RAILWAY_NUM_TOZAI = 7;
-	public static final int RAILWAY_NUM_YURAKUCHO = 8;
+	public static final int RAILWAY_NUM_MARUNOUCHI_M = 6;
+	public static final int RAILWAY_NUM_NAMBOKU = 7;
+	public static final int RAILWAY_NUM_TOZAI = 8;
+	public static final int RAILWAY_NUM_YURAKUCHO = 9;
 
 	// 路線コード
 	public static final String RAILWAY_CODE_CHIYODA = "C";
@@ -28,6 +29,7 @@ public class Railways {
 	public static final String RAILWAY_CODE_HANZOMON = "Z";
 	public static final String RAILWAY_CODE_HIBIYA = "H";
 	public static final String RAILWAY_CODE_MARUNOUCHI = "M";
+	public static final String RAILWAY_CODE_MARUNOUCHI_M = "m";
 	public static final String RAILWAY_CODE_NAMBOKU = "N";
 	public static final String RAILWAY_CODE_TOZAI = "T";
 	public static final String RAILWAY_CODE_YURAKUCHO = "Y";
