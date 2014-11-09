@@ -12,6 +12,7 @@ import metro.k.cover.MetroCoverApplication;
 import metro.k.cover.PreferenceCommon;
 import metro.k.cover.R;
 import metro.k.cover.Utilities;
+import metro.k.cover.circularprogressbar.CircularProgressBar;
 import metro.k.cover.lock.LockPatternView.Cell;
 import metro.k.cover.lock.LockPatternView.DisplayMode;
 import metro.k.cover.view.JazzyViewPager;
@@ -878,8 +879,6 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		private RelativeLayout getleftLayout() {
 			RelativeLayout trainInfoLayout = (RelativeLayout) mLayoutInflater
 					.inflate(R.layout.lock_railways_info, null);
-			ListView lv = (ListView) trainInfoLayout
-					.findViewById(R.id.lock_railways_info_listview);
 			return trainInfoLayout;
 		}
 
@@ -1026,15 +1025,24 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 					.findViewById(R.id.lock_railways_info_mainlayout);
 			ListView listview = (ListView) layout
 					.findViewById(R.id.lock_railways_info_listview);
-			LinearLayout emptyView = (LinearLayout) layout
+			LinearLayout empty = (LinearLayout) layout
 					.findViewById(R.id.lock_railways_empty_view);
+			CircularProgressBar cpb = (CircularProgressBar) layout
+					.findViewById(R.id.lock_railways_loading);
+			TextViewWithFont title = (TextViewWithFont) layout
+					.findViewById(R.id.lock_railways_empty_title);
+			TextViewWithFont msg = (TextViewWithFont) layout
+					.findViewById(R.id.lock_railways_empty_message);
 			if (MetroCoverApplication.sRailwaysInfoAdapter == null) {
 				listLayout.setVisibility(View.GONE);
-				emptyView.setVisibility(View.VISIBLE);
+				empty.setVisibility(View.VISIBLE);
+				title.setVisibility(View.VISIBLE);
+				msg.setVisibility(View.VISIBLE);
+				cpb.setVisibility(View.GONE);
 				return;
 			}
 			listview.setAdapter(MetroCoverApplication.sRailwaysInfoAdapter);
-			emptyView.setVisibility(View.GONE);
+			empty.setVisibility(View.INVISIBLE);
 			listLayout.setVisibility(View.VISIBLE);
 		}
 
