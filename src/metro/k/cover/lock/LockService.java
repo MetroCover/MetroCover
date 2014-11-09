@@ -2,6 +2,7 @@ package metro.k.cover.lock;
 
 import java.util.List;
 
+import metro.k.cover.MetroCoverApplication;
 import metro.k.cover.PreferenceCommon;
 import metro.k.cover.Utilities;
 import android.app.ActivityManager;
@@ -178,6 +179,8 @@ public class LockService extends Service {
 			}
 
 			if (isMetroCover) {
+				MetroCoverApplication app = (MetroCoverApplication) getApplication();
+				app.createRailwaysInfoList();
 				lu.lock(c, true);
 				disableKeyguard();
 			}

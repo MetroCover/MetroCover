@@ -1,8 +1,9 @@
-package metro.k.cover.railways;
+package metro.k.cover.lock;
 
 import java.util.ArrayList;
 
 import metro.k.cover.R;
+import metro.k.cover.railways.RailwaysInfo;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,18 +12,17 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 /**
- * 駅リストのアダプター
+ * ロック画面に出す遅延情報リストのアダプター
  * 
  * @author kohirose
  * 
  */
-public class StationsAdapter extends ArrayAdapter<Station> {
+public class LockRailwaysInfoAdapter extends ArrayAdapter<RailwaysInfo> {
 
-	private ArrayList<Station> list = new ArrayList<Station>();
+	private ArrayList<RailwaysInfo> list = new ArrayList<RailwaysInfo>();
 	private LayoutInflater inflater;
-	private String mCheckedStation;
 
-	public StationsAdapter(Context context, int layoutAt) {
+	public LockRailwaysInfoAdapter(Context context, int layoutAt) {
 		super(context, layoutAt);
 		this.inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -31,28 +31,24 @@ public class StationsAdapter extends ArrayAdapter<Station> {
 	@SuppressLint("NewApi")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		final StationLayout view;
+		final LockRailwaysLayout view;
 
 		if (convertView == null) {
-			view = (StationLayout) inflater.inflate(
-					R.layout.list_icon_title_radio_at, null);
+			view = (LockRailwaysLayout) inflater.inflate(
+					R.layout.lock_railways_info_at, null);
 		} else {
-			view = (StationLayout) convertView;
+			view = (LockRailwaysLayout) convertView;
 		}
 
-		final Station station = getItem(position);
-		view.bindView(position, station);
+		final RailwaysInfo info = getItem(position);
+		view.bindView(info);
 
 		return view;
 	}
 
 	@Override
-	public void add(Station object) {
+	public void add(RailwaysInfo object) {
 		super.add(object);
 		list.add(object);
-	}
-
-	public String getCheckedStation() {
-		return mCheckedStation;
 	}
 }

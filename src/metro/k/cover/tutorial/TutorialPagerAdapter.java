@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 public class TutorialPagerAdapter extends FragmentStatePagerAdapter {
 
 	// チュートリアルの枚数
-	private static final int MAX_PAGE = 3;
+	private static final int MAX_PAGE = 4;
 
 	public TutorialPagerAdapter(FragmentManager fm) {
 		super(fm);
@@ -42,6 +42,8 @@ public class TutorialPagerAdapter extends FragmentStatePagerAdapter {
 			return new TutorialSecond();
 		case 2:
 			return new TutorialThird();
+		case 3:
+			return new TutorialLast();
 		default:
 			return new TutorialFirst();
 		}

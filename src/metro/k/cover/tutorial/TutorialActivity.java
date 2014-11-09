@@ -21,10 +21,10 @@ public class TutorialActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		 if (PreferenceCommon.getTutorialOpend(getApplicationContext())) {
-		 startSettingActivity();
-		 } else {
-		setupViews();
+		if (PreferenceCommon.getTutorialOpend(getApplicationContext())) {
+			startSettingActivity();
+		} else {
+			setupViews();
 			PreferenceCommon.setTutorialOpend(getApplicationContext(), true);
 		}
 	}
@@ -52,6 +52,8 @@ public class TutorialActivity extends FragmentActivity {
 		super.onPause();
 		PreferenceCommon.setRailwaysInfomation(getApplicationContext(),
 				getCheckedRailways());
+		PreferenceCommon.setRailwaysResponseName(getApplicationContext(),
+				getCheckedRailwaysResponses());
 	}
 
 	@Override
@@ -117,6 +119,10 @@ public class TutorialActivity extends FragmentActivity {
 	 */
 	private String getCheckedRailways() {
 		return TutorialSecond.getCheckedStr();
+	}
+
+	private String getCheckedRailwaysResponses() {
+		return TutorialSecond.getCheckedResponseNmae();
 	}
 
 	public static JazzyViewPager getViewPager() {

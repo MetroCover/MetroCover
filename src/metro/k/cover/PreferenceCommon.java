@@ -53,6 +53,61 @@ public final class PreferenceCommon {
 		return sp.getString(KEY_SET_RAILWAYS_NUMVER, "");
 	}
 
+	// 遅延情報を出す路線（APIレスポンス）
+	private static final String KEY_SET_RAILWAYS_RES_NAME = "set_railways_res_name";
+
+	public static void setRailwaysResponseName(final Context context,
+			final String railways) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sp.edit();
+		editor.putString(KEY_SET_RAILWAYS_RES_NAME, railways);
+		editor.apply();
+	}
+
+	public static String getRailwaysResponseName(final Context context) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
+		return sp.getString(KEY_SET_RAILWAYS_RES_NAME, "");
+	}
+
+	// 登録している駅名
+	private static final String KEY_SET_STATION_NAME = "set_station_name";
+
+	public static void setStationName(final Context context,
+			final String station) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sp.edit();
+		editor.putString(KEY_SET_STATION_NAME, station);
+		editor.apply();
+	}
+
+	public static String getStationName(final Context context) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
+		return sp.getString(KEY_SET_STATION_NAME, context.getResources()
+				.getString(R.string.nothing));
+	}
+
+	// 登録している駅名の路線名
+	private static final String KEY_SET_STATIONS_RAILWAY_NAME = "set_stations_railway_name";
+
+	public static void setStationsRailwayName(final Context context,
+			final String railway) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sp.edit();
+		editor.putString(KEY_SET_STATIONS_RAILWAY_NAME, railway);
+		editor.apply();
+	}
+
+	public static String getStationsRailwayName(final Context context) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
+		return sp.getString(KEY_SET_STATIONS_RAILWAY_NAME, "");
+	}
+
 	// チュートリアルを起動したかどうか
 	private static final String KEY_SET_TUTORIAL_OPEND = "set_tutorial_opend";
 
