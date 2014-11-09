@@ -14,6 +14,65 @@ import android.graphics.drawable.Drawable;
 
 public final class RailwaysUtilities {
 
+	// APIから返ってきたレスポンス名から路線名へ変換する
+	public static String getRailwaysName(final Context context,
+			final String apiResponse) {
+		if (Utilities.isInvalidStr(apiResponse)) {
+			return "";
+		}
+		final Resources res = context.getResources();
+
+		// 千代田線
+		if (res.getString(R.string.railway_chiyoda_response)
+				.equals(apiResponse)) {
+			return res.getString(R.string.railway_chiyoda);
+		}
+		// 副都心線
+		if (res.getString(R.string.railway_fukutoshin_response).equals(
+				apiResponse)) {
+			return res.getString(R.string.railway_fukutoshin);
+		}
+		// 銀座線
+		if (res.getString(R.string.railway_fukutoshin_response).equals(
+				apiResponse)) {
+			return res.getString(R.string.railway_fukutoshin);
+		}
+		// 日比谷線
+		if (res.getString(R.string.railway_hibiya_response).equals(apiResponse)) {
+			return res.getString(R.string.railway_hibiya);
+		}
+		// 丸ノ内線
+		if (res.getString(R.string.railway_marunouchi_response).equals(
+				apiResponse)) {
+			return res.getString(R.string.railway_marunouchi);
+		}
+		// 南北線
+		if (res.getString(R.string.railway_namboku_response)
+				.equals(apiResponse)) {
+			return res.getString(R.string.railway_namboku);
+		}
+		// 東西線
+		if (res.getString(R.string.railway_tozai_response).equals(apiResponse)) {
+			return res.getString(R.string.railway_tozai);
+		}
+		// 有楽町線
+		if (res.getString(R.string.railway_yurakucho_response).equals(
+				apiResponse)) {
+			return res.getString(R.string.railway_yurakucho);
+		}
+		// 半蔵門線
+		if (res.getString(R.string.railway_hanzomon_response).equals(
+				apiResponse)) {
+			return res.getString(R.string.railway_hanzomon);
+		}
+		return "";
+	}
+
+	/**
+	 * 全路線コードを取得する
+	 * 
+	 * @return
+	 */
 	public static ArrayList<String> getAllRailwaysCode() {
 		ArrayList<String> list = new ArrayList<String>();
 		list.add(Railways.RAILWAY_CODE_CHIYODA);
@@ -211,17 +270,17 @@ public final class RailwaysUtilities {
 			array_str = res.getStringArray(R.array.hanzomon_railway_stations);
 			return Arrays.asList(array_str);
 		}
-		
+
 		if (railwayCode.equals(Railways.RAILWAY_CODE_HIBIYA)) {
 			array_str = res.getStringArray(R.array.hibiya_railway_stations);
 			return Arrays.asList(array_str);
 		}
-		
+
 		if (railwayCode.equals(Railways.RAILWAY_CODE_NAMBOKU)) {
 			array_str = res.getStringArray(R.array.namboku_railway_stations);
 			return Arrays.asList(array_str);
 		}
-		
+
 		if (railwayCode.equals(Railways.RAILWAY_CODE_TOZAI)) {
 			array_str = res.getStringArray(R.array.tozai_railway_stations);
 			return Arrays.asList(array_str);
@@ -268,7 +327,7 @@ public final class RailwaysUtilities {
 			images = res.obtainTypedArray(R.array.namboku_railway_icons);
 			return convertTypedArray(images);
 		}
-		
+
 		if (railwayCode.equals(Railways.RAILWAY_CODE_TOZAI)) {
 			images = res.obtainTypedArray(R.array.tozai_railway_icons);
 			return convertTypedArray(images);
