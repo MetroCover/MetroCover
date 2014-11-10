@@ -220,7 +220,7 @@ public class SettingActivity extends Activity implements OnClickListener,
 		mCurrentStationView = (TextViewWithFont) findViewById(R.id.setting_station_currentview);
 		String name = "";
 		if (Utilities.isInvalidStr(mCurrentStationsRailwayName)) {
-			name = mCurrentStationName + res.getString(R.string.station);
+			name = mCurrentStationName;
 		} else {
 			name = mCurrentStationsRailwayName + File.separator
 					+ mCurrentStationName + res.getString(R.string.station);
