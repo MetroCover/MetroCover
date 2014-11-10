@@ -11,6 +11,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 public class RailwaysActivity extends Activity implements OnClickListener {
@@ -61,6 +62,12 @@ public class RailwaysActivity extends Activity implements OnClickListener {
 			mRailwaysAdapter.add(list.get(i));
 		}
 		listView.setAdapter(mRailwaysAdapter);
+		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+			}
+		});
 	}
 
 	/**

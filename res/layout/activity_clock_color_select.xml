@@ -37,7 +37,7 @@
                 android:id="@+id/clock_text_color_white_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/selector_setting_list_at"
+                android:background="@drawable/selector_list_at"
                 android:orientation="horizontal"
                 android:padding="10dip" >
 
@@ -95,7 +95,7 @@
                 android:id="@+id/clock_text_color_black_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/selector_setting_list_at"
+                android:background="@drawable/selector_list_at"
                 android:orientation="horizontal"
                 android:padding="10dip" >
 
@@ -153,7 +153,7 @@
                 android:id="@+id/clock_text_color_metro_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/selector_setting_list_at"
+                android:background="@drawable/selector_list_at"
                 android:orientation="horizontal"
                 android:padding="10dip" >
 
@@ -211,7 +211,7 @@
                 android:id="@+id/clock_text_color_chiyoda_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/selector_setting_list_at"
+                android:background="@drawable/selector_list_at"
                 android:orientation="horizontal"
                 android:padding="10dip" >
 
@@ -269,7 +269,7 @@
                 android:id="@+id/clock_text_color_fukutoshin_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/selector_setting_list_at"
+                android:background="@drawable/selector_list_at"
                 android:orientation="horizontal"
                 android:padding="10dip" >
 
@@ -327,7 +327,7 @@
                 android:id="@+id/clock_text_color_ginza_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/selector_setting_list_at"
+                android:background="@drawable/selector_list_at"
                 android:orientation="horizontal"
                 android:padding="10dip" >
 
@@ -385,7 +385,7 @@
                 android:id="@+id/clock_text_color_hanzomon_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/selector_setting_list_at"
+                android:background="@drawable/selector_list_at"
                 android:orientation="horizontal"
                 android:padding="10dip" >
 
@@ -443,7 +443,7 @@
                 android:id="@+id/clock_text_color_hibiya_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/selector_setting_list_at"
+                android:background="@drawable/selector_list_at"
                 android:orientation="horizontal"
                 android:padding="10dip" >
 
@@ -501,7 +501,7 @@
                 android:id="@+id/clock_text_color_marunouchi_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/selector_setting_list_at"
+                android:background="@drawable/selector_list_at"
                 android:orientation="horizontal"
                 android:padding="10dip" >
 
@@ -559,7 +559,7 @@
                 android:id="@+id/clock_text_color_namboku_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/selector_setting_list_at"
+                android:background="@drawable/selector_list_at"
                 android:orientation="horizontal"
                 android:padding="10dip" >
 
@@ -617,7 +617,7 @@
                 android:id="@+id/clock_text_color_tozai_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/selector_setting_list_at"
+                android:background="@drawable/selector_list_at"
                 android:orientation="horizontal"
                 android:padding="10dip" >
 
@@ -675,7 +675,7 @@
                 android:id="@+id/clock_text_color_yurakucho_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/selector_setting_list_at"
+                android:background="@drawable/selector_list_at"
                 android:orientation="horizontal"
                 android:padding="10dip" >
 

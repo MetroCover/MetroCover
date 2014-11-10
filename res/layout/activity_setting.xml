@@ -38,7 +38,7 @@
                 android:id="@+id/setting_metrocover_layout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/activity_setting_list_item_height"
-                android:background="@drawable/selector_setting_list_at"
+                android:background="@drawable/selector_list_at"
                 android:padding="15dip" >
 
                 <metro.k.cover.view.TextViewWithFont
@@ -71,7 +71,7 @@
                 android:id="@+id/setting_systemlock_layout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/activity_setting_list_item_height"
-                android:background="@drawable/selector_setting_list_at"
+                android:background="@drawable/selector_list_at"
                 android:padding="15dip" >
 
                 <metro.k.cover.view.TextViewWithFont
@@ -108,7 +108,7 @@
                 android:id="@+id/setting_clocktype_layout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/activity_setting_list_item_height"
-                android:background="@drawable/selector_setting_list_at"
+                android:background="@drawable/selector_list_at"
                 android:padding="15dip" >
 
                 <metro.k.cover.view.TextViewWithFont
@@ -145,7 +145,7 @@
                 android:id="@+id/setting_clock_color_layout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/activity_setting_list_item_height"
-                android:background="@drawable/selector_setting_list_at"
+                android:background="@drawable/selector_list_at"
                 android:padding="15dip" >
 
                 <metro.k.cover.view.TextViewWithFont
@@ -182,7 +182,7 @@
                 android:id="@+id/setting_clock_size_layout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/activity_setting_list_item_height"
-                android:background="@drawable/selector_setting_list_at"
+                android:background="@drawable/selector_list_at"
                 android:padding="15dip" >
 
                 <metro.k.cover.view.TextViewWithFont
@@ -219,7 +219,7 @@
                 android:id="@+id/setting_metrocover_security_layout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/activity_setting_list_item_height"
-                android:background="@drawable/selector_setting_list_at"
+                android:background="@drawable/selector_list_at"
                 android:padding="15dip" >
 
                 <metro.k.cover.view.TextViewWithFont
@@ -256,7 +256,7 @@
                 android:id="@+id/setting_pattern_vibe_layout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/activity_setting_list_item_height"
-                android:background="@drawable/selector_setting_list_at"
+                android:background="@drawable/selector_list_at"
                 android:padding="15dip" >
 
                 <metro.k.cover.view.TextViewWithFont
@@ -289,7 +289,7 @@
                 android:id="@+id/setting_pattern_track_layout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/activity_setting_list_item_height"
-                android:background="@drawable/selector_setting_list_at"
+                android:background="@drawable/selector_list_at"
                 android:padding="15dip" >
 
                 <metro.k.cover.view.TextViewWithFont
@@ -322,7 +322,7 @@
                 android:id="@+id/setting_wallpapers_layout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/activity_setting_list_item_height"
-                android:background="@drawable/selector_setting_list_at"
+                android:background="@drawable/selector_list_at"
                 android:padding="15dip" >
 
                 <metro.k.cover.view.TextViewWithFont
@@ -359,7 +359,7 @@
                 android:id="@+id/setting_wallpaper_effect_layout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/activity_setting_list_item_height"
-                android:background="@drawable/selector_setting_list_at"
+                android:background="@drawable/selector_list_at"
                 android:padding="15dip" >
 
                 <metro.k.cover.view.TextViewWithFont
@@ -394,7 +394,7 @@
                 android:id="@+id/setting_railways_layout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/activity_setting_list_item_height"
-                android:background="@drawable/selector_setting_list_at"
+                android:background="@drawable/selector_list_at"
                 android:padding="15dip" >
 
                 <metro.k.cover.view.TextViewWithFont
@@ -431,7 +431,7 @@
                 android:id="@+id/setting_station_layout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/activity_setting_list_item_height"
-                android:background="@drawable/selector_setting_list_at"
+                android:background="@drawable/selector_list_at"
                 android:padding="15dip" >
 
                 <metro.k.cover.view.TextViewWithFont
@@ -468,7 +468,7 @@
                 android:id="@+id/setting_license_layout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/activity_setting_list_item_height"
-                android:background="@drawable/selector_setting_list_at"
+                android:background="@drawable/selector_list_at"
                 android:padding="15dip" >
 
                 <metro.k.cover.view.TextViewWithFont

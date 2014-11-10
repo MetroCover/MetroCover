@@ -27,7 +27,7 @@
             android:id="@+id/select_security_password_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/activity_setting_list_item_height"
-            android:background="@drawable/selector_setting_list_at"
+            android:background="@drawable/selector_list_at"
             android:padding="15dip" >
 
             <metro.k.cover.view.TextViewWithFont
@@ -62,7 +62,7 @@
             android:id="@+id/select_security_pattern_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/activity_setting_list_item_height"
-            android:background="@drawable/selector_setting_list_at"
+            android:background="@drawable/selector_list_at"
             android:padding="15dip" >
 
             <metro.k.cover.view.TextViewWithFont
@@ -97,7 +97,7 @@
             android:id="@+id/select_security_none_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/activity_setting_list_item_height"
-            android:background="@drawable/selector_setting_list_at"
+            android:background="@drawable/selector_list_at"
             android:padding="15dip" >
 
             <metro.k.cover.view.TextViewWithFont
