@@ -5,7 +5,10 @@ import java.util.List;
 import metro.k.cover.MetroCoverApplication;
 import metro.k.cover.PreferenceCommon;
 import metro.k.cover.Utilities;
+import metro.k.cover.railways.RailwaysInfoUpdateService;
 import android.app.ActivityManager;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -183,7 +186,59 @@ public class LockService extends Service {
 				app.createRailwaysInfoList();
 				lu.lock(c, true);
 				disableKeyguard();
+				scheduleUpdateService();
+			} else {
+				cancelUpdateScheduleService();
 			}
+		}
+	}
+
+	/**
+	 * 情報更新用のServiceスケジュール登録
+	 */
+	private void scheduleUpdateService() {
+		Context context = getBaseContext();
+		if (isSetPending(context)) {
+			return;
+		}
+		Intent intent = new Intent(context, RailwaysInfoUpdateService.class);
+		PendingIntent pendingIntent = PendingIntent.getService(context, -1,
+				intent, PendingIntent.FLAG_UPDATE_CURRENT);
+		AlarmManager alarmManager = (AlarmManager) context
+				.getSystemService(ALARM_SERVICE);
+		alarmManager.setInexactRepeating(AlarmManager.RTC,
+				System.currentTimeMillis(), 1000 * 60 * 60, pendingIntent);
+	}
+
+	/**
+	 * 情報更新用Serviceのスケジュール解除
+	 */
+	private void cancelUpdateScheduleService() {
+		Context context = getBaseContext();
+		if (!isSetPending(context)) {
+			return;
+		}
+		Intent intent = new Intent(context, RailwaysInfoUpdateService.class);
+		PendingIntent pendingIntent = PendingIntent.getService(context, -1,
+				intent, PendingIntent.FLAG_UPDATE_CURRENT);
+		AlarmManager alarmManager = (AlarmManager) context
+				.getSystemService(ALARM_SERVICE);
+		alarmManager.cancel(pendingIntent);
+	}
+
+	/**
+	 * 情報更新用Serviceのスケジュールが設定されているかどうかを返す。
+	 * 
+	 * @param context
+	 */
+	private boolean isSetPending(Context context) {
+		Intent intent = new Intent(context, RailwaysInfoUpdateService.class);
+		PendingIntent p = PendingIntent.getService(context, -1, intent,
+				PendingIntent.FLAG_NO_CREATE);
+		if (p == null) {
+			return false;
+		} else {
+			return true;
 		}
 	}
 
