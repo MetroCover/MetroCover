@@ -35,6 +35,7 @@
     <string name="empty_title_lock_railway_info_title">TRAIN DELAY\nINFOMATION</string>
     <string name="empty_title_lock_railway_info_message">NO DATA</string>
     <string name="err_msg_picasa_img">You can\'t select Picasa Image</string>
+    <string name="err_msg_offline">Please check network</string>
     <string name="font_free_wing">freewing.ttf</string>
     <string name="license">License</string>
     <string name="lock_clock_text_color">Clock Color</string>

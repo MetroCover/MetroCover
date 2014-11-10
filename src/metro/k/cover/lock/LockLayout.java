@@ -1091,6 +1091,10 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			empty.setVisibility(View.VISIBLE);
 			title.setVisibility(View.VISIBLE);
 			msg.setVisibility(View.VISIBLE);
+			if (!Utilities.isOnline(mContext)) {
+				msg.setText(mContext.getResources().getString(
+						R.string.err_msg_offline));
+			}
 			cpb.setVisibility(View.GONE);
 		}
 

@@ -28,6 +28,7 @@
     <string name="empty_title_lock_railway_info_title">遅延情報</string>
     <string name="empty_title_lock_railway_info_message">データがありません</string>
     <string name="err_msg_picasa_img">Picasaの画像は現在読み込みできません</string>
+    <string name="err_msg_offline">オフラインのため\n取得できません</string>
     <string name="license">ライセンス</string>
     <string name="lock_clock_text_color">時計カラー</string>
     <string name="lock_missed_call_number_withheld">非通知着信</string>
