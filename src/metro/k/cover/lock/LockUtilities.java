@@ -1,8 +1,10 @@
 package metro.k.cover.lock;
 
+import metro.k.cover.MetroCoverApplication;
 import metro.k.cover.R;
 import android.annotation.SuppressLint;
 import android.app.KeyguardManager;
+import android.app.Service;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
@@ -169,8 +171,9 @@ public class LockUtilities {
 	 * @param context
 	 */
 	public synchronized void lock(Context context, boolean isForce) {
-		if (isShowing())
+		if (isShowing()) {
 			return;
+		}
 
 		// WindowManagerを取得
 		if (mWindowManager == null) {
@@ -184,6 +187,11 @@ public class LockUtilities {
 			// ロック画面をWindowManagerにアタッチ
 			mWindowManager.addView(mLockView,
 					createLayoutParams(context.getApplicationContext()));
+			if (context instanceof Service) {
+				MetroCoverApplication app = (MetroCoverApplication) ((Service) context)
+						.getApplication();
+				app.createRailwaysInfoList();
+			}
 		} catch (Exception e) {
 			// LockService is dead. Don't retry
 		}
