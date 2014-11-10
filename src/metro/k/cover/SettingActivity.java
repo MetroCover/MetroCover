@@ -9,6 +9,7 @@ import metro.k.cover.lock.LockSecurityChooseActivity;
 import metro.k.cover.lock.LockService;
 import metro.k.cover.lock.LockUtilities;
 import metro.k.cover.railways.RailwaysActivity;
+import metro.k.cover.railways.RailwaysUtilities;
 import metro.k.cover.railways.StationsActivity;
 import metro.k.cover.view.TextViewWithFont;
 import metro.k.cover.wallpaper.WallpaperDetailActivity;
@@ -373,6 +374,8 @@ public class SettingActivity extends Activity implements OnClickListener,
 	 */
 	private void startStationActivity() {
 		Intent intent = new Intent(this, StationsActivity.class);
+		intent.putExtra(RailwaysUtilities.KEY_CURRENT_STATION,
+				mCurrentStationsRailwayName);
 		Utilities.startActivitySafely(intent, this);
 	}
 

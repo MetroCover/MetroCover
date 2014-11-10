@@ -90,6 +90,7 @@
     <string name="selected">選択中</string>
     <string name="settings">設定</string>
     <string name="station">駅</string>
+    <string name="station_clear">初期化する</string>
     <string name="tutorial_select_railways">よく使う路線に\nチェックしてください</string>
     <string name="tutorial_select_station">よく使う駅を\n選んでください</string>
     <string name="tutorial_use_metrocover">さっそく使ってみよう</string>

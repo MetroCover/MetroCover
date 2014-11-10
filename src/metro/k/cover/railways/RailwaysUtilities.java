@@ -14,6 +14,9 @@ import android.graphics.drawable.Drawable;
 
 public final class RailwaysUtilities {
 
+	// 設定画面から駅選択へ行く際に渡すintentのKey
+	public static final String KEY_CURRENT_STATION = "key_cuurent_station";
+
 	// APIから返ってきたレスポンス名から路線名へ変換する
 	public static String getRailwaysName(final Context context,
 			final String apiResponse) {
