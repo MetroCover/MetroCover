@@ -33,7 +33,7 @@
             android:layout_marginRight="12dip"
             android:contentDescription="@string/app_name"
             android:src="@drawable/selector_wallpaper_delete_btn"
-            android:visibility="visible" />
+            android:visibility="gone" />
     </RelativeLayout>
 
     <ImageView
