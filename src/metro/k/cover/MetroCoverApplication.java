@@ -30,7 +30,7 @@ public class MetroCoverApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		createRailwaysInfoList(getApplicationContext());
+		asyncCreateRailwaysInfoList(getApplicationContext());
 		createAllStationList();
 	}
 
@@ -44,61 +44,67 @@ public class MetroCoverApplication extends Application {
 	}
 
 	/**
-	 * 遅延情報リストを取得する
+	 * 遅延情報リストを内部でThread立てて取得する
+	 * 
+	 * @param context
 	 */
-
-	@SuppressLint("SimpleDateFormat")
-	synchronized public static void createRailwaysInfoList(final Context context) {
-		if (context == null) {
-			return;
-		}
-		new Thread("createRailwaysInfoList") {
+	synchronized public static void asyncCreateRailwaysInfoList(
+			final Context context) {
+		new Thread("asyncCreateRailwaysInfoList") {
 			@Override
 			public void run() {
-				if (!Utilities.isOnline(context)) {
-					return;
-				}
-				final String str = PreferenceCommon
-						.getRailwaysResponseName(context);
-				if (Utilities.isInvalidStr(str)) {
-					if (sRailwaysInfoAdapter != null) {
-						sRailwaysInfoAdapter.clear();
-					}
-					return;
-				}
-
-				ApiRquestRailwaysInfo info = ApiRquestRailwaysInfo
-						.getInstance();
-				info.openConnection();
-				final ArrayList<String> list = Utilities.getSplitStr(str);
-				final ArrayList<RailwaysInfo> infos = info
-						.getApiRquestRailwaysInfo(context, list);
-				info.closeConnection();
-				if (infos == null) {
-					if (sRailwaysInfoAdapter != null) {
-						sRailwaysInfoAdapter.clear();
-					}
-					return;
-				}
-				sRailwaysInfoAdapter = new LockRailwaysInfoAdapter(context,
-						R.layout.lock_railways_info_at);
-				final int size = infos.size();
-				if (size > 0) {
-					for (int i = 0; i < size; i++) {
-						sRailwaysInfoAdapter.add(infos.get(i));
-					}
-					Date date = new Date();
-					SimpleDateFormat sdf = null;
-					if (Locale.getDefault().equals(Locale.JAPAN)) {
-						sdf = new SimpleDateFormat(
-								"yyyy'年'MM'月'dd'日'　kk'時'mm'分'ss'秒'");
-					} else {
-						sdf = new SimpleDateFormat("MM'/'dd'/'yyyy　kk':'mm");
-					}
-					mLastUpdateTime = sdf.format(date);
-				}
+				syncCreateRailwaysInfoList(context);
 			}
 		}.start();
+	}
+
+	/**
+	 * 遅延情報リストを取得する. 同期的に扱うが呼び出しもとでサブスレッドを立てて使用すること
+	 * 
+	 * @param context
+	 */
+	@SuppressLint("SimpleDateFormat")
+	synchronized public static void syncCreateRailwaysInfoList(
+			final Context context) {
+		if (!Utilities.isOnline(context)) {
+			return;
+		}
+		final String str = PreferenceCommon.getRailwaysResponseName(context);
+		if (Utilities.isInvalidStr(str)) {
+			if (sRailwaysInfoAdapter != null) {
+				sRailwaysInfoAdapter.clear();
+			}
+			return;
+		}
+
+		ApiRquestRailwaysInfo info = ApiRquestRailwaysInfo.getInstance();
+		info.openConnection();
+		final ArrayList<String> list = Utilities.getSplitStr(str);
+		final ArrayList<RailwaysInfo> infos = info.getApiRquestRailwaysInfo(
+				context, list);
+		info.closeConnection();
+		if (infos == null) {
+			if (sRailwaysInfoAdapter != null) {
+				sRailwaysInfoAdapter.clear();
+			}
+			return;
+		}
+		sRailwaysInfoAdapter = new LockRailwaysInfoAdapter(context,
+				R.layout.lock_railways_info_at);
+		final int size = infos.size();
+		if (size > 0) {
+			for (int i = 0; i < size; i++) {
+				sRailwaysInfoAdapter.add(infos.get(i));
+			}
+			Date date = new Date();
+			SimpleDateFormat sdf = null;
+			if (Locale.getDefault().equals(Locale.JAPAN)) {
+				sdf = new SimpleDateFormat("yyyy'年'MM'月'dd'日'　kk'時'mm'分'ss'秒'");
+			} else {
+				sdf = new SimpleDateFormat("MM'/'dd'/'yyyy　kk':'mm");
+			}
+			mLastUpdateTime = sdf.format(date);
+		}
 	}
 
 	/**

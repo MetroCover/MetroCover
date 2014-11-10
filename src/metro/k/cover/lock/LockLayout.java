@@ -37,6 +37,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.AudioManager;
 import android.os.Build;
+import android.os.Handler;
 import android.os.Vibrator;
 import android.provider.CallLog;
 import android.support.v4.view.PagerAdapter;
@@ -1043,7 +1044,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		}
 
 		/**
-		 * 路線遅延情報のViewを形成する
+		 * 路線遅延情報のViewを作成する
 		 */
 		private void readRailwaysInfo() {
 			RelativeLayout layout = (RelativeLayout) getPrimaryItem();
@@ -1065,16 +1066,9 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 					.findViewById(R.id.lock_railways_info_reflesh);
 			ImageView reflesh_empty = (ImageView) layout
 					.findViewById(R.id.lock_railways_info_empty_reflesh);
-			final ArrayAdapter<RailwaysInfo> adapter = MetroCoverApplication.sRailwaysInfoAdapter;
-			if (adapter == null) {
+			if (isInvalidAdapter(MetroCoverApplication.sRailwaysInfoAdapter)) {
 				setEmptyRailwayInfoView(listLayout, empty, cpb, title, msg,
 						reflesh_empty);
-				return;
-			}
-			if (adapter.isEmpty()) {
-				setEmptyRailwayInfoView(listLayout, empty, cpb, title, msg,
-						reflesh_empty);
-				reflesh_empty.setOnClickListener(getRefleshListner());
 				return;
 			}
 			reflesh.setOnClickListener(getRefleshListner());
@@ -1084,16 +1078,57 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			listLayout.setVisibility(View.VISIBLE);
 		}
 
+		/**
+		 * 路線情報のAdapterのチェック
+		 * 
+		 * @param adapter
+		 * @return
+		 */
+		private boolean isInvalidAdapter(ArrayAdapter<RailwaysInfo> adapter) {
+			if (adapter == null) {
+				return true;
+			}
+			if (adapter.isEmpty()) {
+				return true;
+			}
+			return false;
+		}
+
+		/**
+		 * 更新ボタン押下時の処理
+		 * 
+		 * @return
+		 */
 		private View.OnClickListener getRefleshListner() {
 			View.OnClickListener li = new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					MetroCoverApplication.createRailwaysInfoList(mContext);
-					readRailwaysInfo();
+					refleshRailsInfo();
 				}
 			};
 			return li;
 		}
+
+		/**
+		 * 路線情報の更新
+		 */
+		synchronized private void refleshRailsInfo() {
+			final Handler h = new Handler();
+			new Thread("reflesh") {
+				@Override
+				public void run() {
+					MetroCoverApplication.syncCreateRailwaysInfoList(mContext);
+					h.post(mReadRailwaysInfoTask);
+				}
+			}.start();
+		}
+
+		private Runnable mReadRailwaysInfoTask = new Runnable() {
+			@Override
+			public void run() {
+				readRailwaysInfo();
+			}
+		};
 
 		/**
 		 * 登録の路線が空の場合もしくはエラーの場合

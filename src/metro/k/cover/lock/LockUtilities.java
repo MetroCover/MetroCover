@@ -187,7 +187,7 @@ public class LockUtilities {
 			// ロック画面をWindowManagerにアタッチ
 			mWindowManager.addView(mLockView,
 					createLayoutParams(context.getApplicationContext()));
-			MetroCoverApplication.createRailwaysInfoList(context
+			MetroCoverApplication.asyncCreateRailwaysInfoList(context
 					.getApplicationContext());
 		} catch (Exception e) {
 			// LockService is dead. Don't retry
