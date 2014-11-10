@@ -1151,7 +1151,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 				final String d = res.getString(R.string.date_day);
 				dateStr = year + y + month + m + day + d + wod;
 			} else {
-				dateStr = wod + "," + month + "/" + day + "/" + year;
+				dateStr = wod + " " + month + "/" + day + "/" + year;
 			}
 			mDataTextView.setText(dateStr);
 			mDataTextView.setTextColor(mResources.getColor(mClockColorID));
