@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_gray"
+    android:orientation="vertical" >
+
+    <!-- タイトル -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <metro.k.cover.view.TextViewWithFont
+            android:id="@+id/stations_titleview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/metro_main_color"
+            android:gravity="center"
+            android:paddingBottom="18dip"
+            android:paddingTop="18dip"
+            android:text="@string/station"
+            android:textColor="#FFF"
+            android:textSize="28sp" />
+
+        <ImageView
+            android:id="@+id/stations_clear_image"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dip"
+            android:layout_marginRight="12dip"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/selector_wallpaper_delete_btn"
+            android:visibility="visible" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="?android:attr/listDivider"
+        android:contentDescription="@string/app_name" />
+
+    <ListView
+        android:id="@+id/stations_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadeScrollbars="false" />
+
+</LinearLayout>

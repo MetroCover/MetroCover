@@ -4,7 +4,6 @@ import metro.k.cover.MetroCoverApplication;
 import metro.k.cover.PreferenceCommon;
 import metro.k.cover.R;
 import metro.k.cover.Utilities;
-import metro.k.cover.view.TextViewWithFont;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -39,17 +38,15 @@ public class StationsActivity extends Activity implements OnClickListener {
 	}
 
 	private void setupViews() {
-		setContentView(R.layout.tutorial_third);
-		final TextViewWithFont clear = (TextViewWithFont) findViewById(R.id.tutorial_third_clear);
-		final ImageView clearSep = (ImageView) findViewById(R.id.tutorial_third_clear_sep);
-		final ListView listView = (ListView) findViewById(R.id.tutorial_third_listview);
+		setContentView(R.layout.activity_stations);
+		final ImageView clear = (ImageView) findViewById(R.id.stations_clear_image);
+		final ListView listView = (ListView) findViewById(R.id.stations_listview);
 		if (MetroCoverApplication.sStationAllListAdapter == null) {
 			return;
 		}
 		if (flag) {
 			clear.setVisibility(View.VISIBLE);
 			clear.setOnClickListener(this);
-			clearSep.setVisibility(View.VISIBLE);
 		}
 		listView.setAdapter(MetroCoverApplication.sStationAllListAdapter);
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -70,7 +67,7 @@ public class StationsActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		final int viewId = v.getId();
-		if (R.id.tutorial_third_clear == viewId) {
+		if (R.id.stations_clear_image == viewId) {
 			PreferenceCommon.setStationName(getApplicationContext(),
 					getResources().getString(R.string.nothing));
 			PreferenceCommon
