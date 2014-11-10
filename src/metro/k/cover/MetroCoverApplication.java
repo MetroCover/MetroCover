@@ -1,6 +1,8 @@
 package metro.k.cover;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import metro.k.cover.api.ApiRquestRailwaysInfo;
@@ -9,6 +11,7 @@ import metro.k.cover.railways.RailwaysInfo;
 import metro.k.cover.railways.RailwaysUtilities;
 import metro.k.cover.railways.Station;
 import metro.k.cover.railways.StationsAdapter;
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.graphics.drawable.Drawable;
 import android.widget.ArrayAdapter;
@@ -20,6 +23,7 @@ public class MetroCoverApplication extends Application {
 
 	// 登録している路線の遅延情報リスト
 	public static ArrayAdapter<RailwaysInfo> sRailwaysInfoAdapter;
+	private static String mLastUpdateTime;
 
 	@Override
 	public void onCreate() {
@@ -28,10 +32,23 @@ public class MetroCoverApplication extends Application {
 		createAllStationList();
 	}
 
+	/**
+	 * 遅延情報の最終更新日時
+	 * 
+	 * @return
+	 */
+	public static String getLastUpdateTime() {
+		return mLastUpdateTime == null ? "-" : mLastUpdateTime;
+	}
+
+	@SuppressLint("SimpleDateFormat")
 	public void createRailwaysInfoList() {
 		new Thread("createRailwaysInfoList") {
 			@Override
 			public void run() {
+				if (!Utilities.isOnline(getApplicationContext())) {
+					return;
+				}
 				ApiRquestRailwaysInfo info = ApiRquestRailwaysInfo
 						.getInstance();
 				info.openConnection();
@@ -50,8 +67,14 @@ public class MetroCoverApplication extends Application {
 				sRailwaysInfoAdapter = new LockRailwaysInfoAdapter(
 						getApplicationContext(), R.layout.lock_railways_info_at);
 				final int size = infos.size();
-				for (int i = 0; i < size; i++) {
-					sRailwaysInfoAdapter.add(infos.get(i));
+				if (size > 0) {
+					for (int i = 0; i < size; i++) {
+						sRailwaysInfoAdapter.add(infos.get(i));
+					}
+					Date date = new Date();
+					SimpleDateFormat sdf = new SimpleDateFormat(
+							"yyyy'年'MM'月'dd'日'　kk'時'mm'分'ss'秒'");
+					mLastUpdateTime = sdf.format(date);
 				}
 			}
 		}.start();

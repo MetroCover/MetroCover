@@ -1058,6 +1058,8 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 					.findViewById(R.id.lock_railways_empty_title);
 			TextViewWithFont msg = (TextViewWithFont) layout
 					.findViewById(R.id.lock_railways_empty_message);
+			TextViewWithFont lastupdate = (TextViewWithFont) layout
+					.findViewById(R.id.lock_railways_info_lastupdate);
 			final ArrayAdapter<RailwaysInfo> adapter = MetroCoverApplication.sRailwaysInfoAdapter;
 			if (adapter == null) {
 				setEmptyRailwayInfoView(listLayout, empty, cpb, title, msg);
@@ -1067,6 +1069,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 				setEmptyRailwayInfoView(listLayout, empty, cpb, title, msg);
 				return;
 			}
+			lastupdate.setText(MetroCoverApplication.getLastUpdateTime());
 			listview.setAdapter(MetroCoverApplication.sRailwaysInfoAdapter);
 			empty.setVisibility(View.INVISIBLE);
 			listLayout.setVisibility(View.VISIBLE);

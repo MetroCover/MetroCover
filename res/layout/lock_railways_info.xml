@@ -23,6 +23,15 @@
             android:textColor="@color/color_white"
             android:textSize="28sp" />
 
+        <metro.k.cover.view.TextViewWithFont
+            android:id="@+id/lock_railways_info_lastupdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="sample"
+            android:textColor="@color/color_white"
+            android:textSize="12sp" />
+
         <ListView
             android:id="@+id/lock_railways_info_listview"
             android:layout_width="match_parent"
