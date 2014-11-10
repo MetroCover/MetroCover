@@ -51,6 +51,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -1046,11 +1047,11 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		 */
 		private void readRailwaysInfo() {
 			RelativeLayout layout = (RelativeLayout) getPrimaryItem();
-			LinearLayout listLayout = (LinearLayout) layout
+			RelativeLayout listLayout = (RelativeLayout) layout
 					.findViewById(R.id.lock_railways_info_mainlayout);
 			ListView listview = (ListView) layout
 					.findViewById(R.id.lock_railways_info_listview);
-			LinearLayout empty = (LinearLayout) layout
+			RelativeLayout empty = (RelativeLayout) layout
 					.findViewById(R.id.lock_railways_empty_view);
 			CircularProgressBar cpb = (CircularProgressBar) layout
 					.findViewById(R.id.lock_railways_loading);
@@ -1060,19 +1061,38 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 					.findViewById(R.id.lock_railways_empty_message);
 			TextViewWithFont lastupdate = (TextViewWithFont) layout
 					.findViewById(R.id.lock_railways_info_lastupdate);
+			ImageView reflesh = (ImageView) layout
+					.findViewById(R.id.lock_railways_info_reflesh);
+			ImageView reflesh_empty = (ImageView) layout
+					.findViewById(R.id.lock_railways_info_empty_reflesh);
 			final ArrayAdapter<RailwaysInfo> adapter = MetroCoverApplication.sRailwaysInfoAdapter;
 			if (adapter == null) {
-				setEmptyRailwayInfoView(listLayout, empty, cpb, title, msg);
+				setEmptyRailwayInfoView(listLayout, empty, cpb, title, msg,
+						reflesh_empty);
 				return;
 			}
 			if (adapter.isEmpty()) {
-				setEmptyRailwayInfoView(listLayout, empty, cpb, title, msg);
+				setEmptyRailwayInfoView(listLayout, empty, cpb, title, msg,
+						reflesh_empty);
+				reflesh_empty.setOnClickListener(getRefleshListner());
 				return;
 			}
+			reflesh.setOnClickListener(getRefleshListner());
 			lastupdate.setText(MetroCoverApplication.getLastUpdateTime());
 			listview.setAdapter(MetroCoverApplication.sRailwaysInfoAdapter);
 			empty.setVisibility(View.INVISIBLE);
 			listLayout.setVisibility(View.VISIBLE);
+		}
+
+		private View.OnClickListener getRefleshListner() {
+			View.OnClickListener li = new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					MetroCoverApplication.createRailwaysInfoList(mContext);
+					readRailwaysInfo();
+				}
+			};
+			return li;
 		}
 
 		/**
@@ -1084,9 +1104,10 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		 * @param title
 		 * @param msg
 		 */
-		private void setEmptyRailwayInfoView(LinearLayout listLayout,
-				LinearLayout empty, CircularProgressBar cpb,
-				TextViewWithFont title, TextViewWithFont msg) {
+		private void setEmptyRailwayInfoView(RelativeLayout listLayout,
+				RelativeLayout empty, CircularProgressBar cpb,
+				TextViewWithFont title, TextViewWithFont msg,
+				ImageView reflesh_empty) {
 			listLayout.setVisibility(View.GONE);
 			empty.setVisibility(View.VISIBLE);
 			title.setVisibility(View.VISIBLE);
@@ -1096,6 +1117,8 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 						R.string.err_msg_offline));
 			}
 			cpb.setVisibility(View.GONE);
+			reflesh_empty.setVisibility(View.VISIBLE);
+			reflesh_empty.setOnClickListener(getRefleshListner());
 		}
 
 		/**

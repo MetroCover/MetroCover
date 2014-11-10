@@ -14,6 +14,7 @@ import metro.k.cover.railways.Station;
 import metro.k.cover.railways.StationsAdapter;
 import android.annotation.SuppressLint;
 import android.app.Application;
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.widget.ArrayAdapter;
 
@@ -29,7 +30,7 @@ public class MetroCoverApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		createRailwaysInfoList();
+		createRailwaysInfoList(getApplicationContext());
 		createAllStationList();
 	}
 
@@ -42,22 +43,36 @@ public class MetroCoverApplication extends Application {
 		return mLastUpdateTime == null ? "-" : mLastUpdateTime;
 	}
 
+	/**
+	 * 遅延情報リストを取得する
+	 */
+
 	@SuppressLint("SimpleDateFormat")
-	public void createRailwaysInfoList() {
+	synchronized public static void createRailwaysInfoList(final Context context) {
+		if (context == null) {
+			return;
+		}
 		new Thread("createRailwaysInfoList") {
 			@Override
 			public void run() {
-				if (!Utilities.isOnline(getApplicationContext())) {
+				if (!Utilities.isOnline(context)) {
 					return;
 				}
+				final String str = PreferenceCommon
+						.getRailwaysResponseName(context);
+				if (Utilities.isInvalidStr(str)) {
+					if (sRailwaysInfoAdapter != null) {
+						sRailwaysInfoAdapter.clear();
+					}
+					return;
+				}
+
 				ApiRquestRailwaysInfo info = ApiRquestRailwaysInfo
 						.getInstance();
 				info.openConnection();
-				final String str = PreferenceCommon
-						.getRailwaysResponseName(getApplicationContext());
 				final ArrayList<String> list = Utilities.getSplitStr(str);
 				final ArrayList<RailwaysInfo> infos = info
-						.getApiRquestRailwaysInfo(getApplicationContext(), list);
+						.getApiRquestRailwaysInfo(context, list);
 				info.closeConnection();
 				if (infos == null) {
 					if (sRailwaysInfoAdapter != null) {
@@ -65,8 +80,8 @@ public class MetroCoverApplication extends Application {
 					}
 					return;
 				}
-				sRailwaysInfoAdapter = new LockRailwaysInfoAdapter(
-						getApplicationContext(), R.layout.lock_railways_info_at);
+				sRailwaysInfoAdapter = new LockRailwaysInfoAdapter(context,
+						R.layout.lock_railways_info_at);
 				final int size = infos.size();
 				if (size > 0) {
 					for (int i = 0; i < size; i++) {
@@ -86,9 +101,6 @@ public class MetroCoverApplication extends Application {
 		}.start();
 	}
 
-	/**
-	 * アプリ起動時に遅延情報リストを取得しておく
-	 */
 	/**
 	 * アプリ起動時に全駅名リストを作成しておく
 	 */

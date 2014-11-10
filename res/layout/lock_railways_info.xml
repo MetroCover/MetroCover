@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/lock_railways_info_mainlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,44 +15,61 @@
         android:orientation="vertical"
         android:visibility="gone" >
 
-        <metro.k.cover.view.TextViewWithFont
+        <ImageView
+            android:id="@+id/lock_railways_info_reflesh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="5dip"
+            android:layout_marginTop="5dip"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/selector_update_btn" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/empty_title_lock_railway_info_title"
-            android:textColor="@color/color_white"
-            android:textSize="28sp" />
+            android:layout_centerInParent="true"
+            android:orientation="vertical" >
 
-        <metro.k.cover.view.TextViewWithFont
-            android:id="@+id/lock_railways_info_lastupdate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="sample"
-            android:textColor="@color/color_white"
-            android:textSize="12sp" />
+            <metro.k.cover.view.TextViewWithFont
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/empty_title_lock_railway_info_title"
+                android:textColor="@color/color_white"
+                android:textSize="28sp" />
 
-        <ListView
-            android:id="@+id/lock_railways_info_listview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fadeScrollbars="false" />
-    </LinearLayout>
+            <metro.k.cover.view.TextViewWithFont
+                android:id="@+id/lock_railways_info_lastupdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/color_white"
+                android:textSize="12sp" />
 
-    <LinearLayout
+            <ListView
+                android:id="@+id/lock_railways_info_listview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fadeScrollbars="false" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/lock_railways_empty_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:background="@drawable/bg_lock_railway_info"
         android:gravity="center"
-        android:orientation="vertical"
-        android:padding="20dip" >
+        android:orientation="vertical" >
 
         <metro.k.cover.circularprogressbar.CircularProgressBar
             android:id="@+id/lock_railways_loading"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_centerInParent="true"
             android:indeterminate="true"
             app:cpb_color="#FFee44"
             app:cpb_colors="@array/line_colors"
@@ -62,23 +79,44 @@
             app:cpb_stroke_width="4dp"
             app:cpb_sweep_speed="1.0" />
 
-        <metro.k.cover.view.TextViewWithFont
-            android:id="@+id/lock_railways_empty_title"
+        <ImageView
+            android:id="@+id/lock_railways_info_empty_reflesh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/empty_title_lock_railway_info_title"
-            android:textColor="@color/color_white"
-            android:textSize="28sp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="5dip"
+            android:layout_marginTop="5dip"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/selector_update_btn"
             android:visibility="gone" />
 
-        <metro.k.cover.view.TextViewWithFont
-            android:id="@+id/lock_railways_empty_message"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/empty_title_lock_railway_info_message"
-            android:textColor="@color/color_white"
-            android:textSize="32sp"
-            android:visibility="invisible" />
-    </LinearLayout>
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="20dip" >
+
+            <metro.k.cover.view.TextViewWithFont
+                android:id="@+id/lock_railways_empty_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/empty_title_lock_railway_info_title"
+                android:textColor="@color/color_white"
+                android:textSize="28sp"
+                android:visibility="gone" />
+
+            <metro.k.cover.view.TextViewWithFont
+                android:id="@+id/lock_railways_empty_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/empty_title_lock_railway_info_message"
+                android:textColor="@color/color_white"
+                android:textSize="32sp"
+                android:visibility="invisible" />
+        </LinearLayout>
+    </RelativeLayout>
 
 </RelativeLayout>
