@@ -57,7 +57,6 @@
     <string name="lock_security">セキュリティ</string>
     <string name="lock_security_high">セキュリティ-高</string>
     <string name="lock_security_none">セキュリティ-低</string>
-    <string name="lock_security_title">ロックスクリーン</string>
     <string name="lock_screen_image">壁紙</string>
     <string name="lock_screen_image_center">中央壁紙</string>
     <string name="lock_screen_image_left">左壁紙</string>
@@ -91,7 +90,6 @@
     <string name="selected">選択中</string>
     <string name="settings">設定</string>
     <string name="station">駅</string>
-    <string name="station_clear">初期化する</string>
     <string name="tutorial_select_railways">よく使う路線に\nチェックしてください</string>
     <string name="tutorial_select_station">よく使う駅を\n選んでください</string>
     <string name="tutorial_use_metrocover">さっそく使ってみよう</string>

@@ -1,7 +1,5 @@
 <resources>
 
-    <integer name="http_connection_timeout_msec">15000</integer>
-    <integer name="http_so_timeout_msec">15000</integer>
     <integer name="lock_security_type_none">0</integer>
     <integer name="lock_security_type_pattern">1</integer>
     <integer name="lock_security_type_password">2</integer>

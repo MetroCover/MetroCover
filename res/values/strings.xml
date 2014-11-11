@@ -67,7 +67,6 @@
     <string name="lock_security">Security</string>
     <string name="lock_security_high">Security Level - High</string>
     <string name="lock_security_none">Security Level - Low</string>
-    <string name="lock_security_title">Screen Lock</string>
     <string name="lock_screen_image">Wallpapers</string>
     <string name="lock_screen_image_center">Center Wallpaper</string>
     <string name="lock_screen_image_left">Left Wallpaper</string>
@@ -85,8 +84,6 @@
     <string name="nothing">Nothing</string>
     <string name="ok">OK</string>
     <string name="paging_effect">Paging Effect</string>
-    <string name="pkg_homee">com.cfinc.launcher2</string>
-    <string name="pkg_plus_home">jp.co.a_tm.android.launcher</string>
     <string name="pkg_plus_home_theme_head">jp.co.a_tm.android.plus_</string>
     <string name="railways">Railways</string>
     <string name="railway_chiyoda">Chiyoda-Line</string>
@@ -122,7 +119,6 @@
     <string name="selected">Selected</string>
     <string name="settings">Settings</string>
     <string name="station">Station</string>
-    <string name="station_clear">Clear Station Setting</string>
     <string name="theme_homee_bg_image">theme_lock_bg</string>
     <string name="theme_plushome_bg_image">drawer_wallpaper</string>
     <string name="tutorial_select_railways">Check Lines\nYou Use Often.</string>

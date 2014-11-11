@@ -22,19 +22,6 @@
         <item name="android:windowNoTitle">true</item>
     </style>
 
-    <style name="WhiteText20">
-        <item name="android:textColor">@color/color_white</item>
-        <item name="android:textSize">20sp</item>
-        <item name="android:shadowColor">@color/color_black</item>
-        <item name="android:shadowDx">1</item>
-        <item name="android:shadowDy">1</item>
-        <item name="android:shadowRadius">1</item>
-    </style>
-
-    <style name="Theme.SmoothProgressBarDefaults" parent="android:Theme.Holo">
-        <item name="cpbStyle">@style/CircularProgressBar</item>
-    </style>
-
     <style name="CircularProgressBar" parent="android:Widget.Holo.ProgressBar">
         <item name="cpb_color">@color/cpb_default_color</item>
         <item name="cpb_stroke_width">@dimen/cpb_default_stroke_width</item>
