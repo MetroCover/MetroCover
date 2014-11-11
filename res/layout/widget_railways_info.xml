@@ -35,7 +35,6 @@
             android:layout_height="match_parent"
             android:divider="?android:attr/listDivider"
             android:dividerHeight="1dp"
-            android:listSelector="@color/metro_main_tranc_color"
             android:scrollingCache="false" />
     </LinearLayout>
 
