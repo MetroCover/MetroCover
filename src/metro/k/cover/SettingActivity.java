@@ -1,6 +1,7 @@
 package metro.k.cover;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import metro.k.cover.lock.LockClockTextColorSelectActivity;
 import metro.k.cover.lock.LockPasswordDialogActivity;
@@ -16,10 +17,14 @@ import metro.k.cover.wallpaper.WallpaperDetailActivity;
 import metro.k.cover.wallpaper.WallpaperEffectSelectActivity;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.appwidget.AppWidgetHost;
+import android.appwidget.AppWidgetManager;
+import android.appwidget.AppWidgetProviderInfo;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -369,6 +374,31 @@ public class SettingActivity extends Activity implements OnClickListener,
 		Utilities.startActivitySafely(intent, this);
 	}
 
+	private void pickAppWidget() {
+		AppWidgetHost mAppWidgetHost = new AppWidgetHost(this, 123);
+		int appWidgetId = mAppWidgetHost.allocateAppWidgetId();
+		Intent pickIntent = new Intent(AppWidgetManager.ACTION_APPWIDGET_PICK);
+		pickIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+
+		ArrayList<AppWidgetProviderInfo> customInfo = new ArrayList<AppWidgetProviderInfo>();
+		pickIntent.putParcelableArrayListExtra(
+				AppWidgetManager.EXTRA_CUSTOM_INFO, customInfo);
+
+		startActivityForResult(pickIntent, 5);
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode == RESULT_OK) {
+			Log.d("kohirose", "requestCode = " + requestCode);
+			Log.d("kohirose", "resultCode = " + resultCode);
+			Log.d("kohirose", "data = " + data);
+			int appWidgetId = data != null ? data.getIntExtra(
+					AppWidgetManager.EXTRA_APPWIDGET_ID, -1) : -1;
+			Log.d("kohirose", "appWidgetId = " + appWidgetId);
+		}
+	}
+
 	/**
 	 * 駅設定画面へ遷移
 	 */
@@ -391,7 +421,8 @@ public class SettingActivity extends Activity implements OnClickListener,
 
 		// System-Lock
 		if (R.id.setting_systemlock_layout == viewId) {
-			startSystemLockSettings();
+			pickAppWidget();
+			// startSystemLockSettings();
 			return;
 		}
 

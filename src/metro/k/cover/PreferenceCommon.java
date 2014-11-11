@@ -6,6 +6,7 @@ import metro.k.cover.view.JazzyViewPager.TransitionEffect;
 import metro.k.cover.view.ViewUtilities;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 
 /**
  * SharedPreference管理クラス
@@ -384,5 +385,47 @@ public final class PreferenceCommon {
 				Context.MODE_PRIVATE);
 		return sp.getInt(KEY_SET_VIEWPAGER_EFFECT_ID,
 				JazzyViewPager.EFFECT_ROTATEDOWN);
+	}
+
+	/**********************
+	 * Widget
+	 **********************/
+
+	// 遅延情報ウィジェットの更新感覚（デフォルトは1h）
+	private static final String KEY_SET_RAILWAYS_INFO_WIDGET_AUTO_UPDATE_TIME = "set_railways_info_widget_auto_update_time";
+
+	public static void setAutoRefreshIntervalRailwayInfoWidget(
+			final Context context, final int time) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
+		Editor e = sp.edit();
+		e.putInt(KEY_SET_RAILWAYS_INFO_WIDGET_AUTO_UPDATE_TIME, time);
+		e.apply();
+	}
+
+	public static int getAutoRefreshIntervalRailwayInfoWidget(
+			final Context context) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
+		return sp.getInt(KEY_SET_RAILWAYS_INFO_WIDGET_AUTO_UPDATE_TIME,
+				1000 * 60 * 60);
+	}
+
+	// 遅延情報ウィジェットが貼られているか
+	private static final String KEY_SET_ENABLE_RAILWAYS_INFO_WIDGET = "set_enable_railways_info_widget";
+
+	public static void setIsEnabledRailwaysInfoWidget(Context context,
+			boolean flag) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
+		Editor e = sp.edit();
+		e.putBoolean(KEY_SET_ENABLE_RAILWAYS_INFO_WIDGET, flag);
+		e.apply();
+	}
+
+	public static boolean getIsEnabledRailwaysInfoWidget(Context context) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
+		return sp.getBoolean(KEY_SET_ENABLE_RAILWAYS_INFO_WIDGET, false);
 	}
 }
