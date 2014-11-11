@@ -85,6 +85,7 @@ public class StationsActivity extends Activity implements OnClickListener {
 					getResources().getString(R.string.nothing));
 			PreferenceCommon
 					.setStationsRailwayName(getApplicationContext(), "");
+			PreferenceCommon.setStationNameForAPI(getApplicationContext(), "");
 			finish();
 		}
 	}
