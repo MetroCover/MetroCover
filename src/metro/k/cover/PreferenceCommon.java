@@ -91,7 +91,7 @@ public final class PreferenceCommon {
 				.getString(R.string.nothing));
 	}
 
-	// 登録している駅名
+	// 登録している駅名（API専用）
 	private static final String KEY_SET_STATION_NAME_FOR_API = "set_station_name_for_api";
 
 	public static void setStationNameForAPI(final Context context,

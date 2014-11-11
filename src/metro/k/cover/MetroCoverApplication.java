@@ -133,7 +133,9 @@ public class MetroCoverApplication extends Application {
 					String code = ids.get(i);
 					List<String> stations = RailwaysUtilities.getStationList(
 							getApplicationContext(), code);
-					if (stations == null) {
+					List<String> apiNames = RailwaysUtilities
+							.getStationListForAPI(getApplicationContext(), code);
+					if (stations == null || apiNames == null) {
 						continue;
 					}
 
@@ -143,10 +145,11 @@ public class MetroCoverApplication extends Application {
 					for (int j = 0; j < stations.size(); j++) {
 						if (j == 0) {
 							sStationAllListAdapter.add(new Station(railway,
-									railway, null));
+									railway, null, ""));
 						}
-						sStationAllListAdapter.add(new Station(railway,
-								stations.get(j), icons.get(j)));
+						sStationAllListAdapter
+								.add(new Station(railway, stations.get(j),
+										icons.get(j), apiNames.get(j)));
 					}
 				}
 			}

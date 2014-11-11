@@ -70,6 +70,8 @@ public class StationsActivity extends Activity implements OnClickListener {
 				PreferenceCommon.setStationName(getApplicationContext(), name);
 				PreferenceCommon.setStationsRailwayName(
 						getApplicationContext(), railway);
+				PreferenceCommon.setStationNameForAPI(getApplicationContext(),
+						station.getNameForAPI());
 				finish();
 			}
 		});

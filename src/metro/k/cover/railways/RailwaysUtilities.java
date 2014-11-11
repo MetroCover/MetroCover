@@ -423,6 +423,80 @@ public final class RailwaysUtilities {
 	}
 
 	/**
+	 * 指定の路線から駅名リスト（APIリクエスト用の名前）を取得する
+	 * 
+	 * @param railway
+	 * @return
+	 */
+	public static List<String> getStationListForAPI(final Context context,
+			final String railwayCode) {
+		if (context == null || Utilities.isInvalidStr(railwayCode)) {
+			return null;
+		}
+
+		final Resources res = context.getResources();
+		String[] array_str = null;
+		if (railwayCode.equals(Railways.RAILWAY_CODE_CHIYODA)) {
+			array_str = res
+					.getStringArray(R.array.chiyoda_railway_stations_api);
+			return Arrays.asList(array_str);
+		}
+
+		if (railwayCode.equals(Railways.RAILWAY_CODE_FUKUTOSHIN)) {
+			array_str = res
+					.getStringArray(R.array.fukutoshin_railway_stations_api);
+			return Arrays.asList(array_str);
+		}
+
+		if (railwayCode.equals(Railways.RAILWAY_CODE_GINZA)) {
+			array_str = res.getStringArray(R.array.ginza_railway_stations_api);
+			return Arrays.asList(array_str);
+		}
+
+		if (railwayCode.equals(Railways.RAILWAY_CODE_HANZOMON)) {
+			array_str = res
+					.getStringArray(R.array.hanzomon_railway_stations_api);
+			return Arrays.asList(array_str);
+		}
+
+		if (railwayCode.equals(Railways.RAILWAY_CODE_HIBIYA)) {
+			array_str = res.getStringArray(R.array.hibiya_railway_stations_api);
+			return Arrays.asList(array_str);
+		}
+
+		if (railwayCode.equals(Railways.RAILWAY_CODE_NAMBOKU)) {
+			array_str = res
+					.getStringArray(R.array.namboku_railway_stations_api);
+			return Arrays.asList(array_str);
+		}
+
+		if (railwayCode.equals(Railways.RAILWAY_CODE_TOZAI)) {
+			array_str = res.getStringArray(R.array.tozai_railway_stations_api);
+			return Arrays.asList(array_str);
+		}
+
+		if (railwayCode.equals(Railways.RAILWAY_CODE_YURAKUCHO)) {
+			array_str = res
+					.getStringArray(R.array.yurakucho_railway_stations_api);
+			return Arrays.asList(array_str);
+		}
+
+		if (railwayCode.equals(Railways.RAILWAY_CODE_MARUNOUCHI)) {
+			array_str = res
+					.getStringArray(R.array.marunouchi_railway_stations_api);
+			return Arrays.asList(array_str);
+		}
+
+		if (railwayCode.equals(Railways.RAILWAY_CODE_MARUNOUCHI_M)) {
+			array_str = res
+					.getStringArray(R.array.marunouchi_branch_railway_stations_api);
+			return Arrays.asList(array_str);
+		}
+
+		return null;
+	}
+
+	/**
 	 * 駅のアイコンリストを取得する
 	 * 
 	 * @param context
