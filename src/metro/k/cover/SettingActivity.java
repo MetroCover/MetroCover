@@ -1,7 +1,6 @@
 package metro.k.cover;
 
 import java.io.File;
-import java.util.ArrayList;
 
 import metro.k.cover.lock.LockClockTextColorSelectActivity;
 import metro.k.cover.lock.LockPasswordDialogActivity;
@@ -17,14 +16,12 @@ import metro.k.cover.wallpaper.WallpaperDetailActivity;
 import metro.k.cover.wallpaper.WallpaperEffectSelectActivity;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.appwidget.AppWidgetHost;
-import android.appwidget.AppWidgetManager;
-import android.appwidget.AppWidgetProviderInfo;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -155,6 +152,10 @@ public class SettingActivity extends Activity implements OnClickListener,
 		// Clock color
 		RelativeLayout clocksize_layout = (RelativeLayout) findViewById(R.id.setting_clock_size_layout);
 		clocksize_layout.setOnClickListener(this);
+
+		// Review
+		RelativeLayout review_layout = (RelativeLayout) findViewById(R.id.setting_review_layout);
+		review_layout.setOnClickListener(this);
 	}
 
 	/**
@@ -374,31 +375,6 @@ public class SettingActivity extends Activity implements OnClickListener,
 		Utilities.startActivitySafely(intent, this);
 	}
 
-	private void pickAppWidget() {
-		AppWidgetHost mAppWidgetHost = new AppWidgetHost(this, 123);
-		int appWidgetId = mAppWidgetHost.allocateAppWidgetId();
-		Intent pickIntent = new Intent(AppWidgetManager.ACTION_APPWIDGET_PICK);
-		pickIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
-
-		ArrayList<AppWidgetProviderInfo> customInfo = new ArrayList<AppWidgetProviderInfo>();
-		pickIntent.putParcelableArrayListExtra(
-				AppWidgetManager.EXTRA_CUSTOM_INFO, customInfo);
-
-		startActivityForResult(pickIntent, 5);
-	}
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (resultCode == RESULT_OK) {
-			Log.d("kohirose", "requestCode = " + requestCode);
-			Log.d("kohirose", "resultCode = " + resultCode);
-			Log.d("kohirose", "data = " + data);
-			int appWidgetId = data != null ? data.getIntExtra(
-					AppWidgetManager.EXTRA_APPWIDGET_ID, -1) : -1;
-			Log.d("kohirose", "appWidgetId = " + appWidgetId);
-		}
-	}
-
 	/**
 	 * 駅設定画面へ遷移
 	 */
@@ -407,6 +383,29 @@ public class SettingActivity extends Activity implements OnClickListener,
 		intent.putExtra(RailwaysUtilities.KEY_CURRENT_STATION,
 				mCurrentStationsRailwayName);
 		Utilities.startActivitySafely(intent, this);
+	}
+
+	/**
+	 * MetroCoverのプレイストアページへ遷移
+	 */
+	private void startReview() {
+		try {
+			Intent intent = new Intent(Intent.ACTION_VIEW,
+					Uri.parse("market://details?id=metro.k.cover"));
+			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(intent);
+			return;
+		} catch (ActivityNotFoundException e) {
+		}
+
+		try {
+			Intent intent = new Intent(
+					Intent.ACTION_VIEW,
+					Uri.parse("https://play.google.com/store/apps/details?id=metro.k.cover"));
+			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(intent);
+		} catch (Exception e) {
+		}
 	}
 
 	@Override
@@ -421,8 +420,7 @@ public class SettingActivity extends Activity implements OnClickListener,
 
 		// System-Lock
 		if (R.id.setting_systemlock_layout == viewId) {
-			pickAppWidget();
-			// startSystemLockSettings();
+			startSystemLockSettings();
 			return;
 		}
 
@@ -491,6 +489,11 @@ public class SettingActivity extends Activity implements OnClickListener,
 		// License
 		if (R.id.setting_license_layout == viewId) {
 			buildInfoDialog().show();
+			return;
+		}
+
+		if (R.id.setting_review_layout == viewId) {
+			startReview();
 			return;
 		}
 	}
