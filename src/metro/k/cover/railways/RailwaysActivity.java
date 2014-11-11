@@ -125,7 +125,7 @@ public class RailwaysActivity extends Activity implements OnClickListener {
 						mRailwaysAdapter.getCheckedItemIDList());
 				PreferenceCommon.setRailwaysNumber(this,
 						mRailwaysAdapter.getCheckedItemNumberList());
-				PreferenceCommon.setRailwaysResponseName(this,
+				PreferenceCommon.setRailwaysNameForAPI(this,
 						mRailwaysAdapter.getCheckedResponseNmae());
 				MetroCoverApplication
 						.asyncCreateRailwaysInfoList(getApplicationContext());

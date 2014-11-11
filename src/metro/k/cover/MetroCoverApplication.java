@@ -69,7 +69,7 @@ public class MetroCoverApplication extends Application {
 		if (!Utilities.isOnline(context)) {
 			return;
 		}
-		final String str = PreferenceCommon.getRailwaysResponseName(context);
+		final String str = PreferenceCommon.getRailwaysNameForAPI(context);
 		if (Utilities.isInvalidStr(str)) {
 			if (sRailwaysInfoAdapter != null) {
 				sRailwaysInfoAdapter.clear();
@@ -114,14 +114,12 @@ public class MetroCoverApplication extends Application {
 		new Thread("createAllStationList") {
 			@Override
 			public void run() {
-				final ArrayList<String> checkedIdList = RailwaysUtilities
+				final ArrayList<String> ids = RailwaysUtilities
 						.getAllRailwaysCode();
-				final ArrayList<String> checkedNameList = RailwaysUtilities
-						.getAllRailwaysName(getApplicationContext());
-				if (checkedIdList == null) {
+				if (ids == null) {
 					return;
 				}
-				final int size = checkedIdList.size();
+				final int size = ids.size();
 				if (size == 0) {
 					return;
 				}
@@ -129,15 +127,17 @@ public class MetroCoverApplication extends Application {
 				sStationAllListAdapter = new StationsAdapter(
 						getApplicationContext(),
 						R.layout.list_icon_title_radio_at);
+				final ArrayList<String> names = RailwaysUtilities
+						.getAllRailwaysName(getApplicationContext());
 				for (int i = 0; i < size; i++) {
-					String code = checkedIdList.get(i);
+					String code = ids.get(i);
 					List<String> stations = RailwaysUtilities.getStationList(
 							getApplicationContext(), code);
 					if (stations == null) {
 						continue;
 					}
 
-					String railway = checkedNameList.get(i);
+					String railway = names.get(i);
 					ArrayList<Drawable> icons = RailwaysUtilities
 							.getStationIconList(getApplicationContext(), code);
 					for (int j = 0; j < stations.size(); j++) {

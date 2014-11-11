@@ -54,22 +54,22 @@ public final class PreferenceCommon {
 		return sp.getString(KEY_SET_RAILWAYS_NUMVER, "");
 	}
 
-	// 遅延情報を出す路線（APIレスポンス）
-	private static final String KEY_SET_RAILWAYS_RES_NAME = "set_railways_res_name";
+	// 遅延情報を出す路線（API専用）
+	private static final String KEY_SET_RAILWAYS_NAME_FOR_API = "set_railways_name_for_api";
 
-	public static void setRailwaysResponseName(final Context context,
+	public static void setRailwaysNameForAPI(final Context context,
 			final String railways) {
 		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
 				Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = sp.edit();
-		editor.putString(KEY_SET_RAILWAYS_RES_NAME, railways);
+		editor.putString(KEY_SET_RAILWAYS_NAME_FOR_API, railways);
 		editor.apply();
 	}
 
-	public static String getRailwaysResponseName(final Context context) {
+	public static String getRailwaysNameForAPI(final Context context) {
 		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
 				Context.MODE_PRIVATE);
-		return sp.getString(KEY_SET_RAILWAYS_RES_NAME, "");
+		return sp.getString(KEY_SET_RAILWAYS_NAME_FOR_API, "");
 	}
 
 	// 登録している駅名
@@ -89,6 +89,24 @@ public final class PreferenceCommon {
 				Context.MODE_PRIVATE);
 		return sp.getString(KEY_SET_STATION_NAME, context.getResources()
 				.getString(R.string.nothing));
+	}
+
+	// 登録している駅名
+	private static final String KEY_SET_STATION_NAME_FOR_API = "set_station_name_for_api";
+
+	public static void setStationNameForAPI(final Context context,
+			final String station) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sp.edit();
+		editor.putString(KEY_SET_STATION_NAME_FOR_API, station);
+		editor.apply();
+	}
+
+	public static String getStationNameForAPI(final Context context) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
+		return sp.getString(KEY_SET_STATION_NAME_FOR_API, "");
 	}
 
 	// 登録している駅名の路線名
@@ -390,26 +408,6 @@ public final class PreferenceCommon {
 	/**********************
 	 * Widget
 	 **********************/
-
-	// 遅延情報ウィジェットの更新感覚（デフォルトは1h）
-	private static final String KEY_SET_RAILWAYS_INFO_WIDGET_AUTO_UPDATE_TIME = "set_railways_info_widget_auto_update_time";
-
-	public static void setAutoRefreshIntervalRailwayInfoWidget(
-			final Context context, final int time) {
-		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
-				Context.MODE_PRIVATE);
-		Editor e = sp.edit();
-		e.putInt(KEY_SET_RAILWAYS_INFO_WIDGET_AUTO_UPDATE_TIME, time);
-		e.apply();
-	}
-
-	public static int getAutoRefreshIntervalRailwayInfoWidget(
-			final Context context) {
-		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
-				Context.MODE_PRIVATE);
-		return sp.getInt(KEY_SET_RAILWAYS_INFO_WIDGET_AUTO_UPDATE_TIME,
-				1000 * 60 * 60);
-	}
 
 	// 遅延情報ウィジェットが貼られているか
 	private static final String KEY_SET_ENABLE_RAILWAYS_INFO_WIDGET = "set_enable_railways_info_widget";
