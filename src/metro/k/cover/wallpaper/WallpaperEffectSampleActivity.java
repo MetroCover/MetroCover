@@ -57,16 +57,10 @@ public class WallpaperEffectSampleActivity extends Activity implements
 	private void setupViews() {
 		setContentView(R.layout.activity_wallpaper_effect);
 
-		final Resources res = getResources();
 		ButtonWithFont cancel = (ButtonWithFont) findViewById(R.id.wallpaper_effect_cancel_btn);
 		ButtonWithFont complete = (ButtonWithFont) findViewById(R.id.wallpaper_effect_comp_btn);
 		cancel.setOnClickListener(this);
 		complete.setOnClickListener(this);
-
-		RelativeLayout root = (RelativeLayout) findViewById(R.id.wallpaper_effect_root);
-		final Drawable d = new BitmapDrawable(res,
-				WallpaperUtilities.getSystemWallpaper(this));
-		Utilities.setBackground(root, d);
 
 		mJazzyViewPager = (JazzyViewPager) findViewById(R.id.wallpaper_effect_viewpager);
 		mJazzyViewPager.setTransitionEffect(mEffect);
