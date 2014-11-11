@@ -131,14 +131,15 @@ public class MetroCoverApplication extends Application {
 						R.layout.list_icon_title_radio_at);
 				for (int i = 0; i < size; i++) {
 					String code = checkedIdList.get(i);
-					String railway = checkedNameList.get(i);
 					List<String> stations = RailwaysUtilities.getStationList(
 							getApplicationContext(), code);
-					ArrayList<Drawable> icons = RailwaysUtilities
-							.getStationIconList(getApplicationContext(), code);
 					if (stations == null) {
 						continue;
 					}
+
+					String railway = checkedNameList.get(i);
+					ArrayList<Drawable> icons = RailwaysUtilities
+							.getStationIconList(getApplicationContext(), code);
 					for (int j = 0; j < stations.size(); j++) {
 						if (j == 0) {
 							sStationAllListAdapter.add(new Station(railway,

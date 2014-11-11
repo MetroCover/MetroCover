@@ -10,7 +10,6 @@ import metro.k.cover.view.JazzyViewPager.TransitionEffect;
 import metro.k.cover.view.TextViewWithFont;
 import metro.k.cover.view.ViewUtilities;
 import android.app.Activity;
-import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;

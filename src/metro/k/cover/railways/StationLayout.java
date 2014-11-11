@@ -10,6 +10,12 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+/**
+ * 駅リストのListViewのItemのレイアウト
+ * 
+ * @author kohirose
+ * 
+ */
 public class StationLayout extends RelativeLayout {
 
 	private TextViewWithFont mTitleView;

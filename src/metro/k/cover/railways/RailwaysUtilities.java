@@ -17,7 +17,13 @@ public final class RailwaysUtilities {
 	// 設定画面から駅選択へ行く際に渡すintentのKey
 	public static final String KEY_CURRENT_STATION = "key_cuurent_station";
 
-	// APIから返ってきたレスポンス名から路線名へ変換する
+	/**
+	 * APIから返ってきたレスポンス名から路線名へ変換する
+	 * 
+	 * @param context
+	 * @param apiResponse
+	 * @return
+	 */
 	public static String getRailwaysName(final Context context,
 			final String apiResponse) {
 		if (Utilities.isInvalidStr(apiResponse)) {
@@ -150,6 +156,12 @@ public final class RailwaysUtilities {
 		return list;
 	}
 
+	/**
+	 * 全路線名を取得する
+	 * 
+	 * @param context
+	 * @return
+	 */
 	public static ArrayList<String> getAllRailwaysName(final Context context) {
 		ArrayList<String> list = new ArrayList<String>();
 		final Resources res = context.getResources();
@@ -262,6 +274,14 @@ public final class RailwaysUtilities {
 		return list;
 	}
 
+	/**
+	 * 路線番号から路線クラスを取得する
+	 * 
+	 * @param context
+	 * @param num
+	 * @param checked
+	 * @return
+	 */
 	public static Railways getRailwaysFromNumber(final Context context,
 			final int num, final boolean checked) {
 		final Resources res = context.getResources();
@@ -402,6 +422,13 @@ public final class RailwaysUtilities {
 		return null;
 	}
 
+	/**
+	 * 駅のアイコンリストを取得する
+	 * 
+	 * @param context
+	 * @param railwayCode
+	 * @return
+	 */
 	@SuppressLint("Recycle")
 	public static ArrayList<Drawable> getStationIconList(final Context context,
 			final String railwayCode) {
@@ -465,6 +492,12 @@ public final class RailwaysUtilities {
 		return null;
 	}
 
+	/**
+	 * array.xmlからアイコン取得
+	 * 
+	 * @param array
+	 * @return
+	 */
 	private static ArrayList<Drawable> convertTypedArray(TypedArray array) {
 		if (array == null) {
 			return null;

@@ -128,6 +128,8 @@
     <string name="tutorial_select_railways">Check Lines\nYou Use Often.</string>
     <string name="tutorial_select_station">Select A Station\nYou Use Often.</string>
     <string name="tutorial_use_metrocover">USE IT!</string>
+    <string name="wallpaper_complete_msg">Completed</string>
+    <string name="wallpaper_delete_msg">Deleted</string>
     <string name="wallpaper_empty">No Wallpapers</string>
     <string name="wallpaper_homee_title">HOMEE\'S WALLPAPER</string>
     <string name="wallpaper_plushome_title">[+]HOME\'S WALLPAPER</string>

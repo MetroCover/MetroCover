@@ -232,25 +232,38 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 						WallpaperBitmapDB db = new WallpaperBitmapDB(context);
 						db.delteBitmap(dbKey);
 						if (mHandler != null) {
-							mHandler.post(new Runnable() {
-								@Override
-								public void run() {
-									final ViewPager vp = WallpaperDetailActivity
-											.getViewPager();
-									final WallpaperDetailPagerAdapter adpter = WallpaperDetailActivity
-											.getWallpaperDetailPagerAdapter();
-									if (vp != null && adpter != null) {
-										vp.setAdapter(adpter);
-										vp.setCurrentItem(position);
-									}
-								}
-							});
+							mHandler.post(getDeleteTask(context, position));
 						}
 					}
 				}.start();
 			}
 		};
 		return li;
+	}
+
+	/**
+	 * 削除タスク
+	 * 
+	 * @param position
+	 * @return
+	 */
+	private Runnable getDeleteTask(final Context context, final int position) {
+		Runnable task = new Runnable() {
+			@Override
+			public void run() {
+				final ViewPager vp = WallpaperDetailActivity.getViewPager();
+				final WallpaperDetailPagerAdapter adpter = WallpaperDetailActivity
+						.getWallpaperDetailPagerAdapter();
+				if (vp != null && adpter != null) {
+					vp.setAdapter(adpter);
+					vp.setCurrentItem(position);
+					Utilities.showToast(context, context.getResources()
+							.getString(R.string.wallpaper_delete_msg));
+				}
+
+			}
+		};
+		return task;
 	}
 
 	/**

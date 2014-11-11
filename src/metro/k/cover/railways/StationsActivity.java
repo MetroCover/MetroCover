@@ -12,6 +12,12 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+/**
+ * 駅選択画面
+ * 
+ * @author kohirose
+ * 
+ */
 public class StationsActivity extends Activity implements OnClickListener {
 
 	private boolean flag = false;

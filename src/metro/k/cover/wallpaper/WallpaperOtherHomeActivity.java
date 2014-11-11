@@ -85,10 +85,10 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 		if (mHomeAppID != WallpaperUtilities.HOMEE_APP_ID) {
 			titleView.setText(R.string.wallpaper_plushome_title);
 		}
-	
+
 		// Empty
 		mEmptyView = (TextViewWithFont) findViewById(R.id.wallpaper_other_home_emptyview);
-	
+
 		// GridView
 		mGridView = (GridView) findViewById(R.id.wallpaper_other_home_gridview);
 		setupGridView();
@@ -283,5 +283,7 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 		bundle.putInt(WallpaperUtilities.KEY_PAGE_NUMBER, mPage);
 		intent.putExtras(bundle);
 		Utilities.startActivitySafely(intent, this);
+		Utilities.showToast(getApplicationContext(),
+				getResources().getString(R.string.wallpaper_complete_msg));
 	}
 }
