@@ -37,7 +37,11 @@ public class RailwaysInfoWidgetService extends RemoteViewsService {
 		}
 
 		public int getCount() {
-			return MetroCoverApplication.sRailwaysInfoAdapter.getCount();
+			int count = 0;
+			if (MetroCoverApplication.sRailwaysInfoAdapter != null) {
+				count = MetroCoverApplication.sRailwaysInfoAdapter.getCount();
+			}
+			return count;
 		}
 
 		public RemoteViews getLoadingView() {

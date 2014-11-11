@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="railways">
+    <string-array name="railways_odpt">
         <item>odpt.Railway:TokyoMetro.Ginza</item>
         <item>odpt.Railway:TokyoMetro.Marunouchi</item>
         <item>odpt.Railway:TokyoMetro.MarunouchiBranch</item>

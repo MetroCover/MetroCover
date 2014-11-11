@@ -61,10 +61,15 @@ public class StationsActivity extends Activity implements OnClickListener {
 					int position, long id) {
 				final Station station = MetroCoverApplication.sStationAllListAdapter
 						.getItem(position);
-				PreferenceCommon.setStationName(getApplicationContext(),
-						station.getTitle());
+				final String name = station.getTitle();
+				final String railway = station.getRailway();
+				if (name.equals(railway)) {
+					return;
+				}
+
+				PreferenceCommon.setStationName(getApplicationContext(), name);
 				PreferenceCommon.setStationsRailwayName(
-						getApplicationContext(), station.getRailway());
+						getApplicationContext(), railway);
 				finish();
 			}
 		});
