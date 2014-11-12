@@ -336,7 +336,7 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 	 * @param page
 	 */
 	private void buildSelectDialog(final FragmentActivity activity,
-			final int page, final boolean isPlushome, final boolean isHomee,
+			final int page, final boolean isHomee, final boolean isPlushome,
 			final boolean isBuzz, final boolean isDodoru) {
 		try {
 			final android.app.FragmentManager fm = activity
