@@ -9,6 +9,8 @@
     android:gravity="center_horizontal"
     android:orientation="vertical" >
 
+    <!-- タイトル -->
+
     <metro.k.cover.view.TextViewWithFont
         android:id="@+id/wallpaper_dialog_titleview"
         android:layout_width="match_parent"
@@ -26,6 +28,8 @@
         android:layout_height="1dip"
         android:background="#e0e0e0"
         android:contentDescription="@string/app_name" />
+
+    <!-- Homee -->
 
     <RelativeLayout
         android:id="@+id/wallpaper_dialog_homee_layout"
@@ -65,6 +69,8 @@
         android:background="#e0e0e0"
         android:contentDescription="@string/app_name" />
 
+    <!-- [+]HOME -->
+
     <RelativeLayout
         android:id="@+id/wallpaper_dialog_plushome_layout"
         android:layout_width="match_parent"
@@ -102,6 +108,88 @@
         android:layout_height="1dip"
         android:background="#e0e0e0"
         android:contentDescription="@string/app_name" />
+
+    <!-- [+]HOME -->
+
+    <RelativeLayout
+        android:id="@+id/wallpaper_dialog_buzzhome_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_list_at"
+        android:paddingBottom="8dip"
+        android:paddingLeft="12dip"
+        android:paddingRight="15dip"
+        android:paddingTop="8dip" >
+
+        <ImageView
+            android:id="@+id/wallpaper_dialog_buzzhome_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_wallpaper_homee" />
+
+        <metro.k.cover.view.TextViewWithFont
+            android:id="@+id/wallpaper_dialog_buzzhome_titleview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dip"
+            android:layout_toRightOf="@+id/wallpaper_dialog_buzzhome_icon"
+            android:text="@string/wallpaper_select_buzzhome"
+            android:textColor="#000"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/wallpaper_dialog_buzzhome_sep"
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="#e0e0e0"
+        android:contentDescription="@string/app_name" />
+
+    <!-- ドドルランチャー -->
+
+    <RelativeLayout
+        android:id="@+id/wallpaper_dialog_dodoru_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_list_at"
+        android:paddingBottom="8dip"
+        android:paddingLeft="12dip"
+        android:paddingRight="15dip"
+        android:paddingTop="8dip" >
+
+        <ImageView
+            android:id="@+id/wallpaper_dialog_dodoru_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_wallpaper_homee" />
+
+        <metro.k.cover.view.TextViewWithFont
+            android:id="@+id/wallpaper_dialog_dodoru_titleview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dip"
+            android:layout_toRightOf="@+id/wallpaper_dialog_dodoru_icon"
+            android:text="@string/wallpaper_select_dodol"
+            android:textColor="#000"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/wallpaper_dialog_dodoru_sep"
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="#e0e0e0"
+        android:contentDescription="@string/app_name" />
+
+    <!-- ギャラリー -->
 
     <RelativeLayout
         android:id="@+id/wallpaper_dialog_gallery_layout"

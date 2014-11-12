@@ -19,6 +19,7 @@ import metro.k.cover.lock.LockPatternView.DisplayMode;
 import metro.k.cover.railways.RailwaysInfo;
 import metro.k.cover.traininfo.TrainInfoListener;
 import metro.k.cover.view.ButtonWithFont;
+import metro.k.cover.view.EditTextWithFont;
 import metro.k.cover.view.JazzyViewPager;
 import metro.k.cover.view.JazzyViewPager.TransitionEffect;
 import metro.k.cover.view.TextViewWithFont;
@@ -30,7 +31,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -44,7 +44,6 @@ import android.os.Message;
 import android.os.Vibrator;
 import android.provider.CallLog;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.AttributeSet;
@@ -53,7 +52,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -98,7 +96,6 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	private LockPagerAdapter mLockPagerAdapter;
 	private JazzyViewPager mViewPager;
 	private KeyView mKeyView;
-	private OnLockPageChangeListener mOnLockPageChangeListener = new OnLockPageChangeListener();
 	private TransitionEffect mEffect = TransitionEffect.RotateDown;
 
 	// Clock
@@ -234,9 +231,6 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		mViewPager.setAdapter(mLockPagerAdapter);
 		mViewPager.setCurrentItem(1);
 		mViewPager.setTransitionEffect(mEffect);
-		mViewPager.setOnPageChangeListener(mOnLockPageChangeListener);
-		
-
 	}
 
 	/**
@@ -404,8 +398,9 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	 * @param context
 	 */
 	private void getTelInfo(final Context context) {
-		if (context == null)
+		if (context == null) {
 			return;
+		}
 
 		List<String>[] telInfo = null;
 		try {
@@ -413,12 +408,14 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		} catch (Exception e) {
 		}
 
-		if (telInfo == null)
+		if (telInfo == null) {
 			return;
+		}
 
 		final int size = telInfo[TEL_INFO_NUMBER].size();
-		if (size == 0)
+		if (size == 0) {
 			return;
+		}
 
 		setMissedCallView(telInfo[TEL_INFO_NUMBER]);
 	}
@@ -429,40 +426,40 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	 * @param list
 	 */
 	private void setMissedCallView(final List<String> list) {
-		if (list == null)
+		if (list == null) {
 			return;
+		}
 		final int size = list.size();
-		if (size == 0)
+		if (size == 0) {
 			return;
+		}
 
-		// final Context context = getContext().getApplicationContext();
-		// final Resources res = getResources();
-		// final View telView = LayoutInflater.from(context).inflate(
-		// R.layout.telinfo, null);
-		// mTelLayout = (LinearLayout)
-		// telView.findViewById(R.id.telinfo_layout);
-		// mTelLayout.setBackgroundResource(R.drawable.selector_btn);
-		// final int sideMargin = (int) res
-		// .getDimension(R.dimen.lockscreen_tel_margin);
-		// final int bottomMargin = (int) res
-		// .getDimension(R.dimen.lockscreen_tel_margin_bottom);
-		// mTelLayout.setPadding(0, bottomMargin, 0, bottomMargin);
-		// RelativeLayout.LayoutParams layoutParams = new
-		// RelativeLayout.LayoutParams(
-		// MP, WC);
-		// layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-		// layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
-		// layoutParams.setMargins(sideMargin, 0, sideMargin, bottomMargin);
-		// mTelLayout.setLayoutParams(layoutParams);
-		//
-		// // your tel-number
-		// TextView number = (TextView)
-		// telView.findViewById(R.id.telinfo_number);
-		// if (size != 0) {
-		// number.setText(size + res.getString(R.string.lock_matter));
-		// }
-		// mTelLayout.setOnClickListener(this);
-		// this.addView(telView);
+		final Context context = getContext().getApplicationContext();
+		final Resources res = getResources();
+		final View telView = LayoutInflater.from(context).inflate(
+				R.layout.telinfo, null);
+		mTelLayout = (LinearLayout) telView.findViewById(R.id.telinfo_layout);
+		final int sideMargin = (int) res
+				.getDimension(R.dimen.lockscreen_tel_margin);
+		final int bottomMargin = (int) res
+				.getDimension(R.dimen.lockscreen_tel_margin_bottom);
+		mTelLayout.setPadding(0, bottomMargin, 0, bottomMargin);
+		RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+				RelativeLayout.LayoutParams.MATCH_PARENT,
+				RelativeLayout.LayoutParams.WRAP_CONTENT);
+		layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+		layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+		layoutParams.setMargins(sideMargin, 0, sideMargin, bottomMargin);
+		mTelLayout.setLayoutParams(layoutParams);
+
+		// your tel-number
+		TextViewWithFont number = (TextViewWithFont) telView
+				.findViewById(R.id.telinfo_number);
+		if (size != 0) {
+			number.setText(size + res.getString(R.string.lock_matter));
+		}
+		mTelLayout.setOnClickListener(this);
+		this.addView(telView);
 	}
 
 	/**
@@ -536,20 +533,16 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	 */
 	private void addPasswordSecurityView() {
 		final Context c = getContext().getApplicationContext();
-		final AssetManager am = c.getAssets();
-		final Resources res = c.getResources();
 		mPassView = LayoutInflater.from(c).inflate(R.layout.input_password,
 				null, false);
 		final TextViewWithFont title = (TextViewWithFont) mPassView
 				.findViewById(R.id.lock_pass_title);
-		final EditText edittext = (EditText) mPassView
+		final EditTextWithFont edittext = (EditTextWithFont) mPassView
 				.findViewById(R.id.lock_pass_edittext);
 		final ButtonWithFont comp = (ButtonWithFont) mPassView
 				.findViewById(R.id.lock_pass_comp_btn);
 		final ButtonWithFont cancel = (ButtonWithFont) mPassView
 				.findViewById(R.id.lock_pass_cancel_btn);
-
-		Utilities.setFontEditTextView(edittext, am, res);
 
 		this.addView(mPassView);
 		edittext.requestFocus();
@@ -566,7 +559,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	 * @param et
 	 * @param tv
 	 */
-	private void setWrongPasswordView(final EditText et,
+	private void setWrongPasswordView(final EditTextWithFont et,
 			final TextViewWithFont tv) {
 		if (et == null || tv == null || mVib == null)
 			return;
@@ -582,8 +575,8 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	 * @param tv
 	 * @return
 	 */
-	private final View.OnClickListener getPasswordOKListener(final EditText et,
-			final TextViewWithFont tv) {
+	private final View.OnClickListener getPasswordOKListener(
+			final EditTextWithFont et, final TextViewWithFont tv) {
 		final View.OnClickListener listener = new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -627,8 +620,6 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	 */
 	private void addPatternSecurityView() {
 		final Context c = getContext().getApplicationContext();
-		final AssetManager am = c.getAssets();
-		final Resources res = c.getResources();
 		mPatternView = LayoutInflater.from(c).inflate(R.layout.input_pattern,
 				null, false);
 		final LockPatternView patternView = (LockPatternView) mPatternView
@@ -844,7 +835,6 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		private int mTestNum2 = 0;
 		private int mLastPosition = 0;
 		private Resources mResources = getResources();
-		private AssetManager mAssetManager;
 		private ApiRequestTrainInfo mApiRequestTrainInfo;
 		private Handler mHandler;
 
@@ -853,7 +843,6 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			mList = new ArrayList<String>();
 			mLayoutInflater = LayoutInflater.from(mContext);
 			mResources = getResources();
-			mAssetManager = context.getAssets();
 			mApiRequestTrainInfo = new ApiRequestTrainInfo(context);
 			mApiRequestTrainInfo.setListener(this);
 			mHandler = new Handler() {
@@ -1297,39 +1286,4 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			mBatteryView.setTextColor(mResources.getColor(mClockColorID));
 		}
 	}
-
-	/**
-	 * Viewpagerのページ変更リスナー
-	 * 
-	 * @author kohirose
-	 * 
-	 */
-	private class OnLockPageChangeListener extends
-			ViewPager.SimpleOnPageChangeListener {
-		@Override
-		public void onPageScrollStateChanged(int state) {
-			switch (state) {
-			case ViewPager.SCROLL_STATE_IDLE:
-				break;
-			case ViewPager.SCROLL_STATE_SETTLING:
-				break;
-			case ViewPager.SCROLL_STATE_DRAGGING:
-				break;
-			default:
-				break;
-			}
-		}
-
-		@Override
-		public void onPageScrolled(int position, float positionOffset,
-				int positionOffsetPixels) {
-		}
-
-		@Override
-		public void onPageSelected(int position) {
-		}
-		
-		
-	}
-
 }

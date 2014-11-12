@@ -1,14 +1,18 @@
 package metro.k.cover.wallpaper;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import metro.k.cover.ImageCache;
 import metro.k.cover.R;
 import metro.k.cover.Utilities;
 import metro.k.cover.view.TextViewWithFont;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.content.res.Resources.NotFoundException;
 import android.graphics.Bitmap;
@@ -26,7 +30,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 /**
- * Homeeの壁紙一覧から設定
+ * 着せ替えホームアプリの壁紙一覧から設定
  * 
  * @author kohirose
  * 
@@ -82,8 +86,14 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 
 		// Title
 		TextViewWithFont titleView = (TextViewWithFont) findViewById(R.id.wallpaper_other_home_titleview);
-		if (mHomeAppID != WallpaperUtilities.HOMEE_APP_ID) {
+		if (mHomeAppID == WallpaperUtilities.HOMEE_APP_ID) {
+			titleView.setText(R.string.wallpaper_homee_title);
+		} else if (mHomeAppID == WallpaperUtilities.PLUSHOME_APP_ID) {
 			titleView.setText(R.string.wallpaper_plushome_title);
+		} else if (mHomeAppID == WallpaperUtilities.BUZZHOME_APP_ID) {
+			titleView.setText(R.string.wallpaper_buzzhome_title);
+		} else if (mHomeAppID == WallpaperUtilities.DODORUHOME_APP_ID) {
+			titleView.setText(R.string.wallpaper_dodol_title);
 		}
 
 		// Empty
@@ -117,17 +127,37 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 			return;
 		}
 
-		final int size = pkgList.size();
+		final int pkgsize = pkgList.size();
+		if (pkgsize == 0) {
+			setEmptyView();
+			return;
+		}
+
+		// buzzHomeだけ特殊
+		if (mHomeAppID == WallpaperUtilities.BUZZHOME_APP_ID) {
+			Drawable[] ds;
+			for (int i = 0; i < pkgsize; i++) {
+				ds = getBuzzDrawableResource(pkgList.get(i));
+				if (ds == null) {
+					continue;
+				}
+				for (int j = 0; j < ds.length; j++) {
+					mRealList.add(ds[j]);
+				}
+			}
+		} else {
+			for (int i = 0; i < pkgsize; i++) {
+				mRealList.add(getScreen(pkgList.get(i)));
+			}
+		}
+
+		final int size = mRealList.size();
 		if (size == 0) {
 			setEmptyView();
 			return;
 		}
 
 		for (int i = 0; i < size; i++) {
-			mRealList.add(getScreen(pkgList.get(i)));
-		}
-
-		for (int i = 0; i < mRealList.size(); i++) {
 			mThumbList.add(Utilities.resizeFit(mRealList.get(i),
 					mWindowWidth / 2, mWindowHeight / 2, this));
 		}
@@ -139,7 +169,7 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 	}
 
 	/**
-	 * Homeeのテーマのパッケージを取得する
+	 * 指定のホームアプリのテーマのパッケージを取得する
 	 * 
 	 * @return
 	 */
@@ -148,6 +178,10 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 			return WallpaperUtilities.getHomeeWallpapers(this);
 		} else if (mHomeAppID == WallpaperUtilities.PLUSHOME_APP_ID) {
 			return WallpaperUtilities.getPlusHomeWallpapers(this);
+		} else if (mHomeAppID == WallpaperUtilities.BUZZHOME_APP_ID) {
+			return WallpaperUtilities.getBuzzHomeWallpapers(this);
+		} else if (mHomeAppID == WallpaperUtilities.DODORUHOME_APP_ID) {
+			return WallpaperUtilities.getDodolHomeWallpapers(this);
 		} else {
 			return null;
 		}
@@ -168,13 +202,17 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 			final String str = getResources().getString(
 					R.string.theme_plushome_bg_image);
 			return getDrawableResource(packageName, str);
+		} else if (mHomeAppID == WallpaperUtilities.DODORUHOME_APP_ID) {
+			final String str = getResources().getString(
+					R.string.theme_dodol_bg_image);
+			return getDrawableResource(packageName, str);
 		} else {
 			return null;
 		}
 	}
 
 	/**
-	 * 指定したパッケージ名のHomeeのテーマアプリのロッック画面画像を取得する
+	 * 指定したパッケージ名のテーマアプリの画面画像を取得する
 	 * 
 	 * @param packageName
 	 * @param resName
@@ -185,7 +223,6 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 
 		Resources res = null;
 		Drawable preview = null;
-
 		try {
 			res = getPackageManager().getResourcesForApplication(packageName);
 			if (res == null) {
@@ -201,6 +238,92 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 		} catch (OutOfMemoryError e) {
 		}
 		return preview;
+	}
+
+	/**
+	 * 指定したパッケージ名のbuzzHomeテーマアプリの画面画像を取得する
+	 * 
+	 * @param packageName
+	 * @param resName
+	 * @return
+	 */
+	private Drawable[] getBuzzDrawableResource(final String packageName) {
+		ArrayList<String> nameList = getBuzzDrawableNames(packageName);
+		if (nameList == null) {
+			return null;
+		}
+		final int size = nameList.size();
+		if (size == 0) {
+			return null;
+		}
+
+		Resources res = null;
+		Drawable[] previews = new Drawable[size];
+		try {
+			res = getPackageManager().getResourcesForApplication(packageName);
+			if (res == null) {
+				return null;
+			}
+			final AssetManager assets = res.getAssets();
+			InputStream is = null;
+			Drawable d = null;
+			for (int i = 0; i < size; i++) {
+				try {
+					String name = nameList.get(i);
+					is = assets.open("homepack/" + name);
+					d = Drawable.createFromStream(is, name);
+					previews[i] = d;
+				} catch (Exception e) {
+					continue;
+				}
+			}
+		} catch (NameNotFoundException e) {
+		} catch (NotFoundException e) {
+		} catch (RuntimeException e) {
+		} catch (Exception e) {
+		} catch (OutOfMemoryError e) {
+		}
+		return previews;
+	}
+
+	/**
+	 * BuzzHomeの壁紙名を複数取得する
+	 * 
+	 * @param packageName
+	 * @return
+	 */
+	@SuppressLint("DefaultLocale")
+	private ArrayList<String> getBuzzDrawableNames(final String packageName) {
+		Resources res = null;
+		ArrayList<String> list = new ArrayList<String>();
+		try {
+			res = getPackageManager().getResourcesForApplication(packageName);
+			if (res == null) {
+				return null;
+			}
+
+			final AssetManager am = res.getAssets();
+			String[] files = null;
+			try {
+				files = am.list("homepack");
+			} catch (IOException e) {
+			}
+			for (String file : files) {
+				try {
+					if (file.toLowerCase().endsWith(".jpg")) {
+						list.add(file);
+					}
+				} catch (Exception e) {
+					continue;
+				}
+			}
+		} catch (NameNotFoundException e) {
+		} catch (NotFoundException e) {
+		} catch (RuntimeException e) {
+		} catch (Exception e) {
+		} catch (OutOfMemoryError e) {
+		}
+		return list;
 	}
 
 	class ViewHolder {

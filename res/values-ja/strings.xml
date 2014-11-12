@@ -31,7 +31,9 @@
     <string name="err_msg_offline">オフラインのため\n取得できません</string>
     <string name="license">ライセンス</string>
     <string name="lock_clock_text_color">時計カラー</string>
+    <string name="lock_matter">件</string>
     <string name="lock_missed_call_number_withheld">非通知着信</string>
+    <string name="lock_missed_call_title">Missed call(s):</string>
     <string name="lock_nothing">なし</string>
     <string name="lock_password">パスワード</string>
     <string name="lock_input_password">パスワードの入力</string>
@@ -97,7 +99,12 @@
     <string name="wallpaper_delete_msg">壁紙の削除が完了しました</string>
     <string name="wallpaper_empty">選択できる\n壁紙はありません</string>
     <string name="wallpaper_homee_title">Homeeの壁紙</string>
+    <string name="wallpaper_dodol_title">ドドルの壁紙</string>
+    <string name="wallpaper_buzzhome_title">buzzHOMEの壁紙</string>
+    <string name="wallpaper_plushome_title">[+]HOMEの壁紙</string>
     <string name="wallpaper_select">壁紙を選択</string>
+    <string name="wallpaper_select_buzzhome">buzzHOMEから選択</string>
+    <string name="wallpaper_select_dodol">ドドルから選択</string>
     <string name="wallpaper_select_gallery">ギャラリーから選択</string>
     <string name="wallpaper_select_homee">Homeeから選択</string>
     <string name="widget_name_railways_info">[MC]遅延情報</string>

@@ -1,7 +1,5 @@
 package metro.k.cover.wallpaper;
 
-import java.util.ArrayList;
-
 import metro.k.cover.ImageCache;
 import metro.k.cover.R;
 import metro.k.cover.Utilities;
@@ -176,7 +174,7 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 				mMainImageView.setVisibility(View.VISIBLE);
 				deleteView.setVisibility(View.VISIBLE);
 				deleteView.setOnClickListener(getDeleteListener(getActivity(),
-						cahce, cacheKey, dbKey, mPage));
+						cacheKey, dbKey, mPage));
 				addImageView.setVisibility(View.GONE);
 				addImageView.setOnClickListener(null);
 				col = getResources().getColor(R.color.metro_main_tranc_color);
@@ -189,7 +187,7 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 					mMainImageView.setVisibility(View.VISIBLE);
 					deleteView.setVisibility(View.VISIBLE);
 					deleteView.setOnClickListener(getDeleteListener(
-							getActivity(), cahce, cacheKey, dbKey, mPage));
+							getActivity(), cacheKey, dbKey, mPage));
 					addImageView.setVisibility(View.GONE);
 					addImageView.setOnClickListener(null);
 					col = getResources().getColor(
@@ -220,14 +218,17 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 	 * @return
 	 */
 	public View.OnClickListener getDeleteListener(final Context context,
-			final Bitmap bmp, final String cacheKey, final String dbKey,
-			final int position) {
+			final String cacheKey, final String dbKey, final int position) {
 		View.OnClickListener li = new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				new Thread("Delete") {
 					@Override
 					public void run() {
+						if (context == null || Utilities.isInvalidStr(cacheKey)
+								|| Utilities.isInvalidStr(dbKey)) {
+							return;
+						}
 						ImageCache.clearCacheBmp(cacheKey);
 						WallpaperBitmapDB db = new WallpaperBitmapDB(context);
 						db.delteBitmap(dbKey);
@@ -251,6 +252,9 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 		Runnable task = new Runnable() {
 			@Override
 			public void run() {
+				if (context == null) {
+					return;
+				}
 				final ViewPager vp = WallpaperDetailActivity.getViewPager();
 				final WallpaperDetailPagerAdapter adpter = WallpaperDetailActivity
 						.getWallpaperDetailPagerAdapter();
@@ -278,25 +282,27 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 		View.OnClickListener li = new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				final ArrayList<String> homees = WallpaperUtilities
-						.getHomeeWallpapers(activity);
-				final ArrayList<String> plushomes = WallpaperUtilities
-						.getPlusHomeWallpapers(activity);
-				boolean plushome = false;
-				boolean homee = false;
-				if (homees != null) {
-					if (homees.size() > 0) {
-						homee = true;
-					}
-				}
-				if (plushomes != null) {
-					if (plushomes.size() > 0) {
-						plushome = true;
-					}
+				final boolean[] bools = WallpaperUtilities
+						.getHomeAppThemesInstalled(activity);
+				if (bools == null) {
+					pickupGallery(activity, page);
+					return;
 				}
 
-				if (homee || plushome) {
-					buildSelectDialog(activity, page, plushome, homee);
+				if (bools.length != WallpaperUtilities.HOME_APPS_SIZE) {
+					pickupGallery(activity, page);
+					return;
+				}
+
+				if (bools[WallpaperUtilities.HOMEE_APP_ID]
+						|| bools[WallpaperUtilities.PLUSHOME_APP_ID]
+						|| bools[WallpaperUtilities.BUZZHOME_APP_ID]
+						|| bools[WallpaperUtilities.DODORUHOME_APP_ID]) {
+					buildSelectDialog(activity, page,
+							bools[WallpaperUtilities.HOMEE_APP_ID],
+							bools[WallpaperUtilities.PLUSHOME_APP_ID],
+							bools[WallpaperUtilities.BUZZHOME_APP_ID],
+							bools[WallpaperUtilities.DODORUHOME_APP_ID]);
 				} else {
 					pickupGallery(activity, page);
 				}
@@ -326,6 +332,7 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 		try {
 			activity.startActivityForResult(intent, requestId);
 		} catch (Exception e) {
+			Utilities.showErrorCommonToast(activity);
 		}
 	}
 
@@ -336,17 +343,19 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 	 * @param page
 	 */
 	private void buildSelectDialog(final FragmentActivity activity,
-			final int page, final boolean isPlushome, final boolean isHomee) {
+			final int page, final boolean isHomee, final boolean isPlushome,
+			final boolean isBuzz, final boolean isDodoru) {
 		try {
 			final android.app.FragmentManager fm = activity
 					.getFragmentManager();
 			final WallpaperDialogFragment dialog = new WallpaperDialogFragment();
 			dialog.showThemeDialogFragment("wallpaper_dialog", page, isHomee,
-					isPlushome);
+					isPlushome, isBuzz, isDodoru);
 			final FragmentTransaction ft = fm.beginTransaction();
 			ft.add(dialog, "wallpaper_dialog");
 			ft.commit();
 		} catch (Exception e) {
+			Utilities.showErrorCommonToast(activity);
 		}
 	}
 }

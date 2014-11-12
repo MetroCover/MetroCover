@@ -9,8 +9,15 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
+import android.view.View;
 import android.widget.RemoteViews;
 
+/**
+ * 遅延情報ウィジェット
+ * 
+ * @author kohirose
+ * 
+ */
 public class RailwaysInfoWidgetProvider extends AppWidgetProvider {
 
 	private static final String ACTION_CLICK = "metro.k.cover.widget.ACTION_CLICK";
@@ -86,18 +93,31 @@ public class RailwaysInfoWidgetProvider extends AppWidgetProvider {
 	 */
 	private void update(final Context context, AppWidgetManager manager,
 			final int appWidgetId) {
+		if (context == null || manager == null
+				|| appWidgetId <= AppWidgetManager.INVALID_APPWIDGET_ID) {
+			return;
+		}
 		Intent remoteViewsFactoryIntent = new Intent(context,
 				RailwaysInfoWidgetService.class);
 		RemoteViews rv = new RemoteViews(context.getPackageName(),
 				R.layout.widget_railways_info);
-		rv.setRemoteAdapter(R.id.widget_railways_info_listview,
-				remoteViewsFactoryIntent);
-		rv.setTextViewText(R.id.widget_railways_info_lastupdate,
-				MetroCoverApplication.getLastUpdateTime());
+		if (MetroCoverApplication.sRailwaysInfoAdapter != null
+				&& MetroCoverApplication.sRailwaysInfoAdapter.getCount() >= 0) {
+			rv.setViewVisibility(R.id.widget_railways_info_empty, View.GONE);
+			rv.setRemoteAdapter(R.id.widget_railways_info_listview,
+					remoteViewsFactoryIntent);
+			rv.setTextViewText(R.id.widget_railways_info_lastupdate,
+					MetroCoverApplication.getLastUpdateTime());
+		} else {
+			rv.setViewVisibility(R.id.widget_railways_info_empty, View.VISIBLE);
+		}
 
 		setOnButtonClickPendingIntent(context, rv, appWidgetId);
 
+		manager.updateAppWidget(appWidgetId, null);
 		manager.updateAppWidget(appWidgetId, rv);
+		manager.notifyAppWidgetViewDataChanged(appWidgetId,
+				R.id.widget_railways_info_listview);
 	}
 
 	/**
@@ -148,13 +168,18 @@ public class RailwaysInfoWidgetProvider extends AppWidgetProvider {
 	 * @param rv
 	 * @param appWidgetId
 	 */
-	private void setOnButtonClickPendingIntent(Context ctx, RemoteViews rv,
+	private void setOnButtonClickPendingIntent(Context context, RemoteViews rv,
 			int appWidgetId) {
+		if (context == null || rv == null
+				|| appWidgetId <= AppWidgetManager.INVALID_APPWIDGET_ID) {
+			return;
+		}
 		Intent btnClickIntent = new Intent(ACTION_CLICK);
 		btnClickIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
 				appWidgetId);
-		PendingIntent btnClickPendingIntent = PendingIntent.getBroadcast(ctx,
-				appWidgetId, btnClickIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+		PendingIntent btnClickPendingIntent = PendingIntent.getBroadcast(
+				context, appWidgetId, btnClickIntent,
+				PendingIntent.FLAG_UPDATE_CURRENT);
 		rv.setOnClickPendingIntent(R.id.widget_railways_info_update_btn,
 				btnClickPendingIntent);
 	}

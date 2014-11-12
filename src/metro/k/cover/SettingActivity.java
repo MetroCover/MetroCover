@@ -617,7 +617,8 @@ public class SettingActivity extends Activity implements OnClickListener,
 		final LayoutInflater inflater = LayoutInflater
 				.from(SettingActivity.this);
 		final View layout = inflater.inflate(R.layout.dialog_license,
-				(ViewGroup) findViewById(R.id.dialog_layout_root), false);
+				(ViewGroup) findViewById(R.id.dialog_license_layout_root),
+				false);
 		TextView msg = (TextView) layout.findViewById(R.id.dialog_msg);
 		msg.setText(res.getString(R.string.license_msg));
 
