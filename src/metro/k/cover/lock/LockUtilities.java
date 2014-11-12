@@ -1,9 +1,10 @@
 package metro.k.cover.lock;
 
+import metro.k.cover.MetroCoverApplication;
 import metro.k.cover.R;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.KeyguardManager;
+import android.app.Service;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
@@ -16,7 +17,6 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnKeyListener;
-import android.view.Window;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 import android.view.animation.AlphaAnimation;
@@ -171,8 +171,9 @@ public class LockUtilities {
 	 * @param context
 	 */
 	public synchronized void lock(Context context, boolean isForce) {
-		if (isShowing())
+		if (isShowing()) {
 			return;
+		}
 
 		// WindowManagerを取得
 		if (mWindowManager == null) {
@@ -186,6 +187,8 @@ public class LockUtilities {
 			// ロック画面をWindowManagerにアタッチ
 			mWindowManager.addView(mLockView,
 					createLayoutParams(context.getApplicationContext()));
+			MetroCoverApplication.asyncCreateRailwaysInfoList(context
+					.getApplicationContext());
 		} catch (Exception e) {
 			// LockService is dead. Don't retry
 		}
@@ -320,26 +323,6 @@ public class LockUtilities {
 		final String masterPattern = context.getResources().getString(
 				R.string.lock_pattern_master);
 		return masterPattern.equals(inputPattern);
-	}
-
-	public void disableKeyguardWindow(final Activity activity) {
-		try {
-			Window window = activity.getWindow();
-			window.setFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED,
-					WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
-			window.setFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD,
-					WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
-		} catch (Exception e) {
-		}
-	}
-
-	public void enableKeyguardWindow(final Activity activity) {
-		try {
-			Window window = activity.getWindow();
-			window.clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
-			window.clearFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
-		} catch (Exception e) {
-		}
 	}
 
 	/**

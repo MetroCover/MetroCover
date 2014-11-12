@@ -1,7 +1,5 @@
 package metro.k.cover.wallpaper;
 
-import java.util.ArrayList;
-
 import metro.k.cover.R;
 import metro.k.cover.Utilities;
 import metro.k.cover.view.JazzyViewPager;

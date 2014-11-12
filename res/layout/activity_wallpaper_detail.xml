@@ -2,6 +2,6 @@
     android:id="@+id/wallpaper_detail_viewpager"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_gray" >
+    android:background="@drawable/bg_xmas" >
 
 </metro.k.cover.view.JazzyViewPager>

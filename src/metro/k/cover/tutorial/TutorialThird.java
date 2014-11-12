@@ -45,6 +45,8 @@ public class TutorialThird extends Fragment {
 						station.getTitle());
 				PreferenceCommon.setStationsRailwayName(getActivity(),
 						station.getRailway());
+				PreferenceCommon.setStationNameForAPI(getActivity(),
+						station.getNameForAPI());
 				TutorialActivity.setNextPage();
 			}
 		});

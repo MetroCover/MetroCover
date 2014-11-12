@@ -8,6 +8,10 @@
     <string name="cancel">CANCEL</string>
     <string name="clock_am">AM</string>
     <string name="clock_pm">PM</string>
+    <string name="clock_size">Clock Size</string>
+    <string name="clock_size_large">Large</string>
+    <string name="clock_size_midium">Midium</string>
+    <string name="clock_size_small">Small</string>
     <string name="clock_type">Clock Notation</string>
     <string name="clock_24">24-hour clock</string>
     <string name="clock_12">12-hour clock</string>
@@ -31,6 +35,7 @@
     <string name="empty_title_lock_railway_info_title">TRAIN DELAY\nINFOMATION</string>
     <string name="empty_title_lock_railway_info_message">NO DATA</string>
     <string name="err_msg_picasa_img">You can\'t select Picasa Image</string>
+    <string name="err_msg_offline">Please check network</string>
     <string name="font_free_wing">freewing.ttf</string>
     <string name="license">License</string>
     <string name="lock_clock_text_color">Clock Color</string>
@@ -62,7 +67,6 @@
     <string name="lock_security">Security</string>
     <string name="lock_security_high">Security Level - High</string>
     <string name="lock_security_none">Security Level - Low</string>
-    <string name="lock_security_title">Screen Lock</string>
     <string name="lock_screen_image">Wallpapers</string>
     <string name="lock_screen_image_center">Center Wallpaper</string>
     <string name="lock_screen_image_left">Left Wallpaper</string>
@@ -80,8 +84,6 @@
     <string name="nothing">Nothing</string>
     <string name="ok">OK</string>
     <string name="paging_effect">Paging Effect</string>
-    <string name="pkg_homee">com.cfinc.launcher2</string>
-    <string name="pkg_plus_home">jp.co.a_tm.android.launcher</string>
     <string name="pkg_plus_home_theme_head">jp.co.a_tm.android.plus_</string>
     <string name="railways">Railways</string>
     <string name="railway_chiyoda">Chiyoda-Line</string>
@@ -100,6 +102,7 @@
     <string name="railway_hibiya_color">Hibiya</string>
     <string name="railway_hibiya_response">odpt.Railway:TokyoMetro.Hibiya</string>
     <string name="railway_marunouchi">Marunouchi-Line</string>
+    <string name="railway_marunouchi_m">Marunouchi-SubLine</string>
     <string name="railway_marunouchi_color">Marunouchi</string>
     <string name="railway_marunouchi_response">odpt.Railway:TokyoMetro.Marunouchi</string>
     <string name="railway_marunouchi_branch_response">odpt.Railway:TokyoMetro.MarunouchiBranch</string>
@@ -112,6 +115,7 @@
     <string name="railway_yurakucho">Yurakucho-Line</string>
     <string name="railway_yurakucho_color">Yurakucho</string>
     <string name="railway_yurakucho_response">odpt.Railway:TokyoMetro.Yurakucho</string>
+    <string name="review">Review</string>
     <string name="selected">Selected</string>
     <string name="settings">Settings</string>
     <string name="station">Station</string>
@@ -120,6 +124,8 @@
     <string name="tutorial_select_railways">Check Lines\nYou Use Often.</string>
     <string name="tutorial_select_station">Select A Station\nYou Use Often.</string>
     <string name="tutorial_use_metrocover">USE IT!</string>
+    <string name="wallpaper_complete_msg">Completed</string>
+    <string name="wallpaper_delete_msg">Deleted</string>
     <string name="wallpaper_empty">No Wallpapers</string>
     <string name="wallpaper_homee_title">HOMEE\'S WALLPAPER</string>
     <string name="wallpaper_plushome_title">[+]HOME\'S WALLPAPER</string>
@@ -127,6 +133,7 @@
     <string name="wallpaper_select_gallery">Gallery\'s Wallpaper</string>
     <string name="wallpaper_select_homee">Homee\'s Wallpaper</string>
     <string name="wallpaper_select_plushome">[+]HOME\'s Wallpaper</string>
+    <string name="widget_name_railways_info">[MC]Railways Info</string>
     <string name="train_type_local">Local</string>
     <string name="train_type_local_response">odpt.TrainType:TokyoMetro.Local</string>
     <string name="train_type_express">Express</string>
@@ -144,6 +151,7 @@
     <string name="station_akihabara">Akihabara</string>
     <string name="station_aoyamaichome">Aoyama-ichome</string>
     <string name="station_asakusa">Asakusa</string>
+    <string name="station_awajicho">Awajicho</string>
     <string name="station_ayase">Ayase</string>
     <string name="station_azabujuban">Azabujuban</string>
     <!-- B -->
@@ -153,20 +161,27 @@
     <string name="station_chikatetsunarimasu">Chikatetsu-Narimasu</string>
     <!-- E -->
     <string name="station_ebisu">Ebisu</string>
+    <string name="station_edogawabashi">Edogawabashi</string>
     <!-- G -->
     <string name="station_gaienmae">Gaienmae</string>
     <string name="station_ginza">Ginza</string>
+    <string name="station_ginzaichoume">Ginza-itchome</string>
+    <string name="station_gokokuji">Gokokuji</string>
     <string name="station_gyotoku">Gyotoku</string>
     <!-- H -->
     <string name="station_hacchoubori">Haccoubori</string>
     <string name="station_hanzomon">Hanzomon</string>
     <string name="station_heiwadai">Heiwadai</string>
     <string name="station_hibiya">Hibiya</string>
+    <string name="station_higashiikebukuro">Higashi-Ikebukuro</string>
     <string name="station_higashiginza">Higashi-Ginza</string>
+    <string name="station_higashikoenji">Higashi-Koenji</string>
     <string name="station_higashishinnjuku">Higashi-Shinjuku</string>
     <string name="station_hikawadai">Hikawadai</string>
     <string name="station_hiroo">Hiroo</string>
+    <string name="station_hongosanchome">Hongo-Sanchome</string>
     <string name="station_honkomagome">Honkomagome</string>
+    <string name="station_hounanncho">Honancho</string>
     <!-- I -->
     <string name="station_ichigaya">Ichigaya</string>
     <string name="station_iidabashi">Iidabashi</string>
@@ -192,12 +207,14 @@
     <string name="station_kokkaigizidoumae">Kokkaigizidomae</string>
     <string name="station_komagome">Komagome</string>
     <string name="station_kotakemukaihara">Kotakemukaihara</string>
+    <string name="station_kojimachi">Kojimachi</string>
     <string name="station_korakuen">Korakuen</string>
     <string name="station_kudanshita">Kudanshita</string>
     <string name="station_kyobashi">Kyouubashi</string>
     <!-- M -->
     <string name="station_machiya">Machiya</string>
     <string name="station_meguro">Meguro</string>
+    <string name="station_minamiasagaya">Minami-Asagaya</string>
     <string name="station_minamigyotoku">Minami-Gyotoku</string>
     <string name="station_meijijinnguumae">Meizizingumae</string>
     <string name="station_minamisenju">Minami-Senju</string>
@@ -206,9 +223,13 @@
     <string name="station_mitsukoshimae">Mitsukoshimae</string>
     <string name="station_monzennakacho">Monzen-Nakacho</string>
     <string name="station_myoden">Myoden</string>
+    <string name="station_myogadani">Myogadani</string>
     <!-- N -->
     <string name="station_nagatacho">Nagatacho</string>
     <string name="station_nakano">Nakano</string>
+    <string name="station_nakanofujimicho">Nakano-Fujimicho</string>
+    <string name="station_nakanosakaue">Nakano-Sakaue</string>
+    <string name="station_nakanoshinnbashi">Nakano-Shimbashi</string>
     <string name="station_nakameguro">Nakameguro</string>
     <string name="station_nakaokachimachi">Nakaokachimachi</string>
     <string name="station_nedu">Nedu</string>
@@ -219,26 +240,37 @@
     <string name="station_nishigahara">Nishigahara</string>
     <string name="station_nishinippori">Nishi-nippori</string>
     <string name="station_nishikasai">Nishi-Kasai</string>
+    <string name="station_nishishinjuku">Nishi-Shinjuku</string>
     <string name="station_nishiwaseda">Nishi-waseda</string>
     <string name="station_nogizaka">Nogizaka</string>
     <!-- O -->
+    <string name="station_ochanomizu">Ochanomizu</string>
     <string name="station_ochiai">Ochiai</string>
+    <string name="station_ogikubo">Ogikubo</string>
     <string name="station_oji">Oji</string>
     <string name="station_ojikamiya">Oji-kamiya</string>
     <string name="station_oshiage">Oshiage</string>
     <string name="station_omotesanndou">Omotesando</string>
-    <string name="station_ootemachi">Otemchi</string>
+    <string name="station_ootemachi">Otemachi</string>
     <!-- R -->
     <string name="station_roppongi">Roppongi</string>
-    <string name="station_roppongiichome">Roppongi-Ichome</string>
+    <string name="station_roppongiichome">Roppongi-itchome</string>
     <!-- S -->
+    <string name="station_sakuradamon">Sakuradamon</string>
     <string name="station_sendagi">Sendagi</string>
     <string name="station_senkawa">Senkawa</string>
     <string name="station_shibuya">Shibiya</string>
     <string name="station_shimo">Shimo</string>
     <string name="station_shinbashi">Shinbashi</string>
+    <string name="station_shinjuku">Shinjuku</string>
+    <string name="station_shinjukugyoennmae">Shinjuku-Gyoemmae</string>
     <string name="station_shinjukusanchome">Shinjuku-Sanchome</string>
-    <string name="station_shinnochanomizu">Shin-ochanomizu</string>
+    <string name="station_shinnkoenji">Shin-Koenji</string>
+    <string name="station_shinnnakano">Shin-Nakano</string>
+    <string name="station_shinnochanomizu">Shin-Ochanomizu</string>
+    <string name="station_shinnootsuka">Shin-Otsuka</string>
+    <string name="station_shintomicho">Shintomicho</string>
+    <string name="station_shinkiba">Shin-Kiba</string>
     <string name="station_shiroganedai">Shiroganedai</string>
     <string name="station_shiroganetakanawa">Shirogane-takanawa</string>
     <string name="station_suehiromachi">Suehiromachi</string>
@@ -248,19 +280,25 @@
     <string name="station_taharacho">Taharamachi</string>
     <string name="station_tameikesanno">Tameikesanno</string>
     <string name="station_takadanobaba">Takadanobaba</string>
-    <string name="station_takebashi">takebashi</string>
+    <string name="station_takebashi">Takebashi</string>
+    <string name="station_tatsumi">Tatsumi</string>
     <string name="station_todaimae">Todaimae</string>
     <string name="station_toranomon">Toranomon</string>
+    <string name="station_tokyo">Tōkyō</string>
     <string name="station_touyoucho">Toyocho</string>
+    <string name="station_toyosu">Toyosu</string>
     <string name="station_tsukidi">Tsukizi</string>
+    <string name="station_tsukishima">Tsukishima</string>
     <!-- U -->
     <string name="station_ueno">Ueno</string>
     <string name="station_uenohirokoji">Ueno-Hirokoji</string>
     <string name="station_urayasu">Urayasu</string>
     <!-- Y -->
     <string name="station_yotsuya">Yotsuya</string>
+    <string name="station_yotsuyasanchome">Yotsuya-Sanchome</string>
     <string name="station_yoyogiuehara">Yoyogiuehara</string>
     <string name="station_yoyogikouenn">Yoyogikoen</string>
+    <string name="station_yurakucho">Yūrakuchō</string>
     <string name="station_yushima">Yushima</string>
     <!-- W -->
     <string name="station_waseda">Waseda</string>

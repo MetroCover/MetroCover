@@ -3,13 +3,13 @@ package metro.k.cover.wallpaper;
 import metro.k.cover.PreferenceCommon;
 import metro.k.cover.R;
 import metro.k.cover.Utilities;
+import metro.k.cover.view.ButtonWithFont;
 import metro.k.cover.view.JazzyOutlineContainer;
 import metro.k.cover.view.JazzyViewPager;
 import metro.k.cover.view.JazzyViewPager.TransitionEffect;
 import metro.k.cover.view.TextViewWithFont;
 import metro.k.cover.view.ViewUtilities;
 import android.app.Activity;
-import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -19,7 +19,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 
 /**
@@ -58,19 +57,10 @@ public class WallpaperEffectSampleActivity extends Activity implements
 	private void setupViews() {
 		setContentView(R.layout.activity_wallpaper_effect);
 
-		final Resources res = getResources();
-		final AssetManager am = getAssets();
-		Button cancel = (Button) findViewById(R.id.wallpaper_effect_cancel_btn);
-		Button complete = (Button) findViewById(R.id.wallpaper_effect_comp_btn);
-		Utilities.setFontButtonView(cancel, am, res);
-		Utilities.setFontButtonView(complete, am, res);
+		ButtonWithFont cancel = (ButtonWithFont) findViewById(R.id.wallpaper_effect_cancel_btn);
+		ButtonWithFont complete = (ButtonWithFont) findViewById(R.id.wallpaper_effect_comp_btn);
 		cancel.setOnClickListener(this);
 		complete.setOnClickListener(this);
-
-		RelativeLayout root = (RelativeLayout) findViewById(R.id.wallpaper_effect_root);
-		final Drawable d = new BitmapDrawable(res,
-				WallpaperUtilities.getSystemWallpaper(this));
-		Utilities.setBackground(root, d);
 
 		mJazzyViewPager = (JazzyViewPager) findViewById(R.id.wallpaper_effect_viewpager);
 		mJazzyViewPager.setTransitionEffect(mEffect);

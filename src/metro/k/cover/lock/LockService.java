@@ -179,9 +179,7 @@ public class LockService extends Service {
 			}
 
 			if (isMetroCover) {
-				MetroCoverApplication app = (MetroCoverApplication) getApplication();
-				app.createRailwaysInfoList();
-				lu.lock(c, true);
+				lu.lock(this, true);
 				disableKeyguard();
 			}
 		}

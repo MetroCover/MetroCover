@@ -2,6 +2,7 @@ package metro.k.cover.api;
 
 import java.util.ArrayList;
 
+import metro.k.cover.R;
 import metro.k.cover.Utilities;
 import metro.k.cover.railways.RailwaysInfo;
 import metro.k.cover.railways.RailwaysUtilities;
@@ -25,6 +26,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 
 /**
@@ -34,9 +36,6 @@ import android.graphics.drawable.Drawable;
  * 
  */
 public class ApiRquestRailwaysInfo {
-
-	// URLのヘッダー
-	private final String REQUEST_URL = "https://api.tokyometroapp.jp/api/v2/datapoints?rdf:type=odpt:TrainInformation&acl:consumerKey=14f420dec5cf32d3c092fbe8a9f3ecb065e5473c9a16be79049131a7d0ea1bff";
 
 	// Singleton
 	private static ApiRquestRailwaysInfo sInstance = new ApiRquestRailwaysInfo();
@@ -74,7 +73,12 @@ public class ApiRquestRailwaysInfo {
 		if (target == null || context == null) {
 			return null;
 		}
-		HttpGet httpGet = new HttpGet(REQUEST_URL);
+
+		final Resources res = context.getResources();
+		final String request = res.getString(R.string.api_railways_info)
+				+ "?rdf:type=odpt:TrainInformation&acl:consumerKey="
+				+ res.getString(R.string.api_id);
+		HttpGet httpGet = new HttpGet(request);
 		String response = null;
 		try {
 			HttpResponse httpResponse = mHttpClient.execute(httpGet);
@@ -96,20 +100,22 @@ public class ApiRquestRailwaysInfo {
 				railwaysObj[i] = array.getJSONObject(i);
 			}
 			for (int i = 0; i < railwaysObj.length; i++) {
-				RailwaysInfo info = new RailwaysInfo();
 				String railway = railwaysObj[i].getString("odpt:railway");
+				if (!target.contains(railway)) {
+					continue;
+				}
+
+				RailwaysInfo info = new RailwaysInfo();
 				String message = railwaysObj[i]
 						.getString("odpt:trainInformationText");
 				Drawable icon = RailwaysUtilities.getRailwayIcon(context,
 						railway);
 				String name = RailwaysUtilities.getRailwaysName(context,
 						railway);
-				if (target.contains(railway)) {
-					info.setRailway(name);
-					info.setMessage(message);
-					info.setIcon(icon);
-					infos.add(info);
-				}
+				info.setRailway(name);
+				info.setMessage(message);
+				info.setIcon(icon);
+				infos.add(info);
 			}
 		} catch (JSONException e) {
 		}

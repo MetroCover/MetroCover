@@ -6,6 +6,12 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 
+/**
+ * エフェクト選択リストのItemレイアウト
+ * 
+ * @author kohirose
+ * 
+ */
 public class EffectLayout extends RelativeLayout {
 
 	private TextViewWithFont mTitleView;

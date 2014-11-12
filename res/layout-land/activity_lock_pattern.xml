@@ -31,7 +31,7 @@
             android:layout_alignParentBottom="true"
             android:orientation="vertical" >
 
-            <Button
+            <metro.k.cover.view.ButtonWithFont
                 android:id="@+id/lock_pattern_cancel_btn"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
                 android:textColor="#FFF"
                 android:textStyle="bold" />
 
-            <Button
+            <metro.k.cover.view.ButtonWithFont
                 android:id="@+id/lock_pattern_comp_btn"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"

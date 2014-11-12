@@ -52,7 +52,7 @@ public class TutorialActivity extends FragmentActivity {
 		super.onPause();
 		PreferenceCommon.setRailwaysInfomation(getApplicationContext(),
 				getCheckedRailways());
-		PreferenceCommon.setRailwaysResponseName(getApplicationContext(),
+		PreferenceCommon.setRailwaysNameForAPI(getApplicationContext(),
 				getCheckedRailwaysResponses());
 	}
 

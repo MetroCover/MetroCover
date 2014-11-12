@@ -21,6 +21,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/wallpaper_other_home_titleview"
         android:gravity="center"
+        android:listSelector="@drawable/selector_list_at"
+        android:drawSelectorOnTop="true"
         android:horizontalSpacing="0dp"
         android:numColumns="auto_fit"
         android:stretchMode="columnWidth" />

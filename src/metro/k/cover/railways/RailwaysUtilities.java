@@ -14,7 +14,16 @@ import android.graphics.drawable.Drawable;
 
 public final class RailwaysUtilities {
 
-	// APIから返ってきたレスポンス名から路線名へ変換する
+	// 設定画面から駅選択へ行く際に渡すintentのKey
+	public static final String KEY_CURRENT_STATION = "key_cuurent_station";
+
+	/**
+	 * APIから返ってきたレスポンス名から路線名へ変換する
+	 * 
+	 * @param context
+	 * @param apiResponse
+	 * @return
+	 */
 	public static String getRailwaysName(final Context context,
 			final String apiResponse) {
 		if (Utilities.isInvalidStr(apiResponse)) {
@@ -69,6 +78,7 @@ public final class RailwaysUtilities {
 
 	/**
 	 * // APIから返ってきたレスポンス名からアイコンを取得する
+	 * 
 	 * @param context
 	 * @param apiResponse
 	 * @return
@@ -138,13 +148,20 @@ public final class RailwaysUtilities {
 		list.add(Railways.RAILWAY_CODE_GINZA);
 		list.add(Railways.RAILWAY_CODE_HANZOMON);
 		list.add(Railways.RAILWAY_CODE_HIBIYA);
-		// list.add(Railways.RAILWAY_CODE_MARUNOUCHI);
+		list.add(Railways.RAILWAY_CODE_MARUNOUCHI);
+		list.add(Railways.RAILWAY_CODE_MARUNOUCHI_M);
 		list.add(Railways.RAILWAY_CODE_NAMBOKU);
 		list.add(Railways.RAILWAY_CODE_TOZAI);
-		// list.add(Railways.RAILWAY_CODE_YURAKUCHO);
+		list.add(Railways.RAILWAY_CODE_YURAKUCHO);
 		return list;
 	}
 
+	/**
+	 * 全路線名を取得する
+	 * 
+	 * @param context
+	 * @return
+	 */
 	public static ArrayList<String> getAllRailwaysName(final Context context) {
 		ArrayList<String> list = new ArrayList<String>();
 		final Resources res = context.getResources();
@@ -153,10 +170,11 @@ public final class RailwaysUtilities {
 		list.add(res.getString(R.string.railway_ginza));
 		list.add(res.getString(R.string.railway_hanzomon));
 		list.add(res.getString(R.string.railway_hibiya));
-		// list.add(res.getString(R.string.railway_marunouchi));
+		list.add(res.getString(R.string.railway_marunouchi));
+		list.add(res.getString(R.string.railway_marunouchi_m));
 		list.add(res.getString(R.string.railway_namboku));
 		list.add(res.getString(R.string.railway_tozai));
-		// list.add(res.getString(R.string.railway_yurakucho));
+		list.add(res.getString(R.string.railway_yurakucho));
 		return list;
 	}
 
@@ -221,6 +239,14 @@ public final class RailwaysUtilities {
 				res.getDrawable(R.drawable.ic_marunouchi), false);
 		list.add(item);
 
+		// 丸ノ内線支線
+		item = new Railways(Railways.RAILWAY_NUM_MARUNOUCHI_M,
+				Railways.RAILWAY_CODE_MARUNOUCHI_M,
+				res.getString(R.string.railway_marunouchi_branch_response),
+				res.getString(R.string.railway_marunouchi_m),
+				res.getDrawable(R.drawable.station_mm_3), false);
+		list.add(item);
+
 		// 南北線
 		item = new Railways(Railways.RAILWAY_NUM_NAMBOKU,
 				Railways.RAILWAY_CODE_NAMBOKU,
@@ -244,9 +270,18 @@ public final class RailwaysUtilities {
 				res.getString(R.string.railway_yurakucho),
 				res.getDrawable(R.drawable.ic_yurakucho), false);
 		list.add(item);
+
 		return list;
 	}
 
+	/**
+	 * 路線番号から路線クラスを取得する
+	 * 
+	 * @param context
+	 * @param num
+	 * @param checked
+	 * @return
+	 */
 	public static Railways getRailwaysFromNumber(final Context context,
 			final int num, final boolean checked) {
 		final Resources res = context.getResources();
@@ -288,6 +323,12 @@ public final class RailwaysUtilities {
 					res.getString(R.string.railway_marunouchi_response),
 					res.getString(R.string.railway_marunouchi),
 					res.getDrawable(R.drawable.ic_marunouchi), checked);
+		case Railways.RAILWAY_NUM_MARUNOUCHI_M:
+			railways = new Railways(Railways.RAILWAY_NUM_MARUNOUCHI_M,
+					Railways.RAILWAY_CODE_MARUNOUCHI_M,
+					res.getString(R.string.railway_marunouchi_branch_response),
+					res.getString(R.string.railway_marunouchi_m),
+					res.getDrawable(R.drawable.station_mm_3), checked);
 		case Railways.RAILWAY_NUM_NAMBOKU:
 			railways = new Railways(Railways.RAILWAY_NUM_NAMBOKU,
 					Railways.RAILWAY_CODE_NAMBOKU,
@@ -362,9 +403,106 @@ public final class RailwaysUtilities {
 			return Arrays.asList(array_str);
 		}
 
+		if (railwayCode.equals(Railways.RAILWAY_CODE_YURAKUCHO)) {
+			array_str = res.getStringArray(R.array.yurakucho_railway_stations);
+			return Arrays.asList(array_str);
+		}
+
+		if (railwayCode.equals(Railways.RAILWAY_CODE_MARUNOUCHI)) {
+			array_str = res.getStringArray(R.array.marunouchi_railway_stations);
+			return Arrays.asList(array_str);
+		}
+
+		if (railwayCode.equals(Railways.RAILWAY_CODE_MARUNOUCHI_M)) {
+			array_str = res
+					.getStringArray(R.array.marunouchi_branch_railway_stations);
+			return Arrays.asList(array_str);
+		}
+
 		return null;
 	}
 
+	/**
+	 * 指定の路線から駅名リスト（APIリクエスト用の名前）を取得する
+	 * 
+	 * @param railway
+	 * @return
+	 */
+	public static List<String> getStationListForAPI(final Context context,
+			final String railwayCode) {
+		if (context == null || Utilities.isInvalidStr(railwayCode)) {
+			return null;
+		}
+
+		final Resources res = context.getResources();
+		String[] array_str = null;
+		if (railwayCode.equals(Railways.RAILWAY_CODE_CHIYODA)) {
+			array_str = res
+					.getStringArray(R.array.chiyoda_railway_stations_api);
+			return Arrays.asList(array_str);
+		}
+
+		if (railwayCode.equals(Railways.RAILWAY_CODE_FUKUTOSHIN)) {
+			array_str = res
+					.getStringArray(R.array.fukutoshin_railway_stations_api);
+			return Arrays.asList(array_str);
+		}
+
+		if (railwayCode.equals(Railways.RAILWAY_CODE_GINZA)) {
+			array_str = res.getStringArray(R.array.ginza_railway_stations_api);
+			return Arrays.asList(array_str);
+		}
+
+		if (railwayCode.equals(Railways.RAILWAY_CODE_HANZOMON)) {
+			array_str = res
+					.getStringArray(R.array.hanzomon_railway_stations_api);
+			return Arrays.asList(array_str);
+		}
+
+		if (railwayCode.equals(Railways.RAILWAY_CODE_HIBIYA)) {
+			array_str = res.getStringArray(R.array.hibiya_railway_stations_api);
+			return Arrays.asList(array_str);
+		}
+
+		if (railwayCode.equals(Railways.RAILWAY_CODE_NAMBOKU)) {
+			array_str = res
+					.getStringArray(R.array.namboku_railway_stations_api);
+			return Arrays.asList(array_str);
+		}
+
+		if (railwayCode.equals(Railways.RAILWAY_CODE_TOZAI)) {
+			array_str = res.getStringArray(R.array.tozai_railway_stations_api);
+			return Arrays.asList(array_str);
+		}
+
+		if (railwayCode.equals(Railways.RAILWAY_CODE_YURAKUCHO)) {
+			array_str = res
+					.getStringArray(R.array.yurakucho_railway_stations_api);
+			return Arrays.asList(array_str);
+		}
+
+		if (railwayCode.equals(Railways.RAILWAY_CODE_MARUNOUCHI)) {
+			array_str = res
+					.getStringArray(R.array.marunouchi_railway_stations_api);
+			return Arrays.asList(array_str);
+		}
+
+		if (railwayCode.equals(Railways.RAILWAY_CODE_MARUNOUCHI_M)) {
+			array_str = res
+					.getStringArray(R.array.marunouchi_branch_railway_stations_api);
+			return Arrays.asList(array_str);
+		}
+
+		return null;
+	}
+
+	/**
+	 * 駅のアイコンリストを取得する
+	 * 
+	 * @param context
+	 * @param railwayCode
+	 * @return
+	 */
 	@SuppressLint("Recycle")
 	public static ArrayList<Drawable> getStationIconList(final Context context,
 			final String railwayCode) {
@@ -409,9 +547,31 @@ public final class RailwaysUtilities {
 			return convertTypedArray(images);
 		}
 
+		if (railwayCode.equals(Railways.RAILWAY_CODE_YURAKUCHO)) {
+			images = res.obtainTypedArray(R.array.yurakucho_railway_icons);
+			return convertTypedArray(images);
+		}
+
+		if (railwayCode.equals(Railways.RAILWAY_CODE_MARUNOUCHI)) {
+			images = res.obtainTypedArray(R.array.marunouchi_railway_icons);
+			return convertTypedArray(images);
+		}
+
+		if (railwayCode.equals(Railways.RAILWAY_CODE_MARUNOUCHI_M)) {
+			images = res
+					.obtainTypedArray(R.array.marunouchi_branch_railway_icons);
+			return convertTypedArray(images);
+		}
+
 		return null;
 	}
 
+	/**
+	 * array.xmlからアイコン取得
+	 * 
+	 * @param array
+	 * @return
+	 */
 	private static ArrayList<Drawable> convertTypedArray(TypedArray array) {
 		if (array == null) {
 			return null;

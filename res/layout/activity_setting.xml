@@ -32,25 +32,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <metro.k.cover.circularprogressbar.CircularProgressBar
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:indeterminate="true"
-                app:cpb_color="#FFee44"
-                app:cpb_colors="@array/line_colors"
-                app:cpb_max_sweep_angle="300"
-                app:cpb_min_sweep_angle="10"
-                app:cpb_rotation_speed="1.0"
-                app:cpb_stroke_width="4dp"
-                app:cpb_sweep_speed="1.0" />
-
             <!-- MetroCoverのオンオフ -->
 
             <RelativeLayout
                 android:id="@+id/setting_metrocover_layout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/activity_setting_list_item_height"
-                android:background="@drawable/selector_setting_list_at"
+                android:background="@drawable/selector_list_at"
                 android:padding="15dip" >
 
                 <metro.k.cover.view.TextViewWithFont
@@ -83,7 +71,7 @@
                 android:id="@+id/setting_systemlock_layout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/activity_setting_list_item_height"
-                android:background="@drawable/selector_setting_list_at"
+                android:background="@drawable/selector_list_at"
                 android:padding="15dip" >
 
                 <metro.k.cover.view.TextViewWithFont
@@ -120,7 +108,7 @@
                 android:id="@+id/setting_clocktype_layout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/activity_setting_list_item_height"
-                android:background="@drawable/selector_setting_list_at"
+                android:background="@drawable/selector_list_at"
                 android:padding="15dip" >
 
                 <metro.k.cover.view.TextViewWithFont
@@ -157,7 +145,7 @@
                 android:id="@+id/setting_clock_color_layout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/activity_setting_list_item_height"
-                android:background="@drawable/selector_setting_list_at"
+                android:background="@drawable/selector_list_at"
                 android:padding="15dip" >
 
                 <metro.k.cover.view.TextViewWithFont
@@ -188,13 +176,50 @@
                 android:background="?android:attr/listDivider"
                 android:contentDescription="@string/app_name" />
 
+            <!-- 時計のサイズ設定 -->
+
+            <RelativeLayout
+                android:id="@+id/setting_clock_size_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/activity_setting_list_item_height"
+                android:background="@drawable/selector_list_at"
+                android:padding="15dip" >
+
+                <metro.k.cover.view.TextViewWithFont
+                    android:id="@+id/setting_clock_size_titleview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/clock_size"
+                    android:textColor="#000"
+                    android:textSize="18sp" />
+
+                <metro.k.cover.view.TextViewWithFont
+                    android:id="@+id/setting_clock_size_currentview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="12dip"
+                    android:text="@string/clock_size_midium"
+                    android:textColor="#000"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:background="?android:attr/listDivider"
+                android:contentDescription="@string/app_name" />
+
             <!-- MetoroCoverのセキュリティ設定 -->
 
             <RelativeLayout
                 android:id="@+id/setting_metrocover_security_layout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/activity_setting_list_item_height"
-                android:background="@drawable/selector_setting_list_at"
+                android:background="@drawable/selector_list_at"
                 android:padding="15dip" >
 
                 <metro.k.cover.view.TextViewWithFont
@@ -231,7 +256,7 @@
                 android:id="@+id/setting_pattern_vibe_layout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/activity_setting_list_item_height"
-                android:background="@drawable/selector_setting_list_at"
+                android:background="@drawable/selector_list_at"
                 android:padding="15dip" >
 
                 <metro.k.cover.view.TextViewWithFont
@@ -264,7 +289,7 @@
                 android:id="@+id/setting_pattern_track_layout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/activity_setting_list_item_height"
-                android:background="@drawable/selector_setting_list_at"
+                android:background="@drawable/selector_list_at"
                 android:padding="15dip" >
 
                 <metro.k.cover.view.TextViewWithFont
@@ -297,7 +322,7 @@
                 android:id="@+id/setting_wallpapers_layout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/activity_setting_list_item_height"
-                android:background="@drawable/selector_setting_list_at"
+                android:background="@drawable/selector_list_at"
                 android:padding="15dip" >
 
                 <metro.k.cover.view.TextViewWithFont
@@ -334,7 +359,7 @@
                 android:id="@+id/setting_wallpaper_effect_layout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/activity_setting_list_item_height"
-                android:background="@drawable/selector_setting_list_at"
+                android:background="@drawable/selector_list_at"
                 android:padding="15dip" >
 
                 <metro.k.cover.view.TextViewWithFont
@@ -369,7 +394,7 @@
                 android:id="@+id/setting_railways_layout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/activity_setting_list_item_height"
-                android:background="@drawable/selector_setting_list_at"
+                android:background="@drawable/selector_list_at"
                 android:padding="15dip" >
 
                 <metro.k.cover.view.TextViewWithFont
@@ -406,7 +431,7 @@
                 android:id="@+id/setting_station_layout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/activity_setting_list_item_height"
-                android:background="@drawable/selector_setting_list_at"
+                android:background="@drawable/selector_list_at"
                 android:padding="15dip" >
 
                 <metro.k.cover.view.TextViewWithFont
@@ -443,7 +468,7 @@
                 android:id="@+id/setting_license_layout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/activity_setting_list_item_height"
-                android:background="@drawable/selector_setting_list_at"
+                android:background="@drawable/selector_list_at"
                 android:padding="15dip" >
 
                 <metro.k.cover.view.TextViewWithFont
@@ -453,6 +478,43 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:text="@string/license"
+                    android:textColor="#000"
+                    android:textSize="18sp" />
+
+                <metro.k.cover.view.TextViewWithFont
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="12dip"
+                    android:contentDescription="@string/app_name"
+                    android:text="@string/arrow"
+                    android:textColor="#000"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:background="?android:attr/listDivider"
+                android:contentDescription="@string/app_name" />
+
+            <!-- ライセンス -->
+
+            <RelativeLayout
+                android:id="@+id/setting_review_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/activity_setting_list_item_height"
+                android:background="@drawable/selector_list_at"
+                android:padding="15dip" >
+
+                <metro.k.cover.view.TextViewWithFont
+                    android:id="@+id/setting_review_titleview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/review"
                     android:textColor="#000"
                     android:textSize="18sp" />
 

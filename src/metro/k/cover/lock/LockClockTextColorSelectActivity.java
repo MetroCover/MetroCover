@@ -86,6 +86,11 @@ public class LockClockTextColorSelectActivity extends Activity implements
 			colorId = R.color.color_black;
 			selectId = R.id.clock_text_color_black_selected;
 			break;
+		case R.id.clock_text_color_metro_layout:
+			colorStr = res.getString(R.string.color_metro);
+			colorId = R.color.metro_main_color;
+			selectId = R.id.clock_text_color_metro_selected;
+			break;
 		case R.id.clock_text_color_chiyoda_layout:
 			colorStr = res.getString(R.string.railway_chiyoda_color);
 			colorId = R.color.chiyoda_green;

@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_gray"
-    android:orientation="vertical"
-    tools:context="metro.k.cover.SettingActivity" >
+    android:orientation="vertical" >
 
     <!-- タイトル -->
 
@@ -49,7 +48,7 @@
         android:orientation="horizontal"
         android:weightSum="2" >
 
-        <Button
+        <metro.k.cover.view.ButtonWithFont
             android:id="@+id/railways_cancel_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -61,7 +60,7 @@
             android:text="@string/cancel"
             android:textColor="#FFF" />
 
-        <Button
+        <metro.k.cover.view.ButtonWithFont
             android:id="@+id/railways_complete_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

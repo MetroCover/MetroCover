@@ -11,6 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
+/**
+ * エフェクトリストのアダプター
+ * 
+ * @author kohirose
+ * 
+ */
 public class EffectListAdapter extends ArrayAdapter<String> {
 
 	private ArrayList<String> list = new ArrayList<String>();

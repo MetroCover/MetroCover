@@ -3,17 +3,33 @@ package metro.k.cover.railways;
 import metro.k.cover.MetroCoverApplication;
 import metro.k.cover.PreferenceCommon;
 import metro.k.cover.R;
+import metro.k.cover.Utilities;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
-public class StationsActivity extends Activity {
+/**
+ * 駅選択画面
+ * 
+ * @author kohirose
+ * 
+ */
+public class StationsActivity extends Activity implements OnClickListener {
+
+	private boolean flag = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		if (!Utilities.isInvalidStr(getIntent().getStringExtra(
+				RailwaysUtilities.KEY_CURRENT_STATION))) {
+			// 設定中の場合
+			flag = true;
+		}
 		setupViews();
 	}
 
@@ -28,10 +44,15 @@ public class StationsActivity extends Activity {
 	}
 
 	private void setupViews() {
-		setContentView(R.layout.tutorial_third);
-		final ListView listView = (ListView) findViewById(R.id.tutorial_third_listview);
+		setContentView(R.layout.activity_stations);
+		final ImageView clear = (ImageView) findViewById(R.id.stations_clear_image);
+		final ListView listView = (ListView) findViewById(R.id.stations_listview);
 		if (MetroCoverApplication.sStationAllListAdapter == null) {
 			return;
+		}
+		if (flag) {
+			clear.setVisibility(View.VISIBLE);
+			clear.setOnClickListener(this);
 		}
 		listView.setAdapter(MetroCoverApplication.sStationAllListAdapter);
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -40,12 +61,32 @@ public class StationsActivity extends Activity {
 					int position, long id) {
 				final Station station = MetroCoverApplication.sStationAllListAdapter
 						.getItem(position);
-				PreferenceCommon.setStationName(getApplicationContext(),
-						station.getTitle());
+				final String name = station.getTitle();
+				final String railway = station.getRailway();
+				if (name.equals(railway)) {
+					return;
+				}
+
+				PreferenceCommon.setStationName(getApplicationContext(), name);
 				PreferenceCommon.setStationsRailwayName(
-						getApplicationContext(), station.getRailway());
+						getApplicationContext(), railway);
+				PreferenceCommon.setStationNameForAPI(getApplicationContext(),
+						station.getNameForAPI());
 				finish();
 			}
 		});
+	}
+
+	@Override
+	public void onClick(View v) {
+		final int viewId = v.getId();
+		if (R.id.stations_clear_image == viewId) {
+			PreferenceCommon.setStationName(getApplicationContext(),
+					getResources().getString(R.string.nothing));
+			PreferenceCommon
+					.setStationsRailwayName(getApplicationContext(), "");
+			PreferenceCommon.setStationNameForAPI(getApplicationContext(), "");
+			finish();
+		}
 	}
 }

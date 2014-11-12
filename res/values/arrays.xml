@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="railways">
+    <string-array name="railways_odpt">
         <item>odpt.Railway:TokyoMetro.Ginza</item>
         <item>odpt.Railway:TokyoMetro.Marunouchi</item>
         <item>odpt.Railway:TokyoMetro.MarunouchiBranch</item>
@@ -50,6 +50,7 @@
         <item>@string/station_machiya</item>
         <item>@string/station_nishinippori</item>
         <item>@string/station_sendagi</item>
+        <item>@string/station_nedu</item>
         <item>@string/station_yushima</item>
         <item>@string/station_shinnochanomizu</item>
         <item>@string/station_ootemachi</item>
@@ -63,6 +64,28 @@
         <item>@string/station_meijijinnguumae</item>
         <item>@string/station_yoyogikouenn</item>
         <item>@string/station_yoyogiuehara</item>
+    </string-array>
+    <string-array name="chiyoda_railway_stations_api">
+        <item>odpt.Station:TokyoMetro.Chiyoda.KitaAyase</item>
+        <item>odpt.Station:TokyoMetro.Chiyoda.Ayase</item>
+        <item>odpt.Station:TokyoMetro.Chiyoda.KitaSenju</item>
+        <item>odpt.Station:TokyoMetro.Chiyoda.Machiya</item>
+        <item>odpt.Station:TokyoMetro.Chiyoda.</item>
+        <item>odpt.Station:TokyoMetro.Chiyoda.Sendagi</item>
+        <item>odpt.Station:TokyoMetro.Chiyoda.Nezu</item>
+        <item>odpt.Station:TokyoMetro.Chiyoda.Yushima</item>
+        <item>odpt.Station:TokyoMetro.Chiyoda.ShinOchanomizu</item>
+        <item>odpt.Station:TokyoMetro.Chiyoda.Otemachi</item>
+        <item>odpt.Station:TokyoMetro.Chiyoda.Nijubashimae</item>
+        <item>odpt.Station:TokyoMetro.Chiyoda.Hibiya</item>
+        <item>odpt.Station:TokyoMetro.Chiyoda.Kasumigaseki</item>
+        <item>odpt.Station:TokyoMetro.Chiyoda.KokkaiGijidomae</item>
+        <item>odpt.Station:TokyoMetro.Chiyoda.Akasaka</item>
+        <item>odpt.Station:TokyoMetro.Chiyoda.Nogizaka</item>
+        <item>odpt.Station:TokyoMetro.Chiyoda.OmoteSando</item>
+        <item>odpt.Station:TokyoMetro.Chiyoda.MeijiJingumae</item>
+        <item>odpt.Station:TokyoMetro.Chiyoda.YoyogiKoen</item>
+        <item>odpt.Station:TokyoMetro.Chiyoda.YoyogiUehara</item>
     </string-array>
     <string-array name="chiyoda_railway_icons">
         <item>@drawable/station_c_1</item>
@@ -106,6 +129,24 @@
         <item>@string/station_meijijinnguumae</item>
         <item>@string/station_shibuya</item>
     </string-array>
+    <string-array name="fukutoshin_railway_stations_api">
+        <item>odpt.Station:TokyoMetro.Fukutoshin.Wakoshi</item>
+        <item>odpt.Station:TokyoMetro.Fukutoshin.ChikatetsuNarimasu</item>
+        <item>odpt.Station:TokyoMetro.Fukutoshin.ChikatetsuAkatsuka</item>
+        <item>odpt.Station:TokyoMetro.Fukutoshin.Heiwadai</item>
+        <item>odpt.Station:TokyoMetro.Fukutoshin.Hikawadai</item>
+        <item>odpt.Station:TokyoMetro.Fukutoshin.KotakeMukaihara</item>
+        <item>odpt.Station:TokyoMetro.Fukutoshin.Senkawa</item>
+        <item>odpt.Station:TokyoMetro.Fukutoshin.Kanamecho</item>
+        <item>odpt.Station:TokyoMetro.Fukutoshin.Ikebukuro</item>
+        <item>odpt.Station:TokyoMetro.Fukutoshin.Zoshigaya</item>
+        <item>odpt.Station:TokyoMetro.Fukutoshin.NishiWaseda</item>
+        <item>odpt.Station:TokyoMetro.Fukutoshin.HigashiShinjuku</item>
+        <item>odpt.Station:TokyoMetro.Fukutoshin.ShinjukuSanchome</item>
+        <item>odpt.Station:TokyoMetro.Fukutoshin.KitaSando</item>
+        <item>odpt.Station:TokyoMetro.Fukutoshin.MeijiJingumae</item>
+        <item>odpt.Station:TokyoMetro.Fukutoshin.Shibuya</item>
+    </string-array>
     <string-array name="fukutoshin_railway_icons">
         <item>@drawable/station_f_1</item>
         <item>@drawable/station_f_2</item>
@@ -147,6 +188,27 @@
         <item>@string/station_taharacho</item>
         <item>@string/station_asakusa</item>
     </string-array>
+    <string-array name="ginza_railway_stations_api">
+        <item>odpt.Station:TokyoMetro.Ginza.Shibuya</item>
+        <item>odpt.Station:TokyoMetro.Ginza.OmoteSando</item>
+        <item>odpt.Station:TokyoMetro.Ginza.Gaiemmae</item>
+        <item>odpt.Station:TokyoMetro.Ginza.AoyamaItchome</item>
+        <item>odpt.Station:TokyoMetro.Ginza.AkasakaMitsuke</item>
+        <item>odpt.Station:TokyoMetro.Ginza.TameikeSanno</item>
+        <item>odpt.Station:TokyoMetro.Ginza.Toranomon</item>
+        <item>odpt.Station:TokyoMetro.Ginza.Shimbashi</item>
+        <item>odpt.Station:TokyoMetro.Ginza.Ginza</item>
+        <item>odpt.Station:TokyoMetro.Ginza.Kyobashi</item>
+        <item>odpt.Station:TokyoMetro.Ginza.Nihombashi</item>
+        <item>odpt.Station:TokyoMetro.Ginza.Mitsukoshimae</item>
+        <item>odpt.Station:TokyoMetro.Ginza.Kanda</item>
+        <item>odpt.Station:TokyoMetro.Ginza.Suehirocho</item>
+        <item>odpt.Station:TokyoMetro.Ginza.UenoHirokoji</item>
+        <item>odpt.Station:TokyoMetro.Ginza.Ueno</item>
+        <item>odpt.Station:TokyoMetro.Ginza.Inaricho</item>
+        <item>odpt.Station:TokyoMetro.Ginza.Tawaramachi</item>
+        <item>odpt.Station:TokyoMetro.Ginza.Asakusa</item>
+    </string-array>
     <string-array name="ginza_railway_icons">
         <item>@drawable/station_g_1</item>
         <item>@drawable/station_g_2</item>
@@ -185,6 +247,22 @@
         <item>@string/station_sumiyoshi</item>
         <item>@string/station_kinshicho</item>
         <item>@string/station_oshiage</item>
+    </string-array>
+    <string-array name="hanzomon_railway_stations_api">
+        <item>odpt.Station:TokyoMetro.Hanzomon.Shibuya</item>
+        <item>odpt.Station:TokyoMetro.Hanzomon.OmoteSando</item>
+        <item>odpt.Station:TokyoMetro.Hanzomon.AoyamaItchome</item>
+        <item>odpt.Station:TokyoMetro.Hanzomon.Nagatacho</item>
+        <item>odpt.Station:TokyoMetro.Hanzomon.Hanzomon</item>
+        <item>odpt.Station:TokyoMetro.Hanzomon.Kudanshita</item>
+        <item>odpt.Station:TokyoMetro.Hanzomon.Jimbocho</item>
+        <item>odpt.Station:TokyoMetro.Hanzomon.Otemachi</item>
+        <item>odpt.Station:TokyoMetro.Hanzomon.Mitsukoshimae</item>
+        <item>odpt.Station:TokyoMetro.Hanzomon.Suitengumae</item>
+        <item>odpt.Station:TokyoMetro.Hanzomon.KiyosumiShirakawa</item>
+        <item>odpt.Station:TokyoMetro.Hanzomon.Sumiyoshi</item>
+        <item>odpt.Station:TokyoMetro.Hanzomon.Kinshicho</item>
+        <item>odpt.Station:TokyoMetro.Hanzomon.Oshiage</item>
     </string-array>
     <string-array name="hanzomon_railway_icons">
         <item>@drawable/station_z_1</item>
@@ -226,6 +304,29 @@
         <item>@string/station_minowa</item>
         <item>@string/station_minamisenju</item>
         <item>@string/station_kitasenju</item>
+    </string-array>
+    <string-array name="hibiya_railway_stations_api">
+        <item>odpt.Station:TokyoMetro.Hibiya.NakaMeguro</item>
+        <item>odpt.Station:TokyoMetro.Hibiya.Ebisu</item>
+        <item>odpt.Station:TokyoMetro.Hibiya.HiroO</item>
+        <item>odpt.Station:TokyoMetro.Hibiya.Roppongi</item>
+        <item>odpt.Station:TokyoMetro.Hibiya.Kamiyacho</item>
+        <item>odpt.Station:TokyoMetro.Hibiya.Kasumigaseki</item>
+        <item>odpt.Station:TokyoMetro.Hibiya.Hibiya</item>
+        <item>odpt.Station:TokyoMetro.Hibiya.Ginza</item>
+        <item>odpt.Station:TokyoMetro.Hibiya.HigashiGinza</item>
+        <item>odpt.Station:TokyoMetro.Hibiya.Tsukiji</item>
+        <item>odpt.Station:TokyoMetro.Hibiya.Hatchobori</item>
+        <item>odpt.Station:TokyoMetro.Hibiya.Kayabacho</item>
+        <item>odpt.Station:TokyoMetro.Hibiya.Ningyocho</item>
+        <item>odpt.Station:TokyoMetro.Hibiya.Kodemmacho</item>
+        <item>odpt.Station:TokyoMetro.Hibiya.Akihabara</item>
+        <item>odpt.Station:TokyoMetro.Hibiya.NakaOkachimachi</item>
+        <item>odpt.Station:TokyoMetro.Hibiya.Ueno</item>
+        <item>odpt.Station:TokyoMetro.Hibiya.Iriya</item>
+        <item>odpt.Station:TokyoMetro.Hibiya.Minowa</item>
+        <item>odpt.Station:TokyoMetro.Hibiya.MinamiSenju</item>
+        <item>odpt.Station:TokyoMetro.Hibiya.KitaSenju</item>
     </string-array>
     <string-array name="hibiya_railway_icons">
         <item>@drawable/station_h_1</item>
@@ -272,6 +373,27 @@
         <item>@string/station_ojikamiya</item>
         <item>@string/station_shimo</item>
         <item>@string/station_akabaneiwabuchi</item>
+    </string-array>
+    <string-array name="namboku_railway_stations_api">
+        <item>odpt.Station:TokyoMetro.Namboku.Meguro</item>
+        <item>odpt.Station:TokyoMetro.Namboku.Shirokanedai</item>
+        <item>odpt.Station:TokyoMetro.Namboku.ShirokaneTakanawa</item>
+        <item>odpt.Station:TokyoMetro.Namboku.AzabuJuban</item>
+        <item>odpt.Station:TokyoMetro.Namboku.RoppongiItchome</item>
+        <item>odpt.Station:TokyoMetro.Namboku.TameikeSanno</item>
+        <item>odpt.Station:TokyoMetro.Namboku.Nagatacho</item>
+        <item>odpt.Station:TokyoMetro.Namboku.Yotsuya</item>
+        <item>odpt.Station:TokyoMetro.Namboku.Ichigaya</item>
+        <item>odpt.Station:TokyoMetro.Namboku.Iidabashi</item>
+        <item>odpt.Station:TokyoMetro.Namboku.Korakuen</item>
+        <item>odpt.Station:TokyoMetro.Namboku.Todaimae</item>
+        <item>odpt.Station:TokyoMetro.Namboku.HonKomagome</item>
+        <item>odpt.Station:TokyoMetro.Namboku.Komagome</item>
+        <item>odpt.Station:TokyoMetro.Namboku.Nishigahara</item>
+        <item>odpt.Station:TokyoMetro.Namboku.Oji</item>
+        <item>odpt.Station:TokyoMetro.Namboku.OjiKamiya</item>
+        <item>odpt.Station:TokyoMetro.Namboku.Shimo</item>
+        <item>odpt.Station:TokyoMetro.Namboku.AkabaneIwabuchi</item>
     </string-array>
     <string-array name="namboku_railway_icons">
         <item>@drawable/station_n_1</item>
@@ -321,6 +443,31 @@
         <item>@string/station_barakinakayama</item>
         <item>@string/station_nishifunabashi</item>
     </string-array>
+    <string-array name="tozai_railway_stations_api">
+        <item>odpt.Station:TokyoMetro.Tozai.Nakano</item>
+        <item>odpt.Station:TokyoMetro.Tozai.Ochiai</item>
+        <item>odpt.Station:TokyoMetro.Tozai.Takadanobaba</item>
+        <item>odpt.Station:TokyoMetro.Tozai.Waseda</item>
+        <item>odpt.Station:TokyoMetro.Tozai.Kagurazaka</item>
+        <item>odpt.Station:TokyoMetro.Tozai.Iidabashi</item>
+        <item>odpt.Station:TokyoMetro.Tozai.Kudanshita</item>
+        <item>odpt.Station:TokyoMetro.Tozai.Takebashi</item>
+        <item>odpt.Station:TokyoMetro.Tozai.Otemachi</item>
+        <item>odpt.Station:TokyoMetro.Tozai.Nihombashi</item>
+        <item>odpt.Station:TokyoMetro.Tozai.Kayabacho</item>
+        <item>odpt.Station:TokyoMetro.Tozai.MonzenNakacho</item>
+        <item>odpt.Station:TokyoMetro.Tozai.Kiba</item>
+        <item>odpt.Station:TokyoMetro.Tozai.Toyocho</item>
+        <item>odpt.Station:TokyoMetro.Tozai.MinamiSunamachi</item>
+        <item>odpt.Station:TokyoMetro.Tozai.NishiKasai</item>
+        <item>odpt.Station:TokyoMetro.Tozai.Kasai</item>
+        <item>odpt.Station:TokyoMetro.Tozai.Urayasu</item>
+        <item>odpt.Station:TokyoMetro.Tozai.MinamiGyotoku</item>
+        <item>odpt.Station:TokyoMetro.Tozai.Gyotoku</item>
+        <item>odpt.Station:TokyoMetro.Tozai.Myoden</item>
+        <item>odpt.Station:TokyoMetro.Tozai.BarakiNakayama</item>
+        <item>odpt.Station:TokyoMetro.Tozai.NishiFunabashi</item>
+    </string-array>
     <string-array name="tozai_railway_icons">
         <item>@drawable/station_t_1</item>
         <item>@drawable/station_t_2</item>
@@ -345,6 +492,190 @@
         <item>@drawable/station_t_21</item>
         <item>@drawable/station_t_22</item>
         <item>@drawable/station_t_23</item>
+        <item>@drawable/station_t_23</item>
+    </string-array>
+
+    <!-- 有楽町線　 -->
+    <string-array name="yurakucho_railway_stations">
+        <item>@string/station_wakoshi</item>
+        <item>@string/station_chikatetsunarimasu</item>
+        <item>@string/station_chikatetsuakatsuka</item>
+        <item>@string/station_heiwadai</item>
+        <item>@string/station_hikawadai</item>
+        <item>@string/station_kotakemukaihara</item>
+        <item>@string/station_senkawa</item>
+        <item>@string/station_kanamecho</item>
+        <item>@string/station_ikebukuro</item>
+        <item>@string/station_higashiikebukuro</item>
+        <item>@string/station_gokokuji</item>
+        <item>@string/station_edogawabashi</item>
+        <item>@string/station_iidabashi</item>
+        <item>@string/station_ichigaya</item>
+        <item>@string/station_kojimachi</item>
+        <item>@string/station_nagatacho</item>
+        <item>@string/station_sakuradamon</item>
+        <item>@string/station_yurakucho</item>
+        <item>@string/station_ginzaichoume</item>
+        <item>@string/station_shintomicho</item>
+        <item>@string/station_tsukishima</item>
+        <item>@string/station_toyosu</item>
+        <item>@string/station_tatsumi</item>
+        <item>@string/station_shinkiba</item>
+    </string-array>
+    <string-array name="yurakucho_railway_stations_api">
+        <item>odpt.Station:TokyoMetro.Yurakucho.Wakoshi</item>
+        <item>odpt.Station:TokyoMetro.Yurakucho.ChikatetsuNarimasu</item>
+        <item>odpt.Station:TokyoMetro.Yurakucho.ChikatetsuAkatsuka</item>
+        <item>odpt.Station:TokyoMetro.Yurakucho.Heiwadai</item>
+        <item>odpt.Station:TokyoMetro.Yurakucho.Hikawadai</item>
+        <item>odpt.Station:TokyoMetro.Yurakucho.KotakeMukaihara</item>
+        <item>odpt.Station:TokyoMetro.Yurakucho.Senkawa</item>
+        <item>odpt.Station:TokyoMetro.Yurakucho.Kanamecho</item>
+        <item>odpt.Station:TokyoMetro.Yurakucho.Ikebukuro</item>
+        <item>odpt.Station:TokyoMetro.Yurakucho.HigashiIkebukuro</item>
+        <item>odpt.Station:TokyoMetro.Yurakucho.Gokokuji</item>
+        <item>odpt.Station:TokyoMetro.Yurakucho.Edogawabashi</item>
+        <item>odpt.Station:TokyoMetro.Yurakucho.Iidabashi</item>
+        <item>odpt.Station:TokyoMetro.Yurakucho.Ichigaya</item>
+        <item>odpt.Station:TokyoMetro.Yurakucho.Kojimachi</item>
+        <item>odpt.Station:TokyoMetro.Yurakucho.Nagatacho</item>
+        <item>odpt.Station:TokyoMetro.Yurakucho.Sakuradamon</item>
+        <item>odpt.Station:TokyoMetro.Yurakucho.Yurakucho</item>
+        <item>odpt.Station:TokyoMetro.Yurakucho.GinzaItchome</item>
+        <item>odpt.Station:TokyoMetro.Yurakucho.Shintomicho</item>
+        <item>odpt.Station:TokyoMetro.Yurakucho.Tsukishima</item>
+        <item>odpt.Station:TokyoMetro.Yurakucho.Toyosu</item>
+        <item>odpt.Station:TokyoMetro.Yurakucho.Tatsumi</item>
+        <item>odpt.Station:TokyoMetro.Yurakucho.ShinKiba</item>
+    </string-array>
+    <string-array name="yurakucho_railway_icons">
+        <item>@drawable/station_y_1</item>
+        <item>@drawable/station_y_2</item>
+        <item>@drawable/station_y_3</item>
+        <item>@drawable/station_y_4</item>
+        <item>@drawable/station_y_5</item>
+        <item>@drawable/station_y_6</item>
+        <item>@drawable/station_y_7</item>
+        <item>@drawable/station_y_8</item>
+        <item>@drawable/station_y_9</item>
+        <item>@drawable/station_y_10</item>
+        <item>@drawable/station_y_11</item>
+        <item>@drawable/station_y_12</item>
+        <item>@drawable/station_y_13</item>
+        <item>@drawable/station_y_14</item>
+        <item>@drawable/station_y_15</item>
+        <item>@drawable/station_y_16</item>
+        <item>@drawable/station_y_17</item>
+        <item>@drawable/station_y_18</item>
+        <item>@drawable/station_y_19</item>
+        <item>@drawable/station_y_20</item>
+        <item>@drawable/station_y_21</item>
+        <item>@drawable/station_y_22</item>
+        <item>@drawable/station_y_23</item>
+        <item>@drawable/station_y_24</item>
+    </string-array>
+
+    <!-- 丸ノ内線　 -->
+    <string-array name="marunouchi_railway_stations">
+        <item>@string/station_ogikubo</item>
+        <item>@string/station_minamiasagaya</item>
+        <item>@string/station_shinnkoenji</item>
+        <item>@string/station_higashikoenji</item>
+        <item>@string/station_shinnnakano</item>
+        <item>@string/station_nakanosakaue</item>
+        <item>@string/station_nishishinjuku</item>
+        <item>@string/station_shinjuku</item>
+        <item>@string/station_shinjukusanchome</item>
+        <item>@string/station_shinjukugyoennmae</item>
+        <item>@string/station_yotsuyasanchome</item>
+        <item>@string/station_yotsuya</item>
+        <item>@string/station_akasakamitsuke</item>
+        <item>@string/station_kokkaigizidoumae</item>
+        <item>@string/station_kasumigazeki</item>
+        <item>@string/station_ginza</item>
+        <item>@string/station_tokyo</item>
+        <item>@string/station_ootemachi</item>
+        <item>@string/station_awajicho</item>
+        <item>@string/station_ochanomizu</item>
+        <item>@string/station_hongosanchome</item>
+        <item>@string/station_korakuen</item>
+        <item>@string/station_myogadani</item>
+        <item>@string/station_shinnootsuka</item>
+        <item>@string/station_ikebukuro</item>
+    </string-array>
+    <string-array name="marunouchi_railway_stations_api">
+        <item>odpt.Station:TokyoMetro.Marunouchi.Ogikubo</item>
+        <item>odpt.Station:TokyoMetro.Marunouchi.MinamiAsagaya</item>
+        <item>odpt.Station:TokyoMetro.Marunouchi.ShinKoenji</item>
+        <item>odpt.Station:TokyoMetro.Marunouchi.HigashiKoenji</item>
+        <item>odpt.Station:TokyoMetro.Marunouchi.ShinNakano</item>
+        <item>odpt.Station:TokyoMetro.Marunouchi.NakanoSakaue</item>
+        <item>odpt.Station:TokyoMetro.Marunouchi.NishiShinjuku</item>
+        <item>odpt.Station:TokyoMetro.Marunouchi.Shinjuku</item>
+        <item>odpt.Station:TokyoMetro.Marunouchi.ShinjukuSanchome</item>
+        <item>odpt.Station:TokyoMetro.Marunouchi.ShinjukuGyoemmae</item>
+        <item>odpt.Station:TokyoMetro.Marunouchi.YotsuyaSanchome</item>
+        <item>odpt.Station:TokyoMetro.Marunouchi.Yotsuya</item>
+        <item>odpt.Station:TokyoMetro.Marunouchi.AkasakaMitsuke</item>
+        <item>odpt.Station:TokyoMetro.Marunouchi.KokkaiGijidomae</item>
+        <item>odpt.Station:TokyoMetro.Marunouchi.Kasumigaseki</item>
+        <item>odpt.Station:TokyoMetro.Marunouchi.Ginza</item>
+        <item>odpt.Station:TokyoMetro.Marunouchi.Tokyo</item>
+        <item>odpt.Station:TokyoMetro.Marunouchi.Otemachi</item>
+        <item>odpt.Station:TokyoMetro.Marunouchi.Awajicho</item>
+        <item>odpt.Station:TokyoMetro.Marunouchi.Ochanomizu</item>
+        <item>odpt.Station:TokyoMetro.Marunouchi.HongoSanchome</item>
+        <item>odpt.Station:TokyoMetro.Marunouchi.Korakuen</item>
+        <item>odpt.Station:TokyoMetro.Marunouchi.Myogadani</item>
+        <item>odpt.Station:TokyoMetro.Marunouchi.ShinOtsuka</item>
+        <item>odpt.Station:TokyoMetro.Marunouchi.Ikebukuro</item>
+    </string-array>
+    <string-array name="marunouchi_railway_icons">
+        <item>@drawable/station_m_1</item>
+        <item>@drawable/station_m_2</item>
+        <item>@drawable/station_m_3</item>
+        <item>@drawable/station_m_4</item>
+        <item>@drawable/station_m_5</item>
+        <item>@drawable/station_m_6</item>
+        <item>@drawable/station_m_7</item>
+        <item>@drawable/station_m_8</item>
+        <item>@drawable/station_m_9</item>
+        <item>@drawable/station_m_10</item>
+        <item>@drawable/station_m_11</item>
+        <item>@drawable/station_m_12</item>
+        <item>@drawable/station_m_13</item>
+        <item>@drawable/station_m_14</item>
+        <item>@drawable/station_m_15</item>
+        <item>@drawable/station_m_16</item>
+        <item>@drawable/station_m_17</item>
+        <item>@drawable/station_m_18</item>
+        <item>@drawable/station_m_19</item>
+        <item>@drawable/station_m_20</item>
+        <item>@drawable/station_m_21</item>
+        <item>@drawable/station_m_22</item>
+        <item>@drawable/station_m_23</item>
+        <item>@drawable/station_m_24</item>
+        <item>@drawable/station_m_25</item>
+    </string-array>
+
+    <!-- 丸ノ内線Branch　 -->
+    <string-array name="marunouchi_branch_railway_stations">
+        <item>@string/station_hounanncho</item>
+        <item>@string/station_nakanofujimicho</item>
+        <item>@string/station_nakanoshinnbashi</item>
+        <item>@string/station_nakanosakaue</item>
+    </string-array>
+    <string-array name="marunouchi_branch_railway_stations_api">
+        <item>odpt.Station:TokyoMetro.MarunouchiBranch.Honancho</item>
+        <item>odpt.Station:TokyoMetro.MarunouchiBranch.NakanoFujimicho</item>
+        <item>odpt.Station:TokyoMetro.MarunouchiBranch.NakanoShimbashi </item>
+        <item>odpt.Station:TokyoMetro.MarunouchiBranch.NakanoSakaue</item>
+    </string-array>
+    <string-array name="marunouchi_branch_railway_icons">
+        <item>@drawable/station_mm_3</item>
+        <item>@drawable/station_mm_4</item>
+        <item>@drawable/station_mm_5</item>
+        <item>@drawable/station_m_6</item>
     </string-array>
 
 </resources>

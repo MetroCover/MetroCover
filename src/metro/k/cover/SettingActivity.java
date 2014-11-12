@@ -9,15 +9,18 @@ import metro.k.cover.lock.LockSecurityChooseActivity;
 import metro.k.cover.lock.LockService;
 import metro.k.cover.lock.LockUtilities;
 import metro.k.cover.railways.RailwaysActivity;
+import metro.k.cover.railways.RailwaysUtilities;
 import metro.k.cover.railways.StationsActivity;
 import metro.k.cover.view.TextViewWithFont;
 import metro.k.cover.wallpaper.WallpaperDetailActivity;
 import metro.k.cover.wallpaper.WallpaperEffectSelectActivity;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,6 +49,11 @@ public class SettingActivity extends Activity implements OnClickListener,
 	private int mClockSelected = LockUtilities.CLOCK_TYPE_24;
 	private TextViewWithFont mCurrentClockTypeView;
 	private int mCurrentClockType;
+
+	// 現在の時計表記サイズ
+	private int mClockSizeSelected = 1;
+	private TextViewWithFont mCurrentClockSizeView;
+	private int mCurrentClockSize;
 
 	// 現在の時計の色
 	private int mClockColorID;
@@ -133,13 +141,21 @@ public class SettingActivity extends Activity implements OnClickListener,
 		RelativeLayout license_layout = (RelativeLayout) findViewById(R.id.setting_license_layout);
 		license_layout.setOnClickListener(this);
 
-		// Efects
+		// Effects
 		RelativeLayout effect_layout = (RelativeLayout) findViewById(R.id.setting_wallpaper_effect_layout);
 		effect_layout.setOnClickListener(this);
 
-		// Coloc color
+		// Clock color
 		RelativeLayout clockcol_layout = (RelativeLayout) findViewById(R.id.setting_clock_color_layout);
 		clockcol_layout.setOnClickListener(this);
+
+		// Clock color
+		RelativeLayout clocksize_layout = (RelativeLayout) findViewById(R.id.setting_clock_size_layout);
+		clocksize_layout.setOnClickListener(this);
+
+		// Review
+		RelativeLayout review_layout = (RelativeLayout) findViewById(R.id.setting_review_layout);
+		review_layout.setOnClickListener(this);
 	}
 
 	/**
@@ -181,6 +197,22 @@ public class SettingActivity extends Activity implements OnClickListener,
 			mCurrentClockTypeView.setText(res.getString(R.string.clock_24));
 		}
 
+		// 現在の時計表記サイズ　
+		mCurrentClockSizeView = (TextViewWithFont) findViewById(R.id.setting_clock_size_currentview);
+		if (mCurrentClockSize == res
+				.getInteger(R.integer.lock_clock_size_small)) {
+			mCurrentClockSizeView.setText(res
+					.getString(R.string.clock_size_small));
+		} else if (mCurrentClockSize == res
+				.getInteger(R.integer.lock_clock_size_midium)) {
+			mCurrentClockSizeView.setText(res
+					.getString(R.string.clock_size_midium));
+		} else if (mCurrentClockSize == res
+				.getInteger(R.integer.lock_clock_size_large)) {
+			mCurrentClockSizeView.setText(res
+					.getString(R.string.clock_size_large));
+		}
+
 		// 時計色
 		mCurrentClockColorView = (TextViewWithFont) findViewById(R.id.setting_clock_color_currentview);
 		mCurrentClockColorView.setText(mClockColorStr);
@@ -195,7 +227,7 @@ public class SettingActivity extends Activity implements OnClickListener,
 		mCurrentStationView = (TextViewWithFont) findViewById(R.id.setting_station_currentview);
 		String name = "";
 		if (Utilities.isInvalidStr(mCurrentStationsRailwayName)) {
-			name = mCurrentStationName + res.getString(R.string.station);
+			name = mCurrentStationName;
 		} else {
 			name = mCurrentStationsRailwayName + File.separator
 					+ mCurrentStationName + res.getString(R.string.station);
@@ -226,6 +258,8 @@ public class SettingActivity extends Activity implements OnClickListener,
 				.getStationName(getApplicationContext());
 		mCurrentStationsRailwayName = PreferenceCommon
 				.getStationsRailwayName(getApplicationContext());
+		mClockSizeSelected = mCurrentClockSize = PreferenceCommon
+				.getClockSize(getApplicationContext());
 	}
 
 	/**
@@ -242,10 +276,8 @@ public class SettingActivity extends Activity implements OnClickListener,
 		if (isMetroCoverEnable) {
 			LockUtilities.getInstance()
 					.disableKeyguard(getApplicationContext());
-			LockUtilities.getInstance().disableKeyguardWindow(this);
 		} else {
 			LockUtilities.getInstance().enableKeyguard(getApplicationContext());
-			LockUtilities.getInstance().enableKeyguardWindow(this);
 		}
 	}
 
@@ -348,7 +380,32 @@ public class SettingActivity extends Activity implements OnClickListener,
 	 */
 	private void startStationActivity() {
 		Intent intent = new Intent(this, StationsActivity.class);
+		intent.putExtra(RailwaysUtilities.KEY_CURRENT_STATION,
+				mCurrentStationsRailwayName);
 		Utilities.startActivitySafely(intent, this);
+	}
+
+	/**
+	 * MetroCoverのプレイストアページへ遷移
+	 */
+	private void startReview() {
+		try {
+			Intent intent = new Intent(Intent.ACTION_VIEW,
+					Uri.parse("market://details?id=metro.k.cover"));
+			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(intent);
+			return;
+		} catch (ActivityNotFoundException e) {
+		}
+
+		try {
+			Intent intent = new Intent(
+					Intent.ACTION_VIEW,
+					Uri.parse("https://play.google.com/store/apps/details?id=metro.k.cover"));
+			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(intent);
+		} catch (Exception e) {
+		}
 	}
 
 	@Override
@@ -392,6 +449,12 @@ public class SettingActivity extends Activity implements OnClickListener,
 			return;
 		}
 
+		// Clock-Size
+		if (R.id.setting_clock_size_layout == viewId) {
+			buildClockSizeDialog();
+			return;
+		}
+
 		// Clock-Color
 		if (R.id.setting_clock_color_layout == viewId) {
 			startColorSelectActivity();
@@ -426,6 +489,11 @@ public class SettingActivity extends Activity implements OnClickListener,
 		// License
 		if (R.id.setting_license_layout == viewId) {
 			buildInfoDialog().show();
+			return;
+		}
+
+		if (R.id.setting_review_layout == viewId) {
+			startReview();
 			return;
 		}
 	}
@@ -483,6 +551,48 @@ public class SettingActivity extends Activity implements OnClickListener,
 										.setClockType(getApplicationContext(),
 												mClockSelected);
 								mCurrentClockType = mClockSelected;
+								dialog.cancel();
+							}
+						})
+				.setNegativeButton(R.string.cancel,
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								dialog.cancel();
+							}
+						}).show();
+	}
+
+	/**
+	 * 時計表記サイズ　選択ダイアログ
+	 */
+	private void buildClockSizeDialog() {
+		final Resources res = getResources();
+		final String item_list[] = new String[] {
+				res.getString(R.string.clock_size_small),
+				res.getString(R.string.clock_size_midium),
+				res.getString(R.string.clock_size_large) };
+
+		new AlertDialog.Builder(SettingActivity.this)
+				.setIcon(R.drawable.ic_clock)
+				.setTitle(res.getString(R.string.clock_size))
+				.setSingleChoiceItems(item_list, mCurrentClockSize,
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								mClockSizeSelected = whichButton;
+							}
+						})
+				.setPositiveButton(res.getString(R.string.ok),
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								mCurrentClockSizeView
+										.setText(item_list[mClockSizeSelected]);
+								PreferenceCommon.setClockSize(
+										getApplicationContext(),
+										mClockSizeSelected);
+								mCurrentClockSize = mClockSizeSelected;
 								dialog.cancel();
 							}
 						})

@@ -1,8 +1,8 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:state_selected="true"><color android:color="@color/list_item_on" />
+    <item android:state_pressed="true"><color android:color="@color/metro_main_tranc_color" />
     </item>
-    <item android:state_selected="false"><color android:color="@color/list_item_off" />
+    <item android:state_pressed="false"><color android:color="@color/list_item_off" />
     </item>
 
 </selector>

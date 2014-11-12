@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 遅延情報ウィジェット（４×２） -->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:initialLayout="@layout/widget_railways_info"
+    android:minHeight="140dp"
+    android:minWidth="280dp"
+    android:previewImage="@drawable/widget_railways_info_preview"
+    android:resizeMode="vertical|horizontal"
+    android:updatePeriodMillis="0" />

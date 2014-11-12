@@ -6,6 +6,7 @@ import metro.k.cover.R;
 import metro.k.cover.Utilities;
 import metro.k.cover.view.JazzyViewPager;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -73,11 +74,12 @@ public class WallpaperDetailActivity extends FragmentActivity {
 						columns, null, null, null);
 				cur.moveToNext();
 
+				final Resources res = getResources();
 				final String filePath = cur.getString(0);
 				if (filePath == null) {
 					// おそらくPicasaの画像
-					Utilities.showToast(getApplicationContext(), getResources()
-							.getString(R.string.err_msg_picasa_img));
+					Utilities.showToast(getApplicationContext(),
+							res.getString(R.string.err_msg_picasa_img));
 					return;
 				}
 
@@ -128,6 +130,8 @@ public class WallpaperDetailActivity extends FragmentActivity {
 						dbKey, bitmap);
 
 				setupViews(position);
+				Utilities.showToast(getApplicationContext(),
+						res.getString(R.string.wallpaper_complete_msg));
 			}
 		}
 	}
