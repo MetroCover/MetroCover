@@ -97,7 +97,10 @@ public class RailwaysInfoWidgetProvider extends AppWidgetProvider {
 
 		setOnButtonClickPendingIntent(context, rv, appWidgetId);
 
+		manager.updateAppWidget(appWidgetId, null);
 		manager.updateAppWidget(appWidgetId, rv);
+		manager.notifyAppWidgetViewDataChanged(appWidgetId,
+				R.id.widget_railways_info_listview);
 	}
 
 	/**

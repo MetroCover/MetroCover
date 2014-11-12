@@ -366,6 +366,9 @@ public final class PreferenceCommon {
 		return sp.getString(KEY_SET_FIRST_PASSWORD, "");
 	}
 
+	/*********************
+	 * View
+	 *********************/
 	// ViewPagerのエフェクト
 	private static final String KEY_SET_VIEWPAGER_EFFECT = "set_viewpager_effect";
 

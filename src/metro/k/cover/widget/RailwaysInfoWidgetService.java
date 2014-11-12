@@ -63,7 +63,6 @@ public class RailwaysInfoWidgetService extends RemoteViewsService {
 
 		@Override
 		public void onDataSetChanged() {
-
 		}
 
 		@Override
