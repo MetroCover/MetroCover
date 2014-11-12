@@ -48,7 +48,6 @@ public class TutorialThird extends Fragment {
 				PreferenceCommon.setStationNameForAPI(getActivity(),
 						station.getNameForAPI());
 				TutorialActivity.setNextPage();
-
 			}
 		});
 	}

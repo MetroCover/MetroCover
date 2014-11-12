@@ -106,6 +106,10 @@
     <string name="wallpaper_select_gallery">ギャラリーから選択</string>
     <string name="wallpaper_select_homee">Homeeから選択</string>
     <string name="widget_name_railways_info">[MC]遅延情報</string>
+    <string name="train_type_local">各停</string>
+    <string name="train_type_express">急行</string>
+    <string name="train_type_rapid">快速</string>
+    <string name="train_type_limited_express">特急</string>
 
     <!-- 駅名 -->
     <!-- A -->

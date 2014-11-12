@@ -11,6 +11,7 @@ import metro.k.cover.ImageCache;
 import metro.k.cover.MetroCoverApplication;
 import metro.k.cover.PreferenceCommon;
 import metro.k.cover.R;
+import metro.k.cover.TrainDBProvider;
 import metro.k.cover.Utilities;
 import metro.k.cover.circularprogressbar.CircularProgressBar;
 import metro.k.cover.lock.LockPatternView.Cell;
@@ -56,6 +57,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 /**
  * ロック画面のView
@@ -908,11 +910,9 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		 * @return
 		 */
 		private RelativeLayout getRightLayout() {
-			RelativeLayout trainInfoLayout = (RelativeLayout) mLayoutInflater
-					.inflate(R.layout.page_train_info, null);
-			TextViewWithFont tv = (TextViewWithFont) trainInfoLayout
-					.findViewById(R.id.page_train_info_test);
-			tv.setText(String.valueOf(mTestNum2));
+			RelativeLayout trainInfoLayout = (RelativeLayout) mLayoutInflater.inflate(R.layout.lock_train_info, null);
+			//TextViewWithFont tv = (TextViewWithFont) trainInfoLayout.findViewById(R.id.page_train_info_test);
+			//tv.setText(String.valueOf(mTestNum2));
 			return trainInfoLayout;
 		}
 
@@ -1023,20 +1023,11 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 
 		private void countup(int position) {
 			String pageName = mList.get(position);
-			int count = 0;
 			if (pageName.equals(PAGE_PAGE_TRAIN_INFO_1)) {
-				count = mTestNum1++;
 				readRailwaysInfo();
-				return;
 			} else if (pageName.equals(PAGE_PAGE_TRAIN_INFO_2)) {
-				count = mTestNum2++;
-			} else {
-				return;
+				//readTrainInfo();
 			}
-			RelativeLayout TrainInfoLayout = (RelativeLayout) getPrimaryItem();
-			TextViewWithFont textView = (TextViewWithFont) TrainInfoLayout
-					.findViewById(R.id.page_train_info_test);
-			textView.setText(String.valueOf(count));
 		}
 
 		/**
@@ -1072,6 +1063,82 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			listview.setAdapter(MetroCoverApplication.sRailwaysInfoAdapter);
 			empty.setVisibility(View.INVISIBLE);
 			listLayout.setVisibility(View.VISIBLE);
+		}
+
+		private void readTrainInfo() {
+			final Calendar calendar = Calendar.getInstance();
+			//final int hour = calendar.get(Calendar.HOUR_OF_DAY);
+			//final int minute = calendar.get(Calendar.MINUTE);
+			final int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+			int hour = 20;
+			int minute = 30;
+			int startTime = hour * 100 + minute;
+			int endTime = startTime + 100;
+			if (hour == 23) {
+				endTime = minute;
+			}
+			int dayType = TrainDBProvider.DayType.WEEKDAYS;
+			if (dayOfWeek == Calendar.SATURDAY) {
+				dayType = TrainDBProvider.DayType.SATURDAYS;
+			} else if (dayOfWeek == Calendar.SUNDAY) {
+				dayType = TrainDBProvider.DayType.HOLIDAYS;
+			}
+			String[] projection = {
+					TrainDBProvider.Columns.STATION_CODE,
+					TrainDBProvider.Columns.TIME,
+					TrainDBProvider.Columns.HOUR,
+					TrainDBProvider.Columns.MINUTE,
+					TrainDBProvider.Columns.DAY_TYPE,
+					TrainDBProvider.Columns.TRAIN_TYPE,
+					TrainDBProvider.Columns.TERMINAL_STATION };
+			StringBuilder selection = new StringBuilder();
+			selection.append(TrainDBProvider.Columns.STATION_CODE + " = ? AND ");
+			selection.append(TrainDBProvider.Columns.DAY_TYPE + " = ? AND ");
+			
+			selection.append(TrainDBProvider.Columns.TIME + " > ? AND ");
+			selection.append(TrainDBProvider.Columns.TIME + " < ?");
+			String[] args = { "odpt.Station:TokyoMetro.Ginza.Shibuya", Integer.toString(dayType), Integer.toString(startTime), Integer.toString(endTime)};
+			String order = TrainDBProvider.Columns.TIME + " ASC";
+			Cursor cursor = mContext.getContentResolver().query(TrainDBProvider.CONTENT_URI, projection, selection.toString(), args, order);
+			//Cursor cursor = mContext.getContentResolver().query(TrainDBProvider.CONTENT_URI, projection, null, null, order);
+			
+			final int count = cursor.getCount();
+			int[] hourArray = new int[count];
+			int[] minuteArray = new int[count];
+			String[] trainTypeArray = new String[count];
+			String[] terminalStationArray = new String[count];
+			final int columnCount = cursor.getColumnCount();
+			while (cursor.moveToNext()) {
+				final int rowNumber = cursor.getPosition();
+				for (int i = 0; i < columnCount; i++) {
+					final String columnName = cursor.getColumnName(i);
+					if (columnName.equals(TrainDBProvider.Columns.HOUR)) {
+						hourArray[rowNumber] = Integer.parseInt(cursor.getString(i));
+					} else if (columnName.equals(TrainDBProvider.Columns.MINUTE)) {
+						minuteArray[rowNumber] = Integer.parseInt(cursor.getString(i));
+					} else if (columnName.equals(TrainDBProvider.Columns.TRAIN_TYPE)) {
+						trainTypeArray[rowNumber] = cursor.getString(i);
+					} else if (columnName.equals(TrainDBProvider.Columns.TERMINAL_STATION)) {
+						terminalStationArray[rowNumber] = cursor.getString(i);
+					}
+				}
+			}
+			cursor.close();
+
+			RelativeLayout layout = (RelativeLayout) getPrimaryItem();
+			TextView tvTrainType1 = (TextView) layout.findViewById(R.id.lock_train_info_train_type_1);
+			String trainTypeText = "";
+			if (trainTypeArray[0].equals(mContext.getString(R.string.train_type_local_response))) {
+				trainTypeText = mContext.getString(R.string.train_type_local);
+			} else if (trainTypeArray[0].equals(mContext.getString(R.string.train_type_express_response))) {
+				trainTypeText = mContext.getString(R.string.train_type_express);
+			} else if (trainTypeArray[0].equals(mContext.getString(R.string.train_type_rapid_response))) {
+				trainTypeText = mContext.getString(R.string.train_type_rapid);
+			} else if (trainTypeArray[0].equals(mContext.getString(R.string.train_type_limited_express_response))) {
+				trainTypeText = mContext.getString(R.string.train_type_limited_express);
+			}
+			tvTrainType1.setText(trainTypeText);
+			
 		}
 
 		/**

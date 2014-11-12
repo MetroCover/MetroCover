@@ -110,6 +110,11 @@
         <service
             android:name="metro.k.cover.widget.RailwaysInfoWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
+        <provider
+            android:name="metro.k.cover.TrainDBProvider"
+            android:authorities="metro.k.cover.tran_db_provider"
+            android:exported="false"
+            android:label="@string/app_name" />
     </application>
 
 </manifest>
