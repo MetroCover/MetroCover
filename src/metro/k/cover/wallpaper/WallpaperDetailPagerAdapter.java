@@ -282,8 +282,11 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 						.getHomeeWallpapers(activity);
 				final ArrayList<String> plushomes = WallpaperUtilities
 						.getPlusHomeWallpapers(activity);
+				final ArrayList<String> buzzhomes = WallpaperUtilities
+						.getBuzzHomeWallpapers(activity);
 				boolean plushome = false;
 				boolean homee = false;
+				boolean buzz = false;
 				if (homees != null) {
 					if (homees.size() > 0) {
 						homee = true;
@@ -294,9 +297,14 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 						plushome = true;
 					}
 				}
+				if (buzzhomes != null) {
+					if (buzzhomes.size() > 0) {
+						buzz = true;
+					}
+				}
 
 				if (homee || plushome) {
-					buildSelectDialog(activity, page, plushome, homee);
+					buildSelectDialog(activity, page, plushome, homee, buzz);
 				} else {
 					pickupGallery(activity, page);
 				}
@@ -336,13 +344,14 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 	 * @param page
 	 */
 	private void buildSelectDialog(final FragmentActivity activity,
-			final int page, final boolean isPlushome, final boolean isHomee) {
+			final int page, final boolean isPlushome, final boolean isHomee,
+			final boolean isBuzz) {
 		try {
 			final android.app.FragmentManager fm = activity
 					.getFragmentManager();
 			final WallpaperDialogFragment dialog = new WallpaperDialogFragment();
 			dialog.showThemeDialogFragment("wallpaper_dialog", page, isHomee,
-					isPlushome);
+					isPlushome, isBuzz);
 			final FragmentTransaction ft = fm.beginTransaction();
 			ft.add(dialog, "wallpaper_dialog");
 			ft.commit();

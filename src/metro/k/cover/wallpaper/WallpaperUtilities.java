@@ -25,6 +25,7 @@ public final class WallpaperUtilities {
 	public static final String KEY_OTHER_HOMEAPP_WALLPAPER = "key_other_home_app_wallpaper";
 	public static final int HOMEE_APP_ID = 0;
 	public static final int PLUSHOME_APP_ID = 1;
+	public static final int BUZZHOME_APP_ID = 2;
 
 	// Homeeの壁紙を取得する
 	public static final String INTENT = "com.cfinc.launcehr2.THEMES";
@@ -88,6 +89,12 @@ public final class WallpaperUtilities {
 		return packageList;
 	}
 
+	/**
+	 * [+]HOMEの壁紙のパッケージ名を取得する
+	 * 
+	 * @param context
+	 * @return
+	 */
 	public static ArrayList<String> getPlusHomeWallpapers(final Context context) {
 		if (context == null) {
 			return null;
@@ -109,6 +116,39 @@ public final class WallpaperUtilities {
 			}
 			String pkg = info.packageName;
 			if (pkg.startsWith(plushome_theme_head)) {
+				list.add(pkg);
+			}
+		}
+		return list;
+	}
+
+	/**
+	 * buzzHOMEの壁紙のパッケージ名を取得する
+	 * 
+	 * @param context
+	 * @return
+	 */
+	public static ArrayList<String> getBuzzHomeWallpapers(final Context context) {
+		if (context == null) {
+			return null;
+		}
+
+		final PackageManager packageManager = context.getPackageManager();
+		if (packageManager == null) {
+			return null;
+		}
+
+		final ArrayList<String> list = new ArrayList<String>();
+		List<ApplicationInfo> applicationInfo = packageManager
+				.getInstalledApplications(PackageManager.GET_META_DATA);
+		final String buzzhome_theme_head = context.getResources().getString(
+				R.string.pkg_buzz_home_theme_head);
+		for (ApplicationInfo info : applicationInfo) {
+			if ((info.flags & ApplicationInfo.FLAG_SYSTEM) == ApplicationInfo.FLAG_SYSTEM) {
+				continue;
+			}
+			String pkg = info.packageName;
+			if (pkg.startsWith(buzzhome_theme_head)) {
 				list.add(pkg);
 			}
 		}

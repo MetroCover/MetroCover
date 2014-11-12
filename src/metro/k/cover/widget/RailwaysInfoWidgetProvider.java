@@ -93,6 +93,10 @@ public class RailwaysInfoWidgetProvider extends AppWidgetProvider {
 	 */
 	private void update(final Context context, AppWidgetManager manager,
 			final int appWidgetId) {
+		if (context == null || manager == null
+				|| appWidgetId <= AppWidgetManager.INVALID_APPWIDGET_ID) {
+			return;
+		}
 		Intent remoteViewsFactoryIntent = new Intent(context,
 				RailwaysInfoWidgetService.class);
 		RemoteViews rv = new RemoteViews(context.getPackageName(),
@@ -109,7 +113,7 @@ public class RailwaysInfoWidgetProvider extends AppWidgetProvider {
 		}
 
 		setOnButtonClickPendingIntent(context, rv, appWidgetId);
-		
+
 		manager.updateAppWidget(appWidgetId, null);
 		manager.updateAppWidget(appWidgetId, rv);
 		manager.notifyAppWidgetViewDataChanged(appWidgetId,
@@ -164,13 +168,18 @@ public class RailwaysInfoWidgetProvider extends AppWidgetProvider {
 	 * @param rv
 	 * @param appWidgetId
 	 */
-	private void setOnButtonClickPendingIntent(Context ctx, RemoteViews rv,
+	private void setOnButtonClickPendingIntent(Context context, RemoteViews rv,
 			int appWidgetId) {
+		if (context == null || rv == null
+				|| appWidgetId <= AppWidgetManager.INVALID_APPWIDGET_ID) {
+			return;
+		}
 		Intent btnClickIntent = new Intent(ACTION_CLICK);
 		btnClickIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
 				appWidgetId);
-		PendingIntent btnClickPendingIntent = PendingIntent.getBroadcast(ctx,
-				appWidgetId, btnClickIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+		PendingIntent btnClickPendingIntent = PendingIntent.getBroadcast(
+				context, appWidgetId, btnClickIntent,
+				PendingIntent.FLAG_UPDATE_CURRENT);
 		rv.setOnClickPendingIntent(R.id.widget_railways_info_update_btn,
 				btnClickPendingIntent);
 	}

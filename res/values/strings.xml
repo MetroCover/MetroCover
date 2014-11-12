@@ -85,6 +85,7 @@
     <string name="ok">OK</string>
     <string name="paging_effect">Paging Effect</string>
     <string name="pkg_plus_home_theme_head">jp.co.a_tm.android.plus_</string>
+    <string name="pkg_buzz_home_theme_head">jp.co.yahoo.android.buzzhome.theme</string>
     <string name="railways">Railways</string>
     <string name="railway_chiyoda">Chiyoda-Line</string>
     <string name="railway_chiyoda_color">Chiyoda</string>
@@ -130,6 +131,7 @@
     <string name="wallpaper_homee_title">HOMEE\'S WALLPAPER</string>
     <string name="wallpaper_plushome_title">[+]HOME\'S WALLPAPER</string>
     <string name="wallpaper_select">Select Wallpaper</string>
+    <string name="wallpaper_select_buzzhome">buzzHOME\'s Wallpaper</string>
     <string name="wallpaper_select_gallery">Gallery\'s Wallpaper</string>
     <string name="wallpaper_select_homee">Homee\'s Wallpaper</string>
     <string name="wallpaper_select_plushome">[+]HOME\'s Wallpaper</string>

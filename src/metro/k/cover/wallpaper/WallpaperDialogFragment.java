@@ -19,6 +19,7 @@ public class WallpaperDialogFragment extends DialogFragment {
 	private int mPosition;
 	private boolean isHomeeWallpaper = false;
 	private boolean isPlusHomeWallpaper = false;
+	private boolean isBuzzHomeWallpaper = false;
 
 	public static String KEY_SELECTED_PAGE = "key_selected_page";
 
@@ -27,11 +28,12 @@ public class WallpaperDialogFragment extends DialogFragment {
 	}
 
 	public void showThemeDialogFragment(String tag, int position,
-			boolean homee, boolean plushome) {
+			boolean homee, boolean plushome, boolean buzzhome) {
 		mTAG = tag;
 		mPosition = position;
 		isHomeeWallpaper = homee;
 		isPlusHomeWallpaper = plushome;
+		isBuzzHomeWallpaper = buzzhome;
 	}
 
 	@Override
@@ -76,6 +78,22 @@ public class WallpaperDialogFragment extends DialogFragment {
 			} else {
 				plushome_layout.setVisibility(View.GONE);
 				plushome_sep.setVisibility(View.GONE);
+			}
+
+			// buzzHOMEの壁紙
+			RelativeLayout buzzhome_layout = (RelativeLayout) dialog
+					.findViewById(R.id.wallpaper_dialog_buzzhome_layout);
+			ImageView buzzhome_sep = (ImageView) dialog
+					.findViewById(R.id.wallpaper_dialog_buzzhome_sep);
+			if (isBuzzHomeWallpaper) {
+				buzzhome_layout.setVisibility(View.VISIBLE);
+				buzzhome_sep.setVisibility(View.VISIBLE);
+				buzzhome_layout
+						.setOnClickListener(getOtherHomeWallpaperListener(
+								mPosition, WallpaperUtilities.BUZZHOME_APP_ID));
+			} else {
+				buzzhome_layout.setVisibility(View.GONE);
+				buzzhome_sep.setVisibility(View.GONE);
 			}
 
 			// 暗黙投げる
