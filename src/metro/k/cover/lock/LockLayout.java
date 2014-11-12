@@ -17,6 +17,7 @@ import metro.k.cover.lock.LockPatternView.Cell;
 import metro.k.cover.lock.LockPatternView.DisplayMode;
 import metro.k.cover.railways.RailwaysInfo;
 import metro.k.cover.view.ButtonWithFont;
+import metro.k.cover.view.EditTextWithFont;
 import metro.k.cover.view.JazzyViewPager;
 import metro.k.cover.view.JazzyViewPager.TransitionEffect;
 import metro.k.cover.view.TextViewWithFont;
@@ -50,7 +51,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -536,14 +536,12 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 				null, false);
 		final TextViewWithFont title = (TextViewWithFont) mPassView
 				.findViewById(R.id.lock_pass_title);
-		final EditText edittext = (EditText) mPassView
+		final EditTextWithFont edittext = (EditTextWithFont) mPassView
 				.findViewById(R.id.lock_pass_edittext);
 		final ButtonWithFont comp = (ButtonWithFont) mPassView
 				.findViewById(R.id.lock_pass_comp_btn);
 		final ButtonWithFont cancel = (ButtonWithFont) mPassView
 				.findViewById(R.id.lock_pass_cancel_btn);
-
-		Utilities.setFontEditTextView(edittext, am, res);
 
 		this.addView(mPassView);
 		edittext.requestFocus();
@@ -560,7 +558,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	 * @param et
 	 * @param tv
 	 */
-	private void setWrongPasswordView(final EditText et,
+	private void setWrongPasswordView(final EditTextWithFont et,
 			final TextViewWithFont tv) {
 		if (et == null || tv == null || mVib == null)
 			return;
@@ -576,8 +574,8 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	 * @param tv
 	 * @return
 	 */
-	private final View.OnClickListener getPasswordOKListener(final EditText et,
-			final TextViewWithFont tv) {
+	private final View.OnClickListener getPasswordOKListener(
+			final EditTextWithFont et, final TextViewWithFont tv) {
 		final View.OnClickListener listener = new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -621,8 +619,6 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	 */
 	private void addPatternSecurityView() {
 		final Context c = getContext().getApplicationContext();
-		final AssetManager am = c.getAssets();
-		final Resources res = c.getResources();
 		mPatternView = LayoutInflater.from(c).inflate(R.layout.input_pattern,
 				null, false);
 		final LockPatternView patternView = (LockPatternView) mPatternView

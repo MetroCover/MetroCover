@@ -8,11 +8,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.content.res.AssetManager;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Point;
-import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
@@ -21,7 +18,6 @@ import android.os.Build;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.Toast;
 
 public final class Utilities {
@@ -59,23 +55,6 @@ public final class Utilities {
 			return true;
 		}
 		return false;
-	}
-
-	/**
-	 * EditTextに独自フォントを入れる
-	 * 
-	 * @param et
-	 * @param am
-	 * @param res
-	 */
-	public static void setFontEditTextView(final EditText et,
-			final AssetManager am, final Resources res) {
-		if (et == null || am == null || res == null) {
-			return;
-		}
-
-		et.setTypeface(Typeface.createFromAsset(am,
-				res.getString(R.string.font_free_wing)));
 	}
 
 	/**

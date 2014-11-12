@@ -5,11 +5,11 @@ import metro.k.cover.R;
 import metro.k.cover.SettingActivity;
 import metro.k.cover.Utilities;
 import metro.k.cover.view.ButtonWithFont;
+import metro.k.cover.view.EditTextWithFont;
 import metro.k.cover.view.TextViewWithFont;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -17,7 +17,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
-import android.widget.EditText;
 
 /**
  * パスワードセキュリティのダイアログ
@@ -25,7 +24,7 @@ import android.widget.EditText;
 public class LockPasswordDialogActivity extends Activity implements
 		OnClickListener {
 
-	private EditText mEditText;
+	private EditTextWithFont mEditText;
 	private TextViewWithFont mOnceAgain;
 
 	private String mOldPass;
@@ -61,14 +60,11 @@ public class LockPasswordDialogActivity extends Activity implements
 	}
 
 	private void setupViews() {
-		final Resources res = getResources();
-		final AssetManager am = getAssets();
 		setContentView(R.layout.activity_password_security_dialog);
 		getWindow().setLayout(LayoutParams.MATCH_PARENT,
 				LayoutParams.WRAP_CONTENT);
-		mEditText = (EditText) findViewById(R.id.security_pass_edittext);
-		Utilities.setFontEditTextView(mEditText, am, res);
-		
+		mEditText = (EditTextWithFont) findViewById(R.id.security_pass_edittext);
+
 		mOnceAgain = (TextViewWithFont) findViewById(R.id.security_pass_title);
 		mVibe = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
