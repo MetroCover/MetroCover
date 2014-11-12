@@ -104,11 +104,12 @@ public class RailwaysInfoWidgetProvider extends AppWidgetProvider {
 					remoteViewsFactoryIntent);
 			rv.setTextViewText(R.id.widget_railways_info_lastupdate,
 					MetroCoverApplication.getLastUpdateTime());
-			setOnButtonClickPendingIntent(context, rv, appWidgetId);
 		} else {
 			rv.setViewVisibility(R.id.widget_railways_info_empty, View.VISIBLE);
 		}
 
+		setOnButtonClickPendingIntent(context, rv, appWidgetId);
+		
 		manager.updateAppWidget(appWidgetId, null);
 		manager.updateAppWidget(appWidgetId, rv);
 		manager.notifyAppWidgetViewDataChanged(appWidgetId,
