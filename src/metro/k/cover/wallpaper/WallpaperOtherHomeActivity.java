@@ -30,7 +30,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 /**
- * Homeeの壁紙一覧から設定
+ * 着せ替えホームアプリの壁紙一覧から設定
  * 
  * @author kohirose
  * 
@@ -147,6 +147,7 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 
 		final int size = mRealList.size();
 		if (size == 0) {
+			setEmptyView();
 			return;
 		}
 
