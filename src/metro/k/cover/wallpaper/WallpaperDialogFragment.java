@@ -20,6 +20,7 @@ public class WallpaperDialogFragment extends DialogFragment {
 	private boolean isHomeeWallpaper = false;
 	private boolean isPlusHomeWallpaper = false;
 	private boolean isBuzzHomeWallpaper = false;
+	private boolean isDodoruHomeWallpaper = false;
 
 	public static String KEY_SELECTED_PAGE = "key_selected_page";
 
@@ -28,12 +29,13 @@ public class WallpaperDialogFragment extends DialogFragment {
 	}
 
 	public void showThemeDialogFragment(String tag, int position,
-			boolean homee, boolean plushome, boolean buzzhome) {
+			boolean homee, boolean plushome, boolean buzzhome, boolean dodoru) {
 		mTAG = tag;
 		mPosition = position;
 		isHomeeWallpaper = homee;
 		isPlusHomeWallpaper = plushome;
 		isBuzzHomeWallpaper = buzzhome;
+		isDodoruHomeWallpaper = dodoru;
 	}
 
 	@Override
@@ -54,47 +56,28 @@ public class WallpaperDialogFragment extends DialogFragment {
 					.findViewById(R.id.wallpaper_dialog_homee_layout);
 			ImageView homee_sep = (ImageView) dialog
 					.findViewById(R.id.wallpaper_dialog_homee_sep);
-			if (isHomeeWallpaper) {
-				homee_layout.setVisibility(View.VISIBLE);
-				homee_sep.setVisibility(View.VISIBLE);
-				homee_layout.setOnClickListener(getOtherHomeWallpaperListener(
-						mPosition, WallpaperUtilities.HOMEE_APP_ID));
-			} else {
-				homee_layout.setVisibility(View.GONE);
-				homee_sep.setVisibility(View.GONE);
-			}
+			setItemView(isHomeeWallpaper, homee_layout, homee_sep);
 
 			// [+]HOMEの壁紙
 			RelativeLayout plushome_layout = (RelativeLayout) dialog
 					.findViewById(R.id.wallpaper_dialog_plushome_layout);
 			ImageView plushome_sep = (ImageView) dialog
 					.findViewById(R.id.wallpaper_dialog_plushome_sep);
-			if (isPlusHomeWallpaper) {
-				plushome_layout.setVisibility(View.VISIBLE);
-				plushome_sep.setVisibility(View.VISIBLE);
-				plushome_layout
-						.setOnClickListener(getOtherHomeWallpaperListener(
-								mPosition, WallpaperUtilities.PLUSHOME_APP_ID));
-			} else {
-				plushome_layout.setVisibility(View.GONE);
-				plushome_sep.setVisibility(View.GONE);
-			}
+			setItemView(isPlusHomeWallpaper, plushome_layout, plushome_sep);
 
 			// buzzHOMEの壁紙
 			RelativeLayout buzzhome_layout = (RelativeLayout) dialog
 					.findViewById(R.id.wallpaper_dialog_buzzhome_layout);
 			ImageView buzzhome_sep = (ImageView) dialog
 					.findViewById(R.id.wallpaper_dialog_buzzhome_sep);
-			if (isBuzzHomeWallpaper) {
-				buzzhome_layout.setVisibility(View.VISIBLE);
-				buzzhome_sep.setVisibility(View.VISIBLE);
-				buzzhome_layout
-						.setOnClickListener(getOtherHomeWallpaperListener(
-								mPosition, WallpaperUtilities.BUZZHOME_APP_ID));
-			} else {
-				buzzhome_layout.setVisibility(View.GONE);
-				buzzhome_sep.setVisibility(View.GONE);
-			}
+			setItemView(isBuzzHomeWallpaper, buzzhome_layout, buzzhome_sep);
+
+			// ドドルランチャーの壁紙
+			RelativeLayout dodol_layout = (RelativeLayout) dialog
+					.findViewById(R.id.wallpaper_dialog_dodoru_layout);
+			ImageView dodol_sep = (ImageView) dialog
+					.findViewById(R.id.wallpaper_dialog_dodoru_sep);
+			setItemView(isDodoruHomeWallpaper, dodol_layout, dodol_sep);
 
 			// 暗黙投げる
 			RelativeLayout gallery_layout = (RelativeLayout) dialog
@@ -105,6 +88,22 @@ public class WallpaperDialogFragment extends DialogFragment {
 			return dialog;
 		} catch (Exception e) {
 			return null;
+		}
+	}
+
+	private void setItemView(final boolean flag, final RelativeLayout layout,
+			final ImageView sep) {
+		if (layout == null || sep == null) {
+			return;
+		}
+		if (flag) {
+			layout.setVisibility(View.VISIBLE);
+			sep.setVisibility(View.VISIBLE);
+			layout.setOnClickListener(getOtherHomeWallpaperListener(mPosition,
+					WallpaperUtilities.DODORUHOME_APP_ID));
+		} else {
+			layout.setVisibility(View.GONE);
+			sep.setVisibility(View.GONE);
 		}
 	}
 

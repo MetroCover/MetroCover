@@ -1,7 +1,5 @@
 package metro.k.cover.wallpaper;
 
-import java.util.ArrayList;
-
 import metro.k.cover.ImageCache;
 import metro.k.cover.R;
 import metro.k.cover.Utilities;
@@ -278,33 +276,27 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 		View.OnClickListener li = new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				final ArrayList<String> homees = WallpaperUtilities
-						.getHomeeWallpapers(activity);
-				final ArrayList<String> plushomes = WallpaperUtilities
-						.getPlusHomeWallpapers(activity);
-				final ArrayList<String> buzzhomes = WallpaperUtilities
-						.getBuzzHomeWallpapers(activity);
-				boolean plushome = false;
-				boolean homee = false;
-				boolean buzz = false;
-				if (homees != null) {
-					if (homees.size() > 0) {
-						homee = true;
-					}
-				}
-				if (plushomes != null) {
-					if (plushomes.size() > 0) {
-						plushome = true;
-					}
-				}
-				if (buzzhomes != null) {
-					if (buzzhomes.size() > 0) {
-						buzz = true;
-					}
+				final boolean[] bools = WallpaperUtilities
+						.getHomeAppThemesInstalled(activity);
+				if (bools == null) {
+					pickupGallery(activity, page);
+					return;
 				}
 
-				if (homee || plushome) {
-					buildSelectDialog(activity, page, plushome, homee, buzz);
+				if (bools.length != WallpaperUtilities.HOME_APPS_SIZE) {
+					pickupGallery(activity, page);
+					return;
+				}
+
+				if (bools[WallpaperUtilities.HOMEE_APP_ID]
+						|| bools[WallpaperUtilities.PLUSHOME_APP_ID]
+						|| bools[WallpaperUtilities.BUZZHOME_APP_ID]
+						|| bools[WallpaperUtilities.DODORUHOME_APP_ID]) {
+					buildSelectDialog(activity, page,
+							bools[WallpaperUtilities.HOMEE_APP_ID],
+							bools[WallpaperUtilities.PLUSHOME_APP_ID],
+							bools[WallpaperUtilities.BUZZHOME_APP_ID],
+							bools[WallpaperUtilities.DODORUHOME_APP_ID]);
 				} else {
 					pickupGallery(activity, page);
 				}
@@ -345,13 +337,13 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 	 */
 	private void buildSelectDialog(final FragmentActivity activity,
 			final int page, final boolean isPlushome, final boolean isHomee,
-			final boolean isBuzz) {
+			final boolean isBuzz, final boolean isDodoru) {
 		try {
 			final android.app.FragmentManager fm = activity
 					.getFragmentManager();
 			final WallpaperDialogFragment dialog = new WallpaperDialogFragment();
 			dialog.showThemeDialogFragment("wallpaper_dialog", page, isHomee,
-					isPlushome, isBuzz);
+					isPlushome, isBuzz, isDodoru);
 			final FragmentTransaction ft = fm.beginTransaction();
 			ft.add(dialog, "wallpaper_dialog");
 			ft.commit();

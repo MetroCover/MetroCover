@@ -86,8 +86,14 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 
 		// Title
 		TextViewWithFont titleView = (TextViewWithFont) findViewById(R.id.wallpaper_other_home_titleview);
-		if (mHomeAppID != WallpaperUtilities.HOMEE_APP_ID) {
+		if (mHomeAppID == WallpaperUtilities.HOMEE_APP_ID) {
+			titleView.setText(R.string.wallpaper_homee_title);
+		} else if (mHomeAppID == WallpaperUtilities.PLUSHOME_APP_ID) {
 			titleView.setText(R.string.wallpaper_plushome_title);
+		} else if (mHomeAppID == WallpaperUtilities.BUZZHOME_APP_ID) {
+			titleView.setText(R.string.wallpaper_buzzhome_title);
+		} else if (mHomeAppID == WallpaperUtilities.DODORUHOME_APP_ID) {
+			titleView.setText(R.string.wallpaper_dodol_title);
 		}
 
 		// Empty
@@ -174,6 +180,8 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 			return WallpaperUtilities.getPlusHomeWallpapers(this);
 		} else if (mHomeAppID == WallpaperUtilities.BUZZHOME_APP_ID) {
 			return WallpaperUtilities.getBuzzHomeWallpapers(this);
+		} else if (mHomeAppID == WallpaperUtilities.DODORUHOME_APP_ID) {
+			return WallpaperUtilities.getDodolHomeWallpapers(this);
 		} else {
 			return null;
 		}
@@ -193,6 +201,10 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 		} else if (mHomeAppID == WallpaperUtilities.PLUSHOME_APP_ID) {
 			final String str = getResources().getString(
 					R.string.theme_plushome_bg_image);
+			return getDrawableResource(packageName, str);
+		} else if (mHomeAppID == WallpaperUtilities.DODORUHOME_APP_ID) {
+			final String str = getResources().getString(
+					R.string.theme_dodol_bg_image);
 			return getDrawableResource(packageName, str);
 		} else {
 			return null;
