@@ -49,4 +49,16 @@
         android:contentDescription="@string/app_name"
         android:src="@drawable/selector_update_btn" />
 
+    <TextView
+        android:id="@+id/widget_railways_info_empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:text="@string/empty_title_lock_railway_info_message"
+        android:textColor="@color/color_white"
+        android:textIsSelectable="false"
+        android:textSize="18sp"
+        android:visibility="gone" />
+
 </RelativeLayout>

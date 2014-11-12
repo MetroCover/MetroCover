@@ -9,8 +9,15 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
+import android.view.View;
 import android.widget.RemoteViews;
 
+/**
+ * 遅延情報ウィジェット
+ * 
+ * @author kohirose
+ * 
+ */
 public class RailwaysInfoWidgetProvider extends AppWidgetProvider {
 
 	private static final String ACTION_CLICK = "metro.k.cover.widget.ACTION_CLICK";
@@ -90,12 +97,17 @@ public class RailwaysInfoWidgetProvider extends AppWidgetProvider {
 				RailwaysInfoWidgetService.class);
 		RemoteViews rv = new RemoteViews(context.getPackageName(),
 				R.layout.widget_railways_info);
-		rv.setRemoteAdapter(R.id.widget_railways_info_listview,
-				remoteViewsFactoryIntent);
-		rv.setTextViewText(R.id.widget_railways_info_lastupdate,
-				MetroCoverApplication.getLastUpdateTime());
-
-		setOnButtonClickPendingIntent(context, rv, appWidgetId);
+		if (MetroCoverApplication.sRailwaysInfoAdapter != null
+				&& MetroCoverApplication.sRailwaysInfoAdapter.getCount() >= 0) {
+			rv.setViewVisibility(R.id.widget_railways_info_empty, View.GONE);
+			rv.setRemoteAdapter(R.id.widget_railways_info_listview,
+					remoteViewsFactoryIntent);
+			rv.setTextViewText(R.id.widget_railways_info_lastupdate,
+					MetroCoverApplication.getLastUpdateTime());
+			setOnButtonClickPendingIntent(context, rv, appWidgetId);
+		} else {
+			rv.setViewVisibility(R.id.widget_railways_info_empty, View.VISIBLE);
+		}
 
 		manager.updateAppWidget(appWidgetId, null);
 		manager.updateAppWidget(appWidgetId, rv);

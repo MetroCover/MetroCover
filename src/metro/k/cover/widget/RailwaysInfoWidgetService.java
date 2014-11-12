@@ -9,6 +9,12 @@ import android.graphics.drawable.BitmapDrawable;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+/**
+ * 遅延情報ウィジェットの表示Service
+ * 
+ * @author kohirose
+ * 
+ */
 public class RailwaysInfoWidgetService extends RemoteViewsService {
 
 	@Override
