@@ -1,0 +1,55 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <metro.k.cover.view.TextViewWithFont
+        android:id="@+id/lock_train_info_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="列車情報"
+        android:textSize="30sp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/lock_train_info_title" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <metro.k.cover.view.TextViewWithFont
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Station Name"
+                android:textSize="50sp" />
+
+            <metro.k.cover.view.TextViewWithFont
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="行き先"
+                android:textSize="20sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+                <metro.k.cover.view.TextViewWithFont
+                    android:layout_alignParentTop="true"
+                    android:id="@+id/lock_train_info_train_type_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp" />
+                <metro.k.cover.view.TextViewWithFont
+                    android:id="@+id/lock_train_info_departure_time_1"
+                    android:layout_below="@+id/lock_train_info_train_type_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="40sp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

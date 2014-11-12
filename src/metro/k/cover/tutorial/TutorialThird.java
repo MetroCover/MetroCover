@@ -46,7 +46,6 @@ public class TutorialThird extends Fragment {
 				PreferenceCommon.setStationsRailwayName(getActivity(),
 						station.getRailway());
 				TutorialActivity.setNextPage();
-
 			}
 		});
 	}

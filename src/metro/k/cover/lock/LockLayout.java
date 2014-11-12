@@ -11,6 +11,7 @@ import metro.k.cover.ImageCache;
 import metro.k.cover.MetroCoverApplication;
 import metro.k.cover.PreferenceCommon;
 import metro.k.cover.R;
+import metro.k.cover.TrainDBProvider;
 import metro.k.cover.Utilities;
 import metro.k.cover.lock.LockPatternView.Cell;
 import metro.k.cover.lock.LockPatternView.DisplayMode;
@@ -51,12 +52,12 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 /**
  * ロック画面のView
  */
-public class LockLayout extends FrameLayout implements View.OnClickListener,
-		View.OnLongClickListener {
+public class LockLayout extends FrameLayout implements View.OnClickListener, View.OnLongClickListener {
 
 	// Security Layout Resources
 	private View mPassView;
@@ -145,8 +146,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			if (!hasFocus) {
 				super.onWindowFocusChanged(hasFocus);
 				Object service = c.getSystemService("statusbar");
-				Class<?> statusbarManager = Class
-						.forName("android.app.StatusBarManager");
+				Class<?> statusbarManager = Class.forName("android.app.StatusBarManager");
 				if (Build.VERSION.SDK_INT <= 16) {
 					collapse = statusbarManager.getMethod("collapse");
 				} else {
@@ -163,8 +163,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	}
 
 	@Override
-	protected void onLayout(boolean changed, int left, int top, int right,
-			int bottom) {
+	protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
 		super.onLayout(changed, left, top, right, bottom);
 
 		if (changed) {
@@ -172,8 +171,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 				Rect rect = new Rect();
 				getWindowVisibleDisplayFrame(rect);
 				mStatusBarHeight = rect.top;
-				findViewById(R.id.lock_foregroundLayout).setPadding(0,
-						mStatusBarHeight, 0, 0);
+				findViewById(R.id.lock_foregroundLayout).setPadding(0, mStatusBarHeight, 0, 0);
 			}
 		}
 	}
@@ -208,10 +206,8 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		mVib = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
 
 		// 電話情報の受信開始
-		final TelephonyManager telephonyManager = (TelephonyManager) context
-				.getSystemService(Context.TELEPHONY_SERVICE);
-		telephonyManager.listen(mPhoneStateListener,
-				PhoneStateListener.LISTEN_CALL_STATE);
+		final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+		telephonyManager.listen(mPhoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
 
 		// Viewpager
 		mLockPagerAdapter = new LockPagerAdapter(context);
@@ -273,10 +269,8 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			// セキュリティチェックの際にスクリーンオフされたらセキュリティのViewを廃棄
 			if (action.equals(Intent.ACTION_SCREEN_OFF)) {
 				if (mPassView != null) {
-					InputMethodManager inputMethodManager = (InputMethodManager) c
-							.getSystemService(Context.INPUT_METHOD_SERVICE);
-					inputMethodManager.hideSoftInputFromWindow(
-							mPassView.getWindowToken(), 0);
+					InputMethodManager inputMethodManager = (InputMethodManager) c.getSystemService(Context.INPUT_METHOD_SERVICE);
+					inputMethodManager.hideSoftInputFromWindow(mPassView.getWindowToken(), 0);
 					removePassView(mPassView);
 				}
 				if (mPatternView != null) {
@@ -324,8 +318,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	private void disableTelephonyReceiver(Context context) {
 		context.unregisterReceiver(mBroadcastReceiver);
 
-		final TelephonyManager tm = (TelephonyManager) context
-				.getSystemService(Context.TELEPHONY_SERVICE);
+		final TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
 		tm.listen(mPhoneStateListener, PhoneStateListener.LISTEN_NONE);
 	}
 
@@ -453,30 +446,24 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		}
 
 		// 取得する情報
-		final String[] projection = new String[] { CallLog.Calls.CACHED_NAME,
-				CallLog.Calls.NUMBER, };
+		final String[] projection = new String[] { CallLog.Calls.CACHED_NAME, CallLog.Calls.NUMBER, };
 
 		// 情報の条件
-		final String selection = CallLog.Calls.NEW + "=? AND "
-				+ CallLog.Calls.TYPE + "=" + CallLog.Calls.MISSED_TYPE;
+		final String selection = CallLog.Calls.NEW + "=? AND " + CallLog.Calls.TYPE + "=" + CallLog.Calls.MISSED_TYPE;
 		final String[] selectionArgs = new String[] { "1" };
 
 		// ソート順
 		final String order = CallLog.Calls.DATE + " DESC";
 
-		final Cursor c = cr.query(CallLog.Calls.CONTENT_URI, projection,
-				selection, selectionArgs, order);
+		final Cursor c = cr.query(CallLog.Calls.CONTENT_URI, projection, selection, selectionArgs, order);
 		if (c != null) {
 			if (c.moveToFirst()) {
 				do {
-					String number = c.getString(c
-							.getColumnIndex(CallLog.Calls.NUMBER));
-					String cachedName = c.getString(c
-							.getColumnIndex(CallLog.Calls.CACHED_NAME));
+					String number = c.getString(c.getColumnIndex(CallLog.Calls.NUMBER));
+					String cachedName = c.getString(c.getColumnIndex(CallLog.Calls.CACHED_NAME));
 					if (number.equals(TEL_MISSED_CALL_NUMBER)) {
 						// 非通知
-						number = context.getResources().getString(
-								R.string.lock_missed_call_number_withheld);
+						number = context.getResources().getString(R.string.lock_missed_call_number_withheld);
 					}
 					telInfo[TEL_INFO_NUMBER].add(number);
 					if (cachedName != null) {
@@ -503,16 +490,11 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		final Context c = getContext().getApplicationContext();
 		final AssetManager am = c.getAssets();
 		final Resources res = c.getResources();
-		mPassView = LayoutInflater.from(c).inflate(R.layout.input_password,
-				null, false);
-		final TextViewWithFont title = (TextViewWithFont) mPassView
-				.findViewById(R.id.lock_pass_title);
-		final EditText edittext = (EditText) mPassView
-				.findViewById(R.id.lock_pass_edittext);
-		final Button comp = (Button) mPassView
-				.findViewById(R.id.lock_pass_comp_btn);
-		final Button cancel = (Button) mPassView
-				.findViewById(R.id.lock_pass_cancel_btn);
+		mPassView = LayoutInflater.from(c).inflate(R.layout.input_password, null, false);
+		final TextViewWithFont title = (TextViewWithFont) mPassView.findViewById(R.id.lock_pass_title);
+		final EditText edittext = (EditText) mPassView.findViewById(R.id.lock_pass_edittext);
+		final Button comp = (Button) mPassView.findViewById(R.id.lock_pass_comp_btn);
+		final Button cancel = (Button) mPassView.findViewById(R.id.lock_pass_cancel_btn);
 
 		Utilities.setFontEditTextView(edittext, am, res);
 		Utilities.setFontButtonView(comp, am, res);
@@ -520,8 +502,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 
 		this.addView(mPassView);
 		edittext.requestFocus();
-		final InputMethodManager imm = (InputMethodManager) c
-				.getSystemService(Context.INPUT_METHOD_SERVICE);
+		final InputMethodManager imm = (InputMethodManager) c.getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.showSoftInput(edittext, InputMethodManager.SHOW_IMPLICIT);
 		comp.setOnClickListener(getPasswordOKListener(edittext, title));
 		cancel.setOnClickListener(getPasswordCancelListener());
@@ -533,8 +514,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	 * @param et
 	 * @param tv
 	 */
-	private void setWrongPasswordView(final EditText et,
-			final TextViewWithFont tv) {
+	private void setWrongPasswordView(final EditText et, final TextViewWithFont tv) {
 		if (et == null || tv == null || mVib == null)
 			return;
 		mVib.vibrate(VIBELATE_TIME);
@@ -549,8 +529,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	 * @param tv
 	 * @return
 	 */
-	private final View.OnClickListener getPasswordOKListener(final EditText et,
-			final TextViewWithFont tv) {
+	private final View.OnClickListener getPasswordOKListener(final EditText et, final TextViewWithFont tv) {
 		final View.OnClickListener listener = new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -580,8 +559,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			@Override
 			public void onClick(View v) {
 				final Context c = getContext().getApplicationContext();
-				final InputMethodManager imm = (InputMethodManager) c
-						.getSystemService(Context.INPUT_METHOD_SERVICE);
+				final InputMethodManager imm = (InputMethodManager) c.getSystemService(Context.INPUT_METHOD_SERVICE);
 				imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 				removePassView(mPassView);
 			}
@@ -596,19 +574,14 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		final Context c = getContext().getApplicationContext();
 		final AssetManager am = c.getAssets();
 		final Resources res = c.getResources();
-		mPatternView = LayoutInflater.from(c).inflate(R.layout.input_pattern,
-				null, false);
-		final LockPatternView patternView = (LockPatternView) mPatternView
-				.findViewById(R.id.lock_patternView);
-		final TextViewWithFont titleView = (TextViewWithFont) mPatternView
-				.findViewById(R.id.lock_pattern_title);
-		final Button cancelBtn = (Button) mPatternView
-				.findViewById(R.id.lock_pattern_cancel_btn);
+		mPatternView = LayoutInflater.from(c).inflate(R.layout.input_pattern, null, false);
+		final LockPatternView patternView = (LockPatternView) mPatternView.findViewById(R.id.lock_patternView);
+		final TextViewWithFont titleView = (TextViewWithFont) mPatternView.findViewById(R.id.lock_pattern_title);
+		final Button cancelBtn = (Button) mPatternView.findViewById(R.id.lock_pattern_cancel_btn);
 
 		Utilities.setFontButtonView(cancelBtn, am, res);
 
-		patternView.setOnPatternListener(getPatternListener(patternView,
-				titleView));
+		patternView.setOnPatternListener(getPatternListener(patternView, titleView));
 		cancelBtn.setOnClickListener(getPatternCancelListener(patternView));
 		this.addView(mPatternView);
 	}
@@ -620,8 +593,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	 * @param tv
 	 * @return
 	 */
-	private final LockPatternView.OnPatternListener getPatternListener(
-			final LockPatternView patternView, final TextViewWithFont tv) {
+	private final LockPatternView.OnPatternListener getPatternListener(final LockPatternView patternView, final TextViewWithFont tv) {
 		final LockPatternView.OnPatternListener listener = new LockPatternView.OnPatternListener() {
 
 			@Override
@@ -638,9 +610,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 				isPatternPressed = true;
 
 				if (mPattern.equals(mSecurityPattern)
-						|| LockUtilities.getInstance().getMasterPattern(
-								getContext().getApplicationContext(),
-								onlyNumStr)) {
+						|| LockUtilities.getInstance().getMasterPattern(getContext().getApplicationContext(), onlyNumStr)) {
 					tv.setVisibility(View.INVISIBLE);
 					LockUtilities.getInstance().unlock(getContext());
 				} else {
@@ -668,8 +638,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	 * @param patternView
 	 * @return
 	 */
-	private final View.OnClickListener getPatternCancelListener(
-			final LockPatternView patternView) {
+	private final View.OnClickListener getPatternCancelListener(final LockPatternView patternView) {
 		final View.OnClickListener listener = new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -773,8 +742,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	 */
 	private void unregistClockReceiver() {
 		try {
-			getContext().getApplicationContext().unregisterReceiver(
-					mUpdateReceiver);
+			getContext().getApplicationContext().unregisterReceiver(mUpdateReceiver);
 		} catch (Exception e) {
 		}
 	}
@@ -787,8 +755,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		filter.addAction(Intent.ACTION_TIME_TICK);
 		filter.addAction(Intent.ACTION_BATTERY_CHANGED);
 		try {
-			getContext().getApplicationContext().registerReceiver(
-					mUpdateReceiver, filter);
+			getContext().getApplicationContext().registerReceiver(mUpdateReceiver, filter);
 		} catch (Exception e) {
 		}
 	}
@@ -844,8 +811,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		}
 
 		@Override
-		public void setPrimaryItem(ViewGroup container, int position,
-				Object object) {
+		public void setPrimaryItem(ViewGroup container, int position, Object object) {
 			super.setPrimaryItem(container, position, object);
 			if (mLastPosition == position) {
 				return;
@@ -876,10 +842,8 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		 * @return
 		 */
 		private RelativeLayout getleftLayout() {
-			RelativeLayout trainInfoLayout = (RelativeLayout) mLayoutInflater
-					.inflate(R.layout.lock_railways_info, null);
-			ListView lv = (ListView) trainInfoLayout
-					.findViewById(R.id.lock_railways_info_listview);
+			RelativeLayout trainInfoLayout = (RelativeLayout) mLayoutInflater.inflate(R.layout.lock_railways_info, null);
+			ListView lv = (ListView) trainInfoLayout.findViewById(R.id.lock_railways_info_listview);
 			return trainInfoLayout;
 		}
 
@@ -889,11 +853,9 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		 * @return
 		 */
 		private RelativeLayout getRightLayout() {
-			RelativeLayout trainInfoLayout = (RelativeLayout) mLayoutInflater
-					.inflate(R.layout.page_train_info, null);
-			TextViewWithFont tv = (TextViewWithFont) trainInfoLayout
-					.findViewById(R.id.page_train_info_test);
-			tv.setText(String.valueOf(mTestNum2));
+			RelativeLayout trainInfoLayout = (RelativeLayout) mLayoutInflater.inflate(R.layout.lock_train_info, null);
+			//TextViewWithFont tv = (TextViewWithFont) trainInfoLayout.findViewById(R.id.page_train_info_test);
+			//tv.setText(String.valueOf(mTestNum2));
 			return trainInfoLayout;
 		}
 
@@ -903,21 +865,15 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		 * @return
 		 */
 		private RelativeLayout getCenterLayout() {
-			RelativeLayout lockLayout = (RelativeLayout) mLayoutInflater
-					.inflate(R.layout.page_lock, null);
-			mClockLinearLayout = (LinearLayout) lockLayout
-					.findViewById(R.id.lock_data_layout);
-			mClockTextView = (TextViewWithFont) lockLayout
-					.findViewById(R.id.lock_time_textview);
-			mDataTextView = (TextViewWithFont) lockLayout
-					.findViewById(R.id.lock_date_textview);
-			mBatteryView = (TextViewWithFont) lockLayout
-					.findViewById(R.id.lock_battery_textview);
+			RelativeLayout lockLayout = (RelativeLayout) mLayoutInflater.inflate(R.layout.page_lock, null);
+			mClockLinearLayout = (LinearLayout) lockLayout.findViewById(R.id.lock_data_layout);
+			mClockTextView = (TextViewWithFont) lockLayout.findViewById(R.id.lock_time_textview);
+			mDataTextView = (TextViewWithFont) lockLayout.findViewById(R.id.lock_date_textview);
+			mBatteryView = (TextViewWithFont) lockLayout.findViewById(R.id.lock_battery_textview);
 			mKeyView = (KeyView) lockLayout.findViewById(R.id.unlock_keyview);
 			mKeyView.setKeyViewListener(getKeyViewListener());
 			initClock(mContext, mClockType);
-			Intent bat = mContext.registerReceiver(null, new IntentFilter(
-					Intent.ACTION_BATTERY_CHANGED));
+			Intent bat = mContext.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 			initBatteryView(bat.getIntExtra("level", 0));
 			return lockLayout;
 		}
@@ -1004,30 +960,18 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 
 		private void countup(int position) {
 			String pageName = mList.get(position);
-			int count = 0;
 			if (pageName.equals(PAGE_PAGE_TRAIN_INFO_1)) {
-				count = mTestNum1++;
 				readRailwaysInfo();
-				return;
 			} else if (pageName.equals(PAGE_PAGE_TRAIN_INFO_2)) {
-				count = mTestNum2++;
-			} else {
-				return;
+				//readTrainInfo();
 			}
-			RelativeLayout TrainInfoLayout = (RelativeLayout) getPrimaryItem();
-			TextViewWithFont textView = (TextViewWithFont) TrainInfoLayout
-					.findViewById(R.id.page_train_info_test);
-			textView.setText(String.valueOf(count));
 		}
 
 		private void readRailwaysInfo() {
 			RelativeLayout layout = (RelativeLayout) getPrimaryItem();
-			LinearLayout listLayout = (LinearLayout) layout
-					.findViewById(R.id.lock_railways_info_mainlayout);
-			ListView listview = (ListView) layout
-					.findViewById(R.id.lock_railways_info_listview);
-			LinearLayout emptyView = (LinearLayout) layout
-					.findViewById(R.id.lock_railways_empty_view);
+			LinearLayout listLayout = (LinearLayout) layout.findViewById(R.id.lock_railways_info_mainlayout);
+			ListView listview = (ListView) layout.findViewById(R.id.lock_railways_info_listview);
+			LinearLayout emptyView = (LinearLayout) layout.findViewById(R.id.lock_railways_empty_view);
 			if (MetroCoverApplication.sRailwaysInfoAdapter == null) {
 				listLayout.setVisibility(View.GONE);
 				emptyView.setVisibility(View.VISIBLE);
@@ -1038,6 +982,82 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			listLayout.setVisibility(View.VISIBLE);
 		}
 
+		private void readTrainInfo() {
+			final Calendar calendar = Calendar.getInstance();
+			//final int hour = calendar.get(Calendar.HOUR_OF_DAY);
+			//final int minute = calendar.get(Calendar.MINUTE);
+			final int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+			int hour = 20;
+			int minute = 30;
+			int startTime = hour * 100 + minute;
+			int endTime = startTime + 100;
+			if (hour == 23) {
+				endTime = minute;
+			}
+			int dayType = TrainDBProvider.DayType.WEEKDAYS;
+			if (dayOfWeek == Calendar.SATURDAY) {
+				dayType = TrainDBProvider.DayType.SATURDAYS;
+			} else if (dayOfWeek == Calendar.SUNDAY) {
+				dayType = TrainDBProvider.DayType.HOLIDAYS;
+			}
+			String[] projection = {
+					TrainDBProvider.Columns.STATION_CODE,
+					TrainDBProvider.Columns.TIME,
+					TrainDBProvider.Columns.HOUR,
+					TrainDBProvider.Columns.MINUTE,
+					TrainDBProvider.Columns.DAY_TYPE,
+					TrainDBProvider.Columns.TRAIN_TYPE,
+					TrainDBProvider.Columns.TERMINAL_STATION };
+			StringBuilder selection = new StringBuilder();
+			selection.append(TrainDBProvider.Columns.STATION_CODE + " = ? AND ");
+			selection.append(TrainDBProvider.Columns.DAY_TYPE + " = ? AND ");
+			
+			selection.append(TrainDBProvider.Columns.TIME + " > ? AND ");
+			selection.append(TrainDBProvider.Columns.TIME + " < ?");
+			String[] args = { "odpt.Station:TokyoMetro.Ginza.Shibuya", Integer.toString(dayType), Integer.toString(startTime), Integer.toString(endTime)};
+			String order = TrainDBProvider.Columns.TIME + " ASC";
+			Cursor cursor = mContext.getContentResolver().query(TrainDBProvider.CONTENT_URI, projection, selection.toString(), args, order);
+			//Cursor cursor = mContext.getContentResolver().query(TrainDBProvider.CONTENT_URI, projection, null, null, order);
+			
+			final int count = cursor.getCount();
+			int[] hourArray = new int[count];
+			int[] minuteArray = new int[count];
+			String[] trainTypeArray = new String[count];
+			String[] terminalStationArray = new String[count];
+			final int columnCount = cursor.getColumnCount();
+			while (cursor.moveToNext()) {
+				final int rowNumber = cursor.getPosition();
+				for (int i = 0; i < columnCount; i++) {
+					final String columnName = cursor.getColumnName(i);
+					if (columnName.equals(TrainDBProvider.Columns.HOUR)) {
+						hourArray[rowNumber] = Integer.parseInt(cursor.getString(i));
+					} else if (columnName.equals(TrainDBProvider.Columns.MINUTE)) {
+						minuteArray[rowNumber] = Integer.parseInt(cursor.getString(i));
+					} else if (columnName.equals(TrainDBProvider.Columns.TRAIN_TYPE)) {
+						trainTypeArray[rowNumber] = cursor.getString(i);
+					} else if (columnName.equals(TrainDBProvider.Columns.TERMINAL_STATION)) {
+						terminalStationArray[rowNumber] = cursor.getString(i);
+					}
+				}
+			}
+			cursor.close();
+
+			RelativeLayout layout = (RelativeLayout) getPrimaryItem();
+			TextView tvTrainType1 = (TextView) layout.findViewById(R.id.lock_train_info_train_type_1);
+			String trainTypeText = "";
+			if (trainTypeArray[0].equals(mContext.getString(R.string.train_type_local_response))) {
+				trainTypeText = mContext.getString(R.string.train_type_local);
+			} else if (trainTypeArray[0].equals(mContext.getString(R.string.train_type_express_response))) {
+				trainTypeText = mContext.getString(R.string.train_type_express);
+			} else if (trainTypeArray[0].equals(mContext.getString(R.string.train_type_rapid_response))) {
+				trainTypeText = mContext.getString(R.string.train_type_rapid);
+			} else if (trainTypeArray[0].equals(mContext.getString(R.string.train_type_limited_express_response))) {
+				trainTypeText = mContext.getString(R.string.train_type_limited_express);
+			}
+			tvTrainType1.setText(trainTypeText);
+			
+		}
+
 		/**
 		 * 時計の描画
 		 * 
@@ -1045,8 +1065,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		 * @param is24h
 		 */
 		private void initClock(final Context context, final int type) {
-			if (mClockLinearLayout == null || mClockTextView == null
-					|| mDataTextView == null) {
+			if (mClockLinearLayout == null || mClockTextView == null || mDataTextView == null) {
 				return;
 			}
 
@@ -1054,8 +1073,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			Date date = new Date();
 			mCalendar.setTime(date);
 			final int am_pm = mCalendar.get(Calendar.AM_PM);
-			final int hour = mCalendar.get(is24h ? Calendar.HOUR_OF_DAY
-					: Calendar.HOUR);
+			final int hour = mCalendar.get(is24h ? Calendar.HOUR_OF_DAY : Calendar.HOUR);
 			final int minute = mCalendar.get(Calendar.MINUTE);
 			final int year = mCalendar.get(Calendar.YEAR);
 			final int month = mCalendar.get(Calendar.MONTH) + 1;
@@ -1086,8 +1104,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 				isJp = true;
 			}
 			String dateStr = "";
-			final String wod = LockUtilities.getInstance().getDatOfWeek(
-					context, week_of_day);
+			final String wod = LockUtilities.getInstance().getDatOfWeek(context, week_of_day);
 			if (isJp) {
 				final String y = res.getString(R.string.date_year);
 				final String m = res.getString(R.string.date_month);
@@ -1128,8 +1145,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	 * @author kohirose
 	 * 
 	 */
-	private class OnLockPageChangeListener extends
-			ViewPager.SimpleOnPageChangeListener {
+	private class OnLockPageChangeListener extends ViewPager.SimpleOnPageChangeListener {
 		@Override
 		public void onPageScrollStateChanged(int state) {
 			switch (state) {
@@ -1145,8 +1161,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		}
 
 		@Override
-		public void onPageScrolled(int position, float positionOffset,
-				int positionOffsetPixels) {
+		public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 		}
 
 		@Override
