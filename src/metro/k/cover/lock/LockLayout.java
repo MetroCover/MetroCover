@@ -42,7 +42,6 @@ import android.os.Handler;
 import android.os.Vibrator;
 import android.provider.CallLog;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.AttributeSet;
@@ -95,7 +94,6 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	private LockPagerAdapter mLockPagerAdapter;
 	private JazzyViewPager mViewPager;
 	private KeyView mKeyView;
-	private OnLockPageChangeListener mOnLockPageChangeListener = new OnLockPageChangeListener();
 	private TransitionEffect mEffect = TransitionEffect.RotateDown;
 
 	// Clock
@@ -231,7 +229,6 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		mViewPager.setAdapter(mLockPagerAdapter);
 		mViewPager.setCurrentItem(1);
 		mViewPager.setTransitionEffect(mEffect);
-		mViewPager.setOnPageChangeListener(mOnLockPageChangeListener);
 	}
 
 	/**
@@ -399,8 +396,9 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	 * @param context
 	 */
 	private void getTelInfo(final Context context) {
-		if (context == null)
+		if (context == null) {
 			return;
+		}
 
 		List<String>[] telInfo = null;
 		try {
@@ -408,12 +406,14 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		} catch (Exception e) {
 		}
 
-		if (telInfo == null)
+		if (telInfo == null) {
 			return;
+		}
 
 		final int size = telInfo[TEL_INFO_NUMBER].size();
-		if (size == 0)
+		if (size == 0) {
 			return;
+		}
 
 		setMissedCallView(telInfo[TEL_INFO_NUMBER]);
 	}
@@ -1316,38 +1316,6 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			mBatteryView.setText(String.valueOf(battery) + "%");
 			mBatteryView.setTextSize(mClockDateSize);
 			mBatteryView.setTextColor(mResources.getColor(mClockColorID));
-		}
-	}
-
-	/**
-	 * Viewpagerのページ変更リスナー
-	 * 
-	 * @author kohirose
-	 * 
-	 */
-	private class OnLockPageChangeListener extends
-			ViewPager.SimpleOnPageChangeListener {
-		@Override
-		public void onPageScrollStateChanged(int state) {
-			switch (state) {
-			case ViewPager.SCROLL_STATE_IDLE:
-				break;
-			case ViewPager.SCROLL_STATE_SETTLING:
-				break;
-			case ViewPager.SCROLL_STATE_DRAGGING:
-				break;
-			default:
-				break;
-			}
-		}
-
-		@Override
-		public void onPageScrolled(int position, float positionOffset,
-				int positionOffsetPixels) {
-		}
-
-		@Override
-		public void onPageSelected(int position) {
 		}
 	}
 }
