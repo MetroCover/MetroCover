@@ -56,28 +56,32 @@ public class WallpaperDialogFragment extends DialogFragment {
 					.findViewById(R.id.wallpaper_dialog_homee_layout);
 			ImageView homee_sep = (ImageView) dialog
 					.findViewById(R.id.wallpaper_dialog_homee_sep);
-			setItemView(isHomeeWallpaper, homee_layout, homee_sep);
+			setItemView(isHomeeWallpaper, homee_layout, homee_sep,
+					WallpaperUtilities.HOMEE_APP_ID);
 
 			// [+]HOMEの壁紙
 			RelativeLayout plushome_layout = (RelativeLayout) dialog
 					.findViewById(R.id.wallpaper_dialog_plushome_layout);
 			ImageView plushome_sep = (ImageView) dialog
 					.findViewById(R.id.wallpaper_dialog_plushome_sep);
-			setItemView(isPlusHomeWallpaper, plushome_layout, plushome_sep);
+			setItemView(isPlusHomeWallpaper, plushome_layout, plushome_sep,
+					WallpaperUtilities.PLUSHOME_APP_ID);
 
 			// buzzHOMEの壁紙
 			RelativeLayout buzzhome_layout = (RelativeLayout) dialog
 					.findViewById(R.id.wallpaper_dialog_buzzhome_layout);
 			ImageView buzzhome_sep = (ImageView) dialog
 					.findViewById(R.id.wallpaper_dialog_buzzhome_sep);
-			setItemView(isBuzzHomeWallpaper, buzzhome_layout, buzzhome_sep);
+			setItemView(isBuzzHomeWallpaper, buzzhome_layout, buzzhome_sep,
+					WallpaperUtilities.BUZZHOME_APP_ID);
 
 			// ドドルランチャーの壁紙
 			RelativeLayout dodol_layout = (RelativeLayout) dialog
 					.findViewById(R.id.wallpaper_dialog_dodoru_layout);
 			ImageView dodol_sep = (ImageView) dialog
 					.findViewById(R.id.wallpaper_dialog_dodoru_sep);
-			setItemView(isDodoruHomeWallpaper, dodol_layout, dodol_sep);
+			setItemView(isDodoruHomeWallpaper, dodol_layout, dodol_sep,
+					WallpaperUtilities.DODORUHOME_APP_ID);
 
 			// 暗黙投げる
 			RelativeLayout gallery_layout = (RelativeLayout) dialog
@@ -92,7 +96,7 @@ public class WallpaperDialogFragment extends DialogFragment {
 	}
 
 	private void setItemView(final boolean flag, final RelativeLayout layout,
-			final ImageView sep) {
+			final ImageView sep, final int id) {
 		if (layout == null || sep == null) {
 			return;
 		}
@@ -100,7 +104,7 @@ public class WallpaperDialogFragment extends DialogFragment {
 			layout.setVisibility(View.VISIBLE);
 			sep.setVisibility(View.VISIBLE);
 			layout.setOnClickListener(getOtherHomeWallpaperListener(mPosition,
-					WallpaperUtilities.DODORUHOME_APP_ID));
+					id));
 		} else {
 			layout.setVisibility(View.GONE);
 			sep.setVisibility(View.GONE);
