@@ -1,9 +1,12 @@
 package metro.k.cover.api;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Calendar;
 
 import metro.k.cover.R;
-import metro.k.cover.TrainDBProvider;
+import metro.k.cover.lock.TrainInfo;
+import metro.k.cover.traininfo.TrainInfoListener;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -16,57 +19,31 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
-import android.util.Log;
 
 public class ApiRequestTrainInfo {
 
+	private final int MAX_TIME_TABLE_SIZE = 10;
+	private TrainInfoListener trainInfoListener;
 	private Context mContext;
-	private ContentValues mContentValues;
-	private String mRequestRailway;
-	private String mRequestStation;
+	private int mNow;
 
 	public ApiRequestTrainInfo(Context context) {
 		mContext = context;
 	}
 
-	public void requestTrainInfo(final String railway, final String station) {
-		mRequestRailway = railway;
-		mRequestStation = station;
-		if (isNetworkConnected()) {
-			new Thread(new Runnable() {
-				@Override
-				public void run() {
-					request();
-				}
-			}).start();
-		}
-	}
-
-	private boolean isNetworkConnected() {
-		ConnectivityManager cm = (ConnectivityManager) mContext.getSystemService(mContext.CONNECTIVITY_SERVICE);
-		NetworkInfo networkInfo = cm.getActiveNetworkInfo();
-		if (cm == null || networkInfo.isConnected() == false) {
-			return false;
-		} else {
-			return true;
-		}
-	}
-
-	private void request() {
-		Log.v("test", "requestTrainInfo()");
+	public void requestTrainInfo(String station, String direction) {
+		station = "odpt.Station:TokyoMetro.Ginza.Shibuya";
+		direction = "odpt.RailDirection:TokyoMetro.Asakusa";
 		Uri.Builder builder = new Uri.Builder();
 		builder.scheme("https");
 		builder.encodedAuthority("api.tokyometroapp.jp");
 		builder.path("/api/v2/datapoints/");
-		
+
 		builder.appendQueryParameter("rdf:type", "odpt:StationTimetable");
-		builder.appendQueryParameter("odpt:station", "odpt.Station:TokyoMetro.Ginza.Shibuya"); //test
+		builder.appendQueryParameter("odpt:station", station);
+		builder.appendQueryParameter("odpt:railDirection", direction);
 		builder.appendQueryParameter("acl:consumerKey", mContext.getString(R.string.api_id));
 		HttpGet request = new HttpGet(builder.build().toString());
 		DefaultHttpClient httpClient = new DefaultHttpClient();
@@ -84,6 +61,7 @@ public class ApiRequestTrainInfo {
 			});
 			parse(result);
 		} catch (Exception e) {
+			trainInfoListener.failedToCreateTimeTable();
 			//e.printStackTrace();
 		} finally {
 			httpClient.getConnectionManager().shutdown();
@@ -91,101 +69,81 @@ public class ApiRequestTrainInfo {
 	}
 
 	private void parse(String response) {
-		Log.v("test", "parseTrainInfo()");
 		try {
+			final Calendar calendar = Calendar.getInstance();
+			final int nowHour = calendar.get(Calendar.HOUR_OF_DAY);
+			final int newMinute = calendar.get(Calendar.MINUTE);
+			mNow = nowHour * 100 + newMinute;
+			final int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+
 			JSONArray rootArray = new JSONArray(response);
 			final int rootArrayLength = rootArray.length();
 			for (int i = 0; i < rootArrayLength; i++) {
 				JSONObject trainObject = rootArray.getJSONObject(i);
-				final String sameAs = trainObject.getString("owl:sameAs");
-				final String trainType = trainObject.getString("odpt:trainType");
-				final String terminalStation = trainObject.getString("odpt:terminalStation");
-
-				if (trainObject.has("odpt:weekdays")) {
+				if (dayOfWeek == Calendar.SATURDAY) {
+					JSONArray weekdaysArray = trainObject.getJSONArray("odpt:saturdays");
+					parseChildren(weekdaysArray);
+				} else if (dayOfWeek == Calendar.SUNDAY) {
+					JSONArray weekdaysArray = trainObject.getJSONArray("odpt:holidays");
+					parseChildren(weekdaysArray);
+				} else {
 					JSONArray weekdaysArray = trainObject.getJSONArray("odpt:weekdays");
-					final int weekdaysArrayLength = weekdaysArray.length();
-					for (int j = 0; j < weekdaysArrayLength; j++) {
-						JSONObject weekdaysObject = weekdaysArray.getJSONObject(j);
-						insert(sameAs, trainType, terminalStation, TrainDBProvider.DayType.WEEKDAYS, weekdaysObject);
-					}
-				}
-				if (trainObject.has("odpt:saturdays")) {
-					JSONArray saturdaysArray = trainObject.getJSONArray("odpt:saturdays");
-					final int saturdaysArrayLength = saturdaysArray.length();
-					for (int j = 0; j < saturdaysArrayLength; j++) {
-						JSONObject saturdaysObject = saturdaysArray.getJSONObject(j);
-						insert(sameAs, trainType, terminalStation, TrainDBProvider.DayType.SATURDAYS, saturdaysObject);
-					}
-				}
-				if (trainObject.has("odpt:holidays")) {
-					JSONArray holidaysArray = trainObject.getJSONArray("odpt:holidays");
-					final int holidaysArrayLength = holidaysArray.length();
-					for (int j = 0; j < holidaysArrayLength; j++) {
-						JSONObject holidaysObject = holidaysArray.getJSONObject(j);
-						insert(sameAs, trainType, terminalStation, TrainDBProvider.DayType.HOLIDAYS, holidaysObject);
-					}
+					parseChildren(weekdaysArray);
 				}
 			}
-			Log.v("test", "parse finish");
-			//requestRailwayInfo();
 		} catch (JSONException e) {
+			trainInfoListener.failedToCreateTimeTable();
 			e.printStackTrace();
 		}
 	}
 
-	private void insert(String sameAs, String trainType, String terminalStation, int dayType, JSONObject timetableObject) {
-		if (!timetableObject.has("odpt:departureTime")) {
-			return;
-		}
+	private void parseChildren(JSONArray jsonArray) {
 		try {
-			final String departureStation = timetableObject.getString("odpt:departureStation");
-			if (!departureStation.equals("odpt.Station:TokyoMetro.Ginza.Shibuya")) {
-				return;
+			final int weekdaysArrayLength = jsonArray.length();
+			ArrayList<TrainInfo> trainInfoList = new ArrayList<TrainInfo>();
+			for (int j = 0; j < weekdaysArrayLength; j++) {
+				JSONObject jsonObject = jsonArray.getJSONObject(j);
+				final String destinationStation = jsonObject.getString("odpt:destinationStation");
+				final String trainType = jsonObject.getString("odpt:trainType");
+				final String departureTime = jsonObject.getString("odpt:departureTime");
+
+				String[] s = departureTime.split(":");
+				final int hour = Integer.parseInt(s[0]);
+				final int minute = Integer.parseInt(s[1]);
+				final int time = hour * 100 + minute;
+				if (time < mNow && time > 300) {
+					continue;
+				}
+				TrainInfo trainInfo = new TrainInfo(minute, hour, destinationStation, trainType);
+				trainInfoList.add(trainInfo);
+				if (trainInfoList.size() > MAX_TIME_TABLE_SIZE) {
+					break;
+				}
 			}
-			final String index = sameAs + departureStation;
-			if (indexExists(index)) {
-				return;
-			}
-			final String departureTime = timetableObject.getString("odpt:departureTime");
-			String[] s = departureTime.split(":");
-			int hour = Integer.parseInt(s[0]);
-			int minute = Integer.parseInt(s[1]);
-			final int time = hour * 100 + minute;
-			ContentValues values = getContentValues();
-			values.put(TrainDBProvider.Columns.TABLE_INDEX, index);
-			values.put(TrainDBProvider.Columns.TRAIN_TYPE, trainType);
-			values.put(TrainDBProvider.Columns.TERMINAL_STATION, terminalStation);
-			values.put(TrainDBProvider.Columns.DAY_TYPE, dayType);
-			values.put(TrainDBProvider.Columns.TIME, time);
-			values.put(TrainDBProvider.Columns.HOUR, hour);
-			values.put(TrainDBProvider.Columns.MINUTE, minute);
-			values.put(TrainDBProvider.Columns.STATION_CODE, departureStation);
-			mContext.getContentResolver().insert(TrainDBProvider.CONTENT_URI, values);
-		} catch (Exception e) {
-			e.printStackTrace();
+			trainInfoListener.completeCreateTimeTable(trainInfoList);
+		} catch (JSONException e) {
+			trainInfoListener.failedToCreateTimeTable();
 		}
 	}
 
-	private boolean indexExists(String index) {
-		String[] projection = { TrainDBProvider.Columns.TABLE_INDEX };
-		String selection = TrainDBProvider.Columns.TABLE_INDEX + " = ?";
-		String[] args = { index };
-		Cursor cursor = mContext.getContentResolver().query(TrainDBProvider.CONTENT_URI, projection, selection, args, null);
-		int count = cursor.getCount();
-		final boolean ret = (count > 0 ? true : false);
-//		cursor.moveToNext();
-//		final int stationIndex = cursor.getInt(0);
-//		final boolean ret = (stationIndex > -1 ? true : false);
-		cursor.close();
-		return ret;
+	public void setListener(TrainInfoListener listener) {
+		trainInfoListener = listener;
 	}
 
-	private ContentValues getContentValues() {
-		if (mContentValues == null) {
-			mContentValues = new ContentValues();
-		} else {
-			mContentValues.clear();
-		}
-		return mContentValues;
+	public void removeListener() {
+		trainInfoListener = null;
 	}
+	//	private boolean isNetworkConnected() {
+	//	ConnectivityManager cm = (ConnectivityManager) mContext.getSystemService(mContext.CONNECTIVITY_SERVICE);
+	//	NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+	//	if (cm == null || networkInfo.isConnected() == false) {
+	//		return false;
+	//	} else {
+	//		return true;
+	//	}
+	//}
+	//	public interface TrainInfoListener extends EventListener{
+	//		public void completeCreateTimeTable(ArrayList<TrainInfo> timetable);
+	//		public void failedToCreateTimeTable();
+	//	}
 }
