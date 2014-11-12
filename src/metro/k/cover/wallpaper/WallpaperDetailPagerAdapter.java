@@ -174,7 +174,7 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 				mMainImageView.setVisibility(View.VISIBLE);
 				deleteView.setVisibility(View.VISIBLE);
 				deleteView.setOnClickListener(getDeleteListener(getActivity(),
-						cahce, cacheKey, dbKey, mPage));
+						cacheKey, dbKey, mPage));
 				addImageView.setVisibility(View.GONE);
 				addImageView.setOnClickListener(null);
 				col = getResources().getColor(R.color.metro_main_tranc_color);
@@ -187,7 +187,7 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 					mMainImageView.setVisibility(View.VISIBLE);
 					deleteView.setVisibility(View.VISIBLE);
 					deleteView.setOnClickListener(getDeleteListener(
-							getActivity(), cahce, cacheKey, dbKey, mPage));
+							getActivity(), cacheKey, dbKey, mPage));
 					addImageView.setVisibility(View.GONE);
 					addImageView.setOnClickListener(null);
 					col = getResources().getColor(
@@ -218,14 +218,17 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 	 * @return
 	 */
 	public View.OnClickListener getDeleteListener(final Context context,
-			final Bitmap bmp, final String cacheKey, final String dbKey,
-			final int position) {
+			final String cacheKey, final String dbKey, final int position) {
 		View.OnClickListener li = new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				new Thread("Delete") {
 					@Override
 					public void run() {
+						if (context == null || Utilities.isInvalidStr(cacheKey)
+								|| Utilities.isInvalidStr(dbKey)) {
+							return;
+						}
 						ImageCache.clearCacheBmp(cacheKey);
 						WallpaperBitmapDB db = new WallpaperBitmapDB(context);
 						db.delteBitmap(dbKey);
@@ -249,6 +252,9 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 		Runnable task = new Runnable() {
 			@Override
 			public void run() {
+				if (context == null) {
+					return;
+				}
 				final ViewPager vp = WallpaperDetailActivity.getViewPager();
 				final WallpaperDetailPagerAdapter adpter = WallpaperDetailActivity
 						.getWallpaperDetailPagerAdapter();
@@ -326,6 +332,7 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 		try {
 			activity.startActivityForResult(intent, requestId);
 		} catch (Exception e) {
+			Utilities.showErrorCommonToast(activity);
 		}
 	}
 
@@ -348,6 +355,7 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 			ft.add(dialog, "wallpaper_dialog");
 			ft.commit();
 		} catch (Exception e) {
+			Utilities.showErrorCommonToast(activity);
 		}
 	}
 }

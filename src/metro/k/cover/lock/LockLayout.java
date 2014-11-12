@@ -30,7 +30,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -425,40 +424,40 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	 * @param list
 	 */
 	private void setMissedCallView(final List<String> list) {
-		if (list == null)
+		if (list == null) {
 			return;
+		}
 		final int size = list.size();
-		if (size == 0)
+		if (size == 0) {
 			return;
+		}
 
-		// final Context context = getContext().getApplicationContext();
-		// final Resources res = getResources();
-		// final View telView = LayoutInflater.from(context).inflate(
-		// R.layout.telinfo, null);
-		// mTelLayout = (LinearLayout)
-		// telView.findViewById(R.id.telinfo_layout);
-		// mTelLayout.setBackgroundResource(R.drawable.selector_btn);
-		// final int sideMargin = (int) res
-		// .getDimension(R.dimen.lockscreen_tel_margin);
-		// final int bottomMargin = (int) res
-		// .getDimension(R.dimen.lockscreen_tel_margin_bottom);
-		// mTelLayout.setPadding(0, bottomMargin, 0, bottomMargin);
-		// RelativeLayout.LayoutParams layoutParams = new
-		// RelativeLayout.LayoutParams(
-		// MP, WC);
-		// layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-		// layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
-		// layoutParams.setMargins(sideMargin, 0, sideMargin, bottomMargin);
-		// mTelLayout.setLayoutParams(layoutParams);
-		//
-		// // your tel-number
-		// TextView number = (TextView)
-		// telView.findViewById(R.id.telinfo_number);
-		// if (size != 0) {
-		// number.setText(size + res.getString(R.string.lock_matter));
-		// }
-		// mTelLayout.setOnClickListener(this);
-		// this.addView(telView);
+		final Context context = getContext().getApplicationContext();
+		final Resources res = getResources();
+		final View telView = LayoutInflater.from(context).inflate(
+				R.layout.telinfo, null);
+		mTelLayout = (LinearLayout) telView.findViewById(R.id.telinfo_layout);
+		final int sideMargin = (int) res
+				.getDimension(R.dimen.lockscreen_tel_margin);
+		final int bottomMargin = (int) res
+				.getDimension(R.dimen.lockscreen_tel_margin_bottom);
+		mTelLayout.setPadding(0, bottomMargin, 0, bottomMargin);
+		RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+				RelativeLayout.LayoutParams.MATCH_PARENT,
+				RelativeLayout.LayoutParams.WRAP_CONTENT);
+		layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+		layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+		layoutParams.setMargins(sideMargin, 0, sideMargin, bottomMargin);
+		mTelLayout.setLayoutParams(layoutParams);
+
+		// your tel-number
+		TextViewWithFont number = (TextViewWithFont) telView
+				.findViewById(R.id.telinfo_number);
+		if (size != 0) {
+			number.setText(size + res.getString(R.string.lock_matter));
+		}
+		mTelLayout.setOnClickListener(this);
+		this.addView(telView);
 	}
 
 	/**
@@ -532,8 +531,6 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	 */
 	private void addPasswordSecurityView() {
 		final Context c = getContext().getApplicationContext();
-		final AssetManager am = c.getAssets();
-		final Resources res = c.getResources();
 		mPassView = LayoutInflater.from(c).inflate(R.layout.input_password,
 				null, false);
 		final TextViewWithFont title = (TextViewWithFont) mPassView
@@ -835,14 +832,12 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		private int mTestNum2 = 0;
 		private int mLastPosition = 0;
 		private Resources mResources = getResources();
-		private AssetManager mAssetManager;
 
 		public LockPagerAdapter(Context context) {
 			mContext = context;
 			mList = new ArrayList<String>();
 			mLayoutInflater = LayoutInflater.from(mContext);
 			mResources = getResources();
-			mAssetManager = context.getAssets();
 		}
 
 		public void add(String pageName) {
@@ -910,9 +905,11 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		 * @return
 		 */
 		private RelativeLayout getRightLayout() {
-			RelativeLayout trainInfoLayout = (RelativeLayout) mLayoutInflater.inflate(R.layout.lock_train_info, null);
-			//TextViewWithFont tv = (TextViewWithFont) trainInfoLayout.findViewById(R.id.page_train_info_test);
-			//tv.setText(String.valueOf(mTestNum2));
+			RelativeLayout trainInfoLayout = (RelativeLayout) mLayoutInflater
+					.inflate(R.layout.lock_train_info, null);
+			// TextViewWithFont tv = (TextViewWithFont)
+			// trainInfoLayout.findViewById(R.id.page_train_info_test);
+			// tv.setText(String.valueOf(mTestNum2));
 			return trainInfoLayout;
 		}
 
@@ -1026,7 +1023,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			if (pageName.equals(PAGE_PAGE_TRAIN_INFO_1)) {
 				readRailwaysInfo();
 			} else if (pageName.equals(PAGE_PAGE_TRAIN_INFO_2)) {
-				//readTrainInfo();
+				// readTrainInfo();
 			}
 		}
 
@@ -1067,8 +1064,8 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 
 		private void readTrainInfo() {
 			final Calendar calendar = Calendar.getInstance();
-			//final int hour = calendar.get(Calendar.HOUR_OF_DAY);
-			//final int minute = calendar.get(Calendar.MINUTE);
+			// final int hour = calendar.get(Calendar.HOUR_OF_DAY);
+			// final int minute = calendar.get(Calendar.MINUTE);
 			final int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
 			int hour = 20;
 			int minute = 30;
@@ -1083,25 +1080,30 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			} else if (dayOfWeek == Calendar.SUNDAY) {
 				dayType = TrainDBProvider.DayType.HOLIDAYS;
 			}
-			String[] projection = {
-					TrainDBProvider.Columns.STATION_CODE,
-					TrainDBProvider.Columns.TIME,
-					TrainDBProvider.Columns.HOUR,
+			String[] projection = { TrainDBProvider.Columns.STATION_CODE,
+					TrainDBProvider.Columns.TIME, TrainDBProvider.Columns.HOUR,
 					TrainDBProvider.Columns.MINUTE,
 					TrainDBProvider.Columns.DAY_TYPE,
 					TrainDBProvider.Columns.TRAIN_TYPE,
 					TrainDBProvider.Columns.TERMINAL_STATION };
 			StringBuilder selection = new StringBuilder();
-			selection.append(TrainDBProvider.Columns.STATION_CODE + " = ? AND ");
+			selection
+					.append(TrainDBProvider.Columns.STATION_CODE + " = ? AND ");
 			selection.append(TrainDBProvider.Columns.DAY_TYPE + " = ? AND ");
-			
+
 			selection.append(TrainDBProvider.Columns.TIME + " > ? AND ");
 			selection.append(TrainDBProvider.Columns.TIME + " < ?");
-			String[] args = { "odpt.Station:TokyoMetro.Ginza.Shibuya", Integer.toString(dayType), Integer.toString(startTime), Integer.toString(endTime)};
+			String[] args = { "odpt.Station:TokyoMetro.Ginza.Shibuya",
+					Integer.toString(dayType), Integer.toString(startTime),
+					Integer.toString(endTime) };
 			String order = TrainDBProvider.Columns.TIME + " ASC";
-			Cursor cursor = mContext.getContentResolver().query(TrainDBProvider.CONTENT_URI, projection, selection.toString(), args, order);
-			//Cursor cursor = mContext.getContentResolver().query(TrainDBProvider.CONTENT_URI, projection, null, null, order);
-			
+			Cursor cursor = mContext.getContentResolver().query(
+					TrainDBProvider.CONTENT_URI, projection,
+					selection.toString(), args, order);
+			// Cursor cursor =
+			// mContext.getContentResolver().query(TrainDBProvider.CONTENT_URI,
+			// projection, null, null, order);
+
 			final int count = cursor.getCount();
 			int[] hourArray = new int[count];
 			int[] minuteArray = new int[count];
@@ -1113,12 +1115,17 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 				for (int i = 0; i < columnCount; i++) {
 					final String columnName = cursor.getColumnName(i);
 					if (columnName.equals(TrainDBProvider.Columns.HOUR)) {
-						hourArray[rowNumber] = Integer.parseInt(cursor.getString(i));
-					} else if (columnName.equals(TrainDBProvider.Columns.MINUTE)) {
-						minuteArray[rowNumber] = Integer.parseInt(cursor.getString(i));
-					} else if (columnName.equals(TrainDBProvider.Columns.TRAIN_TYPE)) {
+						hourArray[rowNumber] = Integer.parseInt(cursor
+								.getString(i));
+					} else if (columnName
+							.equals(TrainDBProvider.Columns.MINUTE)) {
+						minuteArray[rowNumber] = Integer.parseInt(cursor
+								.getString(i));
+					} else if (columnName
+							.equals(TrainDBProvider.Columns.TRAIN_TYPE)) {
 						trainTypeArray[rowNumber] = cursor.getString(i);
-					} else if (columnName.equals(TrainDBProvider.Columns.TERMINAL_STATION)) {
+					} else if (columnName
+							.equals(TrainDBProvider.Columns.TERMINAL_STATION)) {
 						terminalStationArray[rowNumber] = cursor.getString(i);
 					}
 				}
@@ -1126,19 +1133,25 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			cursor.close();
 
 			RelativeLayout layout = (RelativeLayout) getPrimaryItem();
-			TextView tvTrainType1 = (TextView) layout.findViewById(R.id.lock_train_info_train_type_1);
+			TextView tvTrainType1 = (TextView) layout
+					.findViewById(R.id.lock_train_info_train_type_1);
 			String trainTypeText = "";
-			if (trainTypeArray[0].equals(mContext.getString(R.string.train_type_local_response))) {
+			if (trainTypeArray[0].equals(mContext
+					.getString(R.string.train_type_local_response))) {
 				trainTypeText = mContext.getString(R.string.train_type_local);
-			} else if (trainTypeArray[0].equals(mContext.getString(R.string.train_type_express_response))) {
+			} else if (trainTypeArray[0].equals(mContext
+					.getString(R.string.train_type_express_response))) {
 				trainTypeText = mContext.getString(R.string.train_type_express);
-			} else if (trainTypeArray[0].equals(mContext.getString(R.string.train_type_rapid_response))) {
+			} else if (trainTypeArray[0].equals(mContext
+					.getString(R.string.train_type_rapid_response))) {
 				trainTypeText = mContext.getString(R.string.train_type_rapid);
-			} else if (trainTypeArray[0].equals(mContext.getString(R.string.train_type_limited_express_response))) {
-				trainTypeText = mContext.getString(R.string.train_type_limited_express);
+			} else if (trainTypeArray[0].equals(mContext
+					.getString(R.string.train_type_limited_express_response))) {
+				trainTypeText = mContext
+						.getString(R.string.train_type_limited_express);
 			}
 			tvTrainType1.setText(trainTypeText);
-			
+
 		}
 
 		/**
