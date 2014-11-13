@@ -258,6 +258,24 @@ public final class PreferenceCommon {
 						R.integer.lock_clock_size_midium));
 	}
 
+	// 時計の背景の有無
+	private static final String KEY_SET_CLOCK_BACKGROUND = "set_clock_background";
+
+	public static void setClockBackgroundFlag(final Context context,
+			final boolean flag) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sp.edit();
+		editor.putBoolean(KEY_SET_CLOCK_BACKGROUND, flag);
+		editor.apply();
+	}
+
+	public static boolean getClockBackgroundFlag(final Context context) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
+		return sp.getBoolean(KEY_SET_CLOCK_BACKGROUND, false);
+	}
+
 	// ロック画面のセキュリティのタイプ
 	private static String KEY_SET_SECURITY_TYPE = "set_security_type";
 

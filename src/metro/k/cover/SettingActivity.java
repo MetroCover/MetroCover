@@ -60,6 +60,10 @@ public class SettingActivity extends Activity implements OnClickListener,
 	private String mClockColorStr;
 	private TextViewWithFont mCurrentClockColorView;
 
+	// 時計の背景
+	private boolean isClockBackground = false;
+	private CheckBox mClockBackgroundCheckbox = null;
+
 	// パターンロックのバイブレーション
 	private boolean isPatternLockVibe = false;
 	private CheckBox mPatternLockVibeCheckBox = null;
@@ -112,6 +116,12 @@ public class SettingActivity extends Activity implements OnClickListener,
 		// Clock Type
 		RelativeLayout clocktype_layout = (RelativeLayout) findViewById(R.id.setting_clocktype_layout);
 		clocktype_layout.setOnClickListener(this);
+
+		// Clock Bg
+		RelativeLayout clockbg_layout = (RelativeLayout) findViewById(R.id.setting_clockbg_layout);
+		clockbg_layout.setOnClickListener(this);
+		mClockBackgroundCheckbox = (CheckBox) findViewById(R.id.setting_clockbg_checkbox);
+		mClockBackgroundCheckbox.setOnCheckedChangeListener(this);
 
 		// PatternLockVibe
 		RelativeLayout pattern_vibe_layout = (RelativeLayout) findViewById(R.id.setting_pattern_vibe_layout);
@@ -223,6 +233,9 @@ public class SettingActivity extends Activity implements OnClickListener,
 			mCurrentClockColorView.setTextColor(res.getColor(mClockColorID));
 		}
 
+		// 時計背景
+		mClockBackgroundCheckbox.setChecked(isClockBackground);
+
 		// 駅名
 		mCurrentStationView = (TextViewWithFont) findViewById(R.id.setting_station_currentview);
 		String name = "";
@@ -260,6 +273,8 @@ public class SettingActivity extends Activity implements OnClickListener,
 				.getStationsRailwayName(getApplicationContext());
 		mClockSizeSelected = mCurrentClockSize = PreferenceCommon
 				.getClockSize(getApplicationContext());
+		isClockBackground = PreferenceCommon
+				.getClockBackgroundFlag(getApplicationContext());
 	}
 
 	/**
@@ -272,6 +287,8 @@ public class SettingActivity extends Activity implements OnClickListener,
 				isPatternLockVibe);
 		PreferenceCommon.setLockPatternTrack(getApplicationContext(),
 				isPatternLockTrack);
+		PreferenceCommon.setClockBackgroundFlag(getApplicationContext(),
+				isClockBackground);
 
 		if (isMetroCoverEnable) {
 			LockUtilities.getInstance()
@@ -418,6 +435,13 @@ public class SettingActivity extends Activity implements OnClickListener,
 			return;
 		}
 
+		// Clock Bg
+		if (R.id.setting_clockbg_layout == viewId) {
+			mClockBackgroundCheckbox.setChecked(!mClockBackgroundCheckbox
+					.isChecked());
+			return;
+		}
+
 		// System-Lock
 		if (R.id.setting_systemlock_layout == viewId) {
 			startSystemLockSettings();
@@ -518,6 +542,12 @@ public class SettingActivity extends Activity implements OnClickListener,
 		// Track
 		if (R.id.setting_pattern_track_checkbox == viewId) {
 			isPatternLockTrack = isChecked;
+			return;
+		}
+
+		// ClockBg
+		if (R.id.setting_clockbg_checkbox == viewId) {
+			isClockBackground = isChecked;
 			return;
 		}
 	}

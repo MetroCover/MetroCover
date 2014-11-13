@@ -17,5 +17,6 @@
     <color name="holo_blue">#FF33E5B5</color>
     <color name="color_white">#FFF</color>
     <color name="color_black">#000</color>
+    <color name="color_black_tranc">#80000000</color>
 
 </resources>

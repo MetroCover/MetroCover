@@ -108,6 +108,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	private int mClockSizeID;
 	private float mClockTimeSize;
 	private float mClockDateSize;
+	private boolean isClockBackground = false;
 
 	// Battery
 	private TextViewWithFont mBatteryView;
@@ -268,6 +269,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		mClockType = PreferenceCommon.getClockType(context);
 		mClockColorID = PreferenceCommon.getClockColor(context);
 		mClockSizeID = PreferenceCommon.getClockSize(context);
+		isClockBackground = PreferenceCommon.getClockBackgroundFlag(context);
 
 		final Resources res = getResources();
 		if (mClockSizeID == res.getInteger(R.integer.lock_clock_size_small)) {
@@ -821,7 +823,8 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	 * @author kohirose
 	 * 
 	 */
-	public class LockPagerAdapter extends PagerAdapter implements TrainInfoListener{
+	public class LockPagerAdapter extends PagerAdapter implements
+			TrainInfoListener {
 
 		public static final String PAGE_LOCK = "page_lock";
 		public static final String PAGE_PAGE_TRAIN_INFO_1 = "page_train_info_1";
@@ -925,7 +928,8 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		 * @return
 		 */
 		private RelativeLayout getRightLayout() {
-			RelativeLayout trainInfoLayout = (RelativeLayout) mLayoutInflater.inflate(R.layout.lock_train_info, null);
+			RelativeLayout trainInfoLayout = (RelativeLayout) mLayoutInflater
+					.inflate(R.layout.lock_train_info, null);
 			return trainInfoLayout;
 		}
 
@@ -951,6 +955,10 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			Intent bat = mContext.registerReceiver(null, new IntentFilter(
 					Intent.ACTION_BATTERY_CHANGED));
 			initBatteryView(bat.getIntExtra("level", 0));
+			if (isClockBackground) {
+				mClockLinearLayout.setBackgroundColor(getResources().getColor(
+						R.color.color_black_tranc));
+			}
 			return lockLayout;
 		}
 
@@ -1039,7 +1047,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			if (pageName.equals(PAGE_PAGE_TRAIN_INFO_1)) {
 				readRailwaysInfo();
 			} else if (pageName.equals(PAGE_PAGE_TRAIN_INFO_2)) {
-				
+
 				// 前回のデータ取得から１日以上たっていたら、リクエストするようにしたい
 				new Thread(new Runnable() {
 					@Override
@@ -1049,13 +1057,13 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 				}).start();
 			}
 		}
-		
+
 		@Override
 		public void completeCreateTimeTable(ArrayList<TrainInfo> timetable) {
-			
+
 			Message msg = mHandler.obtainMessage();
 			msg.what = MASSAGE_TRAIN_INFO_LIST;
-			msg.obj = timetable; //アプリケーションで持つようにする
+			msg.obj = timetable; // アプリケーションで持つようにする
 			mHandler.sendMessage(msg);
 		}
 
@@ -1064,23 +1072,34 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			// TODO Auto-generated method stub
 
 		}
-		
+
 		private void drawingTrainInfoView(ArrayList<TrainInfo> trainInfoList) {
-			RelativeLayout layout = (RelativeLayout) mLockPagerAdapter.getPrimaryItem();
-			TextView tvTrainType1 = (TextView) layout.findViewById(R.id.lock_train_info_train_type_1);
+			RelativeLayout layout = (RelativeLayout) mLockPagerAdapter
+					.getPrimaryItem();
+			TextView tvTrainType1 = (TextView) layout
+					.findViewById(R.id.lock_train_info_train_type_1);
 			String trainTypeText = "";
-//			if (trainTypeArray[0].equals(mContext.getString(R.string.train_type_local_response))) {
-//				trainTypeText = mContext.getString(R.string.train_type_local);
-//			} else if (trainTypeArray[0].equals(mContext.getString(R.string.train_type_express_response))) {
-//				trainTypeText = mContext.getString(R.string.train_type_express);
-//			} else if (trainTypeArray[0].equals(mContext.getString(R.string.train_type_rapid_response))) {
-//				trainTypeText = mContext.getString(R.string.train_type_rapid);
-//			} else if (trainTypeArray[0].equals(mContext.getString(R.string.train_type_limited_express_response))) {
-//				trainTypeText = mContext.getString(R.string.train_type_limited_express);
-//			}
-			try{
-				TrainInfo t= trainInfoList.get(0);
-			tvTrainType1.setText(t.getTrainType());
+			// if
+			// (trainTypeArray[0].equals(mContext.getString(R.string.train_type_local_response)))
+			// {
+			// trainTypeText = mContext.getString(R.string.train_type_local);
+			// } else if
+			// (trainTypeArray[0].equals(mContext.getString(R.string.train_type_express_response)))
+			// {
+			// trainTypeText = mContext.getString(R.string.train_type_express);
+			// } else if
+			// (trainTypeArray[0].equals(mContext.getString(R.string.train_type_rapid_response)))
+			// {
+			// trainTypeText = mContext.getString(R.string.train_type_rapid);
+			// } else if
+			// (trainTypeArray[0].equals(mContext.getString(R.string.train_type_limited_express_response)))
+			// {
+			// trainTypeText =
+			// mContext.getString(R.string.train_type_limited_express);
+			// }
+			try {
+				TrainInfo t = trainInfoList.get(0);
+				tvTrainType1.setText(t.getTrainType());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

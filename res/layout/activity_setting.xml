@@ -213,6 +213,39 @@
                 android:background="?android:attr/listDivider"
                 android:contentDescription="@string/app_name" />
 
+            <!-- 時計の背景のオンオフ -->
+
+            <RelativeLayout
+                android:id="@+id/setting_clockbg_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/activity_setting_list_item_height"
+                android:background="@drawable/selector_list_at"
+                android:padding="15dip" >
+
+                <metro.k.cover.view.TextViewWithFont
+                    android:id="@+id/setting_clockbg_titleview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/clock_background"
+                    android:textColor="#000"
+                    android:textSize="18sp" />
+
+                <CheckBox
+                    android:id="@+id/setting_clockbg_checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true" />
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:background="?android:attr/listDivider"
+                android:contentDescription="@string/app_name" />
+
             <!-- MetoroCoverのセキュリティ設定 -->
 
             <RelativeLayout

@@ -7,6 +7,7 @@
     <string name="app_name">MetroCover</string>
     <string name="cancel">CANCEL</string>
     <string name="clock_am">AM</string>
+    <string name="clock_background">Clock Background</string>
     <string name="clock_pm">PM</string>
     <string name="clock_size">Clock Size</string>
     <string name="clock_size_large">Large</string>
@@ -83,6 +84,7 @@
     <string name="lockscreen_access_pattern_detected">Pattern completed</string>
     <string name="lockscreen_access_pattern_start">Pattern started</string>
     <string name="next">NEXT</string>
+    <string name="no">NO</string>
     <string name="nothing">Nothing</string>
     <string name="ok">OK</string>
     <string name="paging_effect">Paging Effect</string>
@@ -127,6 +129,14 @@
     <string name="theme_homee_bg_image">theme_lock_bg</string>
     <string name="theme_plushome_bg_image">drawer_wallpaper</string>
     <string name="theme_dodol_bg_image">e18</string>
+    <string name="train_type_local">Local</string>
+    <string name="train_type_local_response">odpt.TrainType:TokyoMetro.Local</string>
+    <string name="train_type_express">Express</string>
+    <string name="train_type_express_response">odpt.TrainType:TokyoMetro.Express</string>
+    <string name="train_type_rapid">Rapid</string>
+    <string name="train_type_rapid_response">odpt.TrainType:TokyoMetro.Rapid</string>
+    <string name="train_type_limited_express">LimitedExpress</string>
+    <string name="train_type_limited_express_response">odpt.TrainType:TokyoMetro.LimitedExpress</string>
     <string name="tutorial_select_railways">Check Lines\nYou Use Often.</string>
     <string name="tutorial_select_station">Select A Station\nYou Use Often.</string>
     <string name="tutorial_use_metrocover">USE IT!</string>
@@ -143,15 +153,8 @@
     <string name="wallpaper_select_gallery">Gallery\'s Wallpaper</string>
     <string name="wallpaper_select_homee">Homee\'s Wallpaper</string>
     <string name="wallpaper_select_plushome">[+]HOME\'s Wallpaper</string>
-    <string name="widget_name_railways_info">[MC]Railways Info</string>
-    <string name="train_type_local">Local</string>
-    <string name="train_type_local_response">odpt.TrainType:TokyoMetro.Local</string>
-    <string name="train_type_express">Express</string>
-    <string name="train_type_express_response">odpt.TrainType:TokyoMetro.Express</string>
-    <string name="train_type_rapid">Rapid</string>
-    <string name="train_type_rapid_response">odpt.TrainType:TokyoMetro.Rapid</string>
-    <string name="train_type_limited_express">LimitedExpress</string>
-    <string name="train_type_limited_express_response">odpt.TrainType:TokyoMetro.LimitedExpress</string>
+    <string name="widget_name_railways_info"> Railways Info</string>
+    <string name="yes">YES</string>
 
     <!-- 駅名 -->
     <!-- A -->
