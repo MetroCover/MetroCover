@@ -100,7 +100,7 @@
     <string name="train_type_limited_express">特急</string>
     <string name="tutorial_select_railways">よく使う路線に\nチェックしてください</string>
     <string name="tutorial_select_station">よく使う駅を\n選んでください</string>
-    <string name="tutorial_use_metrocover">さっそく使ってみよう</string>
+    <string name="tutorial_use_metrocover">さっそく使ってみる</string>
     <string name="wallpaper_complete_msg">壁紙の設定が完了しました</string>
     <string name="wallpaper_delete_msg">壁紙の削除が完了しました</string>
     <string name="wallpaper_empty">選択できる\n壁紙はありません</string>

@@ -127,6 +127,24 @@ public final class PreferenceCommon {
 		return sp.getString(KEY_SET_STATIONS_RAILWAY_NAME, "");
 	}
 
+	// 登録した駅の時刻表を取得する際の電車の方角
+	private static final String KEY_SET_TRAIN_DIRECTION = "set_key_train_direction";
+
+	public static void setTrainDirection(final Context context,
+			final String direction) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
+		SharedPreferences.Editor e = sp.edit();
+		e.putString(KEY_SET_TRAIN_DIRECTION, direction);
+		e.apply();
+	}
+
+	public static String getTrainDirection(final Context context) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
+		return sp.getString(KEY_SET_TRAIN_DIRECTION, "");
+	}
+
 	// チュートリアルを起動したかどうか
 	private static final String KEY_SET_TUTORIAL_OPEND = "set_tutorial_opend";
 

@@ -17,21 +17,33 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textColor="#FFF" />
+            android:shadowColor="@color/color_black"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="1"
+            android:textColor="@color/color_white" />
 
         <metro.k.cover.view.TextViewWithFont
             android:id="@+id/lock_date_textview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textColor="#FFF" />
+            android:shadowColor="@color/color_black"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="1"
+            android:textColor="@color/color_white" />
 
         <metro.k.cover.view.TextViewWithFont
             android:id="@+id/lock_battery_textview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textColor="#FFF" />
+            android:shadowColor="@color/color_black"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="1"
+            android:textColor="@color/color_white" />
     </LinearLayout>
 
     <metro.k.cover.lock.KeyView

@@ -228,7 +228,7 @@ public class SettingActivity extends Activity implements OnClickListener,
 		mCurrentClockColorView.setText(mClockColorStr);
 		if (mClockColorID == R.color.color_white) {
 			mCurrentClockColorView.setTextColor(res
-					.getColor(R.color.color_black));
+					.getColor(R.color.color_title_right));
 		} else {
 			mCurrentClockColorView.setTextColor(res.getColor(mClockColorID));
 		}
