@@ -39,13 +39,20 @@
     </LinearLayout>
 
     <ImageView
+        android:id="@+id/widget_railways_info_settings_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/selector_settings_btn" />
+
+    <ImageView
         android:id="@+id/widget_railways_info_update_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_marginRight="5dip"
-        android:layout_marginTop="5dip"
         android:contentDescription="@string/app_name"
         android:src="@drawable/selector_update_btn" />
 

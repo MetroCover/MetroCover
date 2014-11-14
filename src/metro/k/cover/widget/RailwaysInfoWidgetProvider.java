@@ -3,6 +3,7 @@ package metro.k.cover.widget;
 import metro.k.cover.MetroCoverApplication;
 import metro.k.cover.PreferenceCommon;
 import metro.k.cover.R;
+import metro.k.cover.railways.RailwaysActivity;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -113,6 +114,7 @@ public class RailwaysInfoWidgetProvider extends AppWidgetProvider {
 		}
 
 		setOnButtonClickPendingIntent(context, rv, appWidgetId);
+		setOnSettingClickPendingIntnet(context, rv, appWidgetId);
 
 		manager.updateAppWidget(appWidgetId, null);
 		manager.updateAppWidget(appWidgetId, rv);
@@ -182,5 +184,25 @@ public class RailwaysInfoWidgetProvider extends AppWidgetProvider {
 				PendingIntent.FLAG_UPDATE_CURRENT);
 		rv.setOnClickPendingIntent(R.id.widget_railways_info_update_btn,
 				btnClickPendingIntent);
+	}
+
+	/**
+	 * 設定ボタンにリスナー付与
+	 * 
+	 * @param context
+	 * @param rv
+	 * @param appWidgetId
+	 */
+	private void setOnSettingClickPendingIntnet(Context context,
+			RemoteViews rv, int appWidgetId) {
+		if (context == null || rv == null
+				|| appWidgetId <= AppWidgetManager.INVALID_APPWIDGET_ID) {
+			return;
+		}
+		Intent intent = new Intent(context, RailwaysActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		PendingIntent pi = PendingIntent.getActivity(context, appWidgetId,
+				intent, PendingIntent.FLAG_UPDATE_CURRENT);
+		rv.setOnClickPendingIntent(R.id.widget_railways_info_settings_btn, pi);
 	}
 }
