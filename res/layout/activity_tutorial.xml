@@ -3,6 +3,7 @@
     android:id="@+id/tutorial_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_xmas"
     tools:context="metro.k.cover.tutorial.TutorialActivity" >
 
     <metro.k.cover.view.JazzyViewPager

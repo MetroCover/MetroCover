@@ -1,0 +1,62 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tutorial_fourth_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_gray" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical" >
+
+        <metro.k.cover.view.TextViewWithFont
+            android:id="@+id/tutorial_fourth_selected_staticon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dip"
+            android:gravity="center"
+            android:textColor="@color/color_title"
+            android:textSize="35sp"
+            android:textStyle="bold" />
+
+        <metro.k.cover.view.TextViewWithFont
+            android:id="@+id/tutorial_fourth_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dip"
+            android:gravity="center"
+            android:text="行き先はどちらですか？"
+            android:textColor="@color/metro_main_color"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <metro.k.cover.view.ButtonWithFont
+            android:id="@+id/tutorial_fourth_direction_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dip"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="20dip"
+            android:background="@drawable/selector_metro_tranceblue"
+            android:paddingBottom="25dip"
+            android:paddingTop="25dip"
+            android:text="@string/nothing"
+            android:textColor="@color/color_white" />
+
+        <metro.k.cover.view.ButtonWithFont
+            android:id="@+id/tutorial_fourth_direction_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="20dip"
+            android:layout_marginTop="5dip"
+            android:background="@drawable/selector_metro_tranceblue"
+            android:paddingBottom="25dip"
+            android:paddingTop="25dip"
+            android:text="@string/nothing"
+            android:textColor="@color/color_white" />
+    </LinearLayout>
+
+</RelativeLayout>

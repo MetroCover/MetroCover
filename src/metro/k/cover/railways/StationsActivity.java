@@ -5,6 +5,7 @@ import metro.k.cover.PreferenceCommon;
 import metro.k.cover.R;
 import metro.k.cover.Utilities;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -72,9 +73,20 @@ public class StationsActivity extends Activity implements OnClickListener {
 						getApplicationContext(), railway);
 				PreferenceCommon.setStationNameForAPI(getApplicationContext(),
 						station.getNameForAPI());
-				finish();
+				startSelectDirection(railway, name);
 			}
 		});
+	}
+
+	private void startSelectDirection(final String railway, final String station) {
+		if (Utilities.isInvalidStr(railway) || Utilities.isInvalidStr(railway)) {
+			return;
+		}
+		Intent intent = new Intent(this, StationsDirectionActivity.class);
+		intent.putExtra(RailwaysUtilities.KEY_SELECTED_STATIONS_RAILWAY_NAME,
+				railway);
+		intent.putExtra(RailwaysUtilities.KEY_SELECTED_STATION_NAME, station);
+		Utilities.startActivitySafely(intent, this);
 	}
 
 	@Override
@@ -86,6 +98,7 @@ public class StationsActivity extends Activity implements OnClickListener {
 			PreferenceCommon
 					.setStationsRailwayName(getApplicationContext(), "");
 			PreferenceCommon.setStationNameForAPI(getApplicationContext(), "");
+			PreferenceCommon.setTrainDirection(getApplicationContext(), "");
 			finish();
 		}
 	}

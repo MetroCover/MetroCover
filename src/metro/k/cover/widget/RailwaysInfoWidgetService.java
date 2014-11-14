@@ -25,11 +25,16 @@ public class RailwaysInfoWidgetService extends RemoteViewsService {
 	private class RailwaysInfoWidgetFactory implements RemoteViewsFactory {
 
 		public RemoteViews getViewAt(int position) {
+			RemoteViews rv = new RemoteViews(getPackageName(),
+					R.layout.widget_railways_info_at);
+			if (MetroCoverApplication.sRailwaysInfoAdapter == null) {
+				return rv;
+			}
+
 			RailwaysInfo info = MetroCoverApplication.sRailwaysInfoAdapter
 					.getItem(position);
 			Bitmap icon = ((BitmapDrawable) info.getIcon()).getBitmap();
-			RemoteViews rv = new RemoteViews(getPackageName(),
-					R.layout.widget_railways_info_at);
+
 			rv.setTextViewText(R.id.widget_railways_info_name,
 					info.getRailway());
 			rv.setTextViewText(R.id.widget_railways_info_msg, info.getMessage());

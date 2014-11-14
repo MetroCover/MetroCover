@@ -421,7 +421,7 @@ public final class PreferenceCommon {
 		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
 				Context.MODE_PRIVATE);
 		int num = sp.getInt(KEY_SET_VIEWPAGER_EFFECT,
-				JazzyViewPager.EFFECT_ROTATEDOWN);
+				JazzyViewPager.EFFECT_TABLET);
 		return ViewUtilities.getTransitionEffectFromNumber(num);
 	}
 

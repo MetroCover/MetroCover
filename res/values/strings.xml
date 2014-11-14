@@ -156,6 +156,30 @@
     <string name="widget_name_railways_info"> Railways Info</string>
     <string name="yes">YES</string>
 
+    <!-- 方角 -->
+    <string name="direction_ginza_1">odpt.RailDirection:TokyoMetro.Asakusa</string>
+    <string name="direction_ginza_2">odpt.RailDirection:TokyoMetro.Shibuya</string>
+    <string name="direction_marunouchi_1">odpt.RailDirection:TokyoMetro.Ikebukuro</string>
+    <string name="direction_marunouchi_2">odpt.RailDirection:TokyoMetro.Ogikubo</string>
+    <string name="direction_marunouchi_branch_1">odpt.RailDirection:TokyoMetro.NakanoSakaue</string>
+    <string name="direction_marunouchi_branch_2">odpt.RailDirection:TokyoMetro.Honancho</string>
+    <string name="direction_hibiya_1">odpt.RailDirection:TokyoMetro.KitaSenju</string>
+    <string name="direction_hibiya_2">odpt.RailDirection:TokyoMetro.NakaMeguro</string>
+    <string name="direction_tozai_1">odpt.RailDirection:TokyoMetro.Nakano</string>
+    <string name="direction_tozai_2">odpt.RailDirection:TokyoMetro.NishiFunabashi</string>
+    <string name="direction_chiyoda_1">odpt.RailDirection:TokyoMetro.Ayase</string>
+    <string name="direction_chiyoda_2">odpt.RailDirection:TokyoMetro.YoyogiUehara</string>
+    <string name="direction_chiyoda_branch_1">odpt.RailDirection:TokyoMetro.KitaAyase</string>
+    <string name="direction_chiyoda_branch_2">odpt.RailDirection:TokyoMetro.Ayase</string>
+    <string name="direction_yurakucho_1">odpt.RailDirection:TokyoMetro.Wakoshi</string>
+    <string name="direction_yurakucho_2">odpt.RailDirection:TokyoMetro.ShinKiba</string>
+    <string name="direction_hanzomon_1">odpt.RailDirection:TokyoMetro.Shibuya</string>
+    <string name="direction_hanzomon_2">odpt.RailDirection:TokyoMetro.Oshiage</string>
+    <string name="direction_namboku_1">odpt.RailDirection:TokyoMetro.Meguro</string>
+    <string name="direction_namboku_2">odpt.RailDirection:TokyoMetro.AkabaneIwabuchi</string>
+    <string name="direction_fukutoshin_1">odpt.RailDirection:TokyoMetro.Wakoshi</string>
+    <string name="direction_fukutoshin_2">odpt.RailDirection:TokyoMetro.Shibuya</string>
+
     <!-- 駅名 -->
     <!-- A -->
     <string name="station_akabaneiwabuchi">Akabane-iwabuchi</string>

@@ -53,6 +53,10 @@
             android:label="@string/app_name" >
         </activity>
         <activity
+            android:name="metro.k.cover.railways.StationsDirectionActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
             android:name="metro.k.cover.wallpaper.WallpaperEffectSampleActivity"
             android:label="@string/app_name" >
         </activity>
@@ -110,6 +114,7 @@
         <service
             android:name="metro.k.cover.widget.RailwaysInfoWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
+
         <provider
             android:name="metro.k.cover.TrainDBProvider"
             android:authorities="metro.k.cover.tran_db_provider"
