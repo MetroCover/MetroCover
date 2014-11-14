@@ -1,0 +1,13 @@
+<resources>
+
+    <!-- ClockSize -->
+    <dimen name="clock_margin_top">200dip</dimen>
+    <dimen name="clock_height">180dp</dimen>
+    <dimen name="clock_size_time">76sp</dimen>
+    <dimen name="clock_size_date">22sp</dimen>
+
+    <!-- TellLayout -->
+    <dimen name="lockscreen_tel_margin">30dp</dimen>
+    <dimen name="lockscreen_tel_margin_bottom">10dp</dimen>
+
+</resources>

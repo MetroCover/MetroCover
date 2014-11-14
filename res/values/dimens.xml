@@ -12,8 +12,9 @@
     <dimen name="list_padding_hirizontal">15dp</dimen>
 
     <!-- ClockSize -->
-    <dimen name="clock_height">100dp</dimen>
-    <dimen name="clock_size_time">40sp</dimen>
+    <dimen name="clock_margin_top">100dip</dimen>
+    <dimen name="clock_height">115dp</dimen>
+    <dimen name="clock_size_time">46sp</dimen>
     <dimen name="clock_size_date">12sp</dimen>
 
     <!-- TellLayout -->
