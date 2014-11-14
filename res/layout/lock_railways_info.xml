@@ -61,6 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:layout_margin="@dimen/list_padding_vartical"
         android:background="@drawable/bg_lock_railway_info"
         android:gravity="center"
         android:orientation="vertical" >
@@ -114,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/empty_title_lock_railway_info_message"
                 android:textColor="@color/color_white"
-                android:textSize="32sp"
+                android:textSize="30sp"
                 android:visibility="invisible" />
         </LinearLayout>
     </RelativeLayout>

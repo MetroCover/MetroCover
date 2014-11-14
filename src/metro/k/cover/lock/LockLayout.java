@@ -1206,6 +1206,11 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 				RelativeLayout empty, CircularProgressBar cpb,
 				TextViewWithFont title, TextViewWithFont msg,
 				ImageView reflesh_empty) {
+			if (listLayout == null || empty == null || cpb == null
+					|| title == null || msg == null || reflesh_empty == null) {
+				return;
+			}
+
 			listLayout.setVisibility(View.GONE);
 			empty.setVisibility(View.VISIBLE);
 			title.setVisibility(View.VISIBLE);

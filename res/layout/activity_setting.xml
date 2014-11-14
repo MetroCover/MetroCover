@@ -13,14 +13,12 @@
     <metro.k.cover.view.TextViewWithFont
         android:id="@+id/setting_main_titleview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/action_bar_height"
         android:background="@color/metro_main_color"
         android:gravity="center"
-        android:paddingBottom="18dip"
-        android:paddingTop="18dip"
         android:text="@string/settings"
-        android:textColor="#FFF"
-        android:textSize="28sp" />
+        android:textColor="@color/color_white"
+        android:textSize="@dimen/action_bar_tx_size" />
 
     <ScrollView
         android:id="@+id/setting_scrollview"
@@ -39,7 +37,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/activity_setting_list_item_height"
                 android:background="@drawable/selector_list_at"
-                android:padding="15dip" >
+                android:paddingBottom="@dimen/list_padding_vartical"
+                android:paddingLeft="@dimen/list_padding_hirizontal"
+                android:paddingRight="@dimen/list_padding_hirizontal"
+                android:paddingTop="@dimen/list_padding_vartical" >
 
                 <metro.k.cover.view.TextViewWithFont
                     android:id="@+id/setting_metrocover_titleview"
@@ -48,8 +49,8 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:text="@string/app_name"
-                    android:textColor="#000"
-                    android:textSize="18sp" />
+                    android:textColor="@color/color_title"
+                    android:textSize="@dimen/list_txt_size" />
 
                 <CheckBox
                     android:id="@+id/setting_metrocover_checkbox"
@@ -72,7 +73,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/activity_setting_list_item_height"
                 android:background="@drawable/selector_list_at"
-                android:padding="15dip" >
+                android:paddingBottom="@dimen/list_padding_vartical"
+                android:paddingLeft="@dimen/list_padding_hirizontal"
+                android:paddingRight="@dimen/list_padding_hirizontal"
+                android:paddingTop="@dimen/list_padding_vartical" >
 
                 <metro.k.cover.view.TextViewWithFont
                     android:id="@+id/setting_systemlock_titleview"
@@ -81,8 +85,8 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:text="@string/lock_system_security_setting"
-                    android:textColor="#000"
-                    android:textSize="18sp" />
+                    android:textColor="@color/color_title"
+                    android:textSize="@dimen/list_txt_size" />
 
                 <metro.k.cover.view.TextViewWithFont
                     android:layout_width="wrap_content"
@@ -92,8 +96,8 @@
                     android:layout_marginRight="12dip"
                     android:contentDescription="@string/app_name"
                     android:text="@string/arrow"
-                    android:textColor="#000"
-                    android:textSize="18sp" />
+                    android:textColor="@color/color_title_right"
+                    android:textSize="@dimen/list_txt_size" />
             </RelativeLayout>
 
             <ImageView
@@ -109,7 +113,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/activity_setting_list_item_height"
                 android:background="@drawable/selector_list_at"
-                android:padding="15dip" >
+                android:paddingBottom="@dimen/list_padding_vartical"
+                android:paddingLeft="@dimen/list_padding_hirizontal"
+                android:paddingRight="@dimen/list_padding_hirizontal"
+                android:paddingTop="@dimen/list_padding_vartical" >
 
                 <metro.k.cover.view.TextViewWithFont
                     android:id="@+id/setting_clocktype_titleview"
@@ -118,8 +125,8 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:text="@string/clock_type"
-                    android:textColor="#000"
-                    android:textSize="18sp" />
+                    android:textColor="@color/color_title"
+                    android:textSize="@dimen/list_txt_size" />
 
                 <metro.k.cover.view.TextViewWithFont
                     android:id="@+id/setting_clocktype_currentview"
@@ -129,8 +136,8 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="12dip"
                     android:text="@string/clock_24"
-                    android:textColor="#000"
-                    android:textSize="18sp" />
+                    android:textColor="@color/color_title_right"
+                    android:textSize="@dimen/list_txt_size" />
             </RelativeLayout>
 
             <ImageView
@@ -146,7 +153,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/activity_setting_list_item_height"
                 android:background="@drawable/selector_list_at"
-                android:padding="15dip" >
+                android:paddingBottom="@dimen/list_padding_vartical"
+                android:paddingLeft="@dimen/list_padding_hirizontal"
+                android:paddingRight="@dimen/list_padding_hirizontal"
+                android:paddingTop="@dimen/list_padding_vartical" >
 
                 <metro.k.cover.view.TextViewWithFont
                     android:id="@+id/setting_clock_color_titleview"
@@ -155,8 +165,8 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:text="@string/lock_clock_text_color"
-                    android:textColor="#000"
-                    android:textSize="18sp" />
+                    android:textColor="@color/color_title"
+                    android:textSize="@dimen/list_txt_size" />
 
                 <metro.k.cover.view.TextViewWithFont
                     android:id="@+id/setting_clock_color_currentview"
@@ -166,8 +176,8 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="12dip"
                     android:text="@string/color_white"
-                    android:textColor="#000"
-                    android:textSize="18sp" />
+                    android:textColor="@color/color_title_right"
+                    android:textSize="@dimen/list_txt_size" />
             </RelativeLayout>
 
             <ImageView
@@ -183,7 +193,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/activity_setting_list_item_height"
                 android:background="@drawable/selector_list_at"
-                android:padding="15dip" >
+                android:paddingBottom="@dimen/list_padding_vartical"
+                android:paddingLeft="@dimen/list_padding_hirizontal"
+                android:paddingRight="@dimen/list_padding_hirizontal"
+                android:paddingTop="@dimen/list_padding_vartical" >
 
                 <metro.k.cover.view.TextViewWithFont
                     android:id="@+id/setting_clock_size_titleview"
@@ -192,8 +205,8 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:text="@string/clock_size"
-                    android:textColor="#000"
-                    android:textSize="18sp" />
+                    android:textColor="@color/color_title"
+                    android:textSize="@dimen/list_txt_size" />
 
                 <metro.k.cover.view.TextViewWithFont
                     android:id="@+id/setting_clock_size_currentview"
@@ -203,8 +216,8 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="12dip"
                     android:text="@string/clock_size_midium"
-                    android:textColor="#000"
-                    android:textSize="18sp" />
+                    android:textColor="@color/color_title_right"
+                    android:textSize="@dimen/list_txt_size" />
             </RelativeLayout>
 
             <ImageView
@@ -220,7 +233,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/activity_setting_list_item_height"
                 android:background="@drawable/selector_list_at"
-                android:padding="15dip" >
+                android:paddingBottom="@dimen/list_padding_vartical"
+                android:paddingLeft="@dimen/list_padding_hirizontal"
+                android:paddingRight="@dimen/list_padding_hirizontal"
+                android:paddingTop="@dimen/list_padding_vartical" >
 
                 <metro.k.cover.view.TextViewWithFont
                     android:id="@+id/setting_clockbg_titleview"
@@ -229,8 +245,8 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:text="@string/clock_background"
-                    android:textColor="#000"
-                    android:textSize="18sp" />
+                    android:textColor="@color/color_title"
+                    android:textSize="@dimen/list_txt_size" />
 
                 <CheckBox
                     android:id="@+id/setting_clockbg_checkbox"
@@ -253,7 +269,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/activity_setting_list_item_height"
                 android:background="@drawable/selector_list_at"
-                android:padding="15dip" >
+                android:paddingBottom="@dimen/list_padding_vartical"
+                android:paddingLeft="@dimen/list_padding_hirizontal"
+                android:paddingRight="@dimen/list_padding_hirizontal"
+                android:paddingTop="@dimen/list_padding_vartical" >
 
                 <metro.k.cover.view.TextViewWithFont
                     android:id="@+id/setting_metrocover_security_titleview"
@@ -262,8 +281,8 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:text="@string/lock_security"
-                    android:textColor="#000"
-                    android:textSize="18sp" />
+                    android:textColor="@color/color_title"
+                    android:textSize="@dimen/list_txt_size" />
 
                 <metro.k.cover.view.TextViewWithFont
                     android:id="@+id/setting_metrocover_security_currentview"
@@ -273,8 +292,8 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="12dip"
                     android:text="@string/lock_nothing"
-                    android:textColor="#000"
-                    android:textSize="18sp" />
+                    android:textColor="@color/color_title_right"
+                    android:textSize="@dimen/list_txt_size" />
             </RelativeLayout>
 
             <ImageView
@@ -290,7 +309,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/activity_setting_list_item_height"
                 android:background="@drawable/selector_list_at"
-                android:padding="15dip" >
+                android:paddingBottom="@dimen/list_padding_vartical"
+                android:paddingLeft="@dimen/list_padding_hirizontal"
+                android:paddingRight="@dimen/list_padding_hirizontal"
+                android:paddingTop="@dimen/list_padding_vartical" >
 
                 <metro.k.cover.view.TextViewWithFont
                     android:id="@+id/setting_pattern_vibe_titleview"
@@ -299,8 +321,8 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:text="@string/lock_patern_vibe"
-                    android:textColor="#000"
-                    android:textSize="18sp" />
+                    android:textColor="@color/color_title"
+                    android:textSize="@dimen/list_txt_size" />
 
                 <CheckBox
                     android:id="@+id/setting_pattern_vibe_checkbox"
@@ -323,7 +345,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/activity_setting_list_item_height"
                 android:background="@drawable/selector_list_at"
-                android:padding="15dip" >
+                android:paddingBottom="@dimen/list_padding_vartical"
+                android:paddingLeft="@dimen/list_padding_hirizontal"
+                android:paddingRight="@dimen/list_padding_hirizontal"
+                android:paddingTop="@dimen/list_padding_vartical" >
 
                 <metro.k.cover.view.TextViewWithFont
                     android:id="@+id/setting_pattern_track_titleview"
@@ -332,8 +357,8 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:text="@string/lock_patern_track"
-                    android:textColor="#000"
-                    android:textSize="18sp" />
+                    android:textColor="@color/color_title"
+                    android:textSize="@dimen/list_txt_size" />
 
                 <CheckBox
                     android:id="@+id/setting_pattern_track_checkbox"
@@ -356,7 +381,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/activity_setting_list_item_height"
                 android:background="@drawable/selector_list_at"
-                android:padding="15dip" >
+                android:paddingBottom="@dimen/list_padding_vartical"
+                android:paddingLeft="@dimen/list_padding_hirizontal"
+                android:paddingRight="@dimen/list_padding_hirizontal"
+                android:paddingTop="@dimen/list_padding_vartical" >
 
                 <metro.k.cover.view.TextViewWithFont
                     android:id="@+id/setting_wallpapers_titleview"
@@ -365,8 +393,8 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:text="@string/lock_screen_image"
-                    android:textColor="#000"
-                    android:textSize="18sp" />
+                    android:textColor="@color/color_title"
+                    android:textSize="@dimen/list_txt_size" />
 
                 <metro.k.cover.view.TextViewWithFont
                     android:layout_width="wrap_content"
@@ -376,8 +404,8 @@
                     android:layout_marginRight="12dip"
                     android:contentDescription="@string/app_name"
                     android:text="@string/arrow"
-                    android:textColor="#000"
-                    android:textSize="18sp" />
+                    android:textColor="@color/color_title_right"
+                    android:textSize="@dimen/list_txt_size" />
             </RelativeLayout>
 
             <ImageView
@@ -393,7 +421,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/activity_setting_list_item_height"
                 android:background="@drawable/selector_list_at"
-                android:padding="15dip" >
+                android:paddingBottom="@dimen/list_padding_vartical"
+                android:paddingLeft="@dimen/list_padding_hirizontal"
+                android:paddingRight="@dimen/list_padding_hirizontal"
+                android:paddingTop="@dimen/list_padding_vartical" >
 
                 <metro.k.cover.view.TextViewWithFont
                     android:id="@+id/setting_wallpapers_effect_titleview"
@@ -402,8 +433,8 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:text="@string/paging_effect"
-                    android:textColor="#000"
-                    android:textSize="18sp" />
+                    android:textColor="@color/color_title"
+                    android:textSize="@dimen/list_txt_size" />
 
                 <metro.k.cover.view.TextViewWithFont
                     android:id="@+id/setting_wallpapers_effect_currentview"
@@ -412,8 +443,8 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="12dip"
-                    android:textColor="#000"
-                    android:textSize="18sp" />
+                    android:textColor="@color/color_title_right"
+                    android:textSize="@dimen/list_txt_size" />
             </RelativeLayout>
 
             <ImageView
@@ -428,7 +459,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/activity_setting_list_item_height"
                 android:background="@drawable/selector_list_at"
-                android:padding="15dip" >
+                android:paddingBottom="@dimen/list_padding_vartical"
+                android:paddingLeft="@dimen/list_padding_hirizontal"
+                android:paddingRight="@dimen/list_padding_hirizontal"
+                android:paddingTop="@dimen/list_padding_vartical" >
 
                 <metro.k.cover.view.TextViewWithFont
                     android:id="@+id/setting_railways_titleview"
@@ -437,8 +471,8 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:text="@string/railways"
-                    android:textColor="#000"
-                    android:textSize="18sp" />
+                    android:textColor="@color/color_title"
+                    android:textSize="@dimen/list_txt_size" />
 
                 <metro.k.cover.view.TextViewWithFont
                     android:layout_width="wrap_content"
@@ -448,8 +482,8 @@
                     android:layout_marginRight="12dip"
                     android:contentDescription="@string/app_name"
                     android:text="@string/arrow"
-                    android:textColor="#000"
-                    android:textSize="18sp" />
+                    android:textColor="@color/color_title_right"
+                    android:textSize="@dimen/list_txt_size" />
             </RelativeLayout>
 
             <ImageView
@@ -465,7 +499,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/activity_setting_list_item_height"
                 android:background="@drawable/selector_list_at"
-                android:padding="15dip" >
+                android:paddingBottom="@dimen/list_padding_vartical"
+                android:paddingLeft="@dimen/list_padding_hirizontal"
+                android:paddingRight="@dimen/list_padding_hirizontal"
+                android:paddingTop="@dimen/list_padding_vartical" >
 
                 <metro.k.cover.view.TextViewWithFont
                     android:id="@+id/setting_station_titleview"
@@ -474,8 +511,8 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:text="@string/station"
-                    android:textColor="#000"
-                    android:textSize="18sp" />
+                    android:textColor="@color/color_title"
+                    android:textSize="@dimen/list_txt_size" />
 
                 <metro.k.cover.view.TextViewWithFont
                     android:id="@+id/setting_station_currentview"
@@ -485,8 +522,8 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="12dip"
                     android:text="@string/nothing"
-                    android:textColor="#000"
-                    android:textSize="18sp" />
+                    android:textColor="@color/color_title_right"
+                    android:textSize="@dimen/list_txt_size" />
             </RelativeLayout>
 
             <ImageView
@@ -502,7 +539,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/activity_setting_list_item_height"
                 android:background="@drawable/selector_list_at"
-                android:padding="15dip" >
+                android:paddingBottom="@dimen/list_padding_vartical"
+                android:paddingLeft="@dimen/list_padding_hirizontal"
+                android:paddingRight="@dimen/list_padding_hirizontal"
+                android:paddingTop="@dimen/list_padding_vartical" >
 
                 <metro.k.cover.view.TextViewWithFont
                     android:id="@+id/setting_license_titleview"
@@ -511,8 +551,8 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:text="@string/license"
-                    android:textColor="#000"
-                    android:textSize="18sp" />
+                    android:textColor="@color/color_title"
+                    android:textSize="@dimen/list_txt_size" />
 
                 <metro.k.cover.view.TextViewWithFont
                     android:layout_width="wrap_content"
@@ -522,8 +562,8 @@
                     android:layout_marginRight="12dip"
                     android:contentDescription="@string/app_name"
                     android:text="@string/arrow"
-                    android:textColor="#000"
-                    android:textSize="18sp" />
+                    android:textColor="@color/color_title_right"
+                    android:textSize="@dimen/list_txt_size" />
             </RelativeLayout>
 
             <ImageView
@@ -539,7 +579,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/activity_setting_list_item_height"
                 android:background="@drawable/selector_list_at"
-                android:padding="15dip" >
+                android:paddingBottom="@dimen/list_padding_vartical"
+                android:paddingLeft="@dimen/list_padding_hirizontal"
+                android:paddingRight="@dimen/list_padding_hirizontal"
+                android:paddingTop="@dimen/list_padding_vartical" >
 
                 <metro.k.cover.view.TextViewWithFont
                     android:id="@+id/setting_review_titleview"
@@ -548,8 +591,8 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:text="@string/review"
-                    android:textColor="#000"
-                    android:textSize="18sp" />
+                    android:textColor="@color/color_title"
+                    android:textSize="@dimen/list_txt_size" />
 
                 <metro.k.cover.view.TextViewWithFont
                     android:layout_width="wrap_content"
@@ -559,8 +602,8 @@
                     android:layout_marginRight="12dip"
                     android:contentDescription="@string/app_name"
                     android:text="@string/arrow"
-                    android:textColor="#000"
-                    android:textSize="18sp" />
+                    android:textColor="@color/color_title_right"
+                    android:textSize="@dimen/list_txt_size" />
             </RelativeLayout>
 
             <ImageView

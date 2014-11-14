@@ -10,15 +10,13 @@
     <metro.k.cover.view.TextViewWithFont
         android:id="@+id/pattern_title"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/activity_setting_list_item_height"
+        android:layout_height="@dimen/action_bar_height"
         android:background="@color/metro_main_color"
         android:gravity="center"
         android:lines="2"
-        android:paddingLeft="10dip"
-        android:paddingRight="10dip"
-        android:textColor="#FFF"
+        android:textColor="@color/color_white"
         android:textIsSelectable="false"
-        android:textSize="18sp" >
+        android:textSize="@dimen/list_txt_size" >
     </metro.k.cover.view.TextViewWithFont>
 
     <!-- パターン -->

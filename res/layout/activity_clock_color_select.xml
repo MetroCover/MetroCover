@@ -7,14 +7,12 @@
     <metro.k.cover.view.TextViewWithFont
         android:id="@+id/clock_text_color_select_titleview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/action_bar_height"
         android:background="@color/metro_main_color"
         android:gravity="center"
-        android:paddingBottom="18dip"
-        android:paddingTop="18dip"
         android:text="@string/lock_clock_text_color"
-        android:textColor="#FFF"
-        android:textSize="28sp" />
+        android:textColor="@color/color_white"
+        android:textSize="@dimen/action_bar_tx_size" />
 
     <ImageView
         android:layout_width="match_parent"
@@ -39,7 +37,10 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_list_at"
                 android:orientation="horizontal"
-                android:padding="10dip" >
+                android:paddingBottom="@dimen/list_padding_vartical"
+                android:paddingLeft="@dimen/list_padding_hirizontal"
+                android:paddingRight="@dimen/list_padding_hirizontal"
+                android:paddingTop="@dimen/list_padding_vartical" >
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -97,7 +98,10 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_list_at"
                 android:orientation="horizontal"
-                android:padding="10dip" >
+                android:paddingBottom="@dimen/list_padding_vartical"
+                android:paddingLeft="@dimen/list_padding_hirizontal"
+                android:paddingRight="@dimen/list_padding_hirizontal"
+                android:paddingTop="@dimen/list_padding_vartical" >
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -155,7 +159,10 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_list_at"
                 android:orientation="horizontal"
-                android:padding="10dip" >
+                android:paddingBottom="@dimen/list_padding_vartical"
+                android:paddingLeft="@dimen/list_padding_hirizontal"
+                android:paddingRight="@dimen/list_padding_hirizontal"
+                android:paddingTop="@dimen/list_padding_vartical" >
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -213,7 +220,10 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_list_at"
                 android:orientation="horizontal"
-                android:padding="10dip" >
+                android:paddingBottom="@dimen/list_padding_vartical"
+                android:paddingLeft="@dimen/list_padding_hirizontal"
+                android:paddingRight="@dimen/list_padding_hirizontal"
+                android:paddingTop="@dimen/list_padding_vartical" >
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -271,7 +281,10 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_list_at"
                 android:orientation="horizontal"
-                android:padding="10dip" >
+                android:paddingBottom="@dimen/list_padding_vartical"
+                android:paddingLeft="@dimen/list_padding_hirizontal"
+                android:paddingRight="@dimen/list_padding_hirizontal"
+                android:paddingTop="@dimen/list_padding_vartical" >
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -329,7 +342,10 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_list_at"
                 android:orientation="horizontal"
-                android:padding="10dip" >
+                android:paddingBottom="@dimen/list_padding_vartical"
+                android:paddingLeft="@dimen/list_padding_hirizontal"
+                android:paddingRight="@dimen/list_padding_hirizontal"
+                android:paddingTop="@dimen/list_padding_vartical" >
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -387,7 +403,10 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_list_at"
                 android:orientation="horizontal"
-                android:padding="10dip" >
+                android:paddingBottom="@dimen/list_padding_vartical"
+                android:paddingLeft="@dimen/list_padding_hirizontal"
+                android:paddingRight="@dimen/list_padding_hirizontal"
+                android:paddingTop="@dimen/list_padding_vartical" >
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -445,7 +464,10 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_list_at"
                 android:orientation="horizontal"
-                android:padding="10dip" >
+                android:paddingBottom="@dimen/list_padding_vartical"
+                android:paddingLeft="@dimen/list_padding_hirizontal"
+                android:paddingRight="@dimen/list_padding_hirizontal"
+                android:paddingTop="@dimen/list_padding_vartical" >
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -503,7 +525,10 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_list_at"
                 android:orientation="horizontal"
-                android:padding="10dip" >
+                android:paddingBottom="@dimen/list_padding_vartical"
+                android:paddingLeft="@dimen/list_padding_hirizontal"
+                android:paddingRight="@dimen/list_padding_hirizontal"
+                android:paddingTop="@dimen/list_padding_vartical" >
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -561,7 +586,10 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_list_at"
                 android:orientation="horizontal"
-                android:padding="10dip" >
+                android:paddingBottom="@dimen/list_padding_vartical"
+                android:paddingLeft="@dimen/list_padding_hirizontal"
+                android:paddingRight="@dimen/list_padding_hirizontal"
+                android:paddingTop="@dimen/list_padding_vartical" >
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -619,7 +647,10 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_list_at"
                 android:orientation="horizontal"
-                android:padding="10dip" >
+                android:paddingBottom="@dimen/list_padding_vartical"
+                android:paddingLeft="@dimen/list_padding_hirizontal"
+                android:paddingRight="@dimen/list_padding_hirizontal"
+                android:paddingTop="@dimen/list_padding_vartical" >
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -677,7 +708,10 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_list_at"
                 android:orientation="horizontal"
-                android:padding="10dip" >
+                android:paddingBottom="@dimen/list_padding_vartical"
+                android:paddingLeft="@dimen/list_padding_hirizontal"
+                android:paddingRight="@dimen/list_padding_hirizontal"
+                android:paddingTop="@dimen/list_padding_vartical" >
 
                 <LinearLayout
                     android:layout_width="wrap_content"

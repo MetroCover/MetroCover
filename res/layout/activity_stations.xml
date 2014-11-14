@@ -9,19 +9,17 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="@dimen/action_bar_height" >
 
         <metro.k.cover.view.TextViewWithFont
             android:id="@+id/stations_titleview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/action_bar_height"
             android:background="@color/metro_main_color"
             android:gravity="center"
-            android:paddingBottom="18dip"
-            android:paddingTop="18dip"
             android:text="@string/station"
-            android:textColor="#FFF"
-            android:textSize="28sp" />
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/action_bar_tx_size" />
 
         <ImageView
             android:id="@+id/stations_clear_image"

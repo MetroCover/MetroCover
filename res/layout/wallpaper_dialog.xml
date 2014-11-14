@@ -5,7 +5,7 @@
     android:layout_marginLeft="8dp"
     android:layout_marginRight="8dp"
     android:layout_marginTop="13dp"
-    android:background="#FFF"
+    android:background="@color/color_white"
     android:gravity="center_horizontal"
     android:orientation="vertical" >
 
@@ -16,10 +16,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:paddingBottom="15dip"
-        android:paddingTop="15dip"
+        android:paddingBottom="@dimen/list_padding_vartical"
+        android:paddingLeft="@dimen/list_padding_hirizontal"
+        android:paddingRight="@dimen/list_padding_hirizontal"
+        android:paddingTop="@dimen/list_padding_vartical"
         android:text="@string/wallpaper_select"
-        android:textColor="#333333"
+        android:textColor="@color/color_title"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -36,10 +38,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/selector_list_at"
-        android:paddingBottom="8dip"
-        android:paddingLeft="12dip"
-        android:paddingRight="15dip"
-        android:paddingTop="8dip" >
+        android:paddingBottom="@dimen/list_padding_vartical"
+        android:paddingLeft="@dimen/list_padding_hirizontal"
+        android:paddingRight="@dimen/list_padding_hirizontal"
+        android:paddingTop="@dimen/list_padding_vartical" >
 
         <ImageView
             android:id="@+id/wallpaper_dialog_homee_icon"
@@ -58,7 +60,7 @@
             android:layout_marginLeft="15dip"
             android:layout_toRightOf="@+id/wallpaper_dialog_homee_icon"
             android:text="@string/wallpaper_select_homee"
-            android:textColor="#000"
+            android:textColor="@color/color_title"
             android:textSize="20sp" />
     </RelativeLayout>
 
@@ -76,10 +78,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/selector_list_at"
-        android:paddingBottom="8dip"
-        android:paddingLeft="12dip"
-        android:paddingRight="15dip"
-        android:paddingTop="8dip" >
+        android:paddingBottom="@dimen/list_padding_vartical"
+        android:paddingLeft="@dimen/list_padding_hirizontal"
+        android:paddingRight="@dimen/list_padding_hirizontal"
+        android:paddingTop="@dimen/list_padding_vartical" >
 
         <ImageView
             android:id="@+id/wallpaper_dialog_plushome_icon"
@@ -98,7 +100,7 @@
             android:layout_marginLeft="15dip"
             android:layout_toRightOf="@+id/wallpaper_dialog_plushome_icon"
             android:text="@string/wallpaper_select_plushome"
-            android:textColor="#000"
+            android:textColor="@color/color_title"
             android:textSize="20sp" />
     </RelativeLayout>
 
@@ -116,10 +118,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/selector_list_at"
-        android:paddingBottom="8dip"
-        android:paddingLeft="12dip"
-        android:paddingRight="15dip"
-        android:paddingTop="8dip" >
+        android:paddingBottom="@dimen/list_padding_vartical"
+        android:paddingLeft="@dimen/list_padding_hirizontal"
+        android:paddingRight="@dimen/list_padding_hirizontal"
+        android:paddingTop="@dimen/list_padding_vartical" >
 
         <ImageView
             android:id="@+id/wallpaper_dialog_buzzhome_icon"
@@ -138,7 +140,7 @@
             android:layout_marginLeft="15dip"
             android:layout_toRightOf="@+id/wallpaper_dialog_buzzhome_icon"
             android:text="@string/wallpaper_select_buzzhome"
-            android:textColor="#000"
+            android:textColor="@color/color_title"
             android:textSize="20sp" />
     </RelativeLayout>
 
@@ -156,10 +158,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/selector_list_at"
-        android:paddingBottom="8dip"
-        android:paddingLeft="12dip"
-        android:paddingRight="15dip"
-        android:paddingTop="8dip" >
+        android:paddingBottom="@dimen/list_padding_vartical"
+        android:paddingLeft="@dimen/list_padding_hirizontal"
+        android:paddingRight="@dimen/list_padding_hirizontal"
+        android:paddingTop="@dimen/list_padding_vartical" >
 
         <ImageView
             android:id="@+id/wallpaper_dialog_dodoru_icon"
@@ -178,7 +180,7 @@
             android:layout_marginLeft="15dip"
             android:layout_toRightOf="@+id/wallpaper_dialog_dodoru_icon"
             android:text="@string/wallpaper_select_dodol"
-            android:textColor="#000"
+            android:textColor="@color/color_title"
             android:textSize="20sp" />
     </RelativeLayout>
 
@@ -196,10 +198,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/selector_list_at"
-        android:paddingBottom="8dip"
-        android:paddingLeft="12dip"
-        android:paddingRight="15dip"
-        android:paddingTop="8dip" >
+        android:paddingBottom="@dimen/list_padding_vartical"
+        android:paddingLeft="@dimen/list_padding_hirizontal"
+        android:paddingRight="@dimen/list_padding_hirizontal"
+        android:paddingTop="@dimen/list_padding_vartical" >
 
         <ImageView
             android:id="@+id/wallpaper_dialog_gallery_icon"
@@ -218,7 +220,7 @@
             android:layout_marginLeft="15dip"
             android:layout_toRightOf="@+id/wallpaper_dialog_gallery_icon"
             android:text="@string/wallpaper_select_gallery"
-            android:textColor="#000"
+            android:textColor="@color/color_title"
             android:textSize="20sp" />
     </RelativeLayout>
 

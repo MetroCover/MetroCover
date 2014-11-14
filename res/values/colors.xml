@@ -18,5 +18,6 @@
     <color name="color_white">#FFF</color>
     <color name="color_black">#000</color>
     <color name="color_black_tranc">#80000000</color>
-
+    <color name="color_title">#333333</color>
+    <color name="color_title_right">#bebebe</color>
 </resources>

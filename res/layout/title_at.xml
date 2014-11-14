@@ -5,7 +5,10 @@
     android:layout_height="match_parent"
     android:background="@drawable/selector_list_at"
     android:orientation="horizontal"
-    android:padding="10dip" >
+    android:paddingBottom="@dimen/list_padding_vartical"
+    android:paddingLeft="@dimen/list_padding_hirizontal"
+    android:paddingRight="@dimen/list_padding_hirizontal"
+    android:paddingTop="@dimen/list_padding_vartical" >
 
     <metro.k.cover.view.TextViewWithFont
         android:id="@+id/list_title"
@@ -13,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="10dip"
-        android:textColor="#333333"
+        android:textColor="@color/color_title"
         android:textIsSelectable="false"
         android:textSize="20sp"
         android:textStyle="bold" />

@@ -14,21 +14,22 @@
         <metro.k.cover.view.TextViewWithFont
             android:id="@+id/select_security_titleview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/action_bar_height"
             android:background="@color/metro_main_color"
             android:gravity="center"
-            android:paddingBottom="18dip"
-            android:paddingTop="18dip"
             android:text="@string/lock_security"
-            android:textColor="#FFF"
-            android:textSize="28sp" />
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/action_bar_tx_size" />
 
         <RelativeLayout
             android:id="@+id/select_security_password_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/activity_setting_list_item_height"
             android:background="@drawable/selector_list_at"
-            android:padding="15dip" >
+            android:paddingBottom="@dimen/list_padding_vartical"
+            android:paddingLeft="@dimen/list_padding_hirizontal"
+            android:paddingRight="@dimen/list_padding_hirizontal"
+            android:paddingTop="@dimen/list_padding_vartical" >
 
             <metro.k.cover.view.TextViewWithFont
                 android:id="@+id/select_security_password_titleview"
@@ -38,7 +39,7 @@
                 android:layout_centerVertical="true"
                 android:text="@string/lock_password"
                 android:textColor="@color/color_black"
-                android:textSize="18sp" />
+                android:textSize="@dimen/list_txt_size" />
 
             <metro.k.cover.view.TextViewWithFont
                 android:id="@+id/select_security_password_level"
@@ -48,8 +49,8 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="12dip"
                 android:text="@string/lock_security_high"
-                android:textColor="@color/color_black"
-                android:textSize="18sp" />
+                android:textColor="@color/color_title_right"
+                android:textSize="@dimen/list_txt_size" />
         </RelativeLayout>
 
         <ImageView
@@ -63,7 +64,10 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/activity_setting_list_item_height"
             android:background="@drawable/selector_list_at"
-            android:padding="15dip" >
+            android:paddingBottom="@dimen/list_padding_vartical"
+            android:paddingLeft="@dimen/list_padding_hirizontal"
+            android:paddingRight="@dimen/list_padding_hirizontal"
+            android:paddingTop="@dimen/list_padding_vartical" >
 
             <metro.k.cover.view.TextViewWithFont
                 android:id="@+id/select_security_pattern_titleview"
@@ -72,8 +76,8 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:text="@string/lock_patern"
-                android:textColor="@color/color_black"
-                android:textSize="18sp" />
+                android:textColor="@color/color_title"
+                android:textSize="@dimen/list_txt_size" />
 
             <metro.k.cover.view.TextViewWithFont
                 android:id="@+id/select_security_pattern_level"
@@ -83,8 +87,8 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="12dip"
                 android:text="@string/lock_security_high"
-                android:textColor="@color/color_black"
-                android:textSize="18sp" />
+                android:textColor="@color/color_title_right"
+                android:textSize="@dimen/list_txt_size" />
         </RelativeLayout>
 
         <ImageView
@@ -98,7 +102,10 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/activity_setting_list_item_height"
             android:background="@drawable/selector_list_at"
-            android:padding="15dip" >
+            android:paddingBottom="@dimen/list_padding_vartical"
+            android:paddingLeft="@dimen/list_padding_hirizontal"
+            android:paddingRight="@dimen/list_padding_hirizontal"
+            android:paddingTop="@dimen/list_padding_vartical" >
 
             <metro.k.cover.view.TextViewWithFont
                 android:id="@+id/select_security_none_titleview"
@@ -107,8 +114,8 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:text="@string/lock_nothing"
-                android:textColor="@color/color_black"
-                android:textSize="18sp" />
+                android:textColor="@color/color_title"
+                android:textSize="@dimen/list_txt_size" />
 
             <metro.k.cover.view.TextViewWithFont
                 android:id="@+id/select_security_none_level"
@@ -118,8 +125,8 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="12dip"
                 android:text="@string/lock_security_none"
-                android:textColor="@color/color_black"
-                android:textSize="18sp" />
+                android:textColor="@color/color_title_right"
+                android:textSize="@dimen/list_txt_size" />
         </RelativeLayout>
 
         <ImageView

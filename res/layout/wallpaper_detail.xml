@@ -24,19 +24,17 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/activity_setting_list_item_height" >
+        android:layout_height="@dimen/action_bar_height" >
 
         <metro.k.cover.view.TextViewWithFont
             android:id="@+id/wallpaper_detail_titleview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/action_bar_height"
             android:background="@color/metro_main_color"
             android:gravity="center"
-            android:paddingBottom="18dp"
-            android:paddingTop="18dp"
             android:text="@string/lock_screen_image_left"
-            android:textColor="#FFF"
-            android:textSize="18sp" />
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/action_bar_tx_size" />
 
         <ImageView
             android:id="@+id/wallpaper_detail_delete_image"
