@@ -31,7 +31,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -99,6 +98,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	private TransitionEffect mEffect = TransitionEffect.RotateDown;
 
 	// unlock
+	private LinearLayout mUnlockLayout;
 	private ImageView mUnlockButon;
 	private ImageView mUnlockCameraButon;
 	private ImageView mUnlockMessageButon;
@@ -705,12 +705,14 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		if (res.getInteger(R.integer.lock_security_type_password) == mSecurity) {
 			addPasswordSecurityView(unlockId);
 			hideCalenderLayout();
+			hideUnlockLayout();
 			return;
 		}
 		// パターン
 		if (res.getInteger(R.integer.lock_security_type_pattern) == mSecurity) {
 			addPatternSecurityView(unlockId);
 			hideCalenderLayout();
+			hideUnlockLayout();
 			return;
 		}
 		// セリュリティなし
@@ -768,6 +770,19 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	}
 
 	/**
+	 * 解除レイアウトを非表示
+	 */
+	private void hideUnlockLayout() {
+		if (mUnlockLayout == null) {
+			return;
+		}
+		if (mUnlockLayout.getVisibility() == View.INVISIBLE) {
+			return;
+		}
+		mUnlockLayout.setVisibility(View.INVISIBLE);
+	}
+
+	/**
 	 * パスワードおよびパターンロックのViewの破棄
 	 * 
 	 * @param v
@@ -777,6 +792,11 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		if (mClockLinearLayout != null) {
 			if (mClockLinearLayout.getVisibility() != View.VISIBLE) {
 				mClockLinearLayout.setVisibility(View.VISIBLE);
+			}
+		}
+		if (mUnlockLayout != null) {
+			if (mUnlockLayout.getVisibility() != View.VISIBLE) {
+				mUnlockLayout.setVisibility(View.VISIBLE);
 			}
 		}
 	}
@@ -969,6 +989,8 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 					.findViewById(R.id.lock_date_textview);
 			mBatteryView = (TextViewWithFont) lockLayout
 					.findViewById(R.id.lock_battery_textview);
+			mUnlockLayout = (LinearLayout) lockLayout
+					.findViewById(R.id.lock_unlock_layout);
 			mUnlockButon = (ImageView) lockLayout
 					.findViewById(R.id.lock_unlock_button);
 			mUnlockCameraButon = (ImageView) lockLayout
