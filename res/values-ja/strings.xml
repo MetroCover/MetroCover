@@ -94,6 +94,7 @@
     <string name="selected">選択中</string>
     <string name="settings">設定</string>
     <string name="station">駅</string>
+    <string name="station_direction_select_msg">どちらの方面へ\n向かいますか？</string>
     <string name="train_type_local">各停</string>
     <string name="train_type_express">急行</string>
     <string name="train_type_rapid">快速</string>
