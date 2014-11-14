@@ -18,10 +18,14 @@ public class TutorialActivity extends FragmentActivity {
 
 	private static JazzyViewPager mViewPager;
 
+	private boolean isTutorialOpend = false;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if (PreferenceCommon.getTutorialOpend(getApplicationContext())) {
+		isTutorialOpend = PreferenceCommon
+				.getTutorialOpend(getApplicationContext());
+		if (isTutorialOpend) {
 			startSettingActivity();
 		} else {
 			setupViews();
@@ -50,10 +54,14 @@ public class TutorialActivity extends FragmentActivity {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		PreferenceCommon.setRailwaysInfomation(getApplicationContext(),
-				getCheckedRailways());
-		PreferenceCommon.setRailwaysNameForAPI(getApplicationContext(),
-				getCheckedRailwaysResponses());
+		if (!isTutorialOpend) {
+			PreferenceCommon.setRailwaysInfomation(getApplicationContext(),
+					getCheckedRailways());
+			PreferenceCommon.setRailwaysNumber(getApplicationContext(),
+					getCheckedRailwaysNumbers());
+			PreferenceCommon.setRailwaysNameForAPI(getApplicationContext(),
+					getCheckedRailwaysResponses());
+		}
 	}
 
 	@Override
@@ -123,6 +131,10 @@ public class TutorialActivity extends FragmentActivity {
 
 	private String getCheckedRailwaysResponses() {
 		return TutorialSecond.getCheckedResponseNmae();
+	}
+
+	private String getCheckedRailwaysNumbers() {
+		return TutorialSecond.getCheckedNumber();
 	}
 
 	public static JazzyViewPager getViewPager() {

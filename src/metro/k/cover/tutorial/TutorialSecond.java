@@ -114,6 +114,35 @@ public class TutorialSecond extends Fragment implements OnClickListener {
 	}
 
 	/**
+	 * チェックボックスにチェックされている路線番号を取得する
+	 * 
+	 * @return
+	 */
+	public static String getCheckedNumber() {
+		if (mList == null) {
+			return "";
+		}
+
+		final int size = mList.size();
+		if (size == 0) {
+			return "";
+		}
+
+		String str = "";
+		for (int i = 0; i < size; i++) {
+			if (mList.get(i).getChecked()) {
+				str += mList.get(i).getRailwayNumber() + ",";
+			}
+		}
+
+		if (!Utilities.isInvalidStr(str)) {
+			final int len = str.length();
+			str = str.substring(0, len - 1);
+		}
+		return str;
+	}
+
+	/**
 	 * チェックボックスにチェックされている路線の名前を取得する
 	 * 
 	 * @return

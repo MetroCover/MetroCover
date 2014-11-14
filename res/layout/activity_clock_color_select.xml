@@ -61,7 +61,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dip"
                         android:text="@string/color_white"
-                        android:textColor="#FFF"
+                        android:textColor="@color/color_black"
                         android:textIsSelectable="false"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -146,7 +146,7 @@
                 android:layout_height="1dip"
                 android:background="?android:attr/listDivider"
                 android:contentDescription="@string/app_name" />
-            
+
             <!-- 東京メトロ色 -->
 
             <RelativeLayout
@@ -204,7 +204,7 @@
                 android:layout_height="1dip"
                 android:background="?android:attr/listDivider"
                 android:contentDescription="@string/app_name" />
-            
+
             <!-- 千代田線色 -->
 
             <RelativeLayout

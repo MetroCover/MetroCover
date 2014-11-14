@@ -126,7 +126,7 @@
     <string name="selected">Selected</string>
     <string name="settings">Settings</string>
     <string name="station">Station</string>
-    <string name="theme_homee_bg_image">theme_lock_bg</string>
+    <string name="theme_homee_bg_image">theme_wallpaper</string>
     <string name="theme_plushome_bg_image">drawer_wallpaper</string>
     <string name="theme_dodol_bg_image">e18</string>
     <string name="train_type_local">Local</string>
