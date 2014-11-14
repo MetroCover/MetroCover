@@ -92,6 +92,7 @@
     <string name="pkg_plus_home_theme_head">jp.co.a_tm.android.plus_</string>
     <string name="pkg_homee_theme_head">com.cfinc.homee.themepack</string>
     <string name="pkg_buzz_home_theme_head">jp.co.yahoo.android.buzzhome.theme</string>
+    <string name="pkg_line">jp.naver.line.android</string>
     <string name="railways">Railways</string>
     <string name="railway_chiyoda">Chiyoda-Line</string>
     <string name="railway_chiyoda_color">Chiyoda</string>

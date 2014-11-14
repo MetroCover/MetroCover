@@ -107,6 +107,23 @@ public final class Utilities {
 	}
 
 	/**
+	 * パッケージ名から他のアプリを起動する
+	 * 
+	 * @param context
+	 * @param pkg
+	 */
+	public static void startOtherApp(final Context context, final String pkg) {
+		final PackageManager pm = context.getPackageManager();
+		if (pm == null) {
+			showErrorCommonToast(context);
+			return;
+		}
+
+		Intent intent = pm.getLaunchIntentForPackage(pkg);
+		startActivitySafely(intent, context);
+	}
+
+	/**
 	 * Network確認
 	 * 
 	 * @param context

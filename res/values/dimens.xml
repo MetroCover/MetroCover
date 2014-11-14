@@ -12,12 +12,9 @@
     <dimen name="list_padding_hirizontal">15dp</dimen>
 
     <!-- ClockSize -->
-    <dimen name="clock_size_time_small">14sp</dimen>
-    <dimen name="clock_size_date_small">8sp</dimen>
-    <dimen name="clock_size_time_midium">20sp</dimen>
-    <dimen name="clock_size_date_midium">12sp</dimen>
-    <dimen name="clock_size_time_large">30sp</dimen>
-    <dimen name="clock_size_date_large">26sp</dimen>
+    <dimen name="clock_height">100dp</dimen>
+    <dimen name="clock_size_time">40sp</dimen>
+    <dimen name="clock_size_date">12sp</dimen>
 
     <!-- TellLayout -->
     <dimen name="lockscreen_tel_margin">30dp</dimen>

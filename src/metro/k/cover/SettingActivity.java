@@ -50,19 +50,10 @@ public class SettingActivity extends Activity implements OnClickListener,
 	private TextViewWithFont mCurrentClockTypeView;
 	private int mCurrentClockType;
 
-	// 現在の時計表記サイズ
-	private int mClockSizeSelected = 1;
-	private TextViewWithFont mCurrentClockSizeView;
-	private int mCurrentClockSize;
-
 	// 現在の時計の色
 	private int mClockColorID;
 	private String mClockColorStr;
 	private TextViewWithFont mCurrentClockColorView;
-
-	// 時計の背景
-	private boolean isClockBackground = false;
-	private CheckBox mClockBackgroundCheckbox = null;
 
 	// パターンロックのバイブレーション
 	private boolean isPatternLockVibe = false;
@@ -117,12 +108,6 @@ public class SettingActivity extends Activity implements OnClickListener,
 		RelativeLayout clocktype_layout = (RelativeLayout) findViewById(R.id.setting_clocktype_layout);
 		clocktype_layout.setOnClickListener(this);
 
-		// Clock Bg
-		RelativeLayout clockbg_layout = (RelativeLayout) findViewById(R.id.setting_clockbg_layout);
-		clockbg_layout.setOnClickListener(this);
-		mClockBackgroundCheckbox = (CheckBox) findViewById(R.id.setting_clockbg_checkbox);
-		mClockBackgroundCheckbox.setOnCheckedChangeListener(this);
-
 		// PatternLockVibe
 		RelativeLayout pattern_vibe_layout = (RelativeLayout) findViewById(R.id.setting_pattern_vibe_layout);
 		pattern_vibe_layout.setOnClickListener(this);
@@ -158,10 +143,6 @@ public class SettingActivity extends Activity implements OnClickListener,
 		// Clock color
 		RelativeLayout clockcol_layout = (RelativeLayout) findViewById(R.id.setting_clock_color_layout);
 		clockcol_layout.setOnClickListener(this);
-
-		// Clock color
-		RelativeLayout clocksize_layout = (RelativeLayout) findViewById(R.id.setting_clock_size_layout);
-		clocksize_layout.setOnClickListener(this);
 
 		// Review
 		RelativeLayout review_layout = (RelativeLayout) findViewById(R.id.setting_review_layout);
@@ -207,22 +188,6 @@ public class SettingActivity extends Activity implements OnClickListener,
 			mCurrentClockTypeView.setText(res.getString(R.string.clock_24));
 		}
 
-		// 現在の時計表記サイズ　
-		mCurrentClockSizeView = (TextViewWithFont) findViewById(R.id.setting_clock_size_currentview);
-		if (mCurrentClockSize == res
-				.getInteger(R.integer.lock_clock_size_small)) {
-			mCurrentClockSizeView.setText(res
-					.getString(R.string.clock_size_small));
-		} else if (mCurrentClockSize == res
-				.getInteger(R.integer.lock_clock_size_midium)) {
-			mCurrentClockSizeView.setText(res
-					.getString(R.string.clock_size_midium));
-		} else if (mCurrentClockSize == res
-				.getInteger(R.integer.lock_clock_size_large)) {
-			mCurrentClockSizeView.setText(res
-					.getString(R.string.clock_size_large));
-		}
-
 		// 時計色
 		mCurrentClockColorView = (TextViewWithFont) findViewById(R.id.setting_clock_color_currentview);
 		mCurrentClockColorView.setText(mClockColorStr);
@@ -232,9 +197,6 @@ public class SettingActivity extends Activity implements OnClickListener,
 		} else {
 			mCurrentClockColorView.setTextColor(res.getColor(mClockColorID));
 		}
-
-		// 時計背景
-		mClockBackgroundCheckbox.setChecked(isClockBackground);
 
 		// 駅名
 		mCurrentStationView = (TextViewWithFont) findViewById(R.id.setting_station_currentview);
@@ -271,10 +233,6 @@ public class SettingActivity extends Activity implements OnClickListener,
 				.getStationName(getApplicationContext());
 		mCurrentStationsRailwayName = PreferenceCommon
 				.getStationsRailwayName(getApplicationContext());
-		mClockSizeSelected = mCurrentClockSize = PreferenceCommon
-				.getClockSize(getApplicationContext());
-		isClockBackground = PreferenceCommon
-				.getClockBackgroundFlag(getApplicationContext());
 	}
 
 	/**
@@ -287,8 +245,6 @@ public class SettingActivity extends Activity implements OnClickListener,
 				isPatternLockVibe);
 		PreferenceCommon.setLockPatternTrack(getApplicationContext(),
 				isPatternLockTrack);
-		PreferenceCommon.setClockBackgroundFlag(getApplicationContext(),
-				isClockBackground);
 
 		if (isMetroCoverEnable) {
 			LockUtilities.getInstance()
@@ -435,13 +391,6 @@ public class SettingActivity extends Activity implements OnClickListener,
 			return;
 		}
 
-		// Clock Bg
-		if (R.id.setting_clockbg_layout == viewId) {
-			mClockBackgroundCheckbox.setChecked(!mClockBackgroundCheckbox
-					.isChecked());
-			return;
-		}
-
 		// System-Lock
 		if (R.id.setting_systemlock_layout == viewId) {
 			startSystemLockSettings();
@@ -470,12 +419,6 @@ public class SettingActivity extends Activity implements OnClickListener,
 		// Clock-Type
 		if (R.id.setting_clocktype_layout == viewId) {
 			buildClockTypeDialog();
-			return;
-		}
-
-		// Clock-Size
-		if (R.id.setting_clock_size_layout == viewId) {
-			buildClockSizeDialog();
 			return;
 		}
 
@@ -544,12 +487,6 @@ public class SettingActivity extends Activity implements OnClickListener,
 			isPatternLockTrack = isChecked;
 			return;
 		}
-
-		// ClockBg
-		if (R.id.setting_clockbg_checkbox == viewId) {
-			isClockBackground = isChecked;
-			return;
-		}
 	}
 
 	/**
@@ -581,48 +518,6 @@ public class SettingActivity extends Activity implements OnClickListener,
 										.setClockType(getApplicationContext(),
 												mClockSelected);
 								mCurrentClockType = mClockSelected;
-								dialog.cancel();
-							}
-						})
-				.setNegativeButton(R.string.cancel,
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int whichButton) {
-								dialog.cancel();
-							}
-						}).show();
-	}
-
-	/**
-	 * 時計表記サイズ　選択ダイアログ
-	 */
-	private void buildClockSizeDialog() {
-		final Resources res = getResources();
-		final String item_list[] = new String[] {
-				res.getString(R.string.clock_size_small),
-				res.getString(R.string.clock_size_midium),
-				res.getString(R.string.clock_size_large) };
-
-		new AlertDialog.Builder(SettingActivity.this)
-				.setIcon(R.drawable.ic_clock)
-				.setTitle(res.getString(R.string.clock_size))
-				.setSingleChoiceItems(item_list, mCurrentClockSize,
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int whichButton) {
-								mClockSizeSelected = whichButton;
-							}
-						})
-				.setPositiveButton(res.getString(R.string.ok),
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int whichButton) {
-								mCurrentClockSizeView
-										.setText(item_list[mClockSizeSelected]);
-								PreferenceCommon.setClockSize(
-										getApplicationContext(),
-										mClockSizeSelected);
-								mCurrentClockSize = mClockSizeSelected;
 								dialog.cancel();
 							}
 						})

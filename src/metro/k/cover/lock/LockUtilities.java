@@ -4,7 +4,6 @@ import metro.k.cover.MetroCoverApplication;
 import metro.k.cover.R;
 import android.annotation.SuppressLint;
 import android.app.KeyguardManager;
-import android.app.Service;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
@@ -44,6 +43,11 @@ public class LockUtilities {
 	// 時計の表示
 	public static final int CLOCK_TYPE_12 = 0;
 	public static final int CLOCK_TYPE_24 = 1;
+
+	// ロック解除で押したボタンの種類
+	public static final int UNLOCK_ID_UNLOCK = 0;
+	public static final int UNLOCK_ID_CAMERA = 1;
+	public static final int UNLOCK_ID_MESSANGER = 2;
 
 	// LockView
 	private View mLockView = null;

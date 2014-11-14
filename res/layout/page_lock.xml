@@ -3,52 +3,96 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_black_tranc"
+        android:contentDescription="@string/app_name" />
+
     <LinearLayout
         android:id="@+id/lock_data_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="220dip"
         android:layout_marginTop="100dip"
-        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
         android:paddingBottom="10dip"
         android:paddingTop="10dip" >
 
-        <metro.k.cover.view.TextViewWithFont
-            android:id="@+id/lock_time_textview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:shadowColor="@color/color_black"
-            android:shadowDx="1"
-            android:shadowDy="1"
-            android:shadowRadius="1"
-            android:textColor="@color/color_white" />
+        <ImageView
+            android:id="@+id/lock_time_sep"
+            android:layout_width="1dip"
+            android:layout_height="@dimen/clock_height"
+            android:background="@color/color_white"
+            android:contentDescription="@string/app_name" />
 
-        <metro.k.cover.view.TextViewWithFont
-            android:id="@+id/lock_date_textview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:shadowColor="@color/color_black"
-            android:shadowDx="1"
-            android:shadowDy="1"
-            android:shadowRadius="1"
-            android:textColor="@color/color_white" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/clock_height"
+            android:layout_marginLeft="20dip"
+            android:gravity="left|center_vertical"
+            android:orientation="vertical" >
 
-        <metro.k.cover.view.TextViewWithFont
-            android:id="@+id/lock_battery_textview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:shadowColor="@color/color_black"
-            android:shadowDx="1"
-            android:shadowDy="1"
-            android:shadowRadius="1"
-            android:textColor="@color/color_white" />
+            <metro.k.cover.view.TextViewWithFont
+                android:id="@+id/lock_time_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dip"
+                android:gravity="center"
+                android:shadowColor="@color/color_black"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/clock_size_time" />
+
+            <metro.k.cover.view.TextViewWithFont
+                android:id="@+id/lock_date_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:shadowColor="@color/color_black"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/clock_size_date" />
+
+            <metro.k.cover.view.TextViewWithFont
+                android:id="@+id/lock_battery_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/clock_size_date" />
+        </LinearLayout>
     </LinearLayout>
 
-    <metro.k.cover.lock.KeyView
-        android:id="@+id/unlock_keyview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="80dip"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/lock_camera_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/selector_camera_btn" />
+
+        <ImageView
+            android:id="@+id/lock_unlock_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="20dip"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/selector_unlock_btn" />
+
+        <ImageView
+            android:id="@+id/lock_messanger_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/selector_line_btn" />
+    </LinearLayout>
 
 </RelativeLayout>

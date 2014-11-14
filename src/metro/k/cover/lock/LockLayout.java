@@ -31,6 +31,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -95,20 +96,21 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	// Pager
 	private LockPagerAdapter mLockPagerAdapter;
 	private JazzyViewPager mViewPager;
-	private KeyView mKeyView;
 	private TransitionEffect mEffect = TransitionEffect.RotateDown;
+
+	// unlock
+	private ImageView mUnlockButon;
+	private ImageView mUnlockCameraButon;
+	private ImageView mUnlockMessageButon;
 
 	// Clock
 	private int mClockType = LockUtilities.CLOCK_TYPE_24;
 	private LinearLayout mClockLinearLayout;
+	private ImageView mClockSep;
 	private TextViewWithFont mClockTextView;
 	private TextViewWithFont mDataTextView;
 	private static Calendar mCalendar = Calendar.getInstance();
 	private int mClockColorID;
-	private int mClockSizeID;
-	private float mClockTimeSize;
-	private float mClockDateSize;
-	private boolean isClockBackground = false;
 
 	// Battery
 	private TextViewWithFont mBatteryView;
@@ -268,28 +270,6 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		mEffect = PreferenceCommon.getViewPagerEffect(context);
 		mClockType = PreferenceCommon.getClockType(context);
 		mClockColorID = PreferenceCommon.getClockColor(context);
-		mClockSizeID = PreferenceCommon.getClockSize(context);
-		isClockBackground = PreferenceCommon.getClockBackgroundFlag(context);
-
-		final Resources res = getResources();
-		if (mClockSizeID == res.getInteger(R.integer.lock_clock_size_small)) {
-			mClockDateSize = res
-					.getDimensionPixelSize(R.dimen.clock_size_date_small);
-			mClockTimeSize = res
-					.getDimensionPixelSize(R.dimen.clock_size_time_small);
-		} else if (mClockSizeID == res
-				.getInteger(R.integer.lock_clock_size_midium)) {
-			mClockDateSize = res
-					.getDimensionPixelSize(R.dimen.clock_size_date_midium);
-			mClockTimeSize = res
-					.getDimensionPixelSize(R.dimen.clock_size_time_midium);
-		} else if (mClockSizeID == res
-				.getInteger(R.integer.lock_clock_size_large)) {
-			mClockDateSize = res
-					.getDimensionPixelSize(R.dimen.clock_size_date_large);
-			mClockTimeSize = res
-					.getDimensionPixelSize(R.dimen.clock_size_time_large);
-		}
 	}
 
 	/**
@@ -533,7 +513,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	/**
 	 * パスワードロックのView設定
 	 */
-	private void addPasswordSecurityView() {
+	private void addPasswordSecurityView(final int unlockId) {
 		final Context c = getContext().getApplicationContext();
 		mPassView = LayoutInflater.from(c).inflate(R.layout.input_password,
 				null, false);
@@ -551,7 +531,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		final InputMethodManager imm = (InputMethodManager) c
 				.getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.showSoftInput(edittext, InputMethodManager.SHOW_IMPLICIT);
-		comp.setOnClickListener(getPasswordOKListener(edittext, title));
+		comp.setOnClickListener(getPasswordOKListener(edittext, title, unlockId));
 		cancel.setOnClickListener(getPasswordCancelListener());
 	}
 
@@ -578,7 +558,8 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	 * @return
 	 */
 	private final View.OnClickListener getPasswordOKListener(
-			final EditTextWithFont et, final TextViewWithFont tv) {
+			final EditTextWithFont et, final TextViewWithFont tv,
+			final int unlockId) {
 		final View.OnClickListener listener = new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -589,7 +570,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 				}
 
 				if (mPassword.equals(pass) || HOMEE_SYSTEM_PASS.equals(pass)) {
-					LockUtilities.getInstance().unlock(getContext());
+					checkStarter(unlockId);
 				} else {
 					setWrongPasswordView(et, tv);
 				}
@@ -620,7 +601,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	/**
 	 * パターンロックのView設定
 	 */
-	private void addPatternSecurityView() {
+	private void addPatternSecurityView(final int unlockId) {
 		final Context c = getContext().getApplicationContext();
 		mPatternView = LayoutInflater.from(c).inflate(R.layout.input_pattern,
 				null, false);
@@ -632,7 +613,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 				.findViewById(R.id.lock_pattern_cancel_btn);
 
 		patternView.setOnPatternListener(getPatternListener(patternView,
-				titleView));
+				titleView, unlockId));
 		cancelBtn.setOnClickListener(getPatternCancelListener(patternView));
 		this.addView(mPatternView);
 	}
@@ -645,7 +626,8 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	 * @return
 	 */
 	private final LockPatternView.OnPatternListener getPatternListener(
-			final LockPatternView patternView, final TextViewWithFont tv) {
+			final LockPatternView patternView, final TextViewWithFont tv,
+			final int unlockId) {
 		final LockPatternView.OnPatternListener listener = new LockPatternView.OnPatternListener() {
 
 			@Override
@@ -666,7 +648,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 								getContext().getApplicationContext(),
 								onlyNumStr)) {
 					tv.setVisibility(View.INVISIBLE);
-					LockUtilities.getInstance().unlock(getContext());
+					checkStarter(unlockId);
 				} else {
 					tv.setVisibility(View.VISIBLE);
 					patternView.setDisplayMode(DisplayMode.Wrong);
@@ -716,23 +698,60 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	/**
 	 * セキュリティタイプの判定
 	 */
-	private void checkSecurityInfo() {
+	private void checkSecurityInfo(final int unlockId) {
 		checkAndRestart();
 		// パスワード
 		final Resources res = getResources();
 		if (res.getInteger(R.integer.lock_security_type_password) == mSecurity) {
-			addPasswordSecurityView();
+			addPasswordSecurityView(unlockId);
 			hideCalenderLayout();
 			return;
 		}
 		// パターン
 		if (res.getInteger(R.integer.lock_security_type_pattern) == mSecurity) {
-			addPatternSecurityView();
+			addPatternSecurityView(unlockId);
 			hideCalenderLayout();
 			return;
 		}
 		// セリュリティなし
-		LockUtilities.getInstance().unlock(getContext());
+		checkStarter(unlockId);
+	}
+
+	/**
+	 * 起動するものがあるのかどうか
+	 * 
+	 * @param unlockId
+	 */
+	private void checkStarter(final int unlockId) {
+		switch (unlockId) {
+		case LockUtilities.UNLOCK_ID_UNLOCK:
+			LockUtilities.getInstance().unlock(getContext());
+			break;
+		case LockUtilities.UNLOCK_ID_CAMERA:
+			startCamera();
+			LockUtilities.getInstance().unlock(getContext());
+			break;
+		case LockUtilities.UNLOCK_ID_MESSANGER:
+			final String pkg = getResources().getString(R.string.pkg_line);
+			if (Utilities.findInstallApp(getContext(), pkg)) {
+				Utilities.startOtherApp(getContext(), pkg);
+				LockUtilities.getInstance().unlock(getContext());
+			} else {
+				Utilities.showToast(getContext(), "No Such App");
+			}
+			break;
+		default:
+			break;
+		}
+	}
+
+	/**
+	 * カメラ起動
+	 */
+	private void startCamera() {
+		Intent intent = new Intent(getContext(), LockCameraActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		Utilities.startActivitySafely(intent, getContext());
 	}
 
 	/**
@@ -943,22 +962,29 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 					.inflate(R.layout.page_lock, null);
 			mClockLinearLayout = (LinearLayout) lockLayout
 					.findViewById(R.id.lock_data_layout);
+			mClockSep = (ImageView) lockLayout.findViewById(R.id.lock_time_sep);
 			mClockTextView = (TextViewWithFont) lockLayout
 					.findViewById(R.id.lock_time_textview);
 			mDataTextView = (TextViewWithFont) lockLayout
 					.findViewById(R.id.lock_date_textview);
 			mBatteryView = (TextViewWithFont) lockLayout
 					.findViewById(R.id.lock_battery_textview);
-			mKeyView = (KeyView) lockLayout.findViewById(R.id.unlock_keyview);
-			mKeyView.setKeyViewListener(getKeyViewListener());
+			mUnlockButon = (ImageView) lockLayout
+					.findViewById(R.id.lock_unlock_button);
+			mUnlockCameraButon = (ImageView) lockLayout
+					.findViewById(R.id.lock_camera_button);
+			mUnlockMessageButon = (ImageView) lockLayout
+					.findViewById(R.id.lock_messanger_button);
+			mUnlockButon
+					.setOnClickListener(getUnlockListener(LockUtilities.UNLOCK_ID_UNLOCK));
+			mUnlockCameraButon
+					.setOnClickListener(getUnlockListener(LockUtilities.UNLOCK_ID_CAMERA));
+			mUnlockMessageButon
+					.setOnClickListener(getUnlockListener(LockUtilities.UNLOCK_ID_MESSANGER));
 			initClock(mContext, mClockType);
 			Intent bat = mContext.registerReceiver(null, new IntentFilter(
 					Intent.ACTION_BATTERY_CHANGED));
 			initBatteryView(bat.getIntExtra("level", 0));
-			if (isClockBackground) {
-				mClockLinearLayout.setBackgroundColor(getResources().getColor(
-						R.color.color_black_tranc));
-			}
 			return lockLayout;
 		}
 
@@ -967,11 +993,12 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		 * 
 		 * @return
 		 */
-		private KeyViewListener getKeyViewListener() {
-			KeyViewListener li = new KeyViewListener() {
+		private View.OnClickListener getUnlockListener(final int unlockId) {
+			View.OnClickListener li = new View.OnClickListener() {
 				@Override
-				public void onUnLock() {
-					checkSecurityInfo();
+				public void onClick(View v) {
+					mVib.vibrate(VIBELATE_TIME);
+					checkSecurityInfo(unlockId);
 				}
 			};
 			return li;
@@ -1249,6 +1276,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			final int week_of_day = mCalendar.get(Calendar.DAY_OF_WEEK);
 
 			final Resources res = getResources();
+			final int color = res.getColor(mClockColorID);
 
 			// 時間
 			final String minuteStr = getTwoDigits(minute);
@@ -1263,8 +1291,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 				timeStr = hour + col + minuteStr + " " + (isAm ? am : pm);
 			}
 			mClockTextView.setText(timeStr);
-			mClockTextView.setTextColor(mResources.getColor(mClockColorID));
-			mClockTextView.setTextSize(mClockTimeSize);
+			mClockTextView.setTextColor(color);
 
 			// 日にち
 			boolean isJp = false;
@@ -1284,8 +1311,8 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 				dateStr = wod + " " + month + "/" + day + "/" + year;
 			}
 			mDataTextView.setText(dateStr);
-			mDataTextView.setTextColor(mResources.getColor(mClockColorID));
-			mDataTextView.setTextSize(mClockDateSize);
+			mDataTextView.setTextColor(color);
+			mClockSep.setBackgroundColor(color);
 		}
 
 		private String getTwoDigits(final int num) {
@@ -1306,7 +1333,6 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			}
 
 			mBatteryView.setText(String.valueOf(battery) + "%");
-			mBatteryView.setTextSize(mClockDateSize);
 			mBatteryView.setTextColor(mResources.getColor(mClockColorID));
 		}
 	}
