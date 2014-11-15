@@ -163,6 +163,21 @@ public final class PreferenceCommon {
 		return sp.getBoolean(KEY_SET_TUTORIAL_OPEND, false);
 	}
 
+	// 時刻表を取得した時間
+	private static final String KEY_TIME_LOADED_TRAIN_TIME_TABLE = "time_loaded_train_time_table";
+
+	public static void setTimeLoadedTrainTimeTable(final Context context, final long time) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sp.edit();
+		editor.putLong(KEY_TIME_LOADED_TRAIN_TIME_TABLE, time);
+		editor.apply();
+	}
+
+	public static long getTimeLoadedTrainTimeTable(final Context context) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY, Context.MODE_PRIVATE);
+		return sp.getLong(KEY_TIME_LOADED_TRAIN_TIME_TABLE, 0L);
+	}
+
 	/*******************
 	 * ロック画面
 	 *******************/
