@@ -2,6 +2,7 @@ package metro.k.cover;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -33,11 +34,36 @@ public class MetroCoverApplication extends Application {
 	// 登録している駅の時刻情報リスト
 	public static ArrayList<TrainInfo> sTrainInfoArrayList;
 
+	// 季節
+	public static int sCurrentSeason;
+	public static final int SEASON_SPRING = 0;
+	public static final int SEASON_SUMMER = 1;
+	public static final int SEASON_AUTUMN = 2;
+	public static final int SEASON_WINTER = 3;
+
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		setCurrentSeason();
 		asyncCreateRailwaysInfoList(getApplicationContext());
 		createAllStationList();
+	}
+
+	/**
+	 * 現在の季節を設定する
+	 */
+	private void setCurrentSeason() {
+		Calendar cal = Calendar.getInstance();
+		final int month = cal.get(Calendar.MONTH) + 1;
+		if (month >= 3 && month <= 5) {
+			sCurrentSeason = SEASON_SPRING;
+		} else if (month >= 6 && month <= 8) {
+			sCurrentSeason = SEASON_SUMMER;
+		} else if (month >= 9 && month <= 11) {
+			sCurrentSeason = SEASON_AUTUMN;
+		} else {
+			sCurrentSeason = SEASON_WINTER;
+		}
 	}
 
 	/**
@@ -65,10 +91,16 @@ public class MetroCoverApplication extends Application {
 		if (context == null) {
 			return;
 		}
+		if (!Utilities.isOnline(context)) {
+			return;
+		}
 
 		final String title = PreferenceCommon.getStationNameForAPI(context);
 		final String direction = PreferenceCommon.getTrainDirection(context);
 		if (Utilities.isInvalidStr(title) || Utilities.isInvalidStr(direction)) {
+			if (sTrainInfoArrayList != null) {
+				sTrainInfoArrayList.clear();
+			}
 			return;
 		}
 		ApiRequestTrainInfo request = new ApiRequestTrainInfo(context);

@@ -271,4 +271,49 @@ public final class Utilities {
 		}
 	}
 
+	/**
+	 * 現在の季節を取得する
+	 * 
+	 * @return
+	 */
+	public static int getCurrentSeason() {
+		return MetroCoverApplication.sCurrentSeason;
+	}
+
+	/**
+	 * 季節に合わせた背景をこっそり入れる
+	 * 
+	 * @param context
+	 * @param view
+	 */
+	public static void setSeasonsBackground(final Context context,
+			final View view) {
+		if (context == null || view == null) {
+			return;
+		}
+
+		final int season = getCurrentSeason();
+		Drawable bg = null;
+		final Resources res = context.getResources();
+		switch (season) {
+		case MetroCoverApplication.SEASON_SPRING:
+			bg = res.getDrawable(R.drawable.bg_spring);
+			break;
+		case MetroCoverApplication.SEASON_SUMMER:
+			bg = res.getDrawable(R.drawable.bg_summer);
+			break;
+		case MetroCoverApplication.SEASON_AUTUMN:
+			bg = res.getDrawable(R.drawable.bg_autumn);
+			break;
+		case MetroCoverApplication.SEASON_WINTER:
+			bg = res.getDrawable(R.drawable.bg_winter);
+			break;
+		default:
+			break;
+		}
+
+		if (bg != null) {
+			setBackground(view, bg);
+		}
+	}
 }

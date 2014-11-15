@@ -10,9 +10,6 @@ import metro.k.cover.view.JazzyViewPager.TransitionEffect;
 import metro.k.cover.view.TextViewWithFont;
 import metro.k.cover.view.ViewUtilities;
 import android.app.Activity;
-import android.content.res.Resources;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
@@ -66,6 +63,9 @@ public class WallpaperEffectSampleActivity extends Activity implements
 		mJazzyViewPager.setTransitionEffect(mEffect);
 		mJazzyViewPager.setAdapter(new MainAdapter());
 		mJazzyViewPager.setPageMargin(30);
+
+		RelativeLayout root = (RelativeLayout) findViewById(R.id.wallpaper_effect_root);
+		Utilities.setSeasonsBackground(this, root);
 	}
 
 	@Override

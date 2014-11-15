@@ -68,14 +68,24 @@ public class StationsActivity extends Activity implements OnClickListener {
 					return;
 				}
 
+				saveStationData(name, railway, station.getNameForAPI());
+				startSelectDirection(railway, name);
+			}
+		});
+	}
+
+	private void saveStationData(final String name, final String railway,
+			final String nameForAPI) {
+		new Thread("saveStationData") {
+			@Override
+			public void run() {
 				PreferenceCommon.setStationName(getApplicationContext(), name);
 				PreferenceCommon.setStationsRailwayName(
 						getApplicationContext(), railway);
 				PreferenceCommon.setStationNameForAPI(getApplicationContext(),
-						station.getNameForAPI());
-				startSelectDirection(railway, name);
+						nameForAPI);
 			}
-		});
+		}.start();
 	}
 
 	private void startSelectDirection(final String railway, final String station) {

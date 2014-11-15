@@ -1,8 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/wallpaper_effect_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg_xmas" >
+    android:layout_height="match_parent" >
 
     <metro.k.cover.view.JazzyViewPager
         android:id="@+id/wallpaper_effect_viewpager"

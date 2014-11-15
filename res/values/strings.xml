@@ -28,6 +28,7 @@
     <string name="day_of_week_friday">Fri.</string>
     <string name="day_of_week_saturday">Sat.</string>
     <string name="day_of_week_sunday">Sun.</string>
+    <string name="enable_metrocover">Enable MetroCover</string>
     <string name="empty_title_lock_railway_info_title">TRAIN DELAY\nINFOMATION</string>
     <string name="empty_title_lock_railway_info_message">NO DATA</string>
     <string name="err_msg_picasa_img">You can\'t select Picasa Image</string>
