@@ -43,16 +43,18 @@ public class TutorialActivity extends FragmentActivity implements
 	private String[] mDirections;
 	private ButtonWithFont mDirectionButton_1;
 	private ButtonWithFont mDirectionButton_2;
+	private static String mSelectedStationTitle;
+	private static String mSelectedStationRailway;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		isTutorialOpend = PreferenceCommon
 				.getTutorialOpend(getApplicationContext());
-		if (isTutorialOpend) {
-			startSettingActivity();
-		} else {
-			setupViews();
+		 if (isTutorialOpend) {
+		 startSettingActivity();
+		 } else {
+		setupViews();
 			PreferenceCommon.setTutorialOpend(getApplicationContext(), true);
 		}
 	}
@@ -128,7 +130,7 @@ public class TutorialActivity extends FragmentActivity implements
 		if (mViewPager == null) {
 			return;
 		}
-		mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, false);
+		mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
 	}
 
 	/**
@@ -138,7 +140,7 @@ public class TutorialActivity extends FragmentActivity implements
 		if (mViewPager == null) {
 			return;
 		}
-		mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, false);
+		mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
 	}
 
 	/**
@@ -305,10 +307,12 @@ public class TutorialActivity extends FragmentActivity implements
 						int position, long id) {
 					final Station station = MetroCoverApplication.sStationAllListAdapter
 							.getItem(position);
+					mSelectedStationTitle = station.getTitle();
+					mSelectedStationRailway = station.getRailway();
 					PreferenceCommon.setStationName(mContext,
-							station.getTitle());
+							mSelectedStationTitle);
 					PreferenceCommon.setStationsRailwayName(mContext,
-							station.getRailway());
+							mSelectedStationRailway);
 					PreferenceCommon.setStationNameForAPI(mContext,
 							station.getNameForAPI());
 					setNextPage();
@@ -486,18 +490,16 @@ public class TutorialActivity extends FragmentActivity implements
 			final int page = mViewPager.getCurrentItem();
 			if (page == 3) {
 				// ３ページ目で選択された駅から方角をViewにセットする
-				final String station = PreferenceCommon.getStationName(this);
-				if (!Utilities.isInvalidStr(station)
+				if (!Utilities.isInvalidStr(mSelectedStationTitle)
 						&& mSelectedStation != null) {
-					mSelectedStation.setText(station);
+					mSelectedStation.setText(mSelectedStationTitle);
 				}
 
-				final String railway = PreferenceCommon
-						.getStationsRailwayName(this);
-				if (Utilities.isInvalidStr(railway)) {
+				if (Utilities.isInvalidStr(mSelectedStationRailway)) {
 					return;
 				}
-				mDirections = RailwaysUtilities.getDirection(this, railway);
+				mDirections = RailwaysUtilities.getDirection(this,
+						mSelectedStationRailway);
 				if (mDirections == null) {
 					return;
 				}
@@ -525,4 +527,5 @@ public class TutorialActivity extends FragmentActivity implements
 		// TODO Auto-generated method stub
 
 	}
+
 }
