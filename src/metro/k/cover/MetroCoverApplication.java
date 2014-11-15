@@ -64,10 +64,16 @@ public class MetroCoverApplication extends Application {
 		if (context == null) {
 			return;
 		}
+		if (!Utilities.isOnline(context)) {
+			return;
+		}
 
 		final String title = PreferenceCommon.getStationNameForAPI(context);
 		final String direction = PreferenceCommon.getTrainDirection(context);
 		if (Utilities.isInvalidStr(title) || Utilities.isInvalidStr(direction)) {
+			if (sTrainInfoArrayList != null) {
+				sTrainInfoArrayList.clear();
+			}
 			return;
 		}
 		ApiRequestTrainInfo request = new ApiRequestTrainInfo(context);
