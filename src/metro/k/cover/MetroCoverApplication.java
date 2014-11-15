@@ -6,12 +6,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import metro.k.cover.api.ApiRequestTrainInfo;
 import metro.k.cover.api.ApiRquestRailwaysInfo;
 import metro.k.cover.lock.LockRailwaysInfoAdapter;
 import metro.k.cover.railways.RailwaysInfo;
 import metro.k.cover.railways.RailwaysUtilities;
 import metro.k.cover.railways.Station;
 import metro.k.cover.railways.StationsAdapter;
+import metro.k.cover.traininfo.TrainInfoListener;
 import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
@@ -27,11 +29,61 @@ public class MetroCoverApplication extends Application {
 	public static ArrayAdapter<RailwaysInfo> sRailwaysInfoAdapter;
 	private static String mLastUpdateTime;
 
+	// 登録している駅の時刻情報リスト
+	public static ArrayList<metro.k.cover.lock.TrainInfo> sTrainInfoArrayList;
+
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		asyncCreateRailwaysInfoList(getApplicationContext());
 		createAllStationList();
+	}
+
+	/**
+	 * 駅時刻表データリストをThread立てて取得する
+	 * 
+	 * @param context
+	 */
+	synchronized public static void asyncCreateTrainInfoList(
+			final Context context) {
+		new Thread("asyncCreateTrainInfoList") {
+			@Override
+			public void run() {
+				syncCreateTrainInfoList(context);
+			}
+		}.start();
+	}
+
+	/**
+	 * 駅時刻表リストを取得する. 同期的に扱うが呼び出しもとでサブスレッドを立てて使用すること
+	 * 
+	 * @param context
+	 */
+	synchronized public static void syncCreateTrainInfoList(
+			final Context context) {
+		if (context == null) {
+			return;
+		}
+
+		final String title = PreferenceCommon.getStationNameForAPI(context);
+		final String direction = PreferenceCommon.getTrainDirection(context);
+		if (Utilities.isInvalidStr(title) || Utilities.isInvalidStr(direction)) {
+			return;
+		}
+		ApiRequestTrainInfo request = new ApiRequestTrainInfo(context);
+		request.requestTrainInfo(title, direction);
+		request.setListener(new TrainInfoListener() {
+			@Override
+			public void failedToCreateTimeTable() {
+
+			}
+
+			@Override
+			public void completeCreateTimeTable(
+					ArrayList<metro.k.cover.lock.TrainInfo> timetable) {
+				sTrainInfoArrayList = timetable;
+			}
+		});
 	}
 
 	/**

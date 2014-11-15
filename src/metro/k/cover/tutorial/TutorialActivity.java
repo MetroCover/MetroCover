@@ -309,15 +309,28 @@ public class TutorialActivity extends FragmentActivity implements
 							.getItem(position);
 					mSelectedStationTitle = station.getTitle();
 					mSelectedStationRailway = station.getRailway();
+					saveStations(station);
+					setNextPage();
+				}
+			});
+		}
+
+		private void saveStations(final Station station) {
+			new Thread("saveStations") {
+				@Override
+				public void run() {
+					if (station == null) {
+						return;
+					}
+
 					PreferenceCommon.setStationName(mContext,
 							mSelectedStationTitle);
 					PreferenceCommon.setStationsRailwayName(mContext,
 							mSelectedStationRailway);
 					PreferenceCommon.setStationNameForAPI(mContext,
 							station.getNameForAPI());
-					setNextPage();
 				}
-			});
+			}.start();
 		}
 
 		/**
