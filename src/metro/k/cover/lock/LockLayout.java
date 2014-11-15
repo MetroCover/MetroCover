@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import metro.k.cover.ImageCache;
 import metro.k.cover.MetroCoverApplication;
 import metro.k.cover.PreferenceCommon;
 import metro.k.cover.R;
@@ -16,16 +15,12 @@ import metro.k.cover.api.ApiRequestTrainInfo;
 import metro.k.cover.circularprogressbar.CircularProgressBar;
 import metro.k.cover.lock.LockPatternView.Cell;
 import metro.k.cover.lock.LockPatternView.DisplayMode;
-import metro.k.cover.railways.RailwaysInfo;
 import metro.k.cover.traininfo.TrainInfoListener;
 import metro.k.cover.view.ButtonWithFont;
 import metro.k.cover.view.EditTextWithFont;
 import metro.k.cover.view.JazzyViewPager;
 import metro.k.cover.view.JazzyViewPager.TransitionEffect;
 import metro.k.cover.view.TextViewWithFont;
-import metro.k.cover.wallpaper.WallpaperBitmapDB;
-import metro.k.cover.wallpaper.WallpaperUtilities;
-import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -34,9 +29,7 @@ import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.graphics.Rect;
-import android.graphics.drawable.BitmapDrawable;
 import android.media.AudioManager;
 import android.os.Build;
 import android.os.Handler;
@@ -51,7 +44,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -543,8 +535,9 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	 */
 	private void setWrongPasswordView(final EditTextWithFont et,
 			final TextViewWithFont tv) {
-		if (et == null || tv == null || mVib == null)
+		if (et == null || tv == null || mVib == null) {
 			return;
+		}
 		mVib.vibrate(VIBELATE_TIME);
 		et.setText("");
 		tv.setText(getResources().getString(R.string.lock_wrong_pass));
@@ -917,7 +910,8 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			} else if (pageName.equals(PAGE_PAGE_TRAIN_INFO_2)) {
 				pageView = getRightLayout();
 			}
-			setBackgrondLoadBitmap(pageView, position);
+			LockUtilities.getInstance().setBackgrondLoadBitmap(mContext,
+					pageView, position);
 			container.addView(pageView);
 			mViewPager.setObjectForPosition(pageView, position);
 			return pageView;
@@ -1026,67 +1020,6 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			return li;
 		}
 
-		/**
-		 * 背景設定
-		 * 
-		 * @param view
-		 * @param position
-		 */
-		@SuppressLint("NewApi")
-		private void setBackgrondLoadBitmap(final View view, final int position) {
-			Bitmap bmp;
-			WallpaperBitmapDB db;
-			String keyCache = "";
-			String keyDB = "";
-
-			if (position == 0) {
-				keyCache = ImageCache.KEY_WALLPAPER_LEFT_CACHE;
-				keyDB = WallpaperBitmapDB.KEY_WALLPAPER_LEFT_DB;
-			} else if (position == 1) {
-				keyCache = ImageCache.KEY_WALLPAPER_CENTER_CACHE;
-				keyDB = WallpaperBitmapDB.KEY_WALLPAPER_CENTER_DB;
-			} else {
-				keyCache = ImageCache.KEY_WALLPAPER_RIGHT_CACHE;
-				keyDB = WallpaperBitmapDB.KEY_WALLPAPER_RIGHT_DB;
-			}
-
-			bmp = ImageCache.getImageBmp(keyCache);
-			if (bmp == null) {
-				db = new WallpaperBitmapDB(mContext);
-				bmp = db.getBitmp(keyDB);
-				if (bmp != null) {
-					compatibleSetBackground(view, bmp);
-				} else {
-					bmp = WallpaperUtilities.getSystemWallpaper(mContext);
-					if (bmp != null) {
-						compatibleSetBackground(view, bmp);
-					}
-				}
-			} else {
-				compatibleSetBackground(view, bmp);
-			}
-		}
-
-		/**
-		 * 背景へセットする
-		 * 
-		 * @param layout
-		 * @param bmp
-		 */
-		@SuppressLint("NewApi")
-		private void compatibleSetBackground(final View layout, final Bitmap bmp) {
-			if (layout == null || bmp == null) {
-				return;
-			}
-
-			final Resources res = mContext.getResources();
-			if (Build.VERSION.SDK_INT >= 16) {
-				layout.setBackground(new BitmapDrawable(res, bmp));
-			} else {
-				layout.setBackgroundDrawable(new BitmapDrawable(res, bmp));
-			}
-		}
-
 		public Object getPrimaryItem() {
 			return mPrimaryItem;
 		}
@@ -1178,7 +1111,8 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 					.findViewById(R.id.lock_railways_info_reflesh);
 			ImageView reflesh_empty = (ImageView) layout
 					.findViewById(R.id.lock_railways_info_empty_reflesh);
-			if (isInvalidAdapter(MetroCoverApplication.sRailwaysInfoAdapter)) {
+			if (LockUtilities.getInstance().isInvalidAdapter(
+					MetroCoverApplication.sRailwaysInfoAdapter)) {
 				setEmptyRailwayInfoView(listLayout, empty, cpb, title, msg,
 						reflesh_empty);
 				return;
@@ -1188,22 +1122,6 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			listview.setAdapter(MetroCoverApplication.sRailwaysInfoAdapter);
 			empty.setVisibility(View.INVISIBLE);
 			listLayout.setVisibility(View.VISIBLE);
-		}
-
-		/**
-		 * 路線情報のAdapterのチェック
-		 * 
-		 * @param adapter
-		 * @return
-		 */
-		private boolean isInvalidAdapter(ArrayAdapter<RailwaysInfo> adapter) {
-			if (adapter == null) {
-				return true;
-			}
-			if (adapter.isEmpty()) {
-				return true;
-			}
-			return false;
 		}
 
 		/**

@@ -1,12 +1,18 @@
 package metro.k.cover.lock;
 
+import metro.k.cover.ImageCache;
 import metro.k.cover.MetroCoverApplication;
 import metro.k.cover.R;
+import metro.k.cover.Utilities;
+import metro.k.cover.railways.RailwaysInfo;
+import metro.k.cover.wallpaper.WallpaperBitmapDB;
+import metro.k.cover.wallpaper.WallpaperUtilities;
 import android.annotation.SuppressLint;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
 import android.media.AudioManager;
 import android.os.Handler;
@@ -21,6 +27,7 @@ import android.view.WindowManager.LayoutParams;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
+import android.widget.ArrayAdapter;
 
 @SuppressLint("HandlerLeak")
 public class LockUtilities {
@@ -250,8 +257,72 @@ public class LockUtilities {
 		}
 	}
 
+	/**
+	 * 既にロックがされているかどうか
+	 * 
+	 * @return
+	 */
 	public boolean isShowing() {
 		return mLockView != null;
+	}
+
+	/**
+	 * 保存していた背景を各ページに設定する
+	 * 
+	 * @param context
+	 * @param view
+	 * @param position
+	 */
+	@SuppressLint("NewApi")
+	public void setBackgrondLoadBitmap(final Context context, final View view,
+			final int position) {
+		Bitmap bmp;
+		WallpaperBitmapDB db;
+		String keyCache = "";
+		String keyDB = "";
+
+		if (position == 0) {
+			keyCache = ImageCache.KEY_WALLPAPER_LEFT_CACHE;
+			keyDB = WallpaperBitmapDB.KEY_WALLPAPER_LEFT_DB;
+		} else if (position == 1) {
+			keyCache = ImageCache.KEY_WALLPAPER_CENTER_CACHE;
+			keyDB = WallpaperBitmapDB.KEY_WALLPAPER_CENTER_DB;
+		} else {
+			keyCache = ImageCache.KEY_WALLPAPER_RIGHT_CACHE;
+			keyDB = WallpaperBitmapDB.KEY_WALLPAPER_RIGHT_DB;
+		}
+
+		bmp = ImageCache.getImageBmp(keyCache);
+		if (bmp == null) {
+			db = new WallpaperBitmapDB(context);
+			bmp = db.getBitmp(keyDB);
+			if (bmp != null) {
+				Utilities.setBackground(context, view, bmp);
+			} else {
+				bmp = WallpaperUtilities.getSystemWallpaper(context);
+				if (bmp != null) {
+					Utilities.setBackground(context, view, bmp);
+				}
+			}
+		} else {
+			Utilities.setBackground(context, view, bmp);
+		}
+	}
+
+	/**
+	 * 路線情報のAdapterのチェック
+	 * 
+	 * @param adapter
+	 * @return
+	 */
+	public boolean isInvalidAdapter(ArrayAdapter<RailwaysInfo> adapter) {
+		if (adapter == null) {
+			return true;
+		}
+		if (adapter.isEmpty()) {
+			return true;
+		}
+		return false;
 	}
 
 	/********************************************************

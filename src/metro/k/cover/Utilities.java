@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
@@ -237,4 +238,27 @@ public final class Utilities {
 			view.setBackgroundDrawable(d);
 		}
 	}
+
+	/**
+	 * バージョンによってsetBackground()メソッド変える
+	 * 
+	 * @param context
+	 * @param view
+	 * @param bmp
+	 */
+	@SuppressLint("NewApi")
+	public static void setBackground(final Context context, View view,
+			Bitmap bmp) {
+		if (view == null || bmp == null) {
+			return;
+		}
+
+		if (Build.VERSION.SDK_INT >= 16) {
+			view.setBackground(new BitmapDrawable(context.getResources(), bmp));
+		} else {
+			view.setBackgroundDrawable(new BitmapDrawable(context
+					.getResources(), bmp));
+		}
+	}
+
 }
