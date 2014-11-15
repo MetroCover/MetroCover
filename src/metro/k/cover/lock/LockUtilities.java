@@ -446,6 +446,7 @@ public class LockUtilities {
 		Intent intent = new Intent(context, LockCameraActivity.class);
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		Utilities.startActivitySafely(intent, context);
+		unlock(context);
 	}
 
 	/**
@@ -459,6 +460,7 @@ public class LockUtilities {
 		Intent intent = new Intent(Intent.ACTION_CALL_BUTTON);
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		Utilities.startActivitySafely(intent, context);
+		unlock(context);
 	}
 
 	/**
@@ -472,7 +474,7 @@ public class LockUtilities {
 		final String pkg = context.getResources().getString(R.string.pkg_line);
 		if (Utilities.findInstallApp(context, pkg)) {
 			Utilities.startOtherApp(context, pkg);
-			LockUtilities.getInstance().unlock(context);
+			unlock(context);
 		} else {
 			Utilities.showToast(context, "No Such App");
 		}

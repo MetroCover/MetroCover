@@ -718,6 +718,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 	private void checkStarter(final int unlockId) {
 		switch (unlockId) {
 		case LockUtilities.UNLOCK_ID_UNLOCK:
+			LockUtilities.getInstance().unlock(getContext());
 			break;
 		case LockUtilities.UNLOCK_ID_CAMERA:
 			LockUtilities.getInstance().startCamera(getContext());
@@ -726,10 +727,10 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 			LockUtilities.getInstance().startLINE(getContext());
 			break;
 		case LockUtilities.UNLOCK_ID_MISSED_CALL:
+			LockUtilities.getInstance().startTelephone(getContext());
 		default:
 			break;
 		}
-		LockUtilities.getInstance().unlock(getContext());
 	}
 
 	/**
