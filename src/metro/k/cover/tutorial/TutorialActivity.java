@@ -51,10 +51,10 @@ public class TutorialActivity extends FragmentActivity implements
 		super.onCreate(savedInstanceState);
 		isTutorialOpend = PreferenceCommon
 				.getTutorialOpend(getApplicationContext());
-		 if (isTutorialOpend) {
-		 startSettingActivity();
-		 } else {
-		setupViews();
+		if (isTutorialOpend) {
+			startSettingActivity();
+		} else {
+			setupViews();
 			PreferenceCommon.setTutorialOpend(getApplicationContext(), true);
 		}
 	}
