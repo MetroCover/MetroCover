@@ -13,6 +13,7 @@ import metro.k.cover.railways.RailwaysInfo;
 import metro.k.cover.railways.RailwaysUtilities;
 import metro.k.cover.railways.Station;
 import metro.k.cover.railways.StationsAdapter;
+import metro.k.cover.traininfo.TrainInfo;
 import metro.k.cover.traininfo.TrainInfoListener;
 import android.annotation.SuppressLint;
 import android.app.Application;
@@ -30,7 +31,7 @@ public class MetroCoverApplication extends Application {
 	private static String mLastUpdateTime;
 
 	// 登録している駅の時刻情報リスト
-	public static ArrayList<metro.k.cover.lock.TrainInfo> sTrainInfoArrayList;
+	public static ArrayList<TrainInfo> sTrainInfoArrayList;
 
 	@Override
 	public void onCreate() {
@@ -77,10 +78,9 @@ public class MetroCoverApplication extends Application {
 			public void failedToCreateTimeTable() {
 
 			}
-
 			@Override
-			public void completeCreateTimeTable(
-					ArrayList<metro.k.cover.lock.TrainInfo> timetable) {
+			public void completeCreateTimeTable(ArrayList<TrainInfo> timetable) {
+				PreferenceCommon.setTimeLoadedTrainTimeTable(context, System.currentTimeMillis());
 				sTrainInfoArrayList = timetable;
 			}
 		});

@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
@@ -23,6 +22,17 @@ import android.widget.Toast;
 
 public final class Utilities {
 
+	private static final long ONE_DAY_MILLIS = 24 * 60 * 60 * 1000;
+	
+	public static boolean isOver24HourTimeTableLoaded(Context context) {
+		long timeLoadedTimeTabel = PreferenceCommon.getTimeLoadedTrainTimeTable(context);
+		if (System.currentTimeMillis() - timeLoadedTimeTabel  > Utilities.ONE_DAY_MILLIS) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	/**
 	 * 「,」区切りのStringをArrayにして返す
 	 * 
