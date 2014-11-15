@@ -698,29 +698,6 @@ public class LockPatternView extends View {
 		return -1;
 	}
 
-	// @Override
-	// public boolean onHoverEvent(MotionEvent event) {
-	// if
-	// (AccessibilityManager.getInstance(getContext()).isTouchExplorationEnabled())
-	// {
-	// final int action = event.getAction();
-	// switch (action) {
-	// case MotionEvent.ACTION_HOVER_ENTER:
-	// event.setAction(MotionEvent.ACTION_DOWN);
-	// break;
-	// case MotionEvent.ACTION_HOVER_MOVE:
-	// event.setAction(MotionEvent.ACTION_MOVE);
-	// break;
-	// case MotionEvent.ACTION_HOVER_EXIT:
-	// event.setAction(MotionEvent.ACTION_UP);
-	// break;
-	// }
-	// onTouchEvent(event);
-	// event.setAction(action);
-	// }
-	// return super.onHoverEvent(event);
-	// }
-
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		if (!mInputEnabled || !isEnabled()) {

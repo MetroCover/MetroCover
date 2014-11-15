@@ -2,7 +2,6 @@ package metro.k.cover.lock;
 
 import java.util.List;
 
-import metro.k.cover.MetroCoverApplication;
 import metro.k.cover.PreferenceCommon;
 import metro.k.cover.Utilities;
 import android.app.ActivityManager;
@@ -23,22 +22,26 @@ public class LockService extends Service {
 
 	// サービスが起動中かどうか
 	public static boolean isServiceRunning(final Context context) {
-		if (context == null)
+		if (context == null) {
 			return false;
+		}
 
 		final ActivityManager am = (ActivityManager) context
 				.getSystemService(ACTIVITY_SERVICE);
-		if (am == null)
+		if (am == null) {
 			return false;
+		}
 
 		final List<ActivityManager.RunningServiceInfo> serviceInfo = am
 				.getRunningServices(Integer.MAX_VALUE);
-		if (serviceInfo == null)
+		if (serviceInfo == null) {
 			return false;
+		}
 
 		final int size = serviceInfo.size();
-		if (size == 0)
+		if (size == 0) {
 			return false;
+		}
 
 		for (int i = 0; i < size; i++) {
 			try {
@@ -138,12 +141,14 @@ public class LockService extends Service {
 	 * @param intent
 	 */
 	private void handleCommand(final Intent intent) {
-		if (intent == null)
+		if (intent == null) {
 			return;
+		}
 
 		final String action = intent.getAction();
-		if (action == null)
+		if (Utilities.isInvalidStr(action)) {
 			return;
+		}
 
 		isMetroCover = PreferenceCommon.getMetroCover(getApplicationContext());
 		lock(action);

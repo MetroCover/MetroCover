@@ -28,13 +28,9 @@ public class LockPasswordDialogActivity extends Activity implements
 	private TextViewWithFont mOnceAgain;
 
 	private String mOldPass;
-	private final String HOMEE_SYSTEM_PASS = "###***&&&";
 
 	private boolean isFirstTime; // 確認入力用
 	private boolean isFromSetting;// セキュリティを外すとき用
-
-	// パスワードの許容最小文字数
-	private static final int MIN_PASS_COUNT = 4;
 
 	// vibe
 	private Vibrator mVibe;
@@ -122,14 +118,16 @@ public class LockPasswordDialogActivity extends Activity implements
 	}
 
 	private void comfirmPass(final String input) {
-		if (input == null)
+		if (input == null) {
 			return;
+		}
 
 		final String firstPass = PreferenceCommon
 				.getFirstPassword(getApplicationContext());
 
 		// 文字数不足
-		if (firstPass.length() == 0 || input.length() < MIN_PASS_COUNT) {
+		if (firstPass.length() == 0
+				|| input.length() < LockUtilities.PASSWORD_MINIMUM_LENGTH) {
 			showSubTitleMessage(R.string.lock_input_pass_minlength);
 			return;
 		}
@@ -152,7 +150,7 @@ public class LockPasswordDialogActivity extends Activity implements
 			return;
 
 		// 文字数不足
-		if (input.length() < MIN_PASS_COUNT) {
+		if (input.length() < LockUtilities.PASSWORD_MINIMUM_LENGTH) {
 			showSubTitleMessage(R.string.lock_input_pass_minlength);
 			return;
 		}
@@ -162,15 +160,14 @@ public class LockPasswordDialogActivity extends Activity implements
 	}
 
 	private void removePasswordSecurity(final String input) {
-		if (input == null)
+		if (Utilities.isInvalidStr(input)) {
 			return;
-
-		// 未入力
-		if (input.length() == 0)
-			return;
+		}
 
 		// パスワード不一致
-		if (!mOldPass.equals(HOMEE_SYSTEM_PASS) && !mOldPass.equals(input)) {
+		if (!mOldPass.equals(getResources().getString(
+				R.string.lock_password_master))
+				&& !mOldPass.equals(input)) {
 			showSubTitleMessage(R.string.lock_wrong_pass);
 			return;
 		}
@@ -186,7 +183,7 @@ public class LockPasswordDialogActivity extends Activity implements
 		if (input == null) {
 			return;
 		}
-		if (input.length() < MIN_PASS_COUNT) {
+		if (input.length() < LockUtilities.PASSWORD_MINIMUM_LENGTH) {
 			return;
 		}
 
@@ -202,7 +199,7 @@ public class LockPasswordDialogActivity extends Activity implements
 		if (input == null) {
 			return;
 		}
-		if (input.length() < MIN_PASS_COUNT) {
+		if (input.length() < LockUtilities.PASSWORD_MINIMUM_LENGTH) {
 			return;
 		}
 

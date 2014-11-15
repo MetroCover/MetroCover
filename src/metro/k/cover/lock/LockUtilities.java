@@ -35,6 +35,9 @@ public class LockUtilities {
 	// パターンセキュリティの最小の石数
 	public static final int PATTERN_MINIMUM_LENGTH = 4;
 
+	// パスワードの許容最小文字数
+	public static final int PASSWORD_MINIMUM_LENGTH = 4;
+
 	// パターンロック横画面対応時のStateを覚えておくためのKey
 	public static final String CONFIGURATION_STATE_STATE = "lock_pattern_configuration_state_state";
 	public static final String CONFIGURATION_STATE_PATTERN = "lock_pattern_configuration_state_pattern";
