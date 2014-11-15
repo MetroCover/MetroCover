@@ -6,12 +6,14 @@ public class TrainInfo {
 	private int mMinute;
 	private String mDestinationStation = "";
 	private String mTrainType = "";
+	private String mDirection = "";
 
-	public TrainInfo(int minute, int hour, String destinationStation, String trainType) {
+	public TrainInfo(int minute, int hour, String destinationStation, String trainType, String direction) {
 		mHour = hour;
 		mMinute = minute;
 		mDestinationStation = destinationStation;
 		mTrainType = trainType;
+		mDirection = direction;
 	}
 
 	public int getHour() {
@@ -28,5 +30,9 @@ public class TrainInfo {
 
 	public String getTrainType() {
 		return mTrainType;
+	}
+
+	public String getDirectino() {
+		return mDirection;
 	}
 }
