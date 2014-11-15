@@ -59,6 +59,7 @@ public class WallpaperDetailActivity extends FragmentActivity {
 		mAdapter = new WallpaperDetailPagerAdapter(getSupportFragmentManager());
 		mViewPager.setAdapter(mAdapter);
 		mViewPager.setCurrentItem(page);
+		Utilities.setSeasonsBackground(this, mViewPager);
 	}
 
 	@Override

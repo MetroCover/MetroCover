@@ -46,7 +46,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/app_name"
+                    android:text="@string/enable_metrocover"
                     android:textColor="@color/color_title"
                     android:textSize="@dimen/list_txt_size" />
 

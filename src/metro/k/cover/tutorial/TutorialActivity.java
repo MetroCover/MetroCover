@@ -121,6 +121,8 @@ public class TutorialActivity extends FragmentActivity implements
 		mAdapter = new TutorialPagerAdapter(this);
 		mViewPager.setAdapter(mAdapter);
 		mViewPager.setOnPageChangeListener(this);
+		RelativeLayout root = (RelativeLayout) findViewById(R.id.tutorial_root);
+		Utilities.setSeasonsBackground(this, root);
 	}
 
 	/**
