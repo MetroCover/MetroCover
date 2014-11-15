@@ -145,6 +145,24 @@ public final class PreferenceCommon {
 		return sp.getString(KEY_SET_TRAIN_DIRECTION, "");
 	}
 
+	// 登録した駅の時刻表を取得する際の電車の方角の日本名
+	private static final String KEY_SET_TRAIN_DIRECTION_NAME = "set_key_train_direction_name";
+
+	public static void setTrainDirectionName(final Context context,
+			final String directionName) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
+		SharedPreferences.Editor e = sp.edit();
+		e.putString(KEY_SET_TRAIN_DIRECTION_NAME, directionName);
+		e.apply();
+	}
+
+	public static String getTrainDirectionName(final Context context) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
+		return sp.getString(KEY_SET_TRAIN_DIRECTION_NAME, "");
+	}
+
 	// チュートリアルを起動したかどうか
 	private static final String KEY_SET_TUTORIAL_OPEND = "set_tutorial_opend";
 
@@ -166,15 +184,18 @@ public final class PreferenceCommon {
 	// 時刻表を取得した時間
 	private static final String KEY_TIME_LOADED_TRAIN_TIME_TABLE = "time_loaded_train_time_table";
 
-	public static void setTimeLoadedTrainTimeTable(final Context context, final long time) {
-		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY, Context.MODE_PRIVATE);
+	public static void setTimeLoadedTrainTimeTable(final Context context,
+			final long time) {
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = sp.edit();
 		editor.putLong(KEY_TIME_LOADED_TRAIN_TIME_TABLE, time);
 		editor.apply();
 	}
 
 	public static long getTimeLoadedTrainTimeTable(final Context context) {
-		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY, Context.MODE_PRIVATE);
+		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
+				Context.MODE_PRIVATE);
 		return sp.getLong(KEY_TIME_LOADED_TRAIN_TIME_TABLE, 0L);
 	}
 
