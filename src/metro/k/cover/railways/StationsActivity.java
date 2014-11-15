@@ -68,33 +68,22 @@ public class StationsActivity extends Activity implements OnClickListener {
 					return;
 				}
 
-				saveStationData(name, railway, station.getNameForAPI());
-				startSelectDirection(railway, name);
+				startSelectDirection(railway, name, station.getNameForAPI());
 			}
 		});
 	}
 
-	private void saveStationData(final String name, final String railway,
-			final String nameForAPI) {
-		new Thread("saveStationData") {
-			@Override
-			public void run() {
-				PreferenceCommon.setStationName(getApplicationContext(), name);
-				PreferenceCommon.setStationsRailwayName(
-						getApplicationContext(), railway);
-				PreferenceCommon.setStationNameForAPI(getApplicationContext(),
-						nameForAPI);
-			}
-		}.start();
-	}
-
-	private void startSelectDirection(final String railway, final String station) {
-		if (Utilities.isInvalidStr(railway) || Utilities.isInvalidStr(railway)) {
+	private void startSelectDirection(final String railway,
+			final String station, final String stationAPI) {
+		if (Utilities.isInvalidStr(railway) || Utilities.isInvalidStr(railway)
+				|| Utilities.isInvalidStr(stationAPI)) {
 			return;
 		}
 		Intent intent = new Intent(this, StationsDirectionActivity.class);
 		intent.putExtra(RailwaysUtilities.KEY_SELECTED_STATIONS_RAILWAY_NAME,
 				railway);
+		intent.putExtra(RailwaysUtilities.KEY_SELECTED_STATION_NAME_API,
+				stationAPI);
 		intent.putExtra(RailwaysUtilities.KEY_SELECTED_STATION_NAME, station);
 		Utilities.startActivitySafely(intent, this);
 	}

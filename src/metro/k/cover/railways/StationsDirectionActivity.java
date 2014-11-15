@@ -22,6 +22,7 @@ public class StationsDirectionActivity extends Activity implements
 		OnClickListener {
 
 	private String mSelectedStation;
+	private String mSelectedStationForAPI;
 	private String mSelectedStationsRailway;
 
 	private String[] mDirections;
@@ -29,10 +30,13 @@ public class StationsDirectionActivity extends Activity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		mSelectedStation = getIntent().getStringExtra(
-				RailwaysUtilities.KEY_SELECTED_STATION_NAME);
-		mSelectedStationsRailway = getIntent().getStringExtra(
-				RailwaysUtilities.KEY_SELECTED_STATIONS_RAILWAY_NAME);
+		Intent intent = getIntent();
+		mSelectedStation = intent
+				.getStringExtra(RailwaysUtilities.KEY_SELECTED_STATION_NAME);
+		mSelectedStationForAPI = intent
+				.getStringExtra(RailwaysUtilities.KEY_SELECTED_STATION_NAME_API);
+		mSelectedStationsRailway = intent
+				.getStringExtra(RailwaysUtilities.KEY_SELECTED_STATIONS_RAILWAY_NAME);
 		setupViews();
 	}
 
@@ -69,36 +73,50 @@ public class StationsDirectionActivity extends Activity implements
 		}
 		btn_1.setOnClickListener(this);
 		btn_2.setOnClickListener(this);
-		btn_1.setText(mDirections[2]);
-		btn_2.setText(mDirections[3]);
+		btn_1.setText(mDirections[RailwaysUtilities.DIRECTION_NAME_1]);
+		btn_2.setText(mDirections[RailwaysUtilities.DIRECTION_NAME_2]);
 	}
 
 	@Override
 	public void onClick(View v) {
 		final int viewId = v.getId();
 		if (R.id.tutorial_fourth_direction_1 == viewId) {
-			if (mDirections == null) {
-				return;
-			}
-			if (mDirections.length != RailwaysUtilities.SIZE_DIRECTION_DATA_ARRAY) {
-				return;
-			}
-			PreferenceCommon.setTrainDirection(this, mDirections[0]);
-			returnSettingActivity();
+			saveData(RailwaysUtilities.DIRECTION_1);
 			return;
 		}
 
 		if (R.id.tutorial_fourth_direction_2 == viewId) {
-			if (mDirections == null) {
-				return;
-			}
-			if (mDirections.length != RailwaysUtilities.SIZE_DIRECTION_DATA_ARRAY) {
-				return;
-			}
-			PreferenceCommon.setTrainDirection(this, mDirections[1]);
-			returnSettingActivity();
+			saveData(RailwaysUtilities.DIRECTION_2);
 			return;
 		}
+	}
+
+	private void saveData(final int direction) {
+		if (mDirections == null) {
+			return;
+		}
+		if (mDirections.length != RailwaysUtilities.SIZE_DIRECTION_DATA_ARRAY) {
+			return;
+		}
+		if (direction == RailwaysUtilities.DIRECTION_1) {
+			PreferenceCommon.setTrainDirection(this,
+					mDirections[RailwaysUtilities.DIRECTION_1]);
+			PreferenceCommon.setTrainDirectionName(this,
+					mDirections[RailwaysUtilities.DIRECTION_NAME_1]);
+		} else {
+			PreferenceCommon.setTrainDirection(this,
+					mDirections[RailwaysUtilities.DIRECTION_2]);
+			PreferenceCommon.setTrainDirectionName(this,
+					mDirections[RailwaysUtilities.DIRECTION_NAME_2]);
+		}
+
+		PreferenceCommon.setStationName(getApplicationContext(),
+				mSelectedStation);
+		PreferenceCommon.setStationsRailwayName(getApplicationContext(),
+				mSelectedStationsRailway);
+		PreferenceCommon.setStationNameForAPI(getApplicationContext(),
+				mSelectedStationForAPI);
+		returnSettingActivity();
 	}
 
 	/**

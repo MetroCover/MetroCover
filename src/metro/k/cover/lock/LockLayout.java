@@ -55,8 +55,7 @@ import android.widget.TextView;
 /**
  * ロック画面のView
  */
-public class LockLayout extends FrameLayout implements View.OnClickListener,
-		View.OnLongClickListener {
+public class LockLayout extends FrameLayout implements View.OnClickListener {
 
 	// Security Layout Resources
 	private View mPassView;
@@ -64,9 +63,6 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 	private int mSecurity;
 	private String mPassword;
 	private String mSecurityPattern;
-
-	// master pass
-	private final String HOMEE_SYSTEM_PASS = "###***&&&";
 
 	private String mPattern;
 	private boolean isPatternPressed = false;
@@ -190,13 +186,12 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 
 	@Override
 	public void onClick(View v) {
-		int viewId = v.getId();
-
-	}
-
-	@Override
-	public boolean onLongClick(View v) {
-		return false;
+		final int viewId = v.getId();
+		// 不在着信
+		if (R.id.telinfo_layout == viewId) {
+			checkSecurityInfo(LockUtilities.UNLOCK_ID_MISSED_CALL);
+			return;
+		}
 	}
 
 	/**************************************
@@ -563,7 +558,9 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 					return;
 				}
 
-				if (mPassword.equals(pass) || HOMEE_SYSTEM_PASS.equals(pass)) {
+				if (mPassword.equals(pass)
+						|| getResources().getString(
+								R.string.lock_password_master).equals(pass)) {
 					checkStarter(unlockId);
 				} else {
 					setWrongPasswordView(et, tv);
@@ -724,30 +721,16 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			LockUtilities.getInstance().unlock(getContext());
 			break;
 		case LockUtilities.UNLOCK_ID_CAMERA:
-			startCamera();
-			LockUtilities.getInstance().unlock(getContext());
+			LockUtilities.getInstance().startCamera(getContext());
 			break;
 		case LockUtilities.UNLOCK_ID_MESSANGER:
-			final String pkg = getResources().getString(R.string.pkg_line);
-			if (Utilities.findInstallApp(getContext(), pkg)) {
-				Utilities.startOtherApp(getContext(), pkg);
-				LockUtilities.getInstance().unlock(getContext());
-			} else {
-				Utilities.showToast(getContext(), "No Such App");
-			}
+			LockUtilities.getInstance().startLINE(getContext());
 			break;
+		case LockUtilities.UNLOCK_ID_MISSED_CALL:
+			LockUtilities.getInstance().startTelephone(getContext());
 		default:
 			break;
 		}
-	}
-
-	/**
-	 * カメラ起動
-	 */
-	private void startCamera() {
-		Intent intent = new Intent(getContext(), LockCameraActivity.class);
-		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		Utilities.startActivitySafely(intent, getContext());
 	}
 
 	/**

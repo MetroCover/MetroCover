@@ -10,6 +10,7 @@ import metro.k.cover.wallpaper.WallpaperUtilities;
 import android.annotation.SuppressLint;
 import android.app.KeyguardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -58,6 +59,7 @@ public class LockUtilities {
 	public static final int UNLOCK_ID_UNLOCK = 0;
 	public static final int UNLOCK_ID_CAMERA = 1;
 	public static final int UNLOCK_ID_MESSANGER = 2;
+	public static final int UNLOCK_ID_MISSED_CALL = 3;
 
 	// LockView
 	private View mLockView = null;
@@ -431,5 +433,50 @@ public class LockUtilities {
 			break;
 		}
 		return "";
+	}
+
+	/**
+	 * カメラを起動
+	 */
+	public void startCamera(final Context context) {
+		if (context == null) {
+			return;
+		}
+
+		Intent intent = new Intent(context, LockCameraActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		Utilities.startActivitySafely(intent, context);
+		unlock(context);
+	}
+
+	/**
+	 * 電話を起動
+	 */
+	public void startTelephone(final Context context) {
+		if (context == null) {
+			return;
+		}
+
+		Intent intent = new Intent(Intent.ACTION_CALL_BUTTON);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		Utilities.startActivitySafely(intent, context);
+		unlock(context);
+	}
+
+	/**
+	 * LINEを起動
+	 */
+	public void startLINE(final Context context) {
+		if (context == null) {
+			return;
+		}
+
+		final String pkg = context.getResources().getString(R.string.pkg_line);
+		if (Utilities.findInstallApp(context, pkg)) {
+			Utilities.startOtherApp(context, pkg);
+			unlock(context);
+		} else {
+			Utilities.showToast(context, "No Such App");
+		}
 	}
 }

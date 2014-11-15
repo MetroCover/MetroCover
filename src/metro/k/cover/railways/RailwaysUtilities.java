@@ -20,9 +20,16 @@ public final class RailwaysUtilities {
 	// 駅選択から方面選択へいく際に渡すintnetのKey
 	public static final String KEY_SELECTED_STATION_NAME = "key_selected_station_name";
 	public static final String KEY_SELECTED_STATIONS_RAILWAY_NAME = "key_selected_stations_railway_name";
+	public static final String KEY_SELECTED_STATION_NAME_API = "key_selected_stations_railway_name_API";
 
 	// 方角データの配列サイズ＝４（0:方角API1,1:方角API2,2:方角名1,3:方角名2）
 	public static final int SIZE_DIRECTION_DATA_ARRAY = 4;
+
+	// 方角
+	public static final int DIRECTION_1 = 0;
+	public static final int DIRECTION_2 = 1;
+	public static final int DIRECTION_NAME_1 = 2;
+	public static final int DIRECTION_NAME_2 = 3;
 
 	/**
 	 * APIから返ってきたレスポンス名から路線名へ変換する
