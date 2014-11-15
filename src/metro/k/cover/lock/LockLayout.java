@@ -15,6 +15,7 @@ import metro.k.cover.api.ApiRequestTrainInfo;
 import metro.k.cover.circularprogressbar.CircularProgressBar;
 import metro.k.cover.lock.LockPatternView.Cell;
 import metro.k.cover.lock.LockPatternView.DisplayMode;
+import metro.k.cover.traininfo.TrainInfo;
 import metro.k.cover.traininfo.TrainInfoListener;
 import metro.k.cover.view.ButtonWithFont;
 import metro.k.cover.view.EditTextWithFont;
@@ -861,13 +862,12 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		public static final String PAGE_LOCK = "page_lock";
 		public static final String PAGE_PAGE_TRAIN_INFO_1 = "page_train_info_1";
 		public static final String PAGE_PAGE_TRAIN_INFO_2 = "page_train_info_2";
+		
 		private int MASSAGE_TRAIN_INFO_LIST = 0;
 		private Context mContext;
 		private ArrayList<String> mList;
 		private Object mPrimaryItem;
 		private LayoutInflater mLayoutInflater;
-		private int mTestNum1 = 0;
-		private int mTestNum2 = 0;
 		private int mLastPosition = 0;
 		private Resources mResources = getResources();
 		private ApiRequestTrainInfo mApiRequestTrainInfo;
@@ -888,8 +888,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 					int pageId = mViewPager.getCurrentItem();
 					int what = message.what;
 					if (what == MASSAGE_TRAIN_INFO_LIST && pageId == 2) {
-						ArrayList<TrainInfo> trainInfoList = (ArrayList<TrainInfo>) message.obj;
-						drawingTrainInfoView(trainInfoList);
+						drawingTrainInfoView(MetroCoverApplication.sTrainInfoArrayList);
 					}
 				};
 			};
@@ -1029,23 +1028,27 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 			if (pageName.equals(PAGE_PAGE_TRAIN_INFO_1)) {
 				readRailwaysInfo();
 			} else if (pageName.equals(PAGE_PAGE_TRAIN_INFO_2)) {
-
-				// 前回のデータ取得から１日以上たっていたら、リクエストするようにしたい
-				new Thread(new Runnable() {
-					@Override
-					public void run() {
-						mApiRequestTrainInfo.requestTrainInfo("駅名", "方向");
-					}
-				}).start();
+				if (Utilities.isOver24HourTimeTableLoaded(mContext) || MetroCoverApplication.sTrainInfoArrayList == null) {
+					new Thread(new Runnable() {
+						@Override
+						public void run() {
+							final String stationName = PreferenceCommon.getStationNameForAPI(mContext);
+							final String trainDirection = PreferenceCommon.getTrainDirection(mContext);
+							mApiRequestTrainInfo.requestTrainInfo(stationName, trainDirection);
+						}
+					}).start();
+				} else {
+					drawingTrainInfoView(MetroCoverApplication.sTrainInfoArrayList);
+				}
 			}
 		}
 
 		@Override
 		public void completeCreateTimeTable(ArrayList<TrainInfo> timetable) {
-
+			PreferenceCommon.setTimeLoadedTrainTimeTable(mContext, System.currentTimeMillis());
 			Message msg = mHandler.obtainMessage();
 			msg.what = MASSAGE_TRAIN_INFO_LIST;
-			msg.obj = timetable; // アプリケーションで持つようにする
+			MetroCoverApplication.sTrainInfoArrayList = timetable;
 			mHandler.sendMessage(msg);
 		}
 
@@ -1056,38 +1059,55 @@ public class LockLayout extends FrameLayout implements View.OnClickListener,
 		}
 
 		private void drawingTrainInfoView(ArrayList<TrainInfo> trainInfoList) {
-			RelativeLayout layout = (RelativeLayout) mLockPagerAdapter
-					.getPrimaryItem();
-			TextView tvTrainType1 = (TextView) layout
-					.findViewById(R.id.lock_train_info_train_type_1);
-			String trainTypeText = "";
-			// if
-			// (trainTypeArray[0].equals(mContext.getString(R.string.train_type_local_response)))
-			// {
-			// trainTypeText = mContext.getString(R.string.train_type_local);
-			// } else if
-			// (trainTypeArray[0].equals(mContext.getString(R.string.train_type_express_response)))
-			// {
-			// trainTypeText = mContext.getString(R.string.train_type_express);
-			// } else if
-			// (trainTypeArray[0].equals(mContext.getString(R.string.train_type_rapid_response)))
-			// {
-			// trainTypeText = mContext.getString(R.string.train_type_rapid);
-			// } else if
-			// (trainTypeArray[0].equals(mContext.getString(R.string.train_type_limited_express_response)))
-			// {
-			// trainTypeText =
-			// mContext.getString(R.string.train_type_limited_express);
-			// }
-			try {
-				TrainInfo t = trainInfoList.get(0);
-				tvTrainType1.setText(t.getTrainType());
-			} catch (Exception e) {
-				e.printStackTrace();
+			RelativeLayout layout = (RelativeLayout) mLockPagerAdapter.getPrimaryItem();
+			final String stationName = PreferenceCommon.getStationName(mContext);
+			TextView tvStation = (TextView) layout.findViewById(R.id.lock_train_info_station);
+			tvStation.setText(stationName);
+			if (stationName.equals(mContext.getString(R.string.nothing))) {
+				// 空のビュー表示
+				return;
 			}
+			TextView tvRailway = (TextView) layout.findViewById(R.id.lock_train_info_railway);
+			tvRailway.setText(PreferenceCommon.getStationsRailwayName(mContext));
+			TextView tvRailDirection = (TextView) layout.findViewById(R.id.lock_train_info_rail_direction);
+			//tvRailDirection.setText(PreferenceCommon.getStationsRailwayName(mContext));
+			////////
+			for (TrainInfo trainInfo : trainInfoList) {
+				TextView tvTrainType = (TextView) layout.findViewById(R.id.lock_train_info_train_type_0);
+				final String trainTypeForApi = trainInfo.getTrainType();
+				tvTrainType.setText(conversionTrainTypeText(trainTypeForApi));
+				TextView tvDepartureTime = (TextView) layout.findViewById(R.id.lock_train_info_departure_time_0);
+				final int hour = trainInfo.getHour();
+				final int minute = trainInfo.getMinute();
+				final String departureTimeText = mContext.getString(R.string.departure_time, hour, minute);
+				tvDepartureTime.setText(departureTimeText);
+			}
+			
+			//TextView tvTrainType1 = (TextView) layout.findViewById(R.id.lock_train_info_train_type_1);
+			String trainTypeText = "";
+
+//			try {
+//				TrainInfo t = trainInfoList.get(0);
+//				tvTrainType1.setText(t.getTrainType());
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
 
 		}
 
+		private String conversionTrainTypeText(String trainTypeForApi) {
+			String trainType = "";
+			if (trainTypeForApi.equals(mContext.getString(R.string.train_type_local_response))) {
+				trainType = mContext.getString(R.string.train_type_local);
+			} else if (trainTypeForApi.equals(mContext.getString(R.string.train_type_express_response))) {
+				trainType =  mContext.getString(R.string.train_type_express);
+			} else if (trainTypeForApi.equals(mContext.getString(R.string.train_type_rapid_response))) {
+				trainType =  mContext.getString(R.string.train_type_rapid);
+			} else if (trainTypeForApi.equals(mContext.getString(R.string.train_type_limited_express_response))) {
+				trainType =  mContext.getString(R.string.train_type_limited_express);
+			}
+			return trainType;
+		}
 		/**
 		 * 路線遅延情報のViewを作成する
 		 */

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import metro.k.cover.R;
-import metro.k.cover.lock.TrainInfo;
+import metro.k.cover.traininfo.TrainInfo;
 import metro.k.cover.traininfo.TrainInfoListener;
 
 import org.apache.http.HttpResponse;
@@ -21,6 +21,8 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.net.Uri;
+import android.text.TextUtils;
+import android.util.Log;
 
 public class ApiRequestTrainInfo {
 
@@ -34,8 +36,8 @@ public class ApiRequestTrainInfo {
 	}
 
 	public void requestTrainInfo(String station, String direction) {
-		station = "odpt.Station:TokyoMetro.Ginza.Shibuya";
-		direction = "odpt.RailDirection:TokyoMetro.Asakusa";
+		//station = "odpt.Station:TokyoMetro.Ginza.Shibuya";
+		//direction = "odpt.RailDirection:TokyoMetro.Asakusa";
 		Uri.Builder builder = new Uri.Builder();
 		builder.scheme("https");
 		builder.encodedAuthority("api.tokyometroapp.jp");
@@ -43,7 +45,9 @@ public class ApiRequestTrainInfo {
 
 		builder.appendQueryParameter("rdf:type", "odpt:StationTimetable");
 		builder.appendQueryParameter("odpt:station", station);
-		builder.appendQueryParameter("odpt:railDirection", direction);
+		if (!TextUtils.isEmpty(direction)) {
+			builder.appendQueryParameter("odpt:railDirection", direction);
+		}
 		builder.appendQueryParameter("acl:consumerKey", mContext.getString(R.string.api_id));
 		HttpGet request = new HttpGet(builder.build().toString());
 		DefaultHttpClient httpClient = new DefaultHttpClient();
@@ -70,6 +74,7 @@ public class ApiRequestTrainInfo {
 
 	private void parse(String response) {
 		try {
+			Log.v("test", "parse");
 			final Calendar calendar = Calendar.getInstance();
 			final int nowHour = calendar.get(Calendar.HOUR_OF_DAY);
 			final int newMinute = calendar.get(Calendar.MINUTE);
@@ -82,13 +87,16 @@ public class ApiRequestTrainInfo {
 				JSONObject trainObject = rootArray.getJSONObject(i);
 				if (dayOfWeek == Calendar.SATURDAY) {
 					JSONArray weekdaysArray = trainObject.getJSONArray("odpt:saturdays");
-					parseChildren(weekdaysArray);
+					String railDirection = trainObject.getString("odpt:railDirection");
+					parseChildren(weekdaysArray, railDirection);
 				} else if (dayOfWeek == Calendar.SUNDAY) {
 					JSONArray weekdaysArray = trainObject.getJSONArray("odpt:holidays");
-					parseChildren(weekdaysArray);
+					String railDirection = trainObject.getString("odpt:railDirection");
+					parseChildren(weekdaysArray, railDirection);
 				} else {
-					JSONArray weekdaysArray = trainObject.getJSONArray("odpt:weekdays");
-					parseChildren(weekdaysArray);
+				JSONArray weekdaysArray = trainObject.getJSONArray("odpt:weekdays");
+					String railDirection = trainObject.getString("odpt:railDirection");
+					parseChildren(weekdaysArray, railDirection);
 				}
 			}
 		} catch (JSONException e) {
@@ -97,7 +105,8 @@ public class ApiRequestTrainInfo {
 		}
 	}
 
-	private void parseChildren(JSONArray jsonArray) {
+	private void parseChildren(JSONArray jsonArray, String railDirection) {
+		Log.v("test", railDirection);
 		try {
 			final int weekdaysArrayLength = jsonArray.length();
 			ArrayList<TrainInfo> trainInfoList = new ArrayList<TrainInfo>();
@@ -114,7 +123,7 @@ public class ApiRequestTrainInfo {
 				if (time < mNow && time > 300) {
 					continue;
 				}
-				TrainInfo trainInfo = new TrainInfo(minute, hour, destinationStation, trainType);
+				TrainInfo trainInfo = new TrainInfo(minute, hour, destinationStation, trainType, railDirection);
 				trainInfoList.add(trainInfo);
 				if (trainInfoList.size() > MAX_TIME_TABLE_SIZE) {
 					break;
@@ -122,6 +131,7 @@ public class ApiRequestTrainInfo {
 			}
 			trainInfoListener.completeCreateTimeTable(trainInfoList);
 		} catch (JSONException e) {
+			e.printStackTrace();
 			trainInfoListener.failedToCreateTimeTable();
 		}
 	}
