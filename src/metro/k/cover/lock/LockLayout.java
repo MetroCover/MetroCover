@@ -15,6 +15,7 @@ import metro.k.cover.api.ApiRequestTrainInfo;
 import metro.k.cover.circularprogressbar.CircularProgressBar;
 import metro.k.cover.lock.LockPatternView.Cell;
 import metro.k.cover.lock.LockPatternView.DisplayMode;
+import metro.k.cover.traininfo.TrainInfo;
 import metro.k.cover.traininfo.TrainInfoListener;
 import metro.k.cover.view.ButtonWithFont;
 import metro.k.cover.view.EditTextWithFont;

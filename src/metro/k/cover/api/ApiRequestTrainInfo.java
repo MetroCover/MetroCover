@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import metro.k.cover.R;
-import metro.k.cover.lock.TrainInfo;
+import metro.k.cover.traininfo.TrainInfo;
 import metro.k.cover.traininfo.TrainInfoListener;
 
 import org.apache.http.HttpResponse;
