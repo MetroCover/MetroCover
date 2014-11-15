@@ -45,19 +45,18 @@ public class RailwaysActivity extends Activity implements OnClickListener {
 	}
 
 	private void setupListView() {
-		final ListView listView = (ListView) findViewById(R.id.railways_listview);
-		mRailwaysAdapter = new RailwaysAdapter(this,
-				R.layout.list_icon_title_check_at);
 		final ArrayList<Railways> list = getCheckedList();
 		if (list == null) {
 			return;
 		}
-
 		final int size = list.size();
 		if (size == 0) {
 			return;
 		}
 
+		final ListView listView = (ListView) findViewById(R.id.railways_listview);
+		mRailwaysAdapter = new RailwaysAdapter(this,
+				R.layout.list_icon_title_check_at);
 		for (int i = 0; i < size; i++) {
 			mRailwaysAdapter.add(list.get(i));
 		}

@@ -118,7 +118,6 @@
                         android:src="@drawable/ic_black" />
 
                     <metro.k.cover.view.TextViewWithFont
-                        android:id="@+id/clock_text_color_black_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dip"
@@ -233,14 +232,12 @@
                     android:orientation="horizontal" >
 
                     <ImageView
-                        android:id="@+id/clock_text_color_chiyoda_icon"
                         android:layout_width="28dip"
                         android:layout_height="28dip"
                         android:contentDescription="@string/app_name"
                         android:src="@drawable/ic_chiyoda" />
 
                     <metro.k.cover.view.TextViewWithFont
-                        android:id="@+id/clock_text_color_chiyoda_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dip"
@@ -294,14 +291,12 @@
                     android:orientation="horizontal" >
 
                     <ImageView
-                        android:id="@+id/clock_text_color_fukutoshin_icon"
                         android:layout_width="28dip"
                         android:layout_height="28dip"
                         android:contentDescription="@string/app_name"
                         android:src="@drawable/ic_fukutoshin" />
 
                     <metro.k.cover.view.TextViewWithFont
-                        android:id="@+id/clock_text_color_fukutoshin_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dip"
@@ -355,14 +350,12 @@
                     android:orientation="horizontal" >
 
                     <ImageView
-                        android:id="@+id/clock_text_color_ginza_icon"
                         android:layout_width="28dip"
                         android:layout_height="28dip"
                         android:contentDescription="@string/app_name"
                         android:src="@drawable/ic_ginza" />
 
                     <metro.k.cover.view.TextViewWithFont
-                        android:id="@+id/clock_text_color_ginza_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dip"
@@ -416,14 +409,12 @@
                     android:orientation="horizontal" >
 
                     <ImageView
-                        android:id="@+id/clock_text_color_hanzomon_icon"
                         android:layout_width="28dip"
                         android:layout_height="28dip"
                         android:contentDescription="@string/app_name"
                         android:src="@drawable/ic_hanzomon" />
 
                     <metro.k.cover.view.TextViewWithFont
-                        android:id="@+id/clock_text_color_hanzomon_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dip"
@@ -477,14 +468,12 @@
                     android:orientation="horizontal" >
 
                     <ImageView
-                        android:id="@+id/clock_text_color_hibiya_icon"
                         android:layout_width="28dip"
                         android:layout_height="28dip"
                         android:contentDescription="@string/app_name"
                         android:src="@drawable/ic_hibiya" />
 
                     <metro.k.cover.view.TextViewWithFont
-                        android:id="@+id/clock_text_color_hibiya_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dip"
@@ -538,14 +527,12 @@
                     android:orientation="horizontal" >
 
                     <ImageView
-                        android:id="@+id/clock_text_color_marunouchi_icon"
                         android:layout_width="28dip"
                         android:layout_height="28dip"
                         android:contentDescription="@string/app_name"
                         android:src="@drawable/ic_marunouchi" />
 
                     <metro.k.cover.view.TextViewWithFont
-                        android:id="@+id/clock_text_color_marunouchi_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dip"
@@ -599,14 +586,12 @@
                     android:orientation="horizontal" >
 
                     <ImageView
-                        android:id="@+id/clock_text_color_namboku_icon"
                         android:layout_width="28dip"
                         android:layout_height="28dip"
                         android:contentDescription="@string/app_name"
                         android:src="@drawable/ic_namboku" />
 
                     <metro.k.cover.view.TextViewWithFont
-                        android:id="@+id/clock_text_color_namboku_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dip"
@@ -660,14 +645,12 @@
                     android:orientation="horizontal" >
 
                     <ImageView
-                        android:id="@+id/clock_text_color_tozai_icon"
                         android:layout_width="28dip"
                         android:layout_height="28dip"
                         android:contentDescription="@string/app_name"
                         android:src="@drawable/ic_tozai" />
 
                     <metro.k.cover.view.TextViewWithFont
-                        android:id="@+id/clock_text_color_tozai_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dip"
@@ -721,14 +704,12 @@
                     android:orientation="horizontal" >
 
                     <ImageView
-                        android:id="@+id/clock_text_color_yurakucho_icon"
                         android:layout_width="28dip"
                         android:layout_height="28dip"
                         android:contentDescription="@string/app_name"
                         android:src="@drawable/ic_yurakucho" />
 
                     <metro.k.cover.view.TextViewWithFont
-                        android:id="@+id/clock_text_color_yurakucho_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dip"

@@ -26,14 +26,14 @@ public class LockPatternChooseActivity extends Activity implements
 	private boolean isFromSetting;
 
 	// パターンの状態
-	private static final int PATTERN_IDLE_FIRST = 0;
-	private static final int PATTERN_DRAWING_FIRST = 1;
-	private static final int PATTERN_MISS_FIRST = 2;
-	private static final int PATTERN_SUCCESS_FISRST = 3;
-	private static final int PATTERN_IDLE_SECOND = 4;
-	private static final int PATTERN_DRAWING_SECOND = 5;
-	private static final int PATTERN_MISS_SECOND = 6;
-	private static final int PATTERN_SUCCESS_SECOND = 7;
+	private final int PATTERN_IDLE_FIRST = 0;
+	private final int PATTERN_DRAWING_FIRST = 1;
+	private final int PATTERN_MISS_FIRST = 2;
+	private final int PATTERN_SUCCESS_FISRST = 3;
+	private final int PATTERN_IDLE_SECOND = 4;
+	private final int PATTERN_DRAWING_SECOND = 5;
+	private final int PATTERN_MISS_SECOND = 6;
+	private final int PATTERN_SUCCESS_SECOND = 7;
 
 	// １回目か２回目か
 	private boolean isSecond;
@@ -347,9 +347,10 @@ public class LockPatternChooseActivity extends Activity implements
 
 	// パターン入力（１回目）
 	private void inputFirstPattern(final List<Cell> pattern) {
-		// Invalid
-		if (pattern == null)
+		if (pattern == null) {
 			return;
+		}
+
 		// 入力不足
 		final int size = pattern.size();
 		if (size < LockUtilities.PATTERN_MINIMUM_LENGTH) {
@@ -381,10 +382,9 @@ public class LockPatternChooseActivity extends Activity implements
 
 	// パターン入力（確定）
 	private void confirmPattern(final List<Cell> pattern) {
-		if (pattern == null)
+		if (pattern == null || !isSecond) {
 			return;
-		if (!isSecond)
-			return;
+		}
 
 		// 入力不足
 		if (pattern.size() < LockUtilities.PATTERN_MINIMUM_LENGTH) {

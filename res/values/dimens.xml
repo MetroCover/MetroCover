@@ -2,9 +2,6 @@
 
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_setting_list_item_height">54dip</dimen>
-    <dimen name="key_radius">32dp</dimen>
-    <dimen name="key_bottom_margin">100dp</dimen>
-    <dimen name="unlock_distance">100dp</dimen>
     <dimen name="action_bar_height">56dp</dimen>
     <dimen name="action_bar_tx_size">24sp</dimen>
     <dimen name="list_txt_size">18sp</dimen>

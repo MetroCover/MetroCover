@@ -7,12 +7,7 @@
     <string name="app_name">MetroCover</string>
     <string name="cancel">CANCEL</string>
     <string name="clock_am">AM</string>
-    <string name="clock_background">Clock Background</string>
     <string name="clock_pm">PM</string>
-    <string name="clock_size">Clock Size</string>
-    <string name="clock_size_large">Large</string>
-    <string name="clock_size_midium">Midium</string>
-    <string name="clock_size_small">Small</string>
     <string name="clock_type">Clock Notation</string>
     <string name="clock_24">24-hour clock</string>
     <string name="clock_12">12-hour clock</string>
@@ -51,6 +46,7 @@
     <string name="lock_input_old_password">Enter your current password</string>
     <string name="lock_input_pass_one_more">Re-enter your password</string>
     <string name="lock_input_pass_minlength">Enter a password composed of 4 to 16 characters</string>
+    <string name="lock_password_master">metrocover1_0_0</string>
     <string name="lock_pattern_confirm">Confirm</string>
     <string name="lock_pattern_next">Continue</string>
     <string name="lock_pattern_back">Retry</string>
@@ -155,7 +151,7 @@
     <string name="wallpaper_select_gallery">Gallery\'s Wallpaper</string>
     <string name="wallpaper_select_homee">Homee\'s Wallpaper</string>
     <string name="wallpaper_select_plushome">[+]HOME\'s Wallpaper</string>
-    <string name="widget_name_railways_info"> Railways Info</string>
+    <string name="widget_name_railways_info">　Railways Info</string>
     <string name="yes">YES</string>
 
     <!-- 方角 -->
