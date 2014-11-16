@@ -298,8 +298,13 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 				if (mPatternView != null) {
 					removePassView(mPatternView);
 				}
-				if (mViewPager != null && mViewPager.getCurrentItem() != 1) {
-					mViewPager.setCurrentItem(1);
+				if (mViewPager != null) {
+					if (mViewPager.getCurrentItem() == 2 && mTrainTimer != null) {
+						mTrainTimer.cancel();
+					}
+					if (mViewPager.getCurrentItem() != 1) {
+						mViewPager.setCurrentItem(1);
+					}
 				}
 				unregistClockReceiver();
 				return;
