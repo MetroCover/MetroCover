@@ -1296,21 +1296,12 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 		cpb.setVisibility(View.GONE);
 	}
 
-	//TODO 塚越君ー＞直して
-	private boolean isDrawing = false;
-
 	/**
 	 * 駅時刻表レイアウト描画
 	 * 
 	 * @param trainInfoList
 	 */
 	private void drawingTrainInfoView(ArrayList<TrainInfo> trainInfoList) {
-		//TODO 塚越君ー＞直して
-		if (isDrawing) {
-			return;
-		}
-
-		isDrawing = true;
 		// Invalid
 		if (mViewPager == null) {
 			return;
@@ -1380,7 +1371,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 		// 時刻表
 		TrainInfo trainInfo0 = trainInfoList.get(0);
 		int departureTimeHour = trainInfo0.getHour();
-		if (0 <= departureTimeHour && departureTimeHour < 3) {
+		if (0 <= departureTimeHour && departureTimeHour < 4) {
 			departureTimeHour = departureTimeHour + 24;
 		}
 		final int departureTimeMinute = trainInfo0.getMinute();
@@ -1392,6 +1383,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 			mTrainTimer.cancel();
 			mTrainTimer = null;
 		}
+		
 		mTrainTimer = new TrainTimer(remainingTimeMillis);
 		mTrainTimer.start();
 
@@ -1423,9 +1415,6 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 		sep = (View) layout.findViewById(R.id.divider_3);
 		sep.setVisibility(View.VISIBLE);
 		progress.setVisibility(View.GONE);
-		
-		//TODO 塚越君ー＞直して
-		isDrawing = false;
 	}
 
 	private String conversionTrainTypeText(String trainTypeForApi) {
@@ -1452,9 +1441,10 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 				* Utilities.ONE_MUNUTE_MILLIS;
 		final Calendar calendar = Calendar.getInstance();
 		int currentTimeHour = calendar.get(Calendar.HOUR_OF_DAY);
-		if (0 <= currentTimeHour && currentTimeHour < 4) {
+		if (0 <= currentTimeHour && currentTimeHour < 4 && currentTimeHour > hour) {
 			currentTimeHour = currentTimeHour + 24;
 		}
+		
 		final int currentTimeMinute = calendar.get(Calendar.MINUTE);
 		final int currentTimeSecond = calendar.get(Calendar.SECOND);
 		long currentTimeMillis = ((currentTimeHour * 60 + currentTimeMinute) * 60 + currentTimeSecond) * 1000;
