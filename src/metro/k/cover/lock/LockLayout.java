@@ -33,6 +33,7 @@ import android.database.Cursor;
 import android.graphics.Rect;
 import android.media.AudioManager;
 import android.os.Build;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
@@ -104,8 +105,8 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 	// Battery
 	private TextViewWithFont mBatteryView;
 
-	// 出発までの残り時間
-	private ArrayList<TextView> mTimerViewList = new ArrayList<TextView>();
+	private TrainTimer mTrainTimer; 
+	private TextView mRemainingTimeTextView;
 
 	public LockLayout(Context context) {
 		super(context);
@@ -1014,18 +1015,14 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 			if (pageName.equals(PAGE_PAGE_TRAIN_INFO_1)) {
 				readRailwaysInfo();
 			} else if (pageName.equals(PAGE_PAGE_TRAIN_INFO_2)) {
-				if (Utilities.isOver24HourTimeTableLoaded(mContext) || MetroCoverApplication.sTrainInfoArrayList == null) {
-					new Thread(new Runnable() {
-						@Override
-						public void run() {
-							final String stationName = PreferenceCommon.getStationNameForAPI(mContext);
-							final String trainDirection = PreferenceCommon.getTrainDirection(mContext);
-							mApiRequestTrainInfo.requestTrainInfo(stationName, trainDirection);
-						}
-					}).start();
-				} else {
-					drawingTrainInfoView(MetroCoverApplication.sTrainInfoArrayList);
-				}
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						final String stationName = PreferenceCommon.getStationNameForAPI(mContext);
+						final String trainDirection = PreferenceCommon.getTrainDirection(mContext);
+						mApiRequestTrainInfo.requestTrainInfo(stationName, trainDirection);
+					}
+				}).start();
 			}
 		}
 
@@ -1044,62 +1041,9 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 
 		}
 
-		private void drawingTrainInfoView(ArrayList<TrainInfo> trainInfoList) {
-			RelativeLayout layout = (RelativeLayout) mLockPagerAdapter.getPrimaryItem();
-			final String stationName = PreferenceCommon.getStationName(mContext);
-			TextView tvStation = (TextView) layout.findViewById(R.id.lock_train_info_station);
-			tvStation.setText(stationName);
-			if (stationName.equals(mContext.getString(R.string.nothing))) {
-				// 空のビュー表示
-				return;
-			}
-			
-			
-			TextView tvRailway = (TextView) layout.findViewById(R.id.lock_train_info_railway);
-			tvRailway.setText(PreferenceCommon.getStationsRailwayName(mContext));
-			TextView tvRailDirection = (TextView) layout.findViewById(R.id.lock_train_info_rail_direction);
-			final String bound = mContext.getString(R.string.bound);
-			tvRailDirection.setText(PreferenceCommon.getTrainDirectionName(mContext) + " " + bound);
-			//tvRailDirection.setText(PreferenceCommon.getStationsRailwayName(mContext));
-			////////
-			for (TrainInfo trainInfo : trainInfoList) {
-				TextView tvTrainType = (TextView) layout.findViewById(R.id.lock_train_info_train_type_0);
-				final String trainTypeForApi = trainInfo.getTrainType();
-				tvTrainType.setText(conversionTrainTypeText(trainTypeForApi));
-				TextView tvDepartureTime = (TextView) layout.findViewById(R.id.lock_train_info_departure_time_0);
-				final int hour = trainInfo.getHour();
-				final int minute = trainInfo.getMinute();
-				final String departureTimeText = mContext.getString(R.string.departure_time, hour, minute);
-				tvDepartureTime.setText(departureTimeText);
-				
-				mTimerViewList.add((TextView) layout.findViewById(R.id.lock_train_info_remaining_time_0));
-			}
-			
-			//TextView tvTrainType1 = (TextView) layout.findViewById(R.id.lock_train_info_train_type_1);
-			String trainTypeText = "";
 
-//			try {
-//				TrainInfo t = trainInfoList.get(0);
-//				tvTrainType1.setText(t.getTrainType());
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
 
-		}
 
-		private String conversionTrainTypeText(String trainTypeForApi) {
-			String trainType = "";
-			if (trainTypeForApi.equals(mContext.getString(R.string.train_type_local_response))) {
-				trainType = mContext.getString(R.string.train_type_local);
-			} else if (trainTypeForApi.equals(mContext.getString(R.string.train_type_express_response))) {
-				trainType =  mContext.getString(R.string.train_type_express);
-			} else if (trainTypeForApi.equals(mContext.getString(R.string.train_type_rapid_response))) {
-				trainType =  mContext.getString(R.string.train_type_rapid);
-			} else if (trainTypeForApi.equals(mContext.getString(R.string.train_type_limited_express_response))) {
-				trainType =  mContext.getString(R.string.train_type_limited_express);
-			}
-			return trainType;
-		}
 		/**
 		 * 路線遅延情報のViewを作成する
 		 */
@@ -1288,25 +1232,149 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 			mBatteryView.setTextColor(mResources.getColor(mClockColorID));
 		}
 	}
+	
+	private void drawingTrainInfoView(ArrayList<TrainInfo> trainInfoList) {
+		if (mViewPager == null) {
+			return;
+		}
+		int pageId = mViewPager.getCurrentItem();
+		if (pageId != 2) {
+			return;
+		}
+		Context context = getContext().getApplicationContext();
+		RelativeLayout layout = (RelativeLayout) mLockPagerAdapter.getPrimaryItem();
+		final String stationName = PreferenceCommon.getStationName(context);
+		TextView tvStation = (TextView) layout.findViewById(R.id.lock_train_info_station);
+		tvStation.setText(stationName);
+		if (stationName.equals(context.getString(R.string.nothing))) {
+			// 空のビュー表示
+			return;
+		}
+		
+		
+		TextView tvRailway = (TextView) layout.findViewById(R.id.lock_train_info_railway);
+		tvRailway.setText(PreferenceCommon.getStationsRailwayName(context));
+		TextView tvRailDirection = (TextView) layout.findViewById(R.id.lock_train_info_rail_direction);
+		final String bound = context.getString(R.string.bound);
+		tvRailDirection.setText(PreferenceCommon.getTrainDirectionName(context) + " " + bound);
+		
+		TrainInfo trainInfo0 = trainInfoList.get(0);
+		int departureTimeHour = trainInfo0.getHour();
+		if (0 <= departureTimeHour && departureTimeHour < 3) {
+			departureTimeHour = departureTimeHour + 24;
+		}
+		final int departureTimeMinute = trainInfo0.getMinute();
+		mRemainingTimeTextView = (TextView) layout.findViewById(R.id.lock_train_info_remaining_time);
+		final long remainingTimeMillis = getRemainingTimeMillis(departureTimeHour, departureTimeMinute);
+		//final long[] formatedRemainingTime = getFormatedRemainingTime(remainingTimeMillis);
+		//String remainingTimeText = buildRemainingTimeText(formatedRemainingTime);
+		//mRemainingTimeTextView.setText(remainingTimeText);
+		mTrainTimer = null;
+		mTrainTimer = new TrainTimer(remainingTimeMillis);
+		mTrainTimer.start();
+		
+		final int listSize = trainInfoList.size();
+		
+		for (int i = 0; i< listSize; i++) {
+			TrainInfo trainInfo = trainInfoList.get(i);
+			TextView tvTrainType = (TextView) layout.findViewById(R.id.lock_train_info_train_type_0);
+			final String trainTypeForApi = trainInfo.getTrainType();
+			tvTrainType.setText(conversionTrainTypeText(trainTypeForApi));
+			TextView tvDepartureTime = (TextView) layout.findViewById(R.id.lock_train_info_departure_time_0);
+			final int hour = trainInfo.getHour();
+			final int minute = trainInfo.getMinute();
+			final String departureTimeText = context.getString(R.string.departure_time, hour, minute);
+			tvDepartureTime.setText(departureTimeText);
+			
+			//mTimerViewList.add((TextView) layout.findViewById(R.id.lock_train_info_remaining_time_0));
+		}
+	}
+	
+	private String conversionTrainTypeText(String trainTypeForApi) {
+		Context context = getContext().getApplicationContext();
+		String trainType = "";
+		if (trainTypeForApi.equals(context.getString(R.string.train_type_local_response))) {
+			trainType = context.getString(R.string.train_type_local);
+		} else if (trainTypeForApi.equals(context.getString(R.string.train_type_express_response))) {
+			trainType =  context.getString(R.string.train_type_express);
+		} else if (trainTypeForApi.equals(context.getString(R.string.train_type_rapid_response))) {
+			trainType =  context.getString(R.string.train_type_rapid);
+		} else if (trainTypeForApi.equals(context.getString(R.string.train_type_limited_express_response))) {
+			trainType =  context.getString(R.string.train_type_limited_express);
+		}
+		return trainType;
+	}
+	
+	private long getRemainingTimeMillis(final long hour, final long minute) {
+		long departureTimeMillis = (hour * 60 + minute) * 60 * 1000;
+		final Calendar calendar = Calendar.getInstance();
+		int currentTimeHour = calendar.get(Calendar.HOUR_OF_DAY);
+		if (0 <= currentTimeHour && currentTimeHour < 4) {
+			currentTimeHour = currentTimeHour + 24;
+		}
+		final int currentTimeMinute = calendar.get(Calendar.MINUTE);
+		final int currentTimeSecond = calendar.get(Calendar.SECOND);
+		long currentTimeMillis = ((currentTimeHour * 60 + currentTimeMinute) * 60 + currentTimeSecond) * 1000;
+		return departureTimeMillis - currentTimeMillis;
+	}
+	private long[] getFormatedRemainingTime(long remainingTime) {
+		long[] formatedRemainingTime = {0,0,0};
+		if (remainingTime > Utilities.ONE_HOUR_MILLIS) {
+			final long hour = remainingTime/Utilities.ONE_HOUR_MILLIS;
+			formatedRemainingTime[0] = hour;
+			remainingTime = remainingTime - hour * Utilities.ONE_HOUR_MILLIS;
+		}
+		if (remainingTime > Utilities.ONE_MUNUTE_MILLIS) {
+			final long minute = remainingTime/Utilities.ONE_MUNUTE_MILLIS;
+			formatedRemainingTime[1] = minute;
+			remainingTime = remainingTime - minute * Utilities.ONE_MUNUTE_MILLIS;
+		}
+		if (remainingTime > Utilities.ONE_SECOND_MILLIS) {
+			final long second = remainingTime/Utilities.ONE_SECOND_MILLIS;
+			formatedRemainingTime[2] = second;
+		}
+		return formatedRemainingTime;
+	}
+	
+	private String buildRemainingTimeText (long[] formatedRemainingTime) {
+		Context context = getContext().getApplicationContext();
+		StringBuilder sb = new StringBuilder();
+		if (formatedRemainingTime[0] > 0) {
+			sb.append(formatedRemainingTime[0] + context.getString(R.string.remaining_time_hour));
+		}
+		if (formatedRemainingTime[1] > 0) {
+			sb.append(formatedRemainingTime[1] + context.getString(R.string.remaining_time_minute));
+		}
+		sb.append(formatedRemainingTime[2] + context.getString(R.string.remaining_time_second));
+		return sb.toString();
+	}
 
-//	public class MyCountDownTimer extends CountDownTimer {
-//
-//		public MyCountDownTimer(long millisInFuture, long countDownInterval) {
-//			super(millisInFuture, countDownInterval);
-//
-//		}
-//
-//		@Override
-//		public void onFinish() {
-//			// カウントダウン完了後に呼ばれる
-//			timer.setText("0");
-//			Toast.makeText(getApplicationContext(), "終了", Toast.LENGTH_LONG).show();
-//		}
-//
-//		@Override
-//		public void onTick(long millisUntilFinished) {
-//			// インターバル(countDownInterval)毎に呼ばれる
-//			timer.setText(Long.toString(millisUntilFinished / 1000 / 60) + ":" + Long.toString(millisUntilFinished / 1000 % 60));
-//		}
-//	}
+	public class TrainTimer extends CountDownTimer {
+
+		public TrainTimer(long millisInFuture) {
+			super(millisInFuture, Utilities.ONE_SECOND_MILLIS);
+		}
+		@Override
+		public void onTick(long millisUntilFinished) {
+			if (mViewPager == null) {
+				return;
+			}
+			int pageId = mViewPager.getCurrentItem();
+			if (pageId != 2) {
+				return;
+			}
+			final long[] formatedRemainingTime = getFormatedRemainingTime(millisUntilFinished);
+			String remainingTimeText = buildRemainingTimeText(formatedRemainingTime);
+			mRemainingTimeTextView.setText(remainingTimeText);
+		}
+		@Override
+		public void onFinish() {
+			cancel();
+			if (MetroCoverApplication.sTrainInfoArrayList != null
+					&& MetroCoverApplication.sTrainInfoArrayList.size() > 0) {
+				MetroCoverApplication.sTrainInfoArrayList.remove(0);
+				drawingTrainInfoView(MetroCoverApplication.sTrainInfoArrayList);
+			}
+		}
+	}
 }

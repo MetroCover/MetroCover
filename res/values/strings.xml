@@ -122,6 +122,9 @@
     <string name="railway_yurakucho">Yurakucho-Line</string>
     <string name="railway_yurakucho_color">Yurakucho</string>
     <string name="railway_yurakucho_response">odpt.Railway:TokyoMetro.Yurakucho</string>
+    <string name="remaining_time_hour">h</string>
+    <string name="remaining_time_minute">m</string>  
+    <string name="remaining_time_second">s after</string> 
     <string name="review">Review</string>
     <string name="selected">Selected</string>
     <string name="settings">Settings</string>

@@ -32,6 +32,14 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textSize="14sp" />
+
+        <metro.k.cover.view.TextViewWithFont
+            android:id="@+id/lock_train_info_remaining_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/divider_0"
+            android:gravity="center"
+            android:textSize="24sp" />
     </LinearLayout>
 
     <ScrollView
@@ -73,16 +81,6 @@
                 android:layout_marginRight="16dp"
                 android:gravity="center"
                 android:text="11:22発"
-                android:textSize="24sp" />
-
-            <metro.k.cover.view.TextViewWithFont
-                android:id="@+id/lock_train_info_remaining_time_0"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/divider_0"
-                android:layout_toRightOf="@+id/lock_train_info_departure_time_0"
-                android:gravity="center"
-                android:text="11分23秒後"
                 android:textSize="24sp" />
         </RelativeLayout>
     </ScrollView>

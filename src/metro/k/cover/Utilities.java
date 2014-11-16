@@ -23,7 +23,10 @@ import android.widget.Toast;
 
 public final class Utilities {
 
-	private static final long ONE_DAY_MILLIS = 24 * 60 * 60 * 1000;
+	public static final long ONE_DAY_MILLIS = 24 * 60 * 60 * 1000;
+	public static final long ONE_HOUR_MILLIS = 60 * 60 * 1000;
+	public static final long ONE_MUNUTE_MILLIS = 60 * 1000;
+	public static final long ONE_SECOND_MILLIS = 1000;
 	
 	public static boolean isOver24HourTimeTableLoaded(Context context) {
 		long timeLoadedTimeTabel = PreferenceCommon.getTimeLoadedTrainTimeTable(context);
