@@ -25,14 +25,14 @@ import android.widget.ArrayAdapter;
 public class MetroCoverApplication extends Application {
 
 	// 全駅名リスト
-	public static ArrayAdapter<Station> sStationAllListAdapter;
+	private static ArrayAdapter<Station> sStationAllListAdapter;
 
 	// 登録している路線の遅延情報リスト
-	public static ArrayAdapter<RailwaysInfo> sRailwaysInfoAdapter;
+	private static ArrayAdapter<RailwaysInfo> sRailwaysInfoAdapter;
 	private static String mLastUpdateTime;
 
 	// 登録している駅の時刻情報リスト
-	public static ArrayList<TrainInfo> sTrainInfoArrayList;
+	private static ArrayList<TrainInfo> sTrainInfoArrayList;
 
 	// 季節
 	public static int sCurrentSeason;
@@ -64,6 +64,27 @@ public class MetroCoverApplication extends Application {
 		} else {
 			sCurrentSeason = SEASON_WINTER;
 		}
+	}
+
+	/**
+	 * 駅時刻表データをセットする
+	 * 
+	 * @param trainInfoList
+	 */
+	public static void setTrainInfoList(ArrayList<TrainInfo> trainInfoList) {
+		if (trainInfoList == null) {
+			return;
+		}
+		sTrainInfoArrayList = trainInfoList;
+	}
+
+	/**
+	 * セットしてある駅時刻表データを取得する
+	 * 
+	 * @return
+	 */
+	public static ArrayList<TrainInfo> getTrainInfoList() {
+		return sTrainInfoArrayList;
 	}
 
 	/**
@@ -110,10 +131,12 @@ public class MetroCoverApplication extends Application {
 			public void failedToCreateTimeTable() {
 
 			}
+
 			@Override
 			public void completeCreateTimeTable(ArrayList<TrainInfo> timetable) {
-				PreferenceCommon.setTimeLoadedTrainTimeTable(context, System.currentTimeMillis());
-				sTrainInfoArrayList = timetable;
+				PreferenceCommon.setTimeLoadedTrainTimeTable(context,
+						System.currentTimeMillis());
+				setTrainInfoList(timetable);
 			}
 		});
 	}
@@ -125,6 +148,15 @@ public class MetroCoverApplication extends Application {
 	 */
 	public static String getLastUpdateTime() {
 		return mLastUpdateTime == null ? "-" : mLastUpdateTime;
+	}
+
+	/**
+	 * 登録した遅延情報リストを取得する
+	 * 
+	 * @return
+	 */
+	public static ArrayAdapter<RailwaysInfo> getRailwaysInfoList() {
+		return sRailwaysInfoAdapter;
 	}
 
 	/**
@@ -189,6 +221,15 @@ public class MetroCoverApplication extends Application {
 			}
 			mLastUpdateTime = sdf.format(date);
 		}
+	}
+
+	/**
+	 * 全ての駅情報を取得する
+	 * 
+	 * @return
+	 */
+	public static ArrayAdapter<Station> getAllStationList() {
+		return sStationAllListAdapter;
 	}
 
 	/**

@@ -849,14 +849,13 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 		public static final String PAGE_LOCK = "page_lock";
 		public static final String PAGE_PAGE_TRAIN_INFO_1 = "page_train_info_1";
 		public static final String PAGE_PAGE_TRAIN_INFO_2 = "page_train_info_2";
-		
+
 		private int MASSAGE_TRAIN_INFO_LIST = 0;
 		private Context mContext;
 		private ArrayList<String> mList;
 		private Object mPrimaryItem;
 		private LayoutInflater mLayoutInflater;
 		private int mLastPosition = 0;
-		private Resources mResources = getResources();
 		private ApiRequestTrainInfo mApiRequestTrainInfo;
 		private Handler mHandler;
 
@@ -864,7 +863,6 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 			mContext = context;
 			mList = new ArrayList<String>();
 			mLayoutInflater = LayoutInflater.from(mContext);
-			mResources = getResources();
 			mApiRequestTrainInfo = new ApiRequestTrainInfo(context);
 			mApiRequestTrainInfo.setListener(this);
 			mHandler = new Handler() {
@@ -1028,10 +1026,11 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 
 		@Override
 		public void completeCreateTimeTable(ArrayList<TrainInfo> timetable) {
-			PreferenceCommon.setTimeLoadedTrainTimeTable(mContext, System.currentTimeMillis());
+			PreferenceCommon.setTimeLoadedTrainTimeTable(mContext,
+					System.currentTimeMillis());
 			Message msg = mHandler.obtainMessage();
 			msg.what = MASSAGE_TRAIN_INFO_LIST;
-			MetroCoverApplication.sTrainInfoArrayList = timetable;
+			MetroCoverApplication.setTrainInfoList(timetable);
 			mHandler.sendMessage(msg);
 		}
 
@@ -1068,14 +1067,14 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 			ImageView reflesh_empty = (ImageView) layout
 					.findViewById(R.id.lock_railways_info_empty_reflesh);
 			if (LockUtilities.getInstance().isInvalidAdapter(
-					MetroCoverApplication.sRailwaysInfoAdapter)) {
+					MetroCoverApplication.getRailwaysInfoList())) {
 				setEmptyRailwayInfoView(listLayout, empty, cpb, title, msg,
 						reflesh_empty);
 				return;
 			}
 			reflesh.setOnClickListener(getRefleshListner());
 			lastupdate.setText(MetroCoverApplication.getLastUpdateTime());
-			listview.setAdapter(MetroCoverApplication.sRailwaysInfoAdapter);
+			listview.setAdapter(MetroCoverApplication.getRailwaysInfoList());
 			empty.setVisibility(View.INVISIBLE);
 			listLayout.setVisibility(View.VISIBLE);
 		}
@@ -1229,7 +1228,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 			}
 
 			mBatteryView.setText(String.valueOf(battery) + "%");
-			mBatteryView.setTextColor(mResources.getColor(mClockColorID));
+			mBatteryView.setTextColor(getResources().getColor(mClockColorID));
 		}
 	}
 	

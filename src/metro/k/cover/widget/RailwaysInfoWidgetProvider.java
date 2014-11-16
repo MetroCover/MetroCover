@@ -102,8 +102,8 @@ public class RailwaysInfoWidgetProvider extends AppWidgetProvider {
 				RailwaysInfoWidgetService.class);
 		RemoteViews rv = new RemoteViews(context.getPackageName(),
 				R.layout.widget_railways_info);
-		if (MetroCoverApplication.sRailwaysInfoAdapter != null
-				&& MetroCoverApplication.sRailwaysInfoAdapter.getCount() >= 0) {
+		if (MetroCoverApplication.getRailwaysInfoList() != null
+				&& MetroCoverApplication.getRailwaysInfoList().getCount() >= 0) {
 			rv.setViewVisibility(R.id.widget_railways_info_empty, View.GONE);
 			rv.setRemoteAdapter(R.id.widget_railways_info_listview,
 					remoteViewsFactoryIntent);

@@ -27,11 +27,11 @@ public class RailwaysInfoWidgetService extends RemoteViewsService {
 		public RemoteViews getViewAt(int position) {
 			RemoteViews rv = new RemoteViews(getPackageName(),
 					R.layout.widget_railways_info_at);
-			if (MetroCoverApplication.sRailwaysInfoAdapter == null) {
+			if (MetroCoverApplication.getRailwaysInfoList() == null) {
 				return rv;
 			}
 
-			RailwaysInfo info = MetroCoverApplication.sRailwaysInfoAdapter
+			RailwaysInfo info = MetroCoverApplication.getRailwaysInfoList()
 					.getItem(position);
 			Bitmap icon = ((BitmapDrawable) info.getIcon()).getBitmap();
 
@@ -49,8 +49,8 @@ public class RailwaysInfoWidgetService extends RemoteViewsService {
 
 		public int getCount() {
 			int count = 0;
-			if (MetroCoverApplication.sRailwaysInfoAdapter != null) {
-				count = MetroCoverApplication.sRailwaysInfoAdapter.getCount();
+			if (MetroCoverApplication.getRailwaysInfoList() != null) {
+				count = MetroCoverApplication.getRailwaysInfoList().getCount();
 			}
 			return count;
 		}
