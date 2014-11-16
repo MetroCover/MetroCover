@@ -1295,12 +1295,21 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 		cpb.setVisibility(View.GONE);
 	}
 
+	//TODO 塚越君ー＞直して
+	private boolean isDrawing = false;
+
 	/**
 	 * 駅時刻表レイアウト描画
 	 * 
 	 * @param trainInfoList
 	 */
 	private void drawingTrainInfoView(ArrayList<TrainInfo> trainInfoList) {
+		//TODO 塚越君ー＞直して
+		if (isDrawing) {
+			return;
+		}
+
+		isDrawing = true;
 		// Invalid
 		if (mViewPager == null) {
 			return;
@@ -1413,6 +1422,9 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 		sep = (View) layout.findViewById(R.id.divider_3);
 		sep.setVisibility(View.VISIBLE);
 		progress.setVisibility(View.GONE);
+		
+		//TODO 塚越君ー＞直して
+		isDrawing = false;
 	}
 
 	private String conversionTrainTypeText(String trainTypeForApi) {
