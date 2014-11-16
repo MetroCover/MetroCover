@@ -56,9 +56,10 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+
 /**
- * ロック画面のView
- */
+* ロック画面のView
+*/
 @SuppressLint("HandlerLeak")
 public class LockLayout extends FrameLayout implements View.OnClickListener {
 
