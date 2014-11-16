@@ -873,7 +873,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 					int pageId = mViewPager.getCurrentItem();
 					int what = message.what;
 					if (what == MASSAGE_TRAIN_INFO_LIST && pageId == 2) {
-						drawingTrainInfoView(MetroCoverApplication.sTrainInfoArrayList);
+						drawingTrainInfoView(MetroCoverApplication.getTrainInfoList());
 					}
 				};
 			};
@@ -1369,10 +1369,11 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 		@Override
 		public void onFinish() {
 			cancel();
-			if (MetroCoverApplication.sTrainInfoArrayList != null
-					&& MetroCoverApplication.sTrainInfoArrayList.size() > 0) {
-				MetroCoverApplication.sTrainInfoArrayList.remove(0);
-				drawingTrainInfoView(MetroCoverApplication.sTrainInfoArrayList);
+			ArrayList<TrainInfo> trainInfoList = MetroCoverApplication.getTrainInfoList();
+			if (trainInfoList.size() > 0) {
+				trainInfoList.remove(0);
+				MetroCoverApplication.setTrainInfoList(trainInfoList);
+				drawingTrainInfoView(trainInfoList);
 			}
 		}
 	}
