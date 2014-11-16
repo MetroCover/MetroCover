@@ -8,7 +8,7 @@
         android:id="@+id/lock_train_info_title_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
         android:background="@drawable/bg_lock_railway_info"
         android:orientation="vertical" >
 
@@ -33,56 +33,125 @@
             android:gravity="center"
             android:textSize="14sp" />
 
-        <metro.k.cover.view.TextViewWithFont
-            android:id="@+id/lock_train_info_remaining_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/divider_0"
-            android:gravity="center"
-            android:textSize="24sp" />
-    </LinearLayout>
+        <View
+            android:id="@+id/divider_0"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="14dp"
+            android:layout_marginTop="20dp"
+            android:background="@android:color/white"
+            android:gravity="center" />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/lock_train_info_title_layout" >
-
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/bg_lock_railway_info" >
-
-            <metro.k.cover.view.TextViewWithFont
-                android:id="@+id/lock_train_info_train_type_0"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginRight="16dp"
-                android:textSize="20sp" />
-
-            <View
-                android:id="@+id/divider_0"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@+id/lock_train_info_train_type_0"
-                android:layout_marginBottom="2dp"
-                android:layout_marginTop="4dp"
-                android:background="@android:color/white"
-                android:gravity="center" />
+            android:orientation="horizontal" >
 
             <metro.k.cover.view.TextViewWithFont
                 android:id="@+id/lock_train_info_departure_time_0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/divider_0"
                 android:layout_marginRight="16dp"
                 android:gravity="center"
-                android:text="11:22発"
-                android:textSize="24sp" />
-        </RelativeLayout>
-    </ScrollView>
+                android:textSize="20sp" />
+
+            <metro.k.cover.view.TextViewWithFont
+                android:id="@+id/lock_train_info_train_type_0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <metro.k.cover.view.TextViewWithFont
+            android:id="@+id/lock_train_info_remaining_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="36sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="14dp"
+            android:layout_marginTop="14dp"
+            android:background="@color/color_translucent_white"
+            android:gravity="center" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <metro.k.cover.view.TextViewWithFont
+                android:id="@+id/lock_train_info_departure_time_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:gravity="center"
+                android:textSize="20sp" />
+
+            <metro.k.cover.view.TextViewWithFont
+                android:id="@+id/lock_train_info_train_type_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="14dp"
+            android:layout_marginTop="14dp"
+            android:background="@color/color_translucent_white"
+            android:gravity="center" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <metro.k.cover.view.TextViewWithFont
+                android:id="@+id/lock_train_info_departure_time_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:gravity="center"
+                android:textSize="20sp" />
+
+            <metro.k.cover.view.TextViewWithFont
+                android:id="@+id/lock_train_info_train_type_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="14dp"
+            android:layout_marginTop="14dp"
+            android:background="@color/color_translucent_white"
+            android:gravity="center" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <metro.k.cover.view.TextViewWithFont
+                android:id="@+id/lock_train_info_departure_time_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:gravity="center"
+                android:textSize="20sp" />
+
+            <metro.k.cover.view.TextViewWithFont
+                android:id="@+id/lock_train_info_train_type_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </LinearLayout>
 
 </RelativeLayout>

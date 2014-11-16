@@ -42,6 +42,7 @@ import android.support.v4.view.PagerAdapter;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -1232,6 +1233,21 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 		}
 	}
 	
+	private int[] trainTypeIdArray = {
+			R.id.lock_train_info_train_type_0,
+			R.id.lock_train_info_train_type_1,
+			R.id.lock_train_info_train_type_2,
+			R.id.lock_train_info_train_type_3
+	};
+	private int[] departureTimeIdArray = {
+			R.id.lock_train_info_departure_time_0,
+			R.id.lock_train_info_departure_time_1,
+			R.id.lock_train_info_departure_time_2,
+			R.id.lock_train_info_departure_time_3
+	};
+	private final int TRAIN_TIME_TABLE_SIZE = 4;
+	//TextView tvDepartureTime = (TextView) layout.findViewById(R.id.lock_train_info_departure_time_0);
+	
 	private void drawingTrainInfoView(ArrayList<TrainInfo> trainInfoList) {
 		if (mViewPager == null) {
 			return;
@@ -1246,11 +1262,8 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 		TextView tvStation = (TextView) layout.findViewById(R.id.lock_train_info_station);
 		tvStation.setText(stationName);
 		if (stationName.equals(context.getString(R.string.nothing))) {
-			// 空のビュー表示
 			return;
 		}
-		
-		
 		TextView tvRailway = (TextView) layout.findViewById(R.id.lock_train_info_railway);
 		tvRailway.setText(PreferenceCommon.getStationsRailwayName(context));
 		TextView tvRailDirection = (TextView) layout.findViewById(R.id.lock_train_info_rail_direction);
@@ -1265,27 +1278,29 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 		final int departureTimeMinute = trainInfo0.getMinute();
 		mRemainingTimeTextView = (TextView) layout.findViewById(R.id.lock_train_info_remaining_time);
 		final long remainingTimeMillis = getRemainingTimeMillis(departureTimeHour, departureTimeMinute);
-		//final long[] formatedRemainingTime = getFormatedRemainingTime(remainingTimeMillis);
-		//String remainingTimeText = buildRemainingTimeText(formatedRemainingTime);
-		//mRemainingTimeTextView.setText(remainingTimeText);
-		mTrainTimer = null;
+		if (mTrainTimer != null) {
+			mTrainTimer.cancel();
+			mTrainTimer = null;
+		}
 		mTrainTimer = new TrainTimer(remainingTimeMillis);
 		mTrainTimer.start();
-		
-		final int listSize = trainInfoList.size();
-		
+
+		final int listSize = Math.min(TRAIN_TIME_TABLE_SIZE, trainInfoList.size());
 		for (int i = 0; i< listSize; i++) {
 			TrainInfo trainInfo = trainInfoList.get(i);
-			TextView tvTrainType = (TextView) layout.findViewById(R.id.lock_train_info_train_type_0);
-			final String trainTypeForApi = trainInfo.getTrainType();
-			tvTrainType.setText(conversionTrainTypeText(trainTypeForApi));
-			TextView tvDepartureTime = (TextView) layout.findViewById(R.id.lock_train_info_departure_time_0);
+
+			TextView tvDepartureTime = (TextView) layout.findViewById(departureTimeIdArray[i]);
 			final int hour = trainInfo.getHour();
 			final int minute = trainInfo.getMinute();
 			final String departureTimeText = context.getString(R.string.departure_time, hour, minute);
 			tvDepartureTime.setText(departureTimeText);
 			
-			//mTimerViewList.add((TextView) layout.findViewById(R.id.lock_train_info_remaining_time_0));
+			
+			TextView tvTrainType = (TextView) layout.findViewById(trainTypeIdArray[i]);
+			final String trainTypeForApi = trainInfo.getTrainType();
+			Log.v("test", trainTypeForApi);
+			tvTrainType.setText(conversionTrainTypeText(trainTypeForApi));
+			Log.v("test", conversionTrainTypeText(trainTypeForApi));
 		}
 	}
 	
