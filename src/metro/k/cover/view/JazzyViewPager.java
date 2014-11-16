@@ -30,7 +30,6 @@ import android.os.Build;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -191,18 +190,6 @@ public class JazzyViewPager extends ViewPager {
 		IDLE, GOING_LEFT, GOING_RIGHT
 	}
 
-	private void logState(View v, String title) {
-		Log.v(TAG,
-				title + ": ROT (" + ViewHelper.getRotation(v) + ", "
-						+ ViewHelper.getRotationX(v) + ", "
-						+ ViewHelper.getRotationY(v) + "), TRANS ("
-						+ ViewHelper.getTranslationX(v) + ", "
-						+ ViewHelper.getTranslationY(v) + "), SCALE ("
-						+ ViewHelper.getScaleX(v) + ", "
-						+ ViewHelper.getScaleY(v) + "), ALPHA "
-						+ ViewHelper.getAlpha(v));
-	}
-
 	protected void animateScroll(int position, float positionOffset) {
 		if (mState != State.IDLE) {
 			mRot = (float) (1 - Math.cos(2 * Math.PI * positionOffset)) / 2 * 30.0f;
@@ -224,7 +211,6 @@ public class JazzyViewPager extends ViewPager {
 				ViewHelper.setPivotY(left, left.getMeasuredHeight() / 2);
 				ViewHelper.setTranslationX(left, mTrans);
 				ViewHelper.setRotationY(left, mRot);
-				logState(left, "Left");
 			}
 			if (right != null) {
 				manageLayer(right, true);
@@ -235,7 +221,6 @@ public class JazzyViewPager extends ViewPager {
 				ViewHelper.setPivotY(right, right.getMeasuredHeight() * 0.5f);
 				ViewHelper.setTranslationX(right, mTrans);
 				ViewHelper.setRotationY(right, mRot);
-				logState(right, "Right");
 			}
 		}
 	}

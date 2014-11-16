@@ -572,8 +572,6 @@ public class LockPatternView extends View {
 			viewWidth = Math.min(viewWidth, viewHeight);
 			break;
 		}
-		// Log.v(TAG, "LockPatternView dimensions: " + viewWidth + "x" +
-		// viewHeight);
 		setMeasuredDimension(viewWidth, viewHeight);
 	}
 
