@@ -64,7 +64,8 @@
             android:layout_marginBottom="14dp"
             android:layout_marginTop="20dp"
             android:background="?android:attr/listDivider"
-            android:gravity="center" />
+            android:gravity="center"
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -97,12 +98,14 @@
             android:textSize="36sp" />
 
         <View
+            android:id="@+id/divider_1"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginBottom="14dp"
             android:layout_marginTop="14dp"
             android:background="?android:attr/listDivider"
-            android:gravity="center" />
+            android:gravity="center"
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -127,12 +130,14 @@
         </LinearLayout>
 
         <View
+            android:id="@+id/divider_2"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginBottom="14dp"
             android:layout_marginTop="14dp"
             android:background="?android:attr/listDivider"
-            android:gravity="center" />
+            android:gravity="center"
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -157,12 +162,14 @@
         </LinearLayout>
 
         <View
+            android:id="@+id/divider_3"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginBottom="14dp"
             android:layout_marginTop="14dp"
             android:background="?android:attr/listDivider"
-            android:gravity="center" />
+            android:gravity="center"
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"

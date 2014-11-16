@@ -1321,6 +1321,14 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 		}
 		CircularProgressBar progress = (CircularProgressBar) layout
 				.findViewById(R.id.lock_traininfo_loading);
+		View sep = (View) layout.findViewById(R.id.divider_0);
+		sep.setVisibility(View.VISIBLE);
+		sep = (View) layout.findViewById(R.id.divider_1);
+		sep.setVisibility(View.VISIBLE);
+		sep = (View) layout.findViewById(R.id.divider_2);
+		sep.setVisibility(View.VISIBLE);
+		sep = (View) layout.findViewById(R.id.divider_3);
+		sep.setVisibility(View.VISIBLE);
 		progress.setVisibility(View.GONE);
 	}
 
