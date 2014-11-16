@@ -299,17 +299,17 @@ public class TutorialActivity extends FragmentActivity implements
 
 			final ListView listView = (ListView) rootView
 					.findViewById(R.id.tutorial_third_listview);
-			if (MetroCoverApplication.sStationAllListAdapter == null) {
+			if (MetroCoverApplication.getAllStationList() == null) {
 				return;
 			}
 
-			listView.setAdapter(MetroCoverApplication.sStationAllListAdapter);
+			listView.setAdapter(MetroCoverApplication.getAllStationList());
 			listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
-					final Station station = MetroCoverApplication.sStationAllListAdapter
-							.getItem(position);
+					final Station station = MetroCoverApplication
+							.getAllStationList().getItem(position);
 					mSelectedStationTitle = station.getTitle();
 					mSelectedStationTitleForAPI = station.getNameForAPI();
 					mSelectedStationRailway = station.getRailway();

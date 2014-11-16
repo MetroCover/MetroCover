@@ -48,20 +48,20 @@ public class StationsActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.activity_stations);
 		final ImageView clear = (ImageView) findViewById(R.id.stations_clear_image);
 		final ListView listView = (ListView) findViewById(R.id.stations_listview);
-		if (MetroCoverApplication.sStationAllListAdapter == null) {
+		if (MetroCoverApplication.getAllStationList() == null) {
 			return;
 		}
 		if (flag) {
 			clear.setVisibility(View.VISIBLE);
 			clear.setOnClickListener(this);
 		}
-		listView.setAdapter(MetroCoverApplication.sStationAllListAdapter);
+		listView.setAdapter(MetroCoverApplication.getAllStationList());
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				final Station station = MetroCoverApplication.sStationAllListAdapter
-						.getItem(position);
+				final Station station = MetroCoverApplication
+						.getAllStationList().getItem(position);
 				final String name = station.getTitle();
 				final String railway = station.getRailway();
 				if (name.equals(railway)) {
