@@ -23,6 +23,7 @@ import metro.k.cover.view.EditTextWithFont;
 import metro.k.cover.view.JazzyViewPager;
 import metro.k.cover.view.JazzyViewPager.TransitionEffect;
 import metro.k.cover.view.TextViewWithFont;
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -58,6 +59,7 @@ import android.widget.TextView;
 /**
  * ロック画面のView
  */
+@SuppressLint("HandlerLeak")
 public class LockLayout extends FrameLayout implements View.OnClickListener {
 
 	// Security Layout Resources
@@ -887,6 +889,14 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 			mLayoutInflater = LayoutInflater.from(mContext);
 			mApiRequestTrainInfo = new ApiRequestTrainInfo(context);
 			mApiRequestTrainInfo.setListener(this);
+			createHandler();
+		}
+
+		private void createHandler() {
+			if (mHandler != null) {
+				return;
+			}
+
 			mHandler = new Handler() {
 				public void handleMessage(Message message) {
 					if (mViewPager == null) {
@@ -902,6 +912,10 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 						} else {
 							RelativeLayout layout = (RelativeLayout) mLockPagerAdapter
 									.getPrimaryItem();
+							if (layout == null) {
+								return;
+							}
+
 							CircularProgressBar progress = (CircularProgressBar) layout
 									.findViewById(R.id.lock_traininfo_loading);
 							setEmptyTrainInfoView(layout, progress);
@@ -1273,6 +1287,9 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 				.findViewById(R.id.lock_train_info_title_layout);
 		LinearLayout empty = (LinearLayout) rootView
 				.findViewById(R.id.lock_traininfo_empty_message);
+		if (main == null || empty == null) {
+			return;
+		}
 		empty.setVisibility(View.VISIBLE);
 		main.setVisibility(View.INVISIBLE);
 		cpb.setVisibility(View.GONE);
@@ -1316,6 +1333,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 		TextView tvStation = (TextView) layout
 				.findViewById(R.id.lock_train_info_station);
 		if (tvStation == null) {
+			setEmptyTrainInfoView(layout, progress);
 			return;
 		}
 		tvStation.setText(stationName);
