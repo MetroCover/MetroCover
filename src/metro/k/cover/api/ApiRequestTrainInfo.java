@@ -36,8 +36,8 @@ public class ApiRequestTrainInfo {
 	}
 
 	public void requestTrainInfo(String station, String direction) {
-		//station = "odpt.Station:TokyoMetro.Ginza.Shibuya";
-		//direction = "odpt.RailDirection:TokyoMetro.Asakusa";
+		// station = "odpt.Station:TokyoMetro.Ginza.Shibuya";
+		// direction = "odpt.RailDirection:TokyoMetro.Asakusa";
 		Uri.Builder builder = new Uri.Builder();
 		builder.scheme("https");
 		builder.encodedAuthority("api.tokyometroapp.jp");
@@ -48,25 +48,31 @@ public class ApiRequestTrainInfo {
 		if (!TextUtils.isEmpty(direction)) {
 			builder.appendQueryParameter("odpt:railDirection", direction);
 		}
-		builder.appendQueryParameter("acl:consumerKey", mContext.getString(R.string.api_id));
+		builder.appendQueryParameter("acl:consumerKey",
+				mContext.getString(R.string.api_id));
 		HttpGet request = new HttpGet(builder.build().toString());
 		DefaultHttpClient httpClient = new DefaultHttpClient();
 		try {
-			String result = httpClient.execute(request, new ResponseHandler<String>() {
-				@Override
-				public String handleResponse(HttpResponse response) throws ClientProtocolException, IOException {
-					switch (response.getStatusLine().getStatusCode()) {
-					case HttpStatus.SC_OK:
-						return EntityUtils.toString(response.getEntity(), "UTF-8");
-					default:
-						throw new RuntimeException("");
-					}
-				}
-			});
+			String result = httpClient.execute(request,
+					new ResponseHandler<String>() {
+						@Override
+						public String handleResponse(HttpResponse response)
+								throws ClientProtocolException, IOException {
+							switch (response.getStatusLine().getStatusCode()) {
+							case HttpStatus.SC_OK:
+								return EntityUtils.toString(
+										response.getEntity(), "UTF-8");
+							default:
+								throw new RuntimeException("");
+							}
+						}
+					});
 			parse(result);
 		} catch (Exception e) {
 			trainInfoListener.failedToCreateTimeTable();
-			//e.printStackTrace();
+		} catch (OutOfMemoryError oom) {
+			trainInfoListener.failedToCreateTimeTable();
+			System.gc();
 		} finally {
 			httpClient.getConnectionManager().shutdown();
 		}
@@ -86,22 +92,27 @@ public class ApiRequestTrainInfo {
 			for (int i = 0; i < rootArrayLength; i++) {
 				JSONObject trainObject = rootArray.getJSONObject(i);
 				if (dayOfWeek == Calendar.SATURDAY) {
-					JSONArray weekdaysArray = trainObject.getJSONArray("odpt:saturdays");
-					String railDirection = trainObject.getString("odpt:railDirection");
+					JSONArray weekdaysArray = trainObject
+							.getJSONArray("odpt:saturdays");
+					String railDirection = trainObject
+							.getString("odpt:railDirection");
 					parseChildren(weekdaysArray, railDirection);
 				} else if (dayOfWeek == Calendar.SUNDAY) {
-					JSONArray weekdaysArray = trainObject.getJSONArray("odpt:holidays");
-					String railDirection = trainObject.getString("odpt:railDirection");
+					JSONArray weekdaysArray = trainObject
+							.getJSONArray("odpt:holidays");
+					String railDirection = trainObject
+							.getString("odpt:railDirection");
 					parseChildren(weekdaysArray, railDirection);
 				} else {
-				JSONArray weekdaysArray = trainObject.getJSONArray("odpt:weekdays");
-					String railDirection = trainObject.getString("odpt:railDirection");
+					JSONArray weekdaysArray = trainObject
+							.getJSONArray("odpt:weekdays");
+					String railDirection = trainObject
+							.getString("odpt:railDirection");
 					parseChildren(weekdaysArray, railDirection);
 				}
 			}
 		} catch (JSONException e) {
 			trainInfoListener.failedToCreateTimeTable();
-			e.printStackTrace();
 		}
 	}
 
@@ -112,9 +123,11 @@ public class ApiRequestTrainInfo {
 			ArrayList<TrainInfo> trainInfoList = new ArrayList<TrainInfo>();
 			for (int j = 0; j < weekdaysArrayLength; j++) {
 				JSONObject jsonObject = jsonArray.getJSONObject(j);
-				final String destinationStation = jsonObject.getString("odpt:destinationStation");
+				final String destinationStation = jsonObject
+						.getString("odpt:destinationStation");
 				final String trainType = jsonObject.getString("odpt:trainType");
-				final String departureTime = jsonObject.getString("odpt:departureTime");
+				final String departureTime = jsonObject
+						.getString("odpt:departureTime");
 
 				String[] s = departureTime.split(":");
 				final int hour = Integer.parseInt(s[0]);
@@ -123,7 +136,8 @@ public class ApiRequestTrainInfo {
 				if (time < mNow && time > 300) {
 					continue;
 				}
-				TrainInfo trainInfo = new TrainInfo(minute, hour, destinationStation, trainType, railDirection);
+				TrainInfo trainInfo = new TrainInfo(minute, hour,
+						destinationStation, trainType, railDirection);
 				trainInfoList.add(trainInfo);
 				if (trainInfoList.size() > MAX_TIME_TABLE_SIZE) {
 					break;
@@ -143,17 +157,18 @@ public class ApiRequestTrainInfo {
 	public void removeListener() {
 		trainInfoListener = null;
 	}
-	//	private boolean isNetworkConnected() {
-	//	ConnectivityManager cm = (ConnectivityManager) mContext.getSystemService(mContext.CONNECTIVITY_SERVICE);
-	//	NetworkInfo networkInfo = cm.getActiveNetworkInfo();
-	//	if (cm == null || networkInfo.isConnected() == false) {
-	//		return false;
-	//	} else {
-	//		return true;
-	//	}
-	//}
-	//	public interface TrainInfoListener extends EventListener{
-	//		public void completeCreateTimeTable(ArrayList<TrainInfo> timetable);
-	//		public void failedToCreateTimeTable();
-	//	}
+	// private boolean isNetworkConnected() {
+	// ConnectivityManager cm = (ConnectivityManager)
+	// mContext.getSystemService(mContext.CONNECTIVITY_SERVICE);
+	// NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+	// if (cm == null || networkInfo.isConnected() == false) {
+	// return false;
+	// } else {
+	// return true;
+	// }
+	// }
+	// public interface TrainInfoListener extends EventListener{
+	// public void completeCreateTimeTable(ArrayList<TrainInfo> timetable);
+	// public void failedToCreateTimeTable();
+	// }
 }

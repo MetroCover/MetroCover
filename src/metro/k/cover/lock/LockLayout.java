@@ -855,7 +855,6 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 		private Object mPrimaryItem;
 		private LayoutInflater mLayoutInflater;
 		private int mLastPosition = 0;
-		private Resources mResources = getResources();
 		private ApiRequestTrainInfo mApiRequestTrainInfo;
 		private Handler mHandler;
 
@@ -863,7 +862,6 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 			mContext = context;
 			mList = new ArrayList<String>();
 			mLayoutInflater = LayoutInflater.from(mContext);
-			mResources = getResources();
 			mApiRequestTrainInfo = new ApiRequestTrainInfo(context);
 			mApiRequestTrainInfo.setListener(this);
 			mHandler = new Handler() {
@@ -1309,7 +1307,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 			}
 
 			mBatteryView.setText(String.valueOf(battery) + "%");
-			mBatteryView.setTextColor(mResources.getColor(mClockColorID));
+			mBatteryView.setTextColor(getResources().getColor(mClockColorID));
 		}
 	}
 
