@@ -892,17 +892,20 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 					if (mViewPager == null) {
 						return;
 					}
-					int pageId = mViewPager.getCurrentItem();
-					int what = message.what;
-					if (what == MASSAGE_TRAIN_INFO_LIST && pageId == 2) {
-						drawingTrainInfoView(MetroCoverApplication
-								.getTrainInfoList());
-					} else if (what == MASSAGE_TRAIN_INFO_ERROR && pageId == 2) {
-						RelativeLayout layout = (RelativeLayout) mLockPagerAdapter
-								.getPrimaryItem();
-						CircularProgressBar progress = (CircularProgressBar) layout
-								.findViewById(R.id.lock_traininfo_loading);
-						setEmptyTrainInfoView(layout, progress);
+
+					final int pageId = mViewPager.getCurrentItem();
+					final int what = message.what;
+					if (pageId == 2) {
+						if (what == MASSAGE_TRAIN_INFO_LIST) {
+							drawingTrainInfoView(MetroCoverApplication
+									.getTrainInfoList());
+						} else {
+							RelativeLayout layout = (RelativeLayout) mLockPagerAdapter
+									.getPrimaryItem();
+							CircularProgressBar progress = (CircularProgressBar) layout
+									.findViewById(R.id.lock_traininfo_loading);
+							setEmptyTrainInfoView(layout, progress);
+						}
 					}
 				};
 			};

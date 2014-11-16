@@ -23,7 +23,6 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.net.Uri;
 import android.text.TextUtils;
-import android.util.Log;
 
 public class ApiRequestTrainInfo {
 
@@ -73,6 +72,7 @@ public class ApiRequestTrainInfo {
 								return EntityUtils.toString(
 										response.getEntity(), "UTF-8");
 							default:
+								trainInfoListener.failedToCreateTimeTable();
 								throw new RuntimeException("");
 							}
 						}
@@ -126,7 +126,6 @@ public class ApiRequestTrainInfo {
 	}
 
 	private void parseChildren(JSONArray jsonArray, String railDirection) {
-		Log.v("test", railDirection);
 		try {
 			final int weekdaysArrayLength = jsonArray.length();
 			ArrayList<TrainInfo> trainInfoList = new ArrayList<TrainInfo>();
@@ -154,7 +153,6 @@ public class ApiRequestTrainInfo {
 			}
 			trainInfoListener.completeCreateTimeTable(trainInfoList);
 		} catch (JSONException e) {
-			e.printStackTrace();
 			trainInfoListener.failedToCreateTimeTable();
 		}
 	}
@@ -166,18 +164,4 @@ public class ApiRequestTrainInfo {
 	public void removeListener() {
 		trainInfoListener = null;
 	}
-	// private boolean isNetworkConnected() {
-	// ConnectivityManager cm = (ConnectivityManager)
-	// mContext.getSystemService(mContext.CONNECTIVITY_SERVICE);
-	// NetworkInfo networkInfo = cm.getActiveNetworkInfo();
-	// if (cm == null || networkInfo.isConnected() == false) {
-	// return false;
-	// } else {
-	// return true;
-	// }
-	// }
-	// public interface TrainInfoListener extends EventListener{
-	// public void completeCreateTimeTable(ArrayList<TrainInfo> timetable);
-	// public void failedToCreateTimeTable();
-	// }
 }
