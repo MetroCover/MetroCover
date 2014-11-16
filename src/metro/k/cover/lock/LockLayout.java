@@ -1312,6 +1312,9 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 		final String stationName = PreferenceCommon.getStationName(context);
 		TextView tvStation = (TextView) layout
 				.findViewById(R.id.lock_train_info_station);
+		if (tvStation == null) {
+			return;
+		}
 		tvStation.setText(stationName);
 		if (stationName.equals(context.getString(R.string.nothing))) {
 			setEmptyTrainInfoView(layout, progress);
