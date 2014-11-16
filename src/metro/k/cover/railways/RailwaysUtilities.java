@@ -670,4 +670,77 @@ public final class RailwaysUtilities {
 
 		return directions;
 	}
+
+	/**
+	 * 指定の駅のアイコンを取得する
+	 * 
+	 * @param context
+	 * @param stationName
+	 * @param railwayCode
+	 * @return
+	 */
+	public static Drawable getStationIcon(final Context context,
+			final String stationName, final String railwayCode) {
+		ArrayList<Drawable> drawables = getStationIconList(context, railwayCode);
+		List<String> stations = getStationList(context, railwayCode);
+		final int size = drawables.size();
+		if (size == 0) {
+			return null;
+		}
+
+		Drawable d = null;
+		for (int i = 0; i < size; i++) {
+			if (stations.get(i).equals(stationName)) {
+				d = drawables.get(i);
+			}
+		}
+		return d;
+	}
+
+	/**
+	 * 路線名から路線コードを取得する
+	 * 
+	 * @param context
+	 * @param name
+	 * @return
+	 */
+	public static String getRailwayCodeFromName(final Context context,
+			final String name) {
+		if (context == null || Utilities.isInvalidStr(name)) {
+			return "";
+		}
+
+		final Resources res = context.getResources();
+		if (res.getString(R.string.railway_chiyoda).equals(name)) {
+			return Railways.RAILWAY_CODE_CHIYODA;
+		}
+		if (res.getString(R.string.railway_fukutoshin).equals(name)) {
+			return Railways.RAILWAY_CODE_FUKUTOSHIN;
+		}
+		if (res.getString(R.string.railway_ginza).equals(name)) {
+			return Railways.RAILWAY_CODE_GINZA;
+		}
+		if (res.getString(R.string.railway_hanzomon).equals(name)) {
+			return Railways.RAILWAY_CODE_HANZOMON;
+		}
+		if (res.getString(R.string.railway_hibiya).equals(name)) {
+			return Railways.RAILWAY_CODE_HIBIYA;
+		}
+		if (res.getString(R.string.railway_marunouchi).equals(name)) {
+			return Railways.RAILWAY_CODE_MARUNOUCHI;
+		}
+		if (res.getString(R.string.railway_marunouchi_m).equals(name)) {
+			return Railways.RAILWAY_CODE_MARUNOUCHI_M;
+		}
+		if (res.getString(R.string.railway_namboku).equals(name)) {
+			return Railways.RAILWAY_CODE_NAMBOKU;
+		}
+		if (res.getString(R.string.railway_tozai).equals(name)) {
+			return Railways.RAILWAY_CODE_TOZAI;
+		}
+		if (res.getString(R.string.railway_yurakucho).equals(name)) {
+			return Railways.RAILWAY_CODE_YURAKUCHO;
+		}
+		return "";
+	}
 }

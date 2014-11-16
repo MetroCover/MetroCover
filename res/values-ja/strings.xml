@@ -22,7 +22,7 @@
     <string name="day_of_week_friday">(金)</string>
     <string name="day_of_week_saturday">(土)</string>
     <string name="day_of_week_sunday">(日)</string>
-    <string name="departure_time">%1$d:%2$d発</string> 
+    <string name="departure_time">%1$d:%2$s発</string> 
     <string name="enable_metrocover">MetroCoverを有効にする</string>
     <string name="empty_title_lock_railway_info_title">遅延情報</string>
     <string name="empty_title_lock_railway_info_message">データがありません</string>

@@ -27,16 +27,30 @@ public final class Utilities {
 	public static final long ONE_HOUR_MILLIS = 60 * 60 * 1000;
 	public static final long ONE_MUNUTE_MILLIS = 60 * 1000;
 	public static final long ONE_SECOND_MILLIS = 1000;
-	
+
 	public static boolean isOver24HourTimeTableLoaded(Context context) {
-		long timeLoadedTimeTabel = PreferenceCommon.getTimeLoadedTrainTimeTable(context);
-		if (System.currentTimeMillis() - timeLoadedTimeTabel  > Utilities.ONE_DAY_MILLIS) {
+		long timeLoadedTimeTabel = PreferenceCommon
+				.getTimeLoadedTrainTimeTable(context);
+		if (System.currentTimeMillis() - timeLoadedTimeTabel > Utilities.ONE_DAY_MILLIS) {
 			return true;
 		} else {
 			return false;
 		}
 	}
-	
+
+	/**
+	 * ex 2 -> 02
+	 * 
+	 * @param num
+	 * @return
+	 */
+	public static String getTwoDigits(final int num) {
+		if (num >= 10) {
+			return String.valueOf(num);
+		}
+		return "0" + num;
+	}
+
 	/**
 	 * 「,」区切りのStringをArrayにして返す
 	 * 

@@ -15,6 +15,7 @@ import metro.k.cover.api.ApiRequestTrainInfo;
 import metro.k.cover.circularprogressbar.CircularProgressBar;
 import metro.k.cover.lock.LockPatternView.Cell;
 import metro.k.cover.lock.LockPatternView.DisplayMode;
+import metro.k.cover.railways.RailwaysUtilities;
 import metro.k.cover.traininfo.TrainInfo;
 import metro.k.cover.traininfo.TrainInfoListener;
 import metro.k.cover.view.ButtonWithFont;
@@ -31,6 +32,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.os.Build;
 import android.os.CountDownTimer;
@@ -106,7 +108,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 	// Battery
 	private TextViewWithFont mBatteryView;
 
-	private TrainTimer mTrainTimer; 
+	private TrainTimer mTrainTimer;
 	private TextView mRemainingTimeTextView;
 
 	public LockLayout(Context context) {
@@ -874,7 +876,8 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 					int pageId = mViewPager.getCurrentItem();
 					int what = message.what;
 					if (what == MASSAGE_TRAIN_INFO_LIST && pageId == 2) {
-						drawingTrainInfoView(MetroCoverApplication.getTrainInfoList());
+						drawingTrainInfoView(MetroCoverApplication
+								.getTrainInfoList());
 					}
 				};
 			};
@@ -1017,9 +1020,12 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 				new Thread(new Runnable() {
 					@Override
 					public void run() {
-						final String stationName = PreferenceCommon.getStationNameForAPI(mContext);
-						final String trainDirection = PreferenceCommon.getTrainDirection(mContext);
-						mApiRequestTrainInfo.requestTrainInfo(stationName, trainDirection);
+						final String stationName = PreferenceCommon
+								.getStationNameForAPI(mContext);
+						final String trainDirection = PreferenceCommon
+								.getTrainDirection(mContext);
+						mApiRequestTrainInfo.requestTrainInfo(stationName,
+								trainDirection);
 					}
 				}).start();
 			}
@@ -1040,9 +1046,6 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 			// TODO Auto-generated method stub
 
 		}
-
-
-
 
 		/**
 		 * 路線遅延情報のViewを作成する
@@ -1175,7 +1178,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 			final int color = res.getColor(mClockColorID);
 
 			// 時間
-			final String minuteStr = getTwoDigits(minute);
+			final String minuteStr = Utilities.getTwoDigits(minute);
 			final String col = res.getString(R.string.colon);
 			boolean isAm = am_pm == 0;
 			String timeStr = "";
@@ -1211,13 +1214,6 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 			mClockSep.setBackgroundColor(color);
 		}
 
-		private String getTwoDigits(final int num) {
-			if (num >= 10) {
-				return String.valueOf(num);
-			}
-			return "0" + num;
-		}
-
 		/**
 		 * バッテリー状態の更新
 		 * 
@@ -1232,22 +1228,21 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 			mBatteryView.setTextColor(getResources().getColor(mClockColorID));
 		}
 	}
-	
-	private int[] trainTypeIdArray = {
-			R.id.lock_train_info_train_type_0,
+
+	private int[] trainTypeIdArray = { R.id.lock_train_info_train_type_0,
 			R.id.lock_train_info_train_type_1,
 			R.id.lock_train_info_train_type_2,
-			R.id.lock_train_info_train_type_3
-	};
+			R.id.lock_train_info_train_type_3 };
 	private int[] departureTimeIdArray = {
 			R.id.lock_train_info_departure_time_0,
 			R.id.lock_train_info_departure_time_1,
 			R.id.lock_train_info_departure_time_2,
-			R.id.lock_train_info_departure_time_3
-	};
+			R.id.lock_train_info_departure_time_3 };
 	private final int TRAIN_TIME_TABLE_SIZE = 4;
-	//TextView tvDepartureTime = (TextView) layout.findViewById(R.id.lock_train_info_departure_time_0);
-	
+
+	// TextView tvDepartureTime = (TextView)
+	// layout.findViewById(R.id.lock_train_info_departure_time_0);
+
 	private void drawingTrainInfoView(ArrayList<TrainInfo> trainInfoList) {
 		if (mViewPager == null) {
 			return;
@@ -1257,27 +1252,42 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 			return;
 		}
 		Context context = getContext().getApplicationContext();
-		RelativeLayout layout = (RelativeLayout) mLockPagerAdapter.getPrimaryItem();
+		RelativeLayout layout = (RelativeLayout) mLockPagerAdapter
+				.getPrimaryItem();
 		final String stationName = PreferenceCommon.getStationName(context);
-		TextView tvStation = (TextView) layout.findViewById(R.id.lock_train_info_station);
+		TextView tvStation = (TextView) layout
+				.findViewById(R.id.lock_train_info_station);
 		tvStation.setText(stationName);
 		if (stationName.equals(context.getString(R.string.nothing))) {
 			return;
 		}
-		TextView tvRailway = (TextView) layout.findViewById(R.id.lock_train_info_railway);
-		tvRailway.setText(PreferenceCommon.getStationsRailwayName(context));
-		TextView tvRailDirection = (TextView) layout.findViewById(R.id.lock_train_info_rail_direction);
+		TextView tvRailway = (TextView) layout
+				.findViewById(R.id.lock_train_info_railway);
+		final String railwayName = PreferenceCommon
+				.getStationsRailwayName(context);
+		tvRailway.setText(railwayName);
+		final Drawable icon = RailwaysUtilities.getStationIcon(context,
+				stationName,
+				RailwaysUtilities.getRailwayCodeFromName(context, railwayName));
+		ImageView iconView = (ImageView) layout
+				.findViewById(R.id.lock_train_info_icon);
+		iconView.setImageDrawable(icon);
+		TextView tvRailDirection = (TextView) layout
+				.findViewById(R.id.lock_train_info_rail_direction);
 		final String bound = context.getString(R.string.bound);
-		tvRailDirection.setText(PreferenceCommon.getTrainDirectionName(context) + " " + bound);
-		
+		tvRailDirection.setText(PreferenceCommon.getTrainDirectionName(context)
+				+ " " + bound);
+
 		TrainInfo trainInfo0 = trainInfoList.get(0);
 		int departureTimeHour = trainInfo0.getHour();
 		if (0 <= departureTimeHour && departureTimeHour < 3) {
 			departureTimeHour = departureTimeHour + 24;
 		}
 		final int departureTimeMinute = trainInfo0.getMinute();
-		mRemainingTimeTextView = (TextView) layout.findViewById(R.id.lock_train_info_remaining_time);
-		final long remainingTimeMillis = getRemainingTimeMillis(departureTimeHour, departureTimeMinute);
+		mRemainingTimeTextView = (TextView) layout
+				.findViewById(R.id.lock_train_info_remaining_time);
+		final long remainingTimeMillis = getRemainingTimeMillis(
+				departureTimeHour, departureTimeMinute);
 		if (mTrainTimer != null) {
 			mTrainTimer.cancel();
 			mTrainTimer = null;
@@ -1285,40 +1295,51 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 		mTrainTimer = new TrainTimer(remainingTimeMillis);
 		mTrainTimer.start();
 
-		final int listSize = Math.min(TRAIN_TIME_TABLE_SIZE, trainInfoList.size());
-		for (int i = 0; i< listSize; i++) {
+		final int listSize = Math.min(TRAIN_TIME_TABLE_SIZE,
+				trainInfoList.size());
+		for (int i = 0; i < listSize; i++) {
 			TrainInfo trainInfo = trainInfoList.get(i);
 
-			TextView tvDepartureTime = (TextView) layout.findViewById(departureTimeIdArray[i]);
+			TextView tvDepartureTime = (TextView) layout
+					.findViewById(departureTimeIdArray[i]);
 			final int hour = trainInfo.getHour();
 			final int minute = trainInfo.getMinute();
-			final String departureTimeText = context.getString(R.string.departure_time, hour, minute);
+			final String departureTimeText = context.getString(
+					R.string.departure_time, hour,
+					Utilities.getTwoDigits(minute));
 			tvDepartureTime.setText(departureTimeText);
-			
-			
-			TextView tvTrainType = (TextView) layout.findViewById(trainTypeIdArray[i]);
+
+			TextView tvTrainType = (TextView) layout
+					.findViewById(trainTypeIdArray[i]);
 			final String trainTypeForApi = trainInfo.getTrainType();
 			Log.v("test", trainTypeForApi);
 			tvTrainType.setText(conversionTrainTypeText(trainTypeForApi));
 			Log.v("test", conversionTrainTypeText(trainTypeForApi));
 		}
+		CircularProgressBar progress = (CircularProgressBar) layout
+				.findViewById(R.id.lock_traininfo_loading);
+		progress.setVisibility(View.GONE);
 	}
-	
+
 	private String conversionTrainTypeText(String trainTypeForApi) {
 		Context context = getContext().getApplicationContext();
 		String trainType = "";
-		if (trainTypeForApi.equals(context.getString(R.string.train_type_local_response))) {
+		if (trainTypeForApi.equals(context
+				.getString(R.string.train_type_local_response))) {
 			trainType = context.getString(R.string.train_type_local);
-		} else if (trainTypeForApi.equals(context.getString(R.string.train_type_express_response))) {
-			trainType =  context.getString(R.string.train_type_express);
-		} else if (trainTypeForApi.equals(context.getString(R.string.train_type_rapid_response))) {
-			trainType =  context.getString(R.string.train_type_rapid);
-		} else if (trainTypeForApi.equals(context.getString(R.string.train_type_limited_express_response))) {
-			trainType =  context.getString(R.string.train_type_limited_express);
+		} else if (trainTypeForApi.equals(context
+				.getString(R.string.train_type_express_response))) {
+			trainType = context.getString(R.string.train_type_express);
+		} else if (trainTypeForApi.equals(context
+				.getString(R.string.train_type_rapid_response))) {
+			trainType = context.getString(R.string.train_type_rapid);
+		} else if (trainTypeForApi.equals(context
+				.getString(R.string.train_type_limited_express_response))) {
+			trainType = context.getString(R.string.train_type_limited_express);
 		}
 		return trainType;
 	}
-	
+
 	private long getRemainingTimeMillis(final long hour, final long minute) {
 		long departureTimeMillis = (hour * 60 + minute) * 60 * 1000;
 		final Calendar calendar = Calendar.getInstance();
@@ -1331,35 +1352,40 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 		long currentTimeMillis = ((currentTimeHour * 60 + currentTimeMinute) * 60 + currentTimeSecond) * 1000;
 		return departureTimeMillis - currentTimeMillis;
 	}
+
 	private long[] getFormatedRemainingTime(long remainingTime) {
-		long[] formatedRemainingTime = {0,0,0};
+		long[] formatedRemainingTime = { 0, 0, 0 };
 		if (remainingTime > Utilities.ONE_HOUR_MILLIS) {
-			final long hour = remainingTime/Utilities.ONE_HOUR_MILLIS;
+			final long hour = remainingTime / Utilities.ONE_HOUR_MILLIS;
 			formatedRemainingTime[0] = hour;
 			remainingTime = remainingTime - hour * Utilities.ONE_HOUR_MILLIS;
 		}
 		if (remainingTime > Utilities.ONE_MUNUTE_MILLIS) {
-			final long minute = remainingTime/Utilities.ONE_MUNUTE_MILLIS;
+			final long minute = remainingTime / Utilities.ONE_MUNUTE_MILLIS;
 			formatedRemainingTime[1] = minute;
-			remainingTime = remainingTime - minute * Utilities.ONE_MUNUTE_MILLIS;
+			remainingTime = remainingTime - minute
+					* Utilities.ONE_MUNUTE_MILLIS;
 		}
 		if (remainingTime > Utilities.ONE_SECOND_MILLIS) {
-			final long second = remainingTime/Utilities.ONE_SECOND_MILLIS;
+			final long second = remainingTime / Utilities.ONE_SECOND_MILLIS;
 			formatedRemainingTime[2] = second;
 		}
 		return formatedRemainingTime;
 	}
-	
-	private String buildRemainingTimeText (long[] formatedRemainingTime) {
+
+	private String buildRemainingTimeText(long[] formatedRemainingTime) {
 		Context context = getContext().getApplicationContext();
 		StringBuilder sb = new StringBuilder();
 		if (formatedRemainingTime[0] > 0) {
-			sb.append(formatedRemainingTime[0] + context.getString(R.string.remaining_time_hour));
+			sb.append(formatedRemainingTime[0]
+					+ context.getString(R.string.remaining_time_hour));
 		}
 		if (formatedRemainingTime[1] > 0) {
-			sb.append(formatedRemainingTime[1] + context.getString(R.string.remaining_time_minute));
+			sb.append(formatedRemainingTime[1]
+					+ context.getString(R.string.remaining_time_minute));
 		}
-		sb.append(formatedRemainingTime[2] + context.getString(R.string.remaining_time_second));
+		sb.append(formatedRemainingTime[2]
+				+ context.getString(R.string.remaining_time_second));
 		return sb.toString();
 	}
 
@@ -1368,6 +1394,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 		public TrainTimer(long millisInFuture) {
 			super(millisInFuture, Utilities.ONE_SECOND_MILLIS);
 		}
+
 		@Override
 		public void onTick(long millisUntilFinished) {
 			if (mViewPager == null) {
@@ -1381,11 +1408,13 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 			String remainingTimeText = buildRemainingTimeText(formatedRemainingTime);
 			mRemainingTimeTextView.setText(remainingTimeText);
 		}
+
 		@Override
 		public void onFinish() {
 			cancel();
-			ArrayList<TrainInfo> trainInfoList = MetroCoverApplication.getTrainInfoList();
-			if (trainInfoList.size() > 0) {
+			ArrayList<TrainInfo> trainInfoList = MetroCoverApplication
+					.getTrainInfoList();
+			if (trainInfoList != null && trainInfoList.size() > 0) {
 				trainInfoList.remove(0);
 				MetroCoverApplication.setTrainInfoList(trainInfoList);
 				drawingTrainInfoView(trainInfoList);
