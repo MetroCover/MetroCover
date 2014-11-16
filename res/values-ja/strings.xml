@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="bound">行き</string>
     <string name="cancel">キャンセル</string>
     <string name="common_err">何らかのエラーが発生しました。</string>
     <string name="complete">完了</string>
@@ -21,6 +22,7 @@
     <string name="day_of_week_friday">(金)</string>
     <string name="day_of_week_saturday">(土)</string>
     <string name="day_of_week_sunday">(日)</string>
+    <string name="departure_time">%1$d:%2$d発</string> 
     <string name="enable_metrocover">MetroCoverを有効にする</string>
     <string name="empty_title_lock_railway_info_title">遅延情報</string>
     <string name="empty_title_lock_railway_info_message">データがありません</string>

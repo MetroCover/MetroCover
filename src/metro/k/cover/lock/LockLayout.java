@@ -104,6 +104,9 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 	// Battery
 	private TextViewWithFont mBatteryView;
 
+	// 出発までの残り時間
+	private ArrayList<TextView> mTimerViewList = new ArrayList<TextView>();
+
 	public LockLayout(Context context) {
 		super(context);
 	}
@@ -1050,9 +1053,13 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 				// 空のビュー表示
 				return;
 			}
+			
+			
 			TextView tvRailway = (TextView) layout.findViewById(R.id.lock_train_info_railway);
 			tvRailway.setText(PreferenceCommon.getStationsRailwayName(mContext));
 			TextView tvRailDirection = (TextView) layout.findViewById(R.id.lock_train_info_rail_direction);
+			final String bound = mContext.getString(R.string.bound);
+			tvRailDirection.setText(PreferenceCommon.getTrainDirectionName(mContext) + " " + bound);
 			//tvRailDirection.setText(PreferenceCommon.getStationsRailwayName(mContext));
 			////////
 			for (TrainInfo trainInfo : trainInfoList) {
@@ -1064,6 +1071,8 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 				final int minute = trainInfo.getMinute();
 				final String departureTimeText = mContext.getString(R.string.departure_time, hour, minute);
 				tvDepartureTime.setText(departureTimeText);
+				
+				mTimerViewList.add((TextView) layout.findViewById(R.id.lock_train_info_remaining_time_0));
 			}
 			
 			//TextView tvTrainType1 = (TextView) layout.findViewById(R.id.lock_train_info_train_type_1);
@@ -1279,4 +1288,25 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 			mBatteryView.setTextColor(mResources.getColor(mClockColorID));
 		}
 	}
+
+//	public class MyCountDownTimer extends CountDownTimer {
+//
+//		public MyCountDownTimer(long millisInFuture, long countDownInterval) {
+//			super(millisInFuture, countDownInterval);
+//
+//		}
+//
+//		@Override
+//		public void onFinish() {
+//			// カウントダウン完了後に呼ばれる
+//			timer.setText("0");
+//			Toast.makeText(getApplicationContext(), "終了", Toast.LENGTH_LONG).show();
+//		}
+//
+//		@Override
+//		public void onTick(long millisUntilFinished) {
+//			// インターバル(countDownInterval)毎に呼ばれる
+//			timer.setText(Long.toString(millisUntilFinished / 1000 / 60) + ":" + Long.toString(millisUntilFinished / 1000 % 60));
+//		}
+//	}
 }

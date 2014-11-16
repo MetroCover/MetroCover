@@ -1,55 +1,90 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="wrap_content"
+    android:padding="16dp" >
 
-    <metro.k.cover.view.TextViewWithFont
-        android:id="@+id/lock_train_info_title"
+    <LinearLayout
+        android:id="@+id/lock_train_info_title_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="列車情報"
-        android:textSize="30sp" />
+        android:layout_alignParentTop="true"
+        android:background="@drawable/bg_lock_railway_info"
+        android:orientation="vertical" >
+
+        <metro.k.cover.view.TextViewWithFont
+            android:id="@+id/lock_train_info_railway"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="14sp" />
+
+        <metro.k.cover.view.TextViewWithFont
+            android:id="@+id/lock_train_info_station"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="36sp" />
+
+        <metro.k.cover.view.TextViewWithFont
+            android:id="@+id/lock_train_info_rail_direction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="14sp" />
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/lock_train_info_title" >
+        android:layout_below="@+id/lock_train_info_title_layout" >
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_lock_railway_info" >
 
             <metro.k.cover.view.TextViewWithFont
-                android:layout_width="match_parent"
+                android:id="@+id/lock_train_info_train_type_0"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Station Name"
-                android:textSize="50sp" />
-
-            <metro.k.cover.view.TextViewWithFont
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="行き先"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="16dp"
                 android:textSize="20sp" />
 
-            <RelativeLayout
+            <View
+                android:id="@+id/divider_0"
                 android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/lock_train_info_train_type_0"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="4dp"
+                android:background="@android:color/white"
+                android:gravity="center" />
+
+            <metro.k.cover.view.TextViewWithFont
+                android:id="@+id/lock_train_info_departure_time_0"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" >
-                <metro.k.cover.view.TextViewWithFont
-                    android:layout_alignParentTop="true"
-                    android:id="@+id/lock_train_info_train_type_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="16sp" />
-                <metro.k.cover.view.TextViewWithFont
-                    android:id="@+id/lock_train_info_departure_time_1"
-                    android:layout_below="@+id/lock_train_info_train_type_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="40sp" />
-            </RelativeLayout>
-        </LinearLayout>
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/divider_0"
+                android:layout_marginRight="16dp"
+                android:gravity="center"
+                android:text="11:22発"
+                android:textSize="24sp" />
+
+            <metro.k.cover.view.TextViewWithFont
+                android:id="@+id/lock_train_info_remaining_time_0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/divider_0"
+                android:layout_toRightOf="@+id/lock_train_info_departure_time_0"
+                android:gravity="center"
+                android:text="11分23秒後"
+                android:textSize="24sp" />
+        </RelativeLayout>
     </ScrollView>
 
 </RelativeLayout>

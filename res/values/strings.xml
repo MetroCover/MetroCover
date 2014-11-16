@@ -5,6 +5,7 @@
     <string name="api_id">14f420dec5cf32d3c092fbe8a9f3ecb065e5473c9a16be79049131a7d0ea1bff</string>
     <string name="api_railways_info">https://api.tokyometroapp.jp/api/v2/datapoints</string>
     <string name="app_name">MetroCover</string>
+    <string name="bound">bound</string>
     <string name="cancel">CANCEL</string>
     <string name="clock_am">AM</string>
     <string name="clock_pm">PM</string>
@@ -28,6 +29,7 @@
     <string name="day_of_week_friday">Fri.</string>
     <string name="day_of_week_saturday">Sat.</string>
     <string name="day_of_week_sunday">Sun.</string>
+    <string name="departure_time">%1$d:%2$ddeparture</string> 
     <string name="enable_metrocover">Enable MetroCover</string>
     <string name="empty_title_lock_railway_info_title">TRAIN DELAY\nINFOMATION</string>
     <string name="empty_title_lock_railway_info_message">NO DATA</string>
