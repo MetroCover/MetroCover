@@ -53,8 +53,10 @@
                 android:id="@+id/lock_train_info_icon"
                 android:layout_width="50dip"
                 android:layout_height="50dip"
+                android:layout_marginRight="10dip"
                 android:layout_toLeftOf="@+id/lock_train_info_main"
-                android:contentDescription="@string/app_name" />
+                android:contentDescription="@string/app_name"
+                android:visibility="gone" />
         </RelativeLayout>
 
         <View
@@ -207,5 +209,31 @@
         app:cpb_rotation_speed="1.0"
         app:cpb_stroke_width="4dp"
         app:cpb_sweep_speed="1.0" />
+
+    <LinearLayout
+        android:id="@+id/lock_traininfo_empty_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/bg_lock_railway_info"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="20dip"
+        android:visibility="gone" >
+
+        <metro.k.cover.view.TextViewWithFont
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/station_info"
+            android:textColor="@color/color_white"
+            android:textSize="28sp" />
+
+        <metro.k.cover.view.TextViewWithFont
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/empty_title_lock_railway_info_message"
+            android:textColor="@color/color_white"
+            android:textSize="30sp" />
+    </LinearLayout>
 
 </RelativeLayout>

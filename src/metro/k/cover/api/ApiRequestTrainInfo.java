@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import metro.k.cover.R;
+import metro.k.cover.Utilities;
 import metro.k.cover.traininfo.TrainInfo;
 import metro.k.cover.traininfo.TrainInfoListener;
 
@@ -36,8 +37,17 @@ public class ApiRequestTrainInfo {
 	}
 
 	public void requestTrainInfo(String station, String direction) {
-		// station = "odpt.Station:TokyoMetro.Ginza.Shibuya";
-		// direction = "odpt.RailDirection:TokyoMetro.Asakusa";
+		if (!Utilities.isOnline(mContext)) {
+			trainInfoListener.failedToCreateTimeTable();
+			return;
+		}
+
+		if (Utilities.isInvalidStr(station)
+				|| Utilities.isInvalidStr(direction)) {
+			trainInfoListener.failedToCreateTimeTable();
+			return;
+		}
+
 		Uri.Builder builder = new Uri.Builder();
 		builder.scheme("https");
 		builder.encodedAuthority("api.tokyometroapp.jp");
@@ -80,7 +90,6 @@ public class ApiRequestTrainInfo {
 
 	private void parse(String response) {
 		try {
-			Log.v("test", "parse");
 			final Calendar calendar = Calendar.getInstance();
 			final int nowHour = calendar.get(Calendar.HOUR_OF_DAY);
 			final int newMinute = calendar.get(Calendar.MINUTE);
