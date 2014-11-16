@@ -127,30 +127,7 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 			return;
 		}
 
-		final int pkgsize = pkgList.size();
-		if (pkgsize == 0) {
-			setEmptyView();
-			return;
-		}
-
-		// buzzHomeだけ特殊
-		if (mHomeAppID == WallpaperUtilities.BUZZHOME_APP_ID) {
-			Drawable[] ds;
-			for (int i = 0; i < pkgsize; i++) {
-				ds = getBuzzDrawableResource(pkgList.get(i));
-				if (ds == null) {
-					continue;
-				}
-				for (int j = 0; j < ds.length; j++) {
-					mRealList.add(ds[j]);
-				}
-			}
-		} else {
-			for (int i = 0; i < pkgsize; i++) {
-				mRealList.add(getScreen(pkgList.get(i)));
-			}
-		}
-
+		setScreen(pkgList);
 		final int size = mRealList.size();
 		if (size == 0) {
 			setEmptyView();
@@ -188,26 +165,65 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 	}
 
 	/**
-	 * 指定したパッケージ名のHomeeのテーマアプリのロッック画面画像を取得する
+	 * 指定アプリの壁紙取得してリストに入れる
 	 * 
 	 * @param packageName
 	 * @return
 	 */
-	private Drawable getScreen(final String packageName) {
+	private void setScreen(final ArrayList<String> pkgList) {
+		final int pkgsize = pkgList.size();
+		if (pkgsize == 0) {
+			setEmptyView();
+			return;
+		}
+
+		// Homee
 		if (mHomeAppID == WallpaperUtilities.HOMEE_APP_ID) {
-			final String str = getResources().getString(
-					R.string.theme_homee_bg_image);
-			return getDrawableResource(packageName, str);
-		} else if (mHomeAppID == WallpaperUtilities.PLUSHOME_APP_ID) {
+			Drawable[] ds;
+			for (int i = 0; i < pkgsize; i++) {
+				ds = getHomeeDrawableResource(pkgList.get(i));
+				if (ds == null) {
+					continue;
+				}
+				for (int j = 0; j < ds.length; j++) {
+					mRealList.add(ds[j]);
+				}
+			}
+			return;
+		}
+
+		// buzzHOME
+		if (mHomeAppID == WallpaperUtilities.BUZZHOME_APP_ID) {
+			Drawable[] ds;
+			for (int i = 0; i < pkgsize; i++) {
+				ds = getBuzzDrawableResource(pkgList.get(i));
+				if (ds == null) {
+					continue;
+				}
+				for (int j = 0; j < ds.length; j++) {
+					mRealList.add(ds[j]);
+				}
+			}
+		}
+
+		// [+]HOME
+		if (mHomeAppID == WallpaperUtilities.PLUSHOME_APP_ID) {
 			final String str = getResources().getString(
 					R.string.theme_plushome_bg_image);
-			return getDrawableResource(packageName, str);
-		} else if (mHomeAppID == WallpaperUtilities.DODORUHOME_APP_ID) {
+			for (int i = 0; i < pkgsize; i++) {
+				mRealList.add(getDrawableResource(pkgList.get(i), str));
+			}
+			return;
+		}
+
+		// ドドルランチャー
+		if (mHomeAppID == WallpaperUtilities.DODORUHOME_APP_ID) {
 			final String str = getResources().getString(
 					R.string.theme_dodol_bg_image);
-			return getDrawableResource(packageName, str);
-		} else {
-			return null;
+			for (int i = 0; i < pkgsize; i++) {
+				mRealList.add(getDrawableResource(pkgList.get(i), str));
+			}
+			return;
 		}
 	}
 
@@ -238,6 +254,30 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 		} catch (OutOfMemoryError e) {
 		}
 		return preview;
+	}
+
+	/**
+	 * Homeeの壁紙を「３枚取得する」
+	 * 
+	 * @param packageName
+	 * @return
+	 */
+	private Drawable[] getHomeeDrawableResource(final String packageName) {
+		Drawable[] previews = new Drawable[3];
+		try {
+			final Resources res = getResources();
+			previews[0] = getDrawableResource(packageName,
+					res.getString(R.string.theme_homee_bg_image));
+			previews[1] = getDrawableResource(packageName,
+					res.getString(R.string.theme_homee_bg_image_allapps));
+			previews[2] = getDrawableResource(packageName,
+					res.getString(R.string.theme_homee_bg_image_lock));
+		} catch (NotFoundException e) {
+		} catch (RuntimeException e) {
+		} catch (Exception e) {
+		} catch (OutOfMemoryError e) {
+		}
+		return previews;
 	}
 
 	/**
