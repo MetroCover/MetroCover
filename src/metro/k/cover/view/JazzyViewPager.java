@@ -72,11 +72,6 @@ public class JazzyViewPager extends ViewPager {
 			"CubeOut", "FlipVertical", "FlipHorizontal", "Stack", "ZoomIn",
 			"ZoomOut", "RotateUp", "RotateDown", "Accordion" };
 
-	private static final boolean API_11;
-	static {
-		API_11 = Build.VERSION.SDK_INT >= 11;
-	}
-
 	public JazzyViewPager(Context context) {
 		this(context, null);
 	}
@@ -88,8 +83,8 @@ public class JazzyViewPager extends ViewPager {
 		// now style everything!
 		TypedArray ta = context.obtainStyledAttributes(attrs,
 				R.styleable.JazzyViewPager);
-		int effect = ta.getInt(R.styleable.JazzyViewPager_style, 0);
-		String[] transitions = getResources().getStringArray(
+		final int effect = ta.getInt(R.styleable.JazzyViewPager_style, 0);
+		final String[] transitions = getResources().getStringArray(
 				R.array.jazzy_effects);
 		setTransitionEffect(TransitionEffect.valueOf(transitions[effect]));
 		setFadeEnabled(ta.getBoolean(R.styleable.JazzyViewPager_fadeEnabled,
@@ -134,7 +129,7 @@ public class JazzyViewPager extends ViewPager {
 	private void wrapWithOutlines() {
 		for (int i = 0; i < getChildCount(); i++) {
 			View v = getChildAt(i);
-			if (!(v instanceof JazzyOutlineContainer)) {
+			if (v != null && !(v instanceof JazzyOutlineContainer)) {
 				removeView(v);
 				super.addView(wrapChild(v), i);
 			}
@@ -142,8 +137,10 @@ public class JazzyViewPager extends ViewPager {
 	}
 
 	private View wrapChild(View child) {
-		if (!mOutlineEnabled || child instanceof JazzyOutlineContainer)
+		if (!mOutlineEnabled || child instanceof JazzyOutlineContainer) {
 			return child;
+		}
+
 		JazzyOutlineContainer out = new JazzyOutlineContainer(getContext());
 		out.setLayoutParams(generateDefaultLayoutParams());
 		child.setLayoutParams(new JazzyOutlineContainer.LayoutParams(
@@ -201,233 +198,249 @@ public class JazzyViewPager extends ViewPager {
 	}
 
 	protected void animateTablet(View left, View right, float positionOffset) {
-		if (mState != State.IDLE) {
-			if (left != null) {
-				manageLayer(left, true);
-				mRot = 30.0f * positionOffset;
-				mTrans = getOffsetXForRotation(mRot, left.getMeasuredWidth(),
-						left.getMeasuredHeight());
-				ViewHelper.setPivotX(left, left.getMeasuredWidth() / 2);
-				ViewHelper.setPivotY(left, left.getMeasuredHeight() / 2);
-				ViewHelper.setTranslationX(left, mTrans);
-				ViewHelper.setRotationY(left, mRot);
-			}
-			if (right != null) {
-				manageLayer(right, true);
-				mRot = -30.0f * (1 - positionOffset);
-				mTrans = getOffsetXForRotation(mRot, right.getMeasuredWidth(),
-						right.getMeasuredHeight());
-				ViewHelper.setPivotX(right, right.getMeasuredWidth() * 0.5f);
-				ViewHelper.setPivotY(right, right.getMeasuredHeight() * 0.5f);
-				ViewHelper.setTranslationX(right, mTrans);
-				ViewHelper.setRotationY(right, mRot);
-			}
+		if (mState == State.IDLE) {
+			return;
+		}
+
+		if (left != null) {
+			manageLayer(left, true);
+			mRot = 30.0f * positionOffset;
+			mTrans = getOffsetXForRotation(mRot, left.getMeasuredWidth(),
+					left.getMeasuredHeight());
+			ViewHelper.setPivotX(left, left.getMeasuredWidth() / 2);
+			ViewHelper.setPivotY(left, left.getMeasuredHeight() / 2);
+			ViewHelper.setTranslationX(left, mTrans);
+			ViewHelper.setRotationY(left, mRot);
+		}
+
+		if (right != null) {
+			manageLayer(right, true);
+			mRot = -30.0f * (1 - positionOffset);
+			mTrans = getOffsetXForRotation(mRot, right.getMeasuredWidth(),
+					right.getMeasuredHeight());
+			ViewHelper.setPivotX(right, right.getMeasuredWidth() * 0.5f);
+			ViewHelper.setPivotY(right, right.getMeasuredHeight() * 0.5f);
+			ViewHelper.setTranslationX(right, mTrans);
+			ViewHelper.setRotationY(right, mRot);
 		}
 	}
 
 	private void animateCube(View left, View right, float positionOffset,
 			boolean in) {
-		if (mState != State.IDLE) {
-			if (left != null) {
-				manageLayer(left, true);
-				mRot = (in ? 90.0f : -90.0f) * positionOffset;
-				ViewHelper.setPivotX(left, left.getMeasuredWidth());
-				ViewHelper.setPivotY(left, left.getMeasuredHeight() * 0.5f);
-				ViewHelper.setRotationY(left, mRot);
-			}
-			if (right != null) {
-				manageLayer(right, true);
-				mRot = -(in ? 90.0f : -90.0f) * (1 - positionOffset);
-				ViewHelper.setPivotX(right, 0);
-				ViewHelper.setPivotY(right, right.getMeasuredHeight() * 0.5f);
-				ViewHelper.setRotationY(right, mRot);
-			}
+		if (mState == State.IDLE) {
+			return;
+		}
+
+		if (left != null) {
+			manageLayer(left, true);
+			mRot = (in ? 90.0f : -90.0f) * positionOffset;
+			ViewHelper.setPivotX(left, left.getMeasuredWidth());
+			ViewHelper.setPivotY(left, left.getMeasuredHeight() * 0.5f);
+			ViewHelper.setRotationY(left, mRot);
+		}
+
+		if (right != null) {
+			manageLayer(right, true);
+			mRot = -(in ? 90.0f : -90.0f) * (1 - positionOffset);
+			ViewHelper.setPivotX(right, 0);
+			ViewHelper.setPivotY(right, right.getMeasuredHeight() * 0.5f);
+			ViewHelper.setRotationY(right, mRot);
 		}
 	}
 
 	private void animateAccordion(View left, View right, float positionOffset) {
-		if (mState != State.IDLE) {
-			if (left != null) {
-				manageLayer(left, true);
-				ViewHelper.setPivotX(left, left.getMeasuredWidth());
-				ViewHelper.setPivotY(left, 0);
-				ViewHelper.setScaleX(left, 1 - positionOffset);
-			}
-			if (right != null) {
-				manageLayer(right, true);
-				ViewHelper.setPivotX(right, 0);
-				ViewHelper.setPivotY(right, 0);
-				ViewHelper.setScaleX(right, positionOffset);
-			}
+		if (mState == State.IDLE) {
+			return;
+		}
+
+		if (left != null) {
+			manageLayer(left, true);
+			ViewHelper.setPivotX(left, left.getMeasuredWidth());
+			ViewHelper.setPivotY(left, 0);
+			ViewHelper.setScaleX(left, 1 - positionOffset);
+		}
+
+		if (right != null) {
+			manageLayer(right, true);
+			ViewHelper.setPivotX(right, 0);
+			ViewHelper.setPivotY(right, 0);
+			ViewHelper.setScaleX(right, positionOffset);
 		}
 	}
 
 	private void animateZoom(View left, View right, float positionOffset,
 			boolean in) {
-		if (mState != State.IDLE) {
-			if (left != null) {
-				manageLayer(left, true);
-				mScale = in ? ZOOM_MAX + (1 - ZOOM_MAX) * (1 - positionOffset)
-						: 1 + ZOOM_MAX - ZOOM_MAX * (1 - positionOffset);
-				ViewHelper.setPivotX(left, left.getMeasuredWidth() * 0.5f);
-				ViewHelper.setPivotY(left, left.getMeasuredHeight() * 0.5f);
-				ViewHelper.setScaleX(left, mScale);
-				ViewHelper.setScaleY(left, mScale);
-			}
-			if (right != null) {
-				manageLayer(right, true);
-				mScale = in ? ZOOM_MAX + (1 - ZOOM_MAX) * positionOffset : 1
-						+ ZOOM_MAX - ZOOM_MAX * positionOffset;
-				ViewHelper.setPivotX(right, right.getMeasuredWidth() * 0.5f);
-				ViewHelper.setPivotY(right, right.getMeasuredHeight() * 0.5f);
-				ViewHelper.setScaleX(right, mScale);
-				ViewHelper.setScaleY(right, mScale);
-			}
+		if (mState == State.IDLE) {
+			return;
+		}
+
+		if (left != null) {
+			manageLayer(left, true);
+			mScale = in ? ZOOM_MAX + (1 - ZOOM_MAX) * (1 - positionOffset) : 1
+					+ ZOOM_MAX - ZOOM_MAX * (1 - positionOffset);
+			ViewHelper.setPivotX(left, left.getMeasuredWidth() * 0.5f);
+			ViewHelper.setPivotY(left, left.getMeasuredHeight() * 0.5f);
+			ViewHelper.setScaleX(left, mScale);
+			ViewHelper.setScaleY(left, mScale);
+		}
+
+		if (right != null) {
+			manageLayer(right, true);
+			mScale = in ? ZOOM_MAX + (1 - ZOOM_MAX) * positionOffset : 1
+					+ ZOOM_MAX - ZOOM_MAX * positionOffset;
+			ViewHelper.setPivotX(right, right.getMeasuredWidth() * 0.5f);
+			ViewHelper.setPivotY(right, right.getMeasuredHeight() * 0.5f);
+			ViewHelper.setScaleX(right, mScale);
+			ViewHelper.setScaleY(right, mScale);
 		}
 	}
 
 	private void animateRotate(View left, View right, float positionOffset,
 			boolean up) {
-		if (mState != State.IDLE) {
-			if (left != null) {
-				manageLayer(left, true);
-				mRot = (up ? 1 : -1) * (ROT_MAX * positionOffset);
-				mTrans = (up ? -1 : 1)
-						* (float) (getMeasuredHeight() - getMeasuredHeight()
-								* Math.cos(mRot * Math.PI / 180.0f));
-				ViewHelper.setPivotX(left, left.getMeasuredWidth() * 0.5f);
-				ViewHelper.setPivotY(left, up ? 0 : left.getMeasuredHeight());
-				ViewHelper.setTranslationY(left, mTrans);
-				ViewHelper.setRotation(left, mRot);
-			}
-			if (right != null) {
-				manageLayer(right, true);
-				mRot = (up ? 1 : -1) * (-ROT_MAX + ROT_MAX * positionOffset);
-				mTrans = (up ? -1 : 1)
-						* (float) (getMeasuredHeight() - getMeasuredHeight()
-								* Math.cos(mRot * Math.PI / 180.0f));
-				ViewHelper.setPivotX(right, right.getMeasuredWidth() * 0.5f);
-				ViewHelper.setPivotY(right, up ? 0 : right.getMeasuredHeight());
-				ViewHelper.setTranslationY(right, mTrans);
-				ViewHelper.setRotation(right, mRot);
-			}
+		if (mState == State.IDLE) {
+			return;
+		}
+
+		if (left != null) {
+			manageLayer(left, true);
+			mRot = (up ? 1 : -1) * (ROT_MAX * positionOffset);
+			mTrans = (up ? -1 : 1)
+					* (float) (getMeasuredHeight() - getMeasuredHeight()
+							* Math.cos(mRot * Math.PI / 180.0f));
+			ViewHelper.setPivotX(left, left.getMeasuredWidth() * 0.5f);
+			ViewHelper.setPivotY(left, up ? 0 : left.getMeasuredHeight());
+			ViewHelper.setTranslationY(left, mTrans);
+			ViewHelper.setRotation(left, mRot);
+		}
+
+		if (right != null) {
+			manageLayer(right, true);
+			mRot = (up ? 1 : -1) * (-ROT_MAX + ROT_MAX * positionOffset);
+			mTrans = (up ? -1 : 1)
+					* (float) (getMeasuredHeight() - getMeasuredHeight()
+							* Math.cos(mRot * Math.PI / 180.0f));
+			ViewHelper.setPivotX(right, right.getMeasuredWidth() * 0.5f);
+			ViewHelper.setPivotY(right, up ? 0 : right.getMeasuredHeight());
+			ViewHelper.setTranslationY(right, mTrans);
+			ViewHelper.setRotation(right, mRot);
 		}
 	}
 
 	private void animateFlipHorizontal(View left, View right,
 			float positionOffset, int positionOffsetPixels) {
-		if (mState != State.IDLE) {
-			if (left != null) {
-				manageLayer(left, true);
-				mRot = 180.0f * positionOffset;
-				if (mRot > 90.0f) {
-					left.setVisibility(View.INVISIBLE);
-				} else {
-					if (left.getVisibility() == View.INVISIBLE)
-						left.setVisibility(View.VISIBLE);
-					mTrans = positionOffsetPixels;
-					ViewHelper.setPivotX(left, left.getMeasuredWidth() * 0.5f);
-					ViewHelper.setPivotY(left, left.getMeasuredHeight() * 0.5f);
-					ViewHelper.setTranslationX(left, mTrans);
-					ViewHelper.setRotationY(left, mRot);
-				}
+		if (mState == State.IDLE) {
+			return;
+		}
+
+		if (left != null) {
+			manageLayer(left, true);
+			mRot = 180.0f * positionOffset;
+			if (mRot > 90.0f) {
+				left.setVisibility(View.INVISIBLE);
+			} else {
+				if (left.getVisibility() == View.INVISIBLE)
+					left.setVisibility(View.VISIBLE);
+				mTrans = positionOffsetPixels;
+				ViewHelper.setPivotX(left, left.getMeasuredWidth() * 0.5f);
+				ViewHelper.setPivotY(left, left.getMeasuredHeight() * 0.5f);
+				ViewHelper.setTranslationX(left, mTrans);
+				ViewHelper.setRotationY(left, mRot);
 			}
-			if (right != null) {
-				manageLayer(right, true);
-				mRot = -180.0f * (1 - positionOffset);
-				if (mRot < -90.0f) {
-					right.setVisibility(View.INVISIBLE);
-				} else {
-					if (right.getVisibility() == View.INVISIBLE)
-						right.setVisibility(View.VISIBLE);
-					mTrans = -getWidth() - getPageMargin()
-							+ positionOffsetPixels;
-					ViewHelper
-							.setPivotX(right, right.getMeasuredWidth() * 0.5f);
-					ViewHelper.setPivotY(right,
-							right.getMeasuredHeight() * 0.5f);
-					ViewHelper.setTranslationX(right, mTrans);
-					ViewHelper.setRotationY(right, mRot);
-				}
+		}
+
+		if (right != null) {
+			manageLayer(right, true);
+			mRot = -180.0f * (1 - positionOffset);
+			if (mRot < -90.0f) {
+				right.setVisibility(View.INVISIBLE);
+			} else {
+				if (right.getVisibility() == View.INVISIBLE)
+					right.setVisibility(View.VISIBLE);
+				mTrans = -getWidth() - getPageMargin() + positionOffsetPixels;
+				ViewHelper.setPivotX(right, right.getMeasuredWidth() * 0.5f);
+				ViewHelper.setPivotY(right, right.getMeasuredHeight() * 0.5f);
+				ViewHelper.setTranslationX(right, mTrans);
+				ViewHelper.setRotationY(right, mRot);
 			}
 		}
 	}
 
 	private void animateFlipVertical(View left, View right,
 			float positionOffset, int positionOffsetPixels) {
-		if (mState != State.IDLE) {
-			if (left != null) {
-				manageLayer(left, true);
-				mRot = 180.0f * positionOffset;
-				if (mRot > 90.0f) {
-					left.setVisibility(View.INVISIBLE);
-				} else {
-					if (left.getVisibility() == View.INVISIBLE)
-						left.setVisibility(View.VISIBLE);
-					mTrans = positionOffsetPixels;
-					ViewHelper.setPivotX(left, left.getMeasuredWidth() * 0.5f);
-					ViewHelper.setPivotY(left, left.getMeasuredHeight() * 0.5f);
-					ViewHelper.setTranslationX(left, mTrans);
-					ViewHelper.setRotationX(left, mRot);
-				}
+		if (mState == State.IDLE) {
+			return;
+		}
+
+		if (left != null) {
+			manageLayer(left, true);
+			mRot = 180.0f * positionOffset;
+			if (mRot > 90.0f) {
+				left.setVisibility(View.INVISIBLE);
+			} else {
+				if (left.getVisibility() == View.INVISIBLE)
+					left.setVisibility(View.VISIBLE);
+				mTrans = positionOffsetPixels;
+				ViewHelper.setPivotX(left, left.getMeasuredWidth() * 0.5f);
+				ViewHelper.setPivotY(left, left.getMeasuredHeight() * 0.5f);
+				ViewHelper.setTranslationX(left, mTrans);
+				ViewHelper.setRotationX(left, mRot);
 			}
-			if (right != null) {
-				manageLayer(right, true);
-				mRot = -180.0f * (1 - positionOffset);
-				if (mRot < -90.0f) {
-					right.setVisibility(View.INVISIBLE);
-				} else {
-					if (right.getVisibility() == View.INVISIBLE)
-						right.setVisibility(View.VISIBLE);
-					mTrans = -getWidth() - getPageMargin()
-							+ positionOffsetPixels;
-					ViewHelper
-							.setPivotX(right, right.getMeasuredWidth() * 0.5f);
-					ViewHelper.setPivotY(right,
-							right.getMeasuredHeight() * 0.5f);
-					ViewHelper.setTranslationX(right, mTrans);
-					ViewHelper.setRotationX(right, mRot);
-				}
+		}
+
+		if (right != null) {
+			manageLayer(right, true);
+			mRot = -180.0f * (1 - positionOffset);
+			if (mRot < -90.0f) {
+				right.setVisibility(View.INVISIBLE);
+			} else {
+				if (right.getVisibility() == View.INVISIBLE)
+					right.setVisibility(View.VISIBLE);
+				mTrans = -getWidth() - getPageMargin() + positionOffsetPixels;
+				ViewHelper.setPivotX(right, right.getMeasuredWidth() * 0.5f);
+				ViewHelper.setPivotY(right, right.getMeasuredHeight() * 0.5f);
+				ViewHelper.setTranslationX(right, mTrans);
+				ViewHelper.setRotationX(right, mRot);
 			}
 		}
 	}
 
 	protected void animateStack(View left, View right, float positionOffset,
 			int positionOffsetPixels) {
-		if (mState != State.IDLE) {
-			if (right != null) {
-				manageLayer(right, true);
-				mScale = (1 - SCALE_MAX) * positionOffset + SCALE_MAX;
-				mTrans = -getWidth() - getPageMargin() + positionOffsetPixels;
-				ViewHelper.setScaleX(right, mScale);
-				ViewHelper.setScaleY(right, mScale);
-				ViewHelper.setTranslationX(right, mTrans);
-			}
-			if (left != null) {
-				left.bringToFront();
-			}
+		if (mState == State.IDLE) {
+			return;
+		}
+
+		if (right != null) {
+			manageLayer(right, true);
+			mScale = (1 - SCALE_MAX) * positionOffset + SCALE_MAX;
+			mTrans = -getWidth() - getPageMargin() + positionOffsetPixels;
+			ViewHelper.setScaleX(right, mScale);
+			ViewHelper.setScaleY(right, mScale);
+			ViewHelper.setTranslationX(right, mTrans);
+		}
+
+		if (left != null) {
+			left.bringToFront();
 		}
 	}
 
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	private void manageLayer(View v, boolean enableHardware) {
-		if (!API_11)
-			return;
-		int layerType = enableHardware ? View.LAYER_TYPE_HARDWARE
+		final int layerType = enableHardware ? View.LAYER_TYPE_HARDWARE
 				: View.LAYER_TYPE_NONE;
-		if (layerType != v.getLayerType())
+		if (layerType != v.getLayerType()) {
 			v.setLayerType(layerType, null);
+		}
 	}
 
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	private void disableHardwareLayer() {
-		if (!API_11)
-			return;
 		View v;
 		for (int i = 0; i < getChildCount(); i++) {
 			v = getChildAt(i);
-			if (v.getLayerType() != View.LAYER_TYPE_NONE)
+			if (v != null && v.getLayerType() != View.LAYER_TYPE_NONE) {
 				v.setLayerType(View.LAYER_TYPE_NONE, null);
+			}
 		}
 	}
 
@@ -460,8 +473,10 @@ public class JazzyViewPager extends ViewPager {
 	}
 
 	protected void animateOutline(View left, View right) {
-		if (!(left instanceof JazzyOutlineContainer))
+		if (!(left instanceof JazzyOutlineContainer)) {
 			return;
+		}
+
 		if (mState != State.IDLE) {
 			if (left != null) {
 				manageLayer(left, true);
@@ -567,8 +582,9 @@ public class JazzyViewPager extends ViewPager {
 		View v;
 		for (int i = 0; i < getChildCount(); i++) {
 			v = getChildAt(i);
-			if (a.isViewFromObject(v, o))
+			if (a.isViewFromObject(v, o)) {
 				return v;
+			}
 		}
 		return null;
 	}

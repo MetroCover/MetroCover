@@ -439,7 +439,7 @@ public final class PreferenceCommon {
 		SharedPreferences sp = context.getSharedPreferences(PREFERENCE_KEY,
 				Context.MODE_PRIVATE);
 		return sp.getInt(KEY_SET_VIEWPAGER_EFFECT_ID,
-				JazzyViewPager.EFFECT_ROTATEDOWN);
+				JazzyViewPager.EFFECT_STANDARD);
 	}
 
 	/**********************

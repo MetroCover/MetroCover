@@ -619,53 +619,81 @@ public final class RailwaysUtilities {
 			directions[1] = res.getString(R.string.direction_chiyoda_2);
 			directions[2] = res.getString(R.string.station_ayase);
 			directions[3] = res.getString(R.string.station_yoyogiuehara);
-		} else if (railway.equals(res.getString(R.string.railway_fukutoshin))) {
+			return directions;
+		}
+
+		if (railway.equals(res.getString(R.string.railway_fukutoshin))) {
 			directions[0] = res.getString(R.string.direction_fukutoshin_1);
 			directions[1] = res.getString(R.string.direction_fukutoshin_2);
 			directions[2] = res.getString(R.string.station_wakoshi);
 			directions[3] = res.getString(R.string.station_shibuya);
-		} else if (railway.equals(res.getString(R.string.railway_ginza))) {
+			return directions;
+		}
+
+		if (railway.equals(res.getString(R.string.railway_ginza))) {
 			directions[0] = res.getString(R.string.direction_ginza_1);
 			directions[1] = res.getString(R.string.direction_ginza_2);
 			directions[2] = res.getString(R.string.station_asakusa);
 			directions[3] = res.getString(R.string.station_shibuya);
-		} else if (railway.equals(res.getString(R.string.railway_hanzomon))) {
+			return directions;
+		}
+
+		if (railway.equals(res.getString(R.string.railway_hanzomon))) {
 			directions[0] = res.getString(R.string.direction_hanzomon_1);
 			directions[1] = res.getString(R.string.direction_hanzomon_2);
 			directions[2] = res.getString(R.string.station_shibuya);
 			directions[3] = res.getString(R.string.station_oshiage);
-		} else if (railway.equals(res.getString(R.string.railway_hibiya))) {
+			return directions;
+		}
+
+		if (railway.equals(res.getString(R.string.railway_hibiya))) {
 			directions[0] = res.getString(R.string.direction_hibiya_1);
 			directions[1] = res.getString(R.string.direction_hibiya_2);
 			directions[2] = res.getString(R.string.station_kitasenju);
 			directions[3] = res.getString(R.string.station_nakameguro);
-		} else if (railway.equals(res.getString(R.string.railway_marunouchi))) {
+			return directions;
+		}
+
+		if (railway.equals(res.getString(R.string.railway_marunouchi))) {
 			directions[0] = res.getString(R.string.direction_marunouchi_1);
 			directions[1] = res.getString(R.string.direction_marunouchi_2);
 			directions[2] = res.getString(R.string.station_ikebukuro);
 			directions[3] = res.getString(R.string.station_ogikubo);
-		} else if (railway.equals(res.getString(R.string.railway_marunouchi_m))) {
+			return directions;
+		}
+
+		if (railway.equals(res.getString(R.string.railway_marunouchi_m))) {
 			directions[0] = res
 					.getString(R.string.direction_marunouchi_branch_1);
 			directions[1] = res
 					.getString(R.string.direction_marunouchi_branch_2);
 			directions[2] = res.getString(R.string.station_nakanosakaue);
 			directions[3] = res.getString(R.string.station_hounanncho);
-		} else if (railway.equals(res.getString(R.string.railway_namboku))) {
+			return directions;
+		}
+
+		if (railway.equals(res.getString(R.string.railway_namboku))) {
 			directions[0] = res.getString(R.string.direction_namboku_1);
 			directions[1] = res.getString(R.string.direction_namboku_2);
 			directions[2] = res.getString(R.string.station_meguro);
 			directions[3] = res.getString(R.string.station_akabaneiwabuchi);
-		} else if (railway.equals(res.getString(R.string.railway_tozai))) {
+			return directions;
+		}
+
+		if (railway.equals(res.getString(R.string.railway_tozai))) {
 			directions[0] = res.getString(R.string.direction_tozai_1);
 			directions[1] = res.getString(R.string.direction_tozai_2);
 			directions[2] = res.getString(R.string.station_nakano);
 			directions[3] = res.getString(R.string.station_nishifunabashi);
-		} else if (railway.equals(res.getString(R.string.railway_yurakucho))) {
+			return directions;
+		}
+
+		if (railway.equals(res.getString(R.string.railway_yurakucho))) {
 			directions[0] = res.getString(R.string.direction_yurakucho_1);
 			directions[1] = res.getString(R.string.direction_yurakucho_2);
 			directions[2] = res.getString(R.string.station_wakoshi);
 			directions[3] = res.getString(R.string.station_shinkiba);
+			return directions;
 		}
 
 		return directions;
