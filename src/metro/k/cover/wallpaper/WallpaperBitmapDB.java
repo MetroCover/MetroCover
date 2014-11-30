@@ -96,7 +96,7 @@ public class WallpaperBitmapDB extends SQLiteOpenHelper {
 
 	public void setBitmap(String url, Bitmap bitmap) {
 		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-		if (bitmap.compress(Bitmap.CompressFormat.PNG, 100,
+		if (bitmap.compress(Bitmap.CompressFormat.JPEG, 80,
 				byteArrayOutputStream)) {
 			byte[] bytes = byteArrayOutputStream.toByteArray();
 			setCacheAsBlob(url, bytes);
