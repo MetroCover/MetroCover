@@ -282,7 +282,6 @@ public class LockUtilities {
 	public void setBackgrondLoadBitmap(final Context context, final View view,
 			final int position) {
 		Bitmap bmp;
-		WallpaperBitmapDB db;
 		String keyCache = "";
 		String keyDB = "";
 
@@ -299,7 +298,7 @@ public class LockUtilities {
 
 		bmp = ImageCache.getImageBmp(keyCache);
 		if (bmp == null) {
-			db = new WallpaperBitmapDB(context);
+			WallpaperBitmapDB db = new WallpaperBitmapDB(context);
 			bmp = db.getBitmp(keyDB);
 			if (bmp != null) {
 				Utilities.setBackground(context, view, bmp);

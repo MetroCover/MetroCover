@@ -204,8 +204,12 @@ public class SettingActivity extends Activity implements OnClickListener,
 		if (Utilities.isInvalidStr(mCurrentStationsRailwayName)) {
 			name = mCurrentStationName;
 		} else {
-			name = mCurrentStationsRailwayName + File.separator
-					+ mCurrentStationName + res.getString(R.string.station);
+			StringBuilder builder = new StringBuilder();
+			builder.append(mCurrentStationsRailwayName);
+			builder.append(File.separator);
+			builder.append(mCurrentStationName);
+			builder.append(res.getString(R.string.station));
+			name = builder.toString();
 		}
 		mCurrentStationView.setText(name);
 	}

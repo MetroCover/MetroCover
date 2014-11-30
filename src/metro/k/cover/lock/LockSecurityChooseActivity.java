@@ -3,15 +3,14 @@ package metro.k.cover.lock;
 import metro.k.cover.PreferenceCommon;
 import metro.k.cover.R;
 import metro.k.cover.SettingActivity;
+import metro.k.cover.Utilities;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 /**
  * セキュリティ設定画面
@@ -78,19 +77,12 @@ public class LockSecurityChooseActivity extends Activity implements
 	}
 
 	private void startActivitySafely(final Intent intent, final int flag) {
-		if (intent == null)
+		if (intent == null) {
 			return;
-
-		try {
-			intent.setFlags(flag);
-			startActivity(intent);
-			return;
-		} catch (Exception e) {
 		}
 
-		final Context c = getApplicationContext();
-		Toast.makeText(c, c.getResources().getString(R.string.common_err),
-				Toast.LENGTH_SHORT).show();
+		intent.setFlags(flag);
+		Utilities.startActivitySafely(intent, this);
 	}
 
 	/**

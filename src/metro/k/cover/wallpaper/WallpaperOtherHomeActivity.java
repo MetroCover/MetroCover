@@ -229,7 +229,9 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 					continue;
 				}
 				for (int j = 0; j < ds.length; j++) {
-					mRealList.add(ds[j]);
+					if (ds[j] != null) {
+						mRealList.add(ds[j]);
+					}
 				}
 			}
 			return;
@@ -244,7 +246,9 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 					continue;
 				}
 				for (int j = 0; j < ds.length; j++) {
-					mRealList.add(ds[j]);
+					if (ds[j] != null) {
+						mRealList.add(ds[j]);
+					}
 				}
 			}
 		}
@@ -484,8 +488,13 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 			dbKey = WallpaperBitmapDB.KEY_WALLPAPER_CENTER_DB;
 		}
 
-		final Bitmap bmp = ((BitmapDrawable) mRealList.get(position))
-				.getBitmap();
+		final Drawable d = mRealList.get(position);
+		if (d == null) {
+			Utilities.showErrorCommonToast(this);
+			return;
+		}
+
+		final Bitmap bmp = ((BitmapDrawable) d).getBitmap();
 		ImageCache.setImageBmp(cahceKey, bmp);
 		WallpaperUtilities.syncSaveBmpDB(getApplicationContext(), dbKey, bmp);
 
@@ -497,6 +506,7 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 		if (Utilities.startActivitySafely(intent, this)) {
 			Utilities.showToast(getApplicationContext(), getResources()
 					.getString(R.string.wallpaper_complete_msg));
+			System.gc();
 		}
 	}
 }

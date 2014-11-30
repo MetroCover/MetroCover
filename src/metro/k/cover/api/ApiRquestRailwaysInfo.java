@@ -95,8 +95,9 @@ public class ApiRquestRailwaysInfo {
 		final ArrayList<RailwaysInfo> infos = new ArrayList<RailwaysInfo>();
 		try {
 			final JSONArray array = new JSONArray(response);
-			final JSONObject[] railwaysObj = new JSONObject[array.length()];
-			for (int i = 0; i < array.length(); i++) {
+			final int len = array.length();
+			final JSONObject[] railwaysObj = new JSONObject[len];
+			for (int i = 0; i < len; i++) {
 				railwaysObj[i] = array.getJSONObject(i);
 			}
 			for (int i = 0; i < railwaysObj.length; i++) {

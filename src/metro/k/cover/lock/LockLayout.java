@@ -56,10 +56,9 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-
 /**
-* ロック画面のView
-*/
+ * ロック画面のView
+ */
 @SuppressLint("HandlerLeak")
 public class LockLayout extends FrameLayout implements View.OnClickListener {
 
@@ -1226,12 +1225,21 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 			final String col = res.getString(R.string.colon);
 			boolean isAm = am_pm == 0;
 			String timeStr = "";
+			StringBuilder timeBuilder = new StringBuilder();
 			if (is24h) {
-				timeStr = hour + col + minuteStr;
+				timeBuilder.append(hour);
+				timeBuilder.append(col);
+				timeBuilder.append(minuteStr);
+				timeStr = timeBuilder.toString();
 			} else {
 				final String am = res.getString(R.string.clock_am);
 				final String pm = res.getString(R.string.clock_pm);
-				timeStr = hour + col + minuteStr + " " + (isAm ? am : pm);
+				timeBuilder.append(hour);
+				timeBuilder.append(col);
+				timeBuilder.append(minuteStr);
+				timeBuilder.append(" ");
+				timeBuilder.append((isAm ? am : pm));
+				timeStr = timeBuilder.toString();
 			}
 			mClockTextView.setText(timeStr);
 			mClockTextView.setTextColor(color);
@@ -1243,15 +1251,30 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 				isJp = true;
 			}
 			String dateStr = "";
+			StringBuilder builder = new StringBuilder();
 			final String wod = LockUtilities.getInstance().getDatOfWeek(
 					context, week_of_day);
 			if (isJp) {
 				final String y = res.getString(R.string.date_year);
 				final String m = res.getString(R.string.date_month);
 				final String d = res.getString(R.string.date_day);
-				dateStr = year + y + month + m + day + d + wod;
+				builder.append(year);
+				builder.append(y);
+				builder.append(month);
+				builder.append(m);
+				builder.append(day);
+				builder.append(d);
+				builder.append(wod);
+				dateStr = builder.toString();
 			} else {
-				dateStr = wod + " " + month + "/" + day + "/" + year;
+				builder.append(wod);
+				builder.append(" ");
+				builder.append(month);
+				builder.append("/");
+				builder.append(day);
+				builder.append("/");
+				builder.append(year);
+				dateStr = builder.toString();
 			}
 			mDataTextView.setText(dateStr);
 			mDataTextView.setTextColor(color);
@@ -1268,7 +1291,10 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 				return;
 			}
 
-			mBatteryView.setText(String.valueOf(battery) + "%");
+			StringBuilder builder = new StringBuilder();
+			builder.append(String.valueOf(battery));
+			builder.append("%");
+			mBatteryView.setText(builder.toString());
 			mBatteryView.setTextColor(getResources().getColor(mClockColorID));
 		}
 	}
@@ -1306,8 +1332,8 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 		if (mViewPager == null) {
 			return;
 		}
-		final int pageId = mViewPager.getCurrentItem();
-		if (pageId != 2) {
+
+		if (mViewPager.getCurrentItem() != 2) {
 			return;
 		}
 
@@ -1383,7 +1409,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 			mTrainTimer.cancel();
 			mTrainTimer = null;
 		}
-		
+
 		mTrainTimer = new TrainTimer(remainingTimeMillis);
 		mTrainTimer.start();
 
@@ -1441,10 +1467,11 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 				* Utilities.ONE_MUNUTE_MILLIS;
 		final Calendar calendar = Calendar.getInstance();
 		int currentTimeHour = calendar.get(Calendar.HOUR_OF_DAY);
-		if (0 <= currentTimeHour && currentTimeHour < 4 && currentTimeHour > hour) {
+		if (0 <= currentTimeHour && currentTimeHour < 4
+				&& currentTimeHour > hour) {
 			currentTimeHour = currentTimeHour + 24;
 		}
-		
+
 		final int currentTimeMinute = calendar.get(Calendar.MINUTE);
 		final int currentTimeSecond = calendar.get(Calendar.SECOND);
 		long currentTimeMillis = ((currentTimeHour * 60 + currentTimeMinute) * 60 + currentTimeSecond) * 1000;
@@ -1475,15 +1502,15 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 		Context context = getContext().getApplicationContext();
 		StringBuilder sb = new StringBuilder();
 		if (formatedRemainingTime[0] > 0) {
-			sb.append(formatedRemainingTime[0]
-					+ context.getString(R.string.remaining_time_hour));
+			sb.append(formatedRemainingTime[0]);
+			sb.append(context.getString(R.string.remaining_time_hour));
 		}
 		if (formatedRemainingTime[1] > 0) {
-			sb.append(formatedRemainingTime[1]
-					+ context.getString(R.string.remaining_time_minute));
+			sb.append(formatedRemainingTime[1]);
+			sb.append(context.getString(R.string.remaining_time_minute));
 		}
-		sb.append(formatedRemainingTime[2]
-				+ context.getString(R.string.remaining_time_second));
+		sb.append(formatedRemainingTime[2]);
+		sb.append(context.getString(R.string.remaining_time_second));
 		return sb.toString();
 	}
 

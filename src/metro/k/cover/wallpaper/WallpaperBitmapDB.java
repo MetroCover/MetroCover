@@ -96,7 +96,7 @@ public class WallpaperBitmapDB extends SQLiteOpenHelper {
 
 	public void setBitmap(String url, Bitmap bitmap) {
 		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-		if (bitmap.compress(Bitmap.CompressFormat.JPEG, 80,
+		if (bitmap.compress(Bitmap.CompressFormat.JPEG, 70,
 				byteArrayOutputStream)) {
 			byte[] bytes = byteArrayOutputStream.toByteArray();
 			setCacheAsBlob(url, bytes);
@@ -108,7 +108,6 @@ public class WallpaperBitmapDB extends SQLiteOpenHelper {
 		try {
 			db.delete(TABLE, "url = '" + key + "'", null);
 		} catch (Exception e) {
-			e.printStackTrace();
 		} finally {
 			db.close();
 		}
