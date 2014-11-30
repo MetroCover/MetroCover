@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="bound">行き</string>
+    <string name="bound">方面</string>
     <string name="cancel">キャンセル</string>
     <string name="common_err">何らかのエラーが発生しました。</string>
     <string name="complete">完了</string>
