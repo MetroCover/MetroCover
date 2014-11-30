@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import metro.k.cover.ImageCache;
 import metro.k.cover.R;
 import metro.k.cover.Utilities;
+import metro.k.cover.circularprogressbar.CircularProgressBar;
 import metro.k.cover.view.TextViewWithFont;
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -19,10 +20,14 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
@@ -44,13 +49,15 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 	private final String PARAM_DRAWABLE = "drawable";
 
 	private ArrayList<Drawable> mRealList = new ArrayList<Drawable>();
-	private ArrayList<Drawable> mThumbList = new ArrayList<Drawable>();
 
 	private GridView mGridView;
 	private TextViewWithFont mEmptyView;
 
 	private int mPage = -1;
 	private int mHomeAppID;
+
+	private CircularProgressBar mCircularProgressBar;
+	private Handler mHandler = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +75,7 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 		mHomeAppID = in.getIntExtra(
 				WallpaperUtilities.KEY_OTHER_HOMEAPP_WALLPAPER,
 				WallpaperUtilities.HOMEE_APP_ID);
+		createHanelr();
 		setupViews();
 	}
 
@@ -83,6 +91,9 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 
 	private void setupViews() {
 		setContentView(R.layout.wallpaper_other_home);
+
+		// cpb
+		mCircularProgressBar = (CircularProgressBar) findViewById(R.id.wallpaper_other_home_loading);
 
 		// Title
 		TextViewWithFont titleView = (TextViewWithFont) findViewById(R.id.wallpaper_other_home_titleview);
@@ -109,8 +120,14 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 			return;
 		}
 
-		mGridView.setVisibility(View.GONE);
-		mEmptyView.setVisibility(View.VISIBLE);
+		mHandler.post(new Runnable() {
+			@Override
+			public void run() {
+				mGridView.setVisibility(View.GONE);
+				mEmptyView.setVisibility(View.VISIBLE);
+				mCircularProgressBar.setVisibility(View.GONE);
+			}
+		});
 	}
 
 	/**
@@ -121,28 +138,53 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 			return;
 		}
 
-		final ArrayList<String> pkgList = getThemePackagesList();
-		if (pkgList == null) {
-			setEmptyView();
+		mCircularProgressBar.setVisibility(View.VISIBLE);
+		new Thread("setupgrid") {
+			@Override
+			public void run() {
+				final ArrayList<String> pkgList = getThemePackagesList();
+				if (pkgList == null) {
+					setEmptyView();
+					return;
+				}
+
+				setScreen(pkgList);
+				final int size = mRealList.size();
+				if (size == 0) {
+					setEmptyView();
+					return;
+				}
+
+				Message msg = new Message();
+				mHandler.sendMessage(msg);
+			}
+		}.start();
+	}
+
+	@SuppressLint("HandlerLeak")
+	private void createHanelr() {
+		if (mHandler != null) {
 			return;
 		}
+		mHandler = new Handler() {
+			public void handleMessage(Message msg) {
+				if (msg == null) {
+					return;
+				}
+				createGridview();
+			}
+		};
+	}
 
-		setScreen(pkgList);
-		final int size = mRealList.size();
-		if (size == 0) {
-			setEmptyView();
-			return;
-		}
-
-		for (int i = 0; i < size; i++) {
-			mThumbList.add(Utilities.resizeFit(mRealList.get(i),
-					mWindowWidth / 2, mWindowHeight / 2, this));
-		}
-
-		GridAdapter adapter = new GridAdapter(this.getApplicationContext(),
-				R.layout.wallpaper_other_home_grid_items, mThumbList);
+	/**
+	 * GridViewの最終設定
+	 */
+	private void createGridview() {
+		GridAdapter adapter = new GridAdapter(getApplicationContext(),
+				R.layout.wallpaper_other_home_grid_items, mRealList);
 		mGridView.setAdapter(adapter);
 		mGridView.setOnItemClickListener(this);
+		mCircularProgressBar.setVisibility(View.GONE);
 	}
 
 	/**
@@ -371,6 +413,8 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 	}
 
 	class GridAdapter extends BaseAdapter {
+
+		private LayoutParams lp;
 		private LayoutInflater inflater;
 		private int layoutId;
 		private ArrayList<Drawable> imgList;
@@ -382,6 +426,10 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			this.layoutId = layoutId;
 			this.imgList = imgList;
+			lp = new AbsListView.LayoutParams(new AbsListView.LayoutParams(
+					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+			lp.width = mWindowWidth / 2;
+			lp.height = mWindowHeight / 2;
 		}
 
 		@Override
@@ -394,6 +442,7 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 				holder = new ViewHolder();
 				holder.imageView = (ImageView) convertView
 						.findViewById(R.id.wallpaper_other_home_grid_imageview);
+				convertView.setLayoutParams(lp);
 				convertView.setTag(holder);
 			} else {
 				holder = (ViewHolder) convertView.getTag();
