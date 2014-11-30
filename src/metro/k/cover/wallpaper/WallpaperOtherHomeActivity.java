@@ -116,7 +116,8 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 	}
 
 	private void setEmptyView() {
-		if (mGridView == null || mEmptyView == null) {
+		if (mGridView == null || mEmptyView == null
+				|| mCircularProgressBar == null || mHandler == null) {
 			return;
 		}
 
@@ -134,7 +135,7 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 	 * GridViewの設定
 	 */
 	private void setupGridView() {
-		if (mGridView == null) {
+		if (mGridView == null || mHandler == null) {
 			return;
 		}
 
@@ -448,8 +449,7 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 				holder = (ViewHolder) convertView.getTag();
 			}
 
-			Bitmap bmp = ((BitmapDrawable) d).getBitmap();
-			holder.imageView.setImageBitmap(bmp);
+			holder.imageView.setImageDrawable(d);
 
 			return convertView;
 		}
@@ -494,8 +494,9 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		bundle.putInt(WallpaperUtilities.KEY_PAGE_NUMBER, mPage);
 		intent.putExtras(bundle);
-		Utilities.startActivitySafely(intent, this);
-		Utilities.showToast(getApplicationContext(),
-				getResources().getString(R.string.wallpaper_complete_msg));
+		if (Utilities.startActivitySafely(intent, this)) {
+			Utilities.showToast(getApplicationContext(), getResources()
+					.getString(R.string.wallpaper_complete_msg));
+		}
 	}
 }

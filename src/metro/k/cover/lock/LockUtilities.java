@@ -446,8 +446,9 @@ public class LockUtilities {
 
 		Intent intent = new Intent(context, LockCameraActivity.class);
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		Utilities.startActivitySafely(intent, context);
-		unlock(context);
+		if (Utilities.startActivitySafely(intent, context)) {
+			unlock(context);
+		}
 	}
 
 	/**
@@ -460,8 +461,9 @@ public class LockUtilities {
 
 		Intent intent = new Intent(Intent.ACTION_CALL_BUTTON);
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		Utilities.startActivitySafely(intent, context);
-		unlock(context);
+		if (Utilities.startActivitySafely(intent, context)) {
+			unlock(context);
+		}
 	}
 
 	/**

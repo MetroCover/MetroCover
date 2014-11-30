@@ -92,20 +92,21 @@ public final class Utilities {
 	 * @param intent
 	 * @param context
 	 */
-	public static void startActivitySafely(final Intent intent,
+	public static boolean startActivitySafely(final Intent intent,
 			final Context context) {
 		if (intent == null || context == null) {
 			showErrorCommonToast(context);
-			return;
+			return false;
 		}
 
 		try {
 			context.startActivity(intent);
-			return;
+			return true;
 		} catch (Exception e) {
 		}
 
 		showErrorCommonToast(context);
+		return false;
 	}
 
 	/**

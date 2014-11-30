@@ -236,6 +236,12 @@ public class MetroCoverApplication extends Application {
 	 * アプリ起動時に全駅名リストを作成しておく
 	 */
 	private void createAllStationList() {
+		if (sStationAllListAdapter != null) {
+			if (sStationAllListAdapter.getCount() != 0) {
+				return;
+			}
+		}
+
 		new Thread("createAllStationList") {
 			@Override
 			public void run() {

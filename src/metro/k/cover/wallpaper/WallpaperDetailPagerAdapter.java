@@ -192,6 +192,7 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 					addImageView.setOnClickListener(null);
 					col = getResources().getColor(
 							R.color.metro_main_tranc_color);
+					ImageCache.setImageBmp(cacheKey, cahce);
 				} else {
 					mMainImageView.setVisibility(View.GONE);
 					deleteView.setVisibility(View.GONE);
