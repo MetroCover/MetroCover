@@ -303,6 +303,7 @@ public class LockUtilities {
 			bmp = db.getBitmp(keyDB);
 			if (bmp != null) {
 				Utilities.setBackground(context, view, bmp);
+				ImageCache.setImageBmp(keyCache, bmp);
 			} else {
 				bmp = WallpaperUtilities.getSystemWallpaper(context);
 				if (bmp != null) {

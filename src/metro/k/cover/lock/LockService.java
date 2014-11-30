@@ -186,6 +186,8 @@ public class LockService extends Service {
 			if (isMetroCover) {
 				lu.lock(this, true);
 				disableKeyguard();
+			} else {
+				stopSelf();
 			}
 		}
 	}
