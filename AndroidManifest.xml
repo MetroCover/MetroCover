@@ -1,132 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="metro.k.cover"
-    android:versionCode="5"
-    android:versionName="1.0.0	" >
-
-    <uses-sdk
-        android:minSdkVersion="14"
-        android:targetSdkVersion="21" />
-
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
-    <application
-        android:name=".MetroCoverApplication"
-        android:allowBackup="true"
-        android:icon="@drawable/ic_metro_cover"
-        android:label="@string/app_name"
-        android:largeHeap="true"
-        android:theme="@style/AppTheme" >
-        <activity
-            android:name="metro.k.cover.tutorial.TutorialActivity"
-            android:configChanges="keyboardHidden|orientation"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <service
-            android:name="metro.k.cover.lock.LockService"
-            android:label="@string/app_name"
-            android:permission="android.permission.BIND_WALLPAPER" >
-            <intent-filter>
-                <action android:name="android.service.wallpaper.WallpaperService" >
-                </action>
-            </intent-filter>
-        </service>
-
-        <activity
-            android:name="metro.k.cover.lock.LockClockTextColorSelectActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name="metro.k.cover.SettingActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name="metro.k.cover.railways.RailwaysActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name="metro.k.cover.railways.StationsActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name="metro.k.cover.railways.StationsDirectionActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name="metro.k.cover.wallpaper.WallpaperEffectSampleActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name="metro.k.cover.wallpaper.WallpaperEffectSelectActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name="metro.k.cover.lock.LockPatternChooseActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name="metro.k.cover.lock.LockCameraActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name="metro.k.cover.lock.LockSecurityChooseActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name="metro.k.cover.wallpaper.WallpaperDetailActivity"
-            android:configChanges="keyboardHidden|orientation"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name="metro.k.cover.wallpaper.WallpaperOtherHomeActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name="metro.k.cover.lock.LockPasswordDialogActivity"
-            android:configChanges="keyboardHidden|orientation"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.PassWordDialog" >
-        </activity>
-
-        <receiver android:name="metro.k.cover.lock.LockReceiver" >
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.SCREEN_ON" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
-        <receiver
-            android:name="metro.k.cover.widget.RailwaysInfoWidgetProvider"
-            android:exported="false"
-            android:label="@string/widget_name_railways_info" >
-            <intent-filter>
-                <action android:name="metro.k.cover.widget.ACTION_CLICK" />
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/railways_info_widget_provider" />
-        </receiver>
-
-        <service
-            android:name="metro.k.cover.widget.RailwaysInfoWidgetService"
-            android:permission="android.permission.BIND_REMOTEVIEWS" />
-    </application>
-
+	package="metro.k.cover"
+	android:versionCode="5"
+	android:versionName="1.0.0	" >
+	<uses-sdk
+		android:minSdkVersion="14"
+		android:targetSdkVersion="21" />
+	<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.VIBRATE" />
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+	<uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+	<application
+		android:name=".MetroCoverApplication"
+		android:allowBackup="true"
+		android:icon="@drawable/ic_metro_cover"
+		android:label="@string/app_name"
+		android:largeHeap="true"
+		android:theme="@style/AppTheme" >
+		<activity
+			android:name="metro.k.cover.tutorial.TutorialActivity"
+			android:configChanges="keyboardHidden|orientation"
+			android:label="@string/app_name"
+			android:screenOrientation="portrait" >
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<service
+			android:name="metro.k.cover.lock.LockService"
+			android:label="@string/app_name"
+			android:permission="android.permission.BIND_WALLPAPER" >
+			<intent-filter>
+				<action android:name="android.service.wallpaper.WallpaperService" >
+				</action>
+			</intent-filter>
+		</service>
+		<activity
+			android:name="metro.k.cover.lock.LockClockTextColorSelectActivity"
+			android:label="@string/app_name" >
+		</activity>
+		<activity
+			android:name="metro.k.cover.SettingActivity"
+			android:label="@string/app_name" >
+		</activity>
+		<activity
+			android:name="metro.k.cover.railways.RailwaysActivity"
+			android:label="@string/app_name" >
+		</activity>
+		<activity
+			android:name="metro.k.cover.railways.StationsActivity"
+			android:label="@string/app_name" >
+		</activity>
+		<activity
+			android:name="metro.k.cover.railways.StationsDirectionActivity"
+			android:label="@string/app_name" >
+		</activity>
+		<activity
+			android:name="metro.k.cover.wallpaper.WallpaperEffectSampleActivity"
+			android:label="@string/app_name" >
+		</activity>
+		<activity
+			android:name="metro.k.cover.wallpaper.WallpaperEffectSelectActivity"
+			android:label="@string/app_name" >
+		</activity>
+		<activity
+			android:name="metro.k.cover.lock.LockPatternChooseActivity"
+			android:label="@string/app_name" >
+		</activity>
+		<activity
+			android:name="metro.k.cover.lock.LockCameraActivity"
+			android:label="@string/app_name" >
+		</activity>
+		<activity
+			android:name="metro.k.cover.lock.LockSecurityChooseActivity"
+			android:label="@string/app_name" >
+		</activity>
+		<activity
+			android:name="metro.k.cover.wallpaper.WallpaperDetailActivity"
+			android:configChanges="keyboardHidden|orientation"
+			android:label="@string/app_name"
+			android:screenOrientation="portrait" >
+		</activity>
+		<activity
+			android:name="metro.k.cover.wallpaper.WallpaperOtherHomeActivity"
+			android:label="@string/app_name" >
+		</activity>
+		<activity
+			android:name="metro.k.cover.lock.LockPasswordDialogActivity"
+			android:configChanges="keyboardHidden|orientation"
+			android:screenOrientation="portrait"
+			android:theme="@style/Theme.PassWordDialog" >
+		</activity>
+		<receiver android:name="metro.k.cover.lock.LockReceiver" >
+			<intent-filter>
+				<action android:name="android.intent.action.BOOT_COMPLETED" />
+				<action android:name="android.intent.action.SCREEN_ON" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</receiver>
+		<receiver
+			android:name="metro.k.cover.widget.RailwaysInfoWidgetProvider"
+			android:exported="false"
+			android:label="@string/widget_name_railways_info" >
+			<intent-filter>
+				<action android:name="metro.k.cover.widget.ACTION_CLICK" />
+				<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+			</intent-filter>
+			<meta-data
+				android:name="android.appwidget.provider"
+				android:resource="@xml/railways_info_widget_provider" />
+		</receiver>
+		<service
+			android:name="metro.k.cover.widget.RailwaysInfoWidgetService"
+			android:permission="android.permission.BIND_REMOTEVIEWS" />
+	</application>
 </manifest>
