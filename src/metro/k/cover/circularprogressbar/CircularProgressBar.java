@@ -46,7 +46,7 @@ public class CircularProgressBar extends ProgressBar {
 			return;
 		}
 
-		Resources res = context.getResources();
+		final Resources res = context.getResources();
 		TypedArray a = context.obtainStyledAttributes(attrs,
 				R.styleable.CircularProgressBar, defStyle, 0);
 
@@ -85,10 +85,11 @@ public class CircularProgressBar extends ProgressBar {
 				.strokeWidth(strokeWidth).minSweepAngle(minSweepAngle)
 				.maxSweepAngle(maxSweepAngle);
 
-		if (colors != null && colors.length > 0)
+		if (colors != null && colors.length > 0) {
 			builder.colors(colors);
-		else
+		} else {
 			builder.color(color);
+		}
 
 		indeterminateDrawable = builder.build();
 		setIndeterminateDrawable(indeterminateDrawable);
@@ -96,9 +97,10 @@ public class CircularProgressBar extends ProgressBar {
 
 	private CircularProgressDrawable checkIndeterminateDrawable() {
 		Drawable ret = getIndeterminateDrawable();
-		if (ret == null || !(ret instanceof CircularProgressDrawable))
+		if (ret == null || !(ret instanceof CircularProgressDrawable)) {
 			throw new RuntimeException(
 					"The drawable is not a CircularProgressDrawable");
+		}
 		return (CircularProgressDrawable) ret;
 	}
 

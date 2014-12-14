@@ -717,8 +717,17 @@ public final class RailwaysUtilities {
 		}
 
 		Drawable d = null;
+		String name = null;
 		for (int i = 0; i < size; i++) {
-			if (stations.get(i).equals(stationName)) {
+			try {
+				name = stations.get(i);
+			} catch (ArrayIndexOutOfBoundsException e) {
+				continue;
+			}
+			if (Utilities.isInvalidStr(name)) {
+				continue;
+			}
+			if (name.equals(stationName)) {
 				d = drawables.get(i);
 			}
 		}
