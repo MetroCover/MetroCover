@@ -162,24 +162,8 @@ public class LockService extends Service {
 		if (Intent.ACTION_BOOT_COMPLETED.equals(action)
 				|| Intent.ACTION_SCREEN_OFF.equals(action)
 				|| Intent.ACTION_SCREEN_ON.equals(action)) {
-			final Context c = getApplicationContext();
 			final LockUtilities lu = LockUtilities.getInstance();
-			TelephonyManager tManager = null;
-			try {
-				tManager = (TelephonyManager) c
-						.getSystemService(Context.TELEPHONY_SERVICE);
-			} catch (Exception e) {
-			}
-			if (tManager == null) {
-				try {
-					tManager = (TelephonyManager) this
-							.getSystemService(Context.TELEPHONY_SERVICE);
-				} catch (Exception e) {
-					return;
-				}
-			}
-			if (tManager == null
-					|| tManager.getCallState() == TelephonyManager.CALL_STATE_OFFHOOK) {
+			if (!checkTekephonyState()) {
 				return;
 			}
 
@@ -190,6 +174,30 @@ public class LockService extends Service {
 				stopSelf();
 			}
 		}
+	}
+
+	private boolean checkTekephonyState() {
+		TelephonyManager tManager = null;
+		try {
+			tManager = (TelephonyManager) getApplicationContext()
+					.getSystemService(Context.TELEPHONY_SERVICE);
+		} catch (Exception e) {
+		}
+
+		if (tManager == null) {
+			try {
+				tManager = (TelephonyManager) this
+						.getSystemService(Context.TELEPHONY_SERVICE);
+			} catch (Exception e) {
+				return false;
+			}
+		}
+		if (tManager == null
+				|| tManager.getCallState() == TelephonyManager.CALL_STATE_OFFHOOK) {
+			return false;
+		}
+
+		return true;
 	}
 
 	@Override

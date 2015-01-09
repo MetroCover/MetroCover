@@ -697,8 +697,9 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 		final View.OnClickListener listener = new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (patternView == null)
+				if (patternView == null) {
 					return;
+				}
 
 				mPattern = "";
 				if (isPatternPressed) {
@@ -932,7 +933,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 		@Override
 		public Object instantiateItem(ViewGroup container, int position) {
 			View pageView = null;
-			String pageName = mList.get(position);
+			final String pageName = mList.get(position);
 			if (pageName.equals(PAGE_LOCK)) {
 				pageView = getCenterLayout();
 			} else if (pageName.equals(PAGE_PAGE_TRAIN_INFO_1)) {
@@ -1055,7 +1056,7 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 		}
 
 		private void countup(int position) {
-			String pageName = mList.get(position);
+			final String pageName = mList.get(position);
 			if (pageName.equals(PAGE_PAGE_TRAIN_INFO_1)) {
 				readRailwaysInfo();
 			} else if (pageName.equals(PAGE_PAGE_TRAIN_INFO_2)) {
@@ -1416,6 +1417,9 @@ public class LockLayout extends FrameLayout implements View.OnClickListener {
 		final int listSize = Math.min(TRAIN_TIME_TABLE_SIZE, size);
 		for (int i = 0; i < listSize; i++) {
 			TrainInfo trainInfo = trainInfoList.get(i);
+			if (trainInfo == null) {
+				continue;
+			}
 
 			TextView tvDepartureTime = (TextView) layout
 					.findViewById(departureTimeIdArray[i]);

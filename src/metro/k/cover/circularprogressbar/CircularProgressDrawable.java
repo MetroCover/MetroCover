@@ -116,8 +116,9 @@ public class CircularProgressDrawable extends Drawable implements Animatable {
 
 	@Override
 	public void draw(Canvas canvas) {
-		if (!isRunning())
+		if (!isRunning()) {
 			return;
+		}
 
 		float startAngle = mCurrentRotationAngle - mCurrentRotationAngleOffset;
 		float sweepAngle = mCurrentSweepAngle;
@@ -151,10 +152,12 @@ public class CircularProgressDrawable extends Drawable implements Animatable {
 	@Override
 	protected void onBoundsChange(Rect bounds) {
 		super.onBoundsChange(bounds);
-		fBounds.left = bounds.left + mBorderWidth / 2f + .5f;
-		fBounds.right = bounds.right - mBorderWidth / 2f - .5f;
-		fBounds.top = bounds.top + mBorderWidth / 2f + .5f;
-		fBounds.bottom = bounds.bottom - mBorderWidth / 2f - .5f;
+		final float p = 2f + .5f;
+		final float m = 2f - .5f;
+		fBounds.left = bounds.left + mBorderWidth / p;
+		fBounds.right = bounds.right - mBorderWidth / m;
+		fBounds.top = bounds.top + mBorderWidth / p;
+		fBounds.bottom = bounds.bottom - mBorderWidth / m;
 	}
 
 	private void setAppearing() {
