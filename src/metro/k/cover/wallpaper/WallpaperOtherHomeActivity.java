@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import metro.k.cover.ImageCache;
 import metro.k.cover.R;
 import metro.k.cover.Utilities;
-import metro.k.cover.circularprogressbar.CircularProgressBar;
 import metro.k.cover.view.TextViewWithFont;
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -18,6 +17,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.Resources.NotFoundException;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -34,6 +34,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 /**
  * 着せ替えホームアプリの壁紙一覧から設定
@@ -43,12 +44,17 @@ import android.widget.ImageView;
 public class WallpaperOtherHomeActivity extends FragmentActivity implements
 		OnItemClickListener {
 
+	private final int DENOMINATOR_THUMBNAIL = 5;
 	private int mWindowWidth = 0;
 	private int mWindowHeight = 0;
+	private int mThumbnailWidth = 0;
+	private int mThumbnailHeight = 0;
 
 	private final String PARAM_DRAWABLE = "drawable";
 
-	private ArrayList<Drawable> mRealList = new ArrayList<Drawable>();
+	private ArrayList<Drawable> mThumbnailList = new ArrayList<Drawable>();
+	private ArrayList<String> mPackageList = new ArrayList<String>();
+	private ArrayList<String> mNameList = new ArrayList<String>();
 
 	private GridView mGridView;
 	private TextViewWithFont mEmptyView;
@@ -56,7 +62,7 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 	private int mPage = -1;
 	private int mHomeAppID;
 
-	private CircularProgressBar mCircularProgressBar;
+	private LinearLayout mLoadingLayout;
 	private Handler mHandler = null;
 
 	@Override
@@ -65,6 +71,8 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 		final int[] windows = Utilities.getWindowSize(this);
 		mWindowWidth = windows[0];
 		mWindowHeight = windows[1];
+		mThumbnailWidth = mWindowWidth / DENOMINATOR_THUMBNAIL;
+		mThumbnailHeight = mWindowHeight / DENOMINATOR_THUMBNAIL;
 		final Intent in = getIntent();
 		if (in == null) {
 			Utilities.showErrorCommonToast(this);
@@ -93,7 +101,7 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 		setContentView(R.layout.wallpaper_other_home);
 
 		// cpb
-		mCircularProgressBar = (CircularProgressBar) findViewById(R.id.wallpaper_other_home_loading);
+		mLoadingLayout = (LinearLayout) findViewById(R.id.wallpaper_other_home_loading);
 
 		// Title
 		TextViewWithFont titleView = (TextViewWithFont) findViewById(R.id.wallpaper_other_home_titleview);
@@ -116,8 +124,8 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 	}
 
 	private void setEmptyView() {
-		if (mGridView == null || mEmptyView == null
-				|| mCircularProgressBar == null || mHandler == null) {
+		if (mGridView == null || mEmptyView == null || mLoadingLayout == null
+				|| mHandler == null) {
 			return;
 		}
 
@@ -126,7 +134,7 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 			public void run() {
 				mGridView.setVisibility(View.GONE);
 				mEmptyView.setVisibility(View.VISIBLE);
-				mCircularProgressBar.setVisibility(View.GONE);
+				mLoadingLayout.setVisibility(View.GONE);
 			}
 		});
 	}
@@ -139,7 +147,7 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 			return;
 		}
 
-		mCircularProgressBar.setVisibility(View.VISIBLE);
+		mLoadingLayout.setVisibility(View.VISIBLE);
 		new Thread("setupgrid") {
 			@Override
 			public void run() {
@@ -150,7 +158,7 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 				}
 
 				setScreen(pkgList);
-				final int size = mRealList.size();
+				final int size = mThumbnailList.size();
 				if (size == 0) {
 					setEmptyView();
 					return;
@@ -182,10 +190,10 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 	 */
 	private void createGridview() {
 		GridAdapter adapter = new GridAdapter(getApplicationContext(),
-				R.layout.wallpaper_other_home_grid_items, mRealList);
+				R.layout.wallpaper_other_home_grid_items, mThumbnailList);
 		mGridView.setAdapter(adapter);
 		mGridView.setOnItemClickListener(this);
-		mCircularProgressBar.setVisibility(View.GONE);
+		mLoadingLayout.setVisibility(View.GONE);
 	}
 
 	/**
@@ -208,6 +216,24 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 	}
 
 	/**
+	 * サムネイルリストに入れる
+	 * 
+	 * @param thumbnails
+	 */
+	private void addThumbnails(final Drawable[] thumbnails) {
+		if (thumbnails == null) {
+			return;
+		}
+		final int len = thumbnails.length;
+		for (int i = 0; i < len; i++) {
+			if (thumbnails[i] == null) {
+				continue;
+			}
+			mThumbnailList.add(thumbnails[i]);
+		}
+	}
+
+	/**
 	 * 指定アプリの壁紙取得してリストに入れる
 	 * 
 	 * @param packageName
@@ -225,14 +251,7 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 			Drawable[] ds;
 			for (int i = 0; i < pkgsize; i++) {
 				ds = getHomeeDrawableResource(pkgList.get(i));
-				if (ds == null) {
-					continue;
-				}
-				for (int j = 0; j < ds.length; j++) {
-					if (ds[j] != null) {
-						mRealList.add(ds[j]);
-					}
-				}
+				addThumbnails(ds);
 			}
 			return;
 		}
@@ -242,15 +261,9 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 			Drawable[] ds;
 			for (int i = 0; i < pkgsize; i++) {
 				ds = getBuzzDrawableResource(pkgList.get(i));
-				if (ds == null) {
-					continue;
-				}
-				for (int j = 0; j < ds.length; j++) {
-					if (ds[j] != null) {
-						mRealList.add(ds[j]);
-					}
-				}
+				addThumbnails(ds);
 			}
+			return;
 		}
 
 		// [+]HOME
@@ -258,7 +271,8 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 			final String str = getResources().getString(
 					R.string.theme_plushome_bg_image);
 			for (int i = 0; i < pkgsize; i++) {
-				mRealList.add(getDrawableResource(pkgList.get(i), str));
+				mThumbnailList.add(getDrawableResource(pkgList.get(i), str,
+						true));
 			}
 			return;
 		}
@@ -268,7 +282,8 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 			final String str = getResources().getString(
 					R.string.theme_dodol_bg_image);
 			for (int i = 0; i < pkgsize; i++) {
-				mRealList.add(getDrawableResource(pkgList.get(i), str));
+				mThumbnailList.add(getDrawableResource(pkgList.get(i), str,
+						true));
 			}
 			return;
 		}
@@ -282,10 +297,12 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 	 * @return
 	 */
 	private Drawable getDrawableResource(final String packageName,
-			String resName) {
+			String resName, final boolean isThumb) {
 
 		Resources res = null;
 		Drawable preview = null;
+		Bitmap b = null;
+		Bitmap reb = null;
 		try {
 			res = getPackageManager().getResourcesForApplication(packageName);
 			if (res == null) {
@@ -293,12 +310,30 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 			}
 			final int resId = res.getIdentifier(resName, PARAM_DRAWABLE,
 					packageName);
-			preview = res.getDrawable(resId);
+			if (isThumb) {
+				b = ((BitmapDrawable) res.getDrawable(resId)).getBitmap();
+				reb = Bitmap.createScaledBitmap(b, mThumbnailWidth,
+						mThumbnailHeight, false);
+				preview = new BitmapDrawable(res, reb);
+				if (preview != null) {
+					mNameList.add(resName);
+					mPackageList.add(packageName);
+				}
+			} else {
+				preview = res.getDrawable(resId);
+			}
 		} catch (NameNotFoundException e) {
 		} catch (NotFoundException e) {
 		} catch (RuntimeException e) {
 		} catch (Exception e) {
 		} catch (OutOfMemoryError e) {
+		} finally {
+			if (b != null) {
+				b = null;
+			}
+			if (reb != null) {
+				reb = null;
+			}
 		}
 		return preview;
 	}
@@ -314,17 +349,47 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 		try {
 			final Resources res = getResources();
 			previews[0] = getDrawableResource(packageName,
-					res.getString(R.string.theme_homee_bg_image));
+					res.getString(R.string.theme_homee_bg_image), true);
 			previews[1] = getDrawableResource(packageName,
-					res.getString(R.string.theme_homee_bg_image_allapps));
+					res.getString(R.string.theme_homee_bg_image_allapps), true);
 			previews[2] = getDrawableResource(packageName,
-					res.getString(R.string.theme_homee_bg_image_lock));
+					res.getString(R.string.theme_homee_bg_image_lock), true);
 		} catch (NotFoundException e) {
 		} catch (RuntimeException e) {
 		} catch (Exception e) {
 		} catch (OutOfMemoryError e) {
 		}
 		return previews;
+	}
+
+	/**
+	 * Buzzの指定したテーマの指定した名前の壁紙を取得する
+	 * 
+	 * @param packageName
+	 * @param resName
+	 * @return
+	 */
+	private Drawable getBuzzHomeWallpaper(final String packageName,
+			final String resName) {
+		if (Utilities.isInvalidStr(resName)
+				|| Utilities.isInvalidStr(packageName)) {
+			return null;
+		}
+
+		Drawable d = null;
+		try {
+			final Resources res = getPackageManager()
+					.getResourcesForApplication(packageName);
+			final AssetManager am = res.getAssets();
+			InputStream is = null;
+			try {
+				is = am.open("homepack/" + resName);
+				d = Drawable.createFromStream(is, resName);
+			} catch (Exception e) {
+			}
+		} catch (Exception e) {
+		}
+		return d;
 	}
 
 	/**
@@ -354,14 +419,29 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 			final AssetManager assets = res.getAssets();
 			InputStream is = null;
 			Drawable d = null;
+			Bitmap bmp = null;
 			for (int i = 0; i < size; i++) {
 				try {
 					String name = nameList.get(i);
 					is = assets.open("homepack/" + name);
-					d = Drawable.createFromStream(is, name);
+					bmp = Bitmap.createScaledBitmap(
+							BitmapFactory.decodeStream(is), mThumbnailWidth,
+							mThumbnailHeight, false);
+					d = new BitmapDrawable(res, bmp);
+					if (d != null) {
+						mNameList.add(name);
+						mPackageList.add(packageName);
+					}
 					previews[i] = d;
 				} catch (Exception e) {
 					continue;
+				} finally {
+					if (d != null) {
+						d = null;
+					}
+					if (bmp != null) {
+						bmp = null;
+					}
 				}
 			}
 		} catch (NameNotFoundException e) {
@@ -502,7 +582,14 @@ public class WallpaperOtherHomeActivity extends FragmentActivity implements
 			dbKey = WallpaperBitmapDB.KEY_WALLPAPER_CENTER_DB;
 		}
 
-		final Drawable d = mRealList.get(position);
+		Drawable d = null;
+		if (mHomeAppID == WallpaperUtilities.BUZZHOME_APP_ID) {
+			d = getBuzzHomeWallpaper(mPackageList.get(position),
+					mNameList.get(position));
+		} else {
+			d = getDrawableResource(mPackageList.get(position),
+					mNameList.get(position), false);
+		}
 		if (d == null) {
 			Utilities.showErrorCommonToast(this);
 			return;

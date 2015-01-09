@@ -135,7 +135,7 @@
     <string name="theme_homee_bg_image_allapps">pane_bg</string>
     <string name="theme_homee_bg_image_lock">theme_lock_bg</string>
     <string name="theme_plushome_bg_image">drawer_wallpaper</string>
-    <string name="theme_dodol_bg_image">e18</string>
+    <string name="theme_dodol_bg_image">e7e</string>
     <string name="train_type_local">Local</string>
     <string name="train_type_local_response">odpt.TrainType:TokyoMetro.Local</string>
     <string name="train_type_express">Express</string>
@@ -150,6 +150,7 @@
     <string name="wallpaper_complete_msg">Completed</string>
     <string name="wallpaper_delete_msg">Deleted</string>
     <string name="wallpaper_empty">No Wallpapers</string>
+    <string name="wallpaper_now_loading">Now loading</string>
     <string name="wallpaper_homee_title">HOMEE\'S WALLPAPER</string>
     <string name="wallpaper_plushome_title">[+]HOME\'S WALLPAPER</string>
     <string name="wallpaper_dodol_title">Dodol\'S WALLPAPER</string>

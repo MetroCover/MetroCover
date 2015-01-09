@@ -92,8 +92,8 @@ public class WallpaperDetailActivity extends FragmentActivity {
 				final int windowX = windows[0];
 				final int windowY = windows[1];
 
-				int srcWidth = options.outWidth;
-				int srcHeight = options.outHeight;
+				final int srcWidth = options.outWidth;
+				final int srcHeight = options.outHeight;
 				if (srcHeight > windowY || srcWidth > windowX) {
 					if (srcWidth > srcHeight) {
 						options.inSampleSize = Math.round((float) srcHeight

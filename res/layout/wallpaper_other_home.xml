@@ -39,18 +39,35 @@
         android:textSize="38sp"
         android:visibility="gone" />
 
-    <metro.k.cover.circularprogressbar.CircularProgressBar
+    <LinearLayout
         android:id="@+id/wallpaper_other_home_loading"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:indeterminate="true"
-        app:cpb_color="#FFee44"
-        app:cpb_colors="@array/line_colors"
-        app:cpb_max_sweep_angle="300"
-        app:cpb_min_sweep_angle="10"
-        app:cpb_rotation_speed="1.0"
-        app:cpb_stroke_width="4dp"
-        app:cpb_sweep_speed="1.0" />
+        android:background="@drawable/bg_lock_railway_info"
+        android:orientation="vertical" >
+
+        <metro.k.cover.circularprogressbar.CircularProgressBar
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            app:cpb_color="#FFee44"
+            app:cpb_colors="@array/line_colors"
+            app:cpb_max_sweep_angle="300"
+            app:cpb_min_sweep_angle="10"
+            app:cpb_rotation_speed="1.0"
+            app:cpb_stroke_width="4dp"
+            app:cpb_sweep_speed="1.0" />
+
+        <metro.k.cover.view.TextViewWithFont
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dip"
+            android:gravity="center"
+            android:text="@string/wallpaper_now_loading"
+            android:textColor="@color/color_white" />
+    </LinearLayout>
 
 </RelativeLayout>

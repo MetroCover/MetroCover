@@ -107,6 +107,7 @@
     <string name="wallpaper_complete_msg">壁紙の設定が完了しました</string>
     <string name="wallpaper_delete_msg">壁紙の削除が完了しました</string>
     <string name="wallpaper_empty">選択できる\n壁紙はありません</string>
+    <string name="wallpaper_now_loading">読み込み中</string>
     <string name="wallpaper_homee_title">Homeeの壁紙</string>
     <string name="wallpaper_dodol_title">ドドルの壁紙</string>
     <string name="wallpaper_buzzhome_title">buzzHOMEの壁紙</string>

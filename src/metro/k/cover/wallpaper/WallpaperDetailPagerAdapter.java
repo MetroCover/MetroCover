@@ -167,31 +167,35 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 					.findViewById(R.id.wallpaper_detail_add_image);
 
 			final Bitmap cahce = ImageCache.getImageBmp(cacheKey);
+			final Resources res = getResources();
 			int col = -1;
+			if (getActivity() == null) {
+				return;
+			}
+
 			if (cahce != null) {
-				Utilities.setBackground(mRootView, new BitmapDrawable(
-						getResources(), cahce));
+				Utilities.setBackground(mRootView, new BitmapDrawable(res,
+						cahce));
 				mMainImageView.setVisibility(View.VISIBLE);
 				deleteView.setVisibility(View.VISIBLE);
 				deleteView.setOnClickListener(getDeleteListener(getActivity(),
 						cacheKey, dbKey, mPage));
 				addImageView.setVisibility(View.GONE);
 				addImageView.setOnClickListener(null);
-				col = getResources().getColor(R.color.metro_main_tranc_color);
+				col = res.getColor(R.color.metro_main_tranc_color);
 			} else {
 				WallpaperBitmapDB db = new WallpaperBitmapDB(getActivity());
 				final Bitmap dbBmp = db.getBitmp(dbKey);
 				if (dbBmp != null) {
-					Utilities.setBackground(mRootView, new BitmapDrawable(
-							getResources(), dbBmp));
+					Utilities.setBackground(mRootView, new BitmapDrawable(res,
+							dbBmp));
 					mMainImageView.setVisibility(View.VISIBLE);
 					deleteView.setVisibility(View.VISIBLE);
 					deleteView.setOnClickListener(getDeleteListener(
 							getActivity(), cacheKey, dbKey, mPage));
 					addImageView.setVisibility(View.GONE);
 					addImageView.setOnClickListener(null);
-					col = getResources().getColor(
-							R.color.metro_main_tranc_color);
+					col = res.getColor(R.color.metro_main_tranc_color);
 					ImageCache.setImageBmp(cacheKey, cahce);
 				} else {
 					mMainImageView.setVisibility(View.GONE);
@@ -200,7 +204,7 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 					addImageView.setVisibility(View.VISIBLE);
 					addImageView.setOnClickListener(getWallpaerListener(
 							getActivity(), mPage));
-					col = getResources().getColor(R.color.metro_main_color);
+					col = res.getColor(R.color.metro_main_color);
 				}
 			}
 
@@ -257,15 +261,22 @@ public class WallpaperDetailPagerAdapter extends FragmentStatePagerAdapter {
 					return;
 				}
 				final ViewPager vp = WallpaperDetailActivity.getViewPager();
-				final WallpaperDetailPagerAdapter adpter = WallpaperDetailActivity
-						.getWallpaperDetailPagerAdapter();
-				if (vp != null && adpter != null) {
-					vp.setAdapter(adpter);
-					vp.setCurrentItem(position);
-					Utilities.showToast(context, context.getResources()
-							.getString(R.string.wallpaper_delete_msg));
+				if (vp == null) {
+					return;
 				}
 
+				final WallpaperDetailPagerAdapter adapter = WallpaperDetailActivity
+						.getWallpaperDetailPagerAdapter();
+				if (adapter == null) {
+					return;
+				}
+				
+				vp.setAdapter(adapter);
+				vp.setCurrentItem(position);
+				Utilities.showToast(
+						context,
+						context.getResources().getString(
+								R.string.wallpaper_delete_msg));
 			}
 		};
 		return task;

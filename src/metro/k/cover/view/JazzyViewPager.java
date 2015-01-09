@@ -205,10 +205,11 @@ public class JazzyViewPager extends ViewPager {
 		if (left != null) {
 			manageLayer(left, true);
 			mRot = 30.0f * positionOffset;
-			mTrans = getOffsetXForRotation(mRot, left.getMeasuredWidth(),
-					left.getMeasuredHeight());
-			ViewHelper.setPivotX(left, left.getMeasuredWidth() / 2);
-			ViewHelper.setPivotY(left, left.getMeasuredHeight() / 2);
+			final int measuredWidth = left.getMeasuredWidth();
+			final int measuredHeight = left.getMeasuredHeight();
+			mTrans = getOffsetXForRotation(mRot, measuredWidth, measuredHeight);
+			ViewHelper.setPivotX(left, measuredWidth / 2);
+			ViewHelper.setPivotY(left, measuredHeight / 2);
 			ViewHelper.setTranslationX(left, mTrans);
 			ViewHelper.setRotationY(left, mRot);
 		}
@@ -216,10 +217,11 @@ public class JazzyViewPager extends ViewPager {
 		if (right != null) {
 			manageLayer(right, true);
 			mRot = -30.0f * (1 - positionOffset);
-			mTrans = getOffsetXForRotation(mRot, right.getMeasuredWidth(),
-					right.getMeasuredHeight());
-			ViewHelper.setPivotX(right, right.getMeasuredWidth() * 0.5f);
-			ViewHelper.setPivotY(right, right.getMeasuredHeight() * 0.5f);
+			final int measuredWidth = right.getMeasuredWidth();
+			final int measuredHeight = right.getMeasuredHeight();
+			mTrans = getOffsetXForRotation(mRot, measuredWidth, measuredHeight);
+			ViewHelper.setPivotX(right, measuredWidth * 0.5f);
+			ViewHelper.setPivotY(right, measuredHeight * 0.5f);
 			ViewHelper.setTranslationX(right, mTrans);
 			ViewHelper.setRotationY(right, mRot);
 		}
@@ -301,11 +303,12 @@ public class JazzyViewPager extends ViewPager {
 			return;
 		}
 
+		final int measureHeight = getMeasuredHeight();
 		if (left != null) {
 			manageLayer(left, true);
 			mRot = (up ? 1 : -1) * (ROT_MAX * positionOffset);
 			mTrans = (up ? -1 : 1)
-					* (float) (getMeasuredHeight() - getMeasuredHeight()
+					* (float) (measureHeight - measureHeight
 							* Math.cos(mRot * Math.PI / 180.0f));
 			ViewHelper.setPivotX(left, left.getMeasuredWidth() * 0.5f);
 			ViewHelper.setPivotY(left, up ? 0 : left.getMeasuredHeight());
@@ -317,7 +320,7 @@ public class JazzyViewPager extends ViewPager {
 			manageLayer(right, true);
 			mRot = (up ? 1 : -1) * (-ROT_MAX + ROT_MAX * positionOffset);
 			mTrans = (up ? -1 : 1)
-					* (float) (getMeasuredHeight() - getMeasuredHeight()
+					* (float) (measureHeight - measureHeight
 							* Math.cos(mRot * Math.PI / 180.0f));
 			ViewHelper.setPivotX(right, right.getMeasuredWidth() * 0.5f);
 			ViewHelper.setPivotY(right, up ? 0 : right.getMeasuredHeight());
@@ -338,8 +341,9 @@ public class JazzyViewPager extends ViewPager {
 			if (mRot > 90.0f) {
 				left.setVisibility(View.INVISIBLE);
 			} else {
-				if (left.getVisibility() == View.INVISIBLE)
+				if (left.getVisibility() == View.INVISIBLE) {
 					left.setVisibility(View.VISIBLE);
+				}
 				mTrans = positionOffsetPixels;
 				ViewHelper.setPivotX(left, left.getMeasuredWidth() * 0.5f);
 				ViewHelper.setPivotY(left, left.getMeasuredHeight() * 0.5f);
@@ -354,8 +358,9 @@ public class JazzyViewPager extends ViewPager {
 			if (mRot < -90.0f) {
 				right.setVisibility(View.INVISIBLE);
 			} else {
-				if (right.getVisibility() == View.INVISIBLE)
+				if (right.getVisibility() == View.INVISIBLE) {
 					right.setVisibility(View.VISIBLE);
+				}
 				mTrans = -getWidth() - getPageMargin() + positionOffsetPixels;
 				ViewHelper.setPivotX(right, right.getMeasuredWidth() * 0.5f);
 				ViewHelper.setPivotY(right, right.getMeasuredHeight() * 0.5f);
@@ -377,8 +382,9 @@ public class JazzyViewPager extends ViewPager {
 			if (mRot > 90.0f) {
 				left.setVisibility(View.INVISIBLE);
 			} else {
-				if (left.getVisibility() == View.INVISIBLE)
+				if (left.getVisibility() == View.INVISIBLE) {
 					left.setVisibility(View.VISIBLE);
+				}
 				mTrans = positionOffsetPixels;
 				ViewHelper.setPivotX(left, left.getMeasuredWidth() * 0.5f);
 				ViewHelper.setPivotY(left, left.getMeasuredHeight() * 0.5f);
@@ -393,8 +399,9 @@ public class JazzyViewPager extends ViewPager {
 			if (mRot < -90.0f) {
 				right.setVisibility(View.INVISIBLE);
 			} else {
-				if (right.getVisibility() == View.INVISIBLE)
+				if (right.getVisibility() == View.INVISIBLE) {
 					right.setVisibility(View.VISIBLE);
+				}
 				mTrans = -getWidth() - getPageMargin() + positionOffsetPixels;
 				ViewHelper.setPivotX(right, right.getMeasuredWidth() * 0.5f);
 				ViewHelper.setPivotY(right, right.getMeasuredHeight() * 0.5f);
@@ -502,20 +509,23 @@ public class JazzyViewPager extends ViewPager {
 			mState = position == oldPage ? State.GOING_RIGHT : State.GOING_LEFT;
 		}
 		boolean goingRight = position == oldPage;
-		if (mState == State.GOING_RIGHT && !goingRight)
+		if (mState == State.GOING_RIGHT && !goingRight) {
 			mState = State.GOING_LEFT;
-		else if (mState == State.GOING_LEFT && goingRight)
+		} else if (mState == State.GOING_LEFT && goingRight) {
 			mState = State.GOING_RIGHT;
+		}
 
 		float effectOffset = isSmall(positionOffset) ? 0 : positionOffset;
 
 		mLeft = findViewFromObject(position);
 		mRight = findViewFromObject(position + 1);
 
-		if (mFadeEnabled)
+		if (mFadeEnabled) {
 			animateFade(mLeft, mRight, effectOffset);
-		if (mOutlineEnabled)
+		}
+		if (mOutlineEnabled) {
 			animateOutline(mLeft, mRight);
+		}
 
 		switch (mEffect) {
 		case Standard:
