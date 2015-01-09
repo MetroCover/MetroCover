@@ -721,7 +721,7 @@ public final class RailwaysUtilities {
 		for (int i = 0; i < size; i++) {
 			try {
 				name = stations.get(i);
-			} catch (ArrayIndexOutOfBoundsException e) {
+			} catch (Exception e) {
 				continue;
 			}
 			if (Utilities.isInvalidStr(name)) {
